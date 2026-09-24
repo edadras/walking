@@ -408,4 +408,168 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get accountBlockedContact => 'برای پیگیری با پشتیبانی تماس بگیرید.';
+
+  @override
+  String get permAllow => 'اجازه می‌دهم';
+
+  @override
+  String get permNotNow => 'فعلاً نه';
+
+  @override
+  String get permOpenSettings => 'رفتن به تنظیمات';
+
+  @override
+  String get permOpenSettingsHint =>
+      'این دسترسی قبلاً رد شده است. برای فعال‌سازی، از تنظیمات گوشی آن را روشن کنید.';
+
+  @override
+  String get permActivityTitle => 'ثبت خودکار قدم‌ها';
+
+  @override
+  String get permActivityBody =>
+      'گام‌یار برای شمردن قدم‌هایت به «فعالیت بدنی» دسترسی لازم دارد. این کار با شمارنده قدم خود گوشی و با کمترین مصرف باتری انجام می‌شود؛ موقعیت مکانی تو ثبت نمی‌شود.';
+
+  @override
+  String get permNotificationsTitle => 'اعلان پیاده‌روی';
+
+  @override
+  String get permNotificationsBody =>
+      'وقتی پیاده‌روی را شروع می‌کنی، یک اعلان ثابت نشان می‌دهد که ثبت قدم فعال است و تعداد قدم‌ها را می‌بینی.';
+
+  @override
+  String get permLocationTitle => 'ثبت مسیر پیاده‌روی';
+
+  @override
+  String get permLocationBody =>
+      'برای محاسبه دقیق‌تر مسافت، موقعیت مکانی فقط در همین پیاده‌روی و فقط وقتی خودت آن را فعال کنی استفاده می‌شود. مسیر کامل تو به سرور ارسال نمی‌شود.';
+
+  @override
+  String get trackingOffTitle => 'ثبت خودکار قدم‌ها خاموش است';
+
+  @override
+  String get trackingOffBody =>
+      'اجازه دسترسی به فعالیت بدنی را بده تا قدم‌هایت بدون باز بودن برنامه ثبت شوند.';
+
+  @override
+  String get trackingEnable => 'فعال‌سازی';
+
+  @override
+  String get trackingNoSensor =>
+      'این گوشی شمارنده قدم ندارد؛ ثبت خودکار قدم امکان‌پذیر نیست.';
+
+  @override
+  String homeAwaiting(String steps) {
+    return '$steps قدم در حال بررسی';
+  }
+
+  @override
+  String get homeStartWalk => 'شروع پیاده‌روی';
+
+  @override
+  String get homeWalkInProgress => 'پیاده‌روی در حال ثبت';
+
+  @override
+  String get homeThisWeek => 'این هفته';
+
+  @override
+  String homeSyncedAt(String time) {
+    return 'به‌روزرسانی $time';
+  }
+
+  @override
+  String get activityTitle => 'فعالیت';
+
+  @override
+  String get activityToday => 'امروز';
+
+  @override
+  String get activityHourly => 'قدم‌ها در طول روز';
+
+  @override
+  String get activityTimeline => 'زمان‌بندی';
+
+  @override
+  String get activityEmptyTitle => 'هنوز قدمی ثبت نشده';
+
+  @override
+  String get activityEmptyBody =>
+      'کمی راه برو؛ قدم‌هایت اینجا نمایش داده می‌شوند.';
+
+  @override
+  String get activitySteps => 'قدم';
+
+  @override
+  String get activityPassive => 'ثبت خودکار';
+
+  @override
+  String get activityActive => 'پیاده‌روی';
+
+  @override
+  String get sessionTitle => 'جزئیات فعالیت';
+
+  @override
+  String get sessionDuration => 'مدت';
+
+  @override
+  String get sessionPerMinute => 'قدم در هر دقیقه';
+
+  @override
+  String get sessionVerified => 'قدم تأییدشده';
+
+  @override
+  String get sessionSamplesExpired =>
+      'جزئیات دقیقه‌ای فقط تا ۳۰ روز نگهداری می‌شوند.';
+
+  @override
+  String get walkTitle => 'پیاده‌روی';
+
+  @override
+  String get walkIntro =>
+      'پیاده‌روی را شروع کن تا قدم‌ها، زمان و مسافتت دقیق‌تر ثبت شود. می‌توانی برنامه را ببندی؛ ثبت ادامه دارد.';
+
+  @override
+  String get walkGpsToggle => 'ثبت مسیر با GPS';
+
+  @override
+  String get walkGpsHint => 'مسافت دقیق‌تر، مصرف باتری بیشتر';
+
+  @override
+  String get walkStart => 'شروع';
+
+  @override
+  String get walkStop => 'پایان پیاده‌روی';
+
+  @override
+  String get walkSaving => 'در حال ذخیره…';
+
+  @override
+  String get walkElapsed => 'زمان';
+
+  @override
+  String get walkDistance => 'مسافت';
+
+  @override
+  String get walkDoneTitle => 'آفرین! پیاده‌روی ثبت شد';
+
+  @override
+  String walkDoneBody(String steps, String minutes) {
+    return '$steps قدم در $minutes دقیقه. امتیاز پس از بررسی به حسابت اضافه می‌شود.';
+  }
+
+  @override
+  String get walkDoneOffline =>
+      'اینترنت در دسترس نیست؛ پیاده‌روی ذخیره شد و پس از اتصال ارسال می‌شود.';
+
+  @override
+  String get walkDone => 'باشه';
+
+  @override
+  String get walkNoSensor => 'این گوشی شمارنده قدم ندارد.';
+
+  @override
+  String get walkNeedsPermission =>
+      'برای شروع پیاده‌روی، دسترسی فعالیت بدنی لازم است.';
+
+  @override
+  String get walkFailed => 'شروع پیاده‌روی ممکن نشد. دوباره تلاش کن.';
 }

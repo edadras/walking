@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/localization/l10n.dart';
 import '../../../core/widgets/app_bottom_nav.dart';
+import '../../activity/application/tracking_bootstrap.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.shell});
@@ -13,7 +14,7 @@ class AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return Scaffold(
-      body: shell,
+      body: TrackingBootstrap(child: shell),
       bottomNavigationBar: AppBottomNav(
         currentIndex: shell.currentIndex,
         onTap: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),

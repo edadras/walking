@@ -11,13 +11,11 @@
   "commonClose": "بستن",
   "commonSaved": "تغییرات ذخیره شد.",
   "commonSoon": "به‌زودی",
-
   "navHome": "خانه",
   "navActivity": "فعالیت",
   "navRewards": "جایزه‌ها",
   "navStore": "فروشگاه",
   "navProfile": "پروفایل",
-
   "onboardingMoveTitle": "حرکت کن",
   "onboardingMoveBody": "مثل همیشه راه برو. گام‌یار قدم‌هایت را در پس‌زمینه و با کمترین مصرف باتری ثبت می‌کند.",
   "onboardingEarnTitle": "امتیاز بگیر",
@@ -29,7 +27,6 @@
   "onboardingNearbyTitle": "جایزه‌های اطرافت را پیدا کن",
   "onboardingNearbyBody": "به فروشگاه‌های همکار سر بزن و جایزه ویژه بگیر.",
   "onboardingStart": "شروع کنیم",
-
   "authPhoneTitle": "ورود به گام‌یار",
   "authPhoneSubtitle": "شماره موبایلت را وارد کن تا کد تأیید برایت پیامک شود.",
   "authPhoneLabel": "شماره موبایل",
@@ -40,23 +37,52 @@
   "authTermsLink": "قوانین و حریم خصوصی",
   "authOtpTitle": "کد تأیید",
   "authOtpSubtitle": "کد ارسال‌شده به {phone} را وارد کن.",
-  "@authOtpSubtitle": {"placeholders": {"phone": {"type": "String"}}},
+  "@authOtpSubtitle": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
   "authOtpLabel": "کد تأیید",
   "authEditPhone": "ویرایش شماره",
   "authResend": "ارسال دوباره کد",
   "authResendIn": "ارسال دوباره تا {seconds} ثانیه دیگر",
-  "@authResendIn": {"placeholders": {"seconds": {"type": "String"}}},
+  "@authResendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
   "authReferralToggle": "کد معرف دارم",
   "authReferralLabel": "کد معرف (اختیاری)",
   "authVerify": "تأیید و ورود",
   "authPreparingDevice": "آماده‌سازی امن دستگاه…",
-
   "homeGreeting": "سلام {name}",
-  "@homeGreeting": {"placeholders": {"name": {"type": "String"}}},
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "homeToday": "امروز، {date}",
-  "@homeToday": {"placeholders": {"date": {"type": "String"}}},
+  "@homeToday": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "homeRemaining": "{steps} قدم تا هدف امروز",
-  "@homeRemaining": {"placeholders": {"steps": {"type": "String"}}},
+  "@homeRemaining": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      }
+    }
+  },
   "homeGoalReached": "هدف امروز را کامل کردی",
   "homeDistance": "مسافت",
   "homeCalories": "کالری تخمینی",
@@ -67,14 +93,31 @@
   "homePointsToday": "امتیاز امروز",
   "homePointsValue": "ارزش تقریبی",
   "homeStreak": "{days} روز متوالی",
-  "@homeStreak": {"placeholders": {"days": {"type": "String"}}},
+  "@homeStreak": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "homeNoStreak": "امروز اولین روز زنجیره‌ات را بساز",
-
   "profileTitle": "پروفایل",
   "profileLevel": "سطح {level}",
-  "@profileLevel": {"placeholders": {"level": {"type": "String"}}},
+  "@profileLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "profileJoined": "عضو از {date}",
-  "@profileJoined": {"placeholders": {"date": {"type": "String"}}},
+  "@profileJoined": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "profileEdit": "ویرایش پروفایل",
   "profileSectionActivity": "فعالیت",
   "profileDailyGoal": "هدف روزانه",
@@ -95,8 +138,13 @@
   "profileLogout": "خروج از حساب",
   "profileLogoutConfirm": "از حساب کاربری خارج می‌شوی؟",
   "profileVersion": "نسخه {version}",
-  "@profileVersion": {"placeholders": {"version": {"type": "String"}}},
-
+  "@profileVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "editProfileTitle": "ویرایش پروفایل",
   "editDisplayName": "نام نمایشی",
   "editDisplayNameHint": "مثلاً سارا",
@@ -108,45 +156,149 @@
   "editGenderMale": "مرد",
   "editGenderNone": "ترجیح می‌دهم نگویم",
   "editBodyNote": "قد، وزن و سن فقط برای تخمین کالری و مسافت استفاده می‌شوند و به هیچ‌کس نمایش داده نمی‌شوند.",
-
   "goalTitle": "هدف روزانه",
   "goalSubtitle": "هدفی انتخاب کن که هر روز بتوانی به آن برسی. بعداً هم قابل تغییر است.",
   "goalCustom": "مقدار دلخواه",
   "goalSteps": "{steps} قدم",
-  "@goalSteps": {"placeholders": {"steps": {"type": "String"}}},
+  "@goalSteps": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      }
+    }
+  },
   "goalRange": "بین {min} و {max} قدم",
-  "@goalRange": {"placeholders": {"min": {"type": "String"}, "max": {"type": "String"}}},
-
+  "@goalRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
   "waterGoalTitle": "هدف مصرف آب",
   "waterGoalNote": "این عدد تقریبی است و توصیه پزشکی نیست.",
   "waterGlasses": "{glasses} لیوان",
-  "@waterGlasses": {"placeholders": {"glasses": {"type": "String"}}},
-
+  "@waterGlasses": {
+    "placeholders": {
+      "glasses": {
+        "type": "String"
+      }
+    }
+  },
   "notificationsTitle": "اعلان‌ها",
   "notificationsMandatory": "اعلان وضعیت سفارش برای اطلاع از خریدهایت همیشه فعال است.",
-
   "devicesTitle": "دستگاه‌های من",
   "devicesCurrent": "همین دستگاه",
   "devicesLastSeen": "آخرین استفاده: {time}",
-  "@devicesLastSeen": {"placeholders": {"time": {"type": "String"}}},
+  "@devicesLastSeen": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "devicesRevoke": "خروج",
   "devicesRevokeConfirm": "این دستگاه از حساب شما خارج شود؟",
   "devicesEmpty": "دستگاه دیگری به حساب شما متصل نیست.",
-
   "deleteAccountTitle": "حذف حساب کاربری",
   "deleteAccountBody": "با درخواست حذف، حساب شما پس از {days} روز حذف می‌شود و تا آن زمان می‌توانید انصراف دهید. اطلاعات شخصی حذف و سوابق مالی به‌صورت ناشناس نگهداری می‌شوند.",
-  "@deleteAccountBody": {"placeholders": {"days": {"type": "String"}}},
+  "@deleteAccountBody": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAccountConfirm": "درخواست حذف حساب",
   "deleteAccountPending": "حساب شما در تاریخ {date} حذف می‌شود.",
-  "@deleteAccountPending": {"placeholders": {"date": {"type": "String"}}},
+  "@deleteAccountPending": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAccountCancel": "انصراف از حذف حساب",
-
   "comingNextTitle": "این بخش در حال آماده‌سازی است",
   "comingNextBody": "به‌زودی از همین‌جا در دسترس خواهد بود.",
-
   "updateRequiredTitle": "نسخه جدید لازم است",
   "updateRequiredBody": "برای ادامه، گام‌یار را به‌روزرسانی کنید.",
-
   "accountBlockedTitle": "دسترسی محدود شده است",
-  "accountBlockedContact": "برای پیگیری با پشتیبانی تماس بگیرید."
+  "accountBlockedContact": "برای پیگیری با پشتیبانی تماس بگیرید.",
+  "permAllow": "اجازه می‌دهم",
+  "permNotNow": "فعلاً نه",
+  "permOpenSettings": "رفتن به تنظیمات",
+  "permOpenSettingsHint": "این دسترسی قبلاً رد شده است. برای فعال‌سازی، از تنظیمات گوشی آن را روشن کنید.",
+  "permActivityTitle": "ثبت خودکار قدم‌ها",
+  "permActivityBody": "گام‌یار برای شمردن قدم‌هایت به «فعالیت بدنی» دسترسی لازم دارد. این کار با شمارنده قدم خود گوشی و با کمترین مصرف باتری انجام می‌شود؛ موقعیت مکانی تو ثبت نمی‌شود.",
+  "permNotificationsTitle": "اعلان پیاده‌روی",
+  "permNotificationsBody": "وقتی پیاده‌روی را شروع می‌کنی، یک اعلان ثابت نشان می‌دهد که ثبت قدم فعال است و تعداد قدم‌ها را می‌بینی.",
+  "permLocationTitle": "ثبت مسیر پیاده‌روی",
+  "permLocationBody": "برای محاسبه دقیق‌تر مسافت، موقعیت مکانی فقط در همین پیاده‌روی و فقط وقتی خودت آن را فعال کنی استفاده می‌شود. مسیر کامل تو به سرور ارسال نمی‌شود.",
+  "trackingOffTitle": "ثبت خودکار قدم‌ها خاموش است",
+  "trackingOffBody": "اجازه دسترسی به فعالیت بدنی را بده تا قدم‌هایت بدون باز بودن برنامه ثبت شوند.",
+  "trackingEnable": "فعال‌سازی",
+  "trackingNoSensor": "این گوشی شمارنده قدم ندارد؛ ثبت خودکار قدم امکان‌پذیر نیست.",
+  "homeAwaiting": "{steps} قدم در حال بررسی",
+  "@homeAwaiting": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStartWalk": "شروع پیاده‌روی",
+  "homeWalkInProgress": "پیاده‌روی در حال ثبت",
+  "homeThisWeek": "این هفته",
+  "homeSyncedAt": "به‌روزرسانی {time}",
+  "@homeSyncedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "activityTitle": "فعالیت",
+  "activityToday": "امروز",
+  "activityHourly": "قدم‌ها در طول روز",
+  "activityTimeline": "زمان‌بندی",
+  "activityEmptyTitle": "هنوز قدمی ثبت نشده",
+  "activityEmptyBody": "کمی راه برو؛ قدم‌هایت اینجا نمایش داده می‌شوند.",
+  "activitySteps": "قدم",
+  "activityPassive": "ثبت خودکار",
+  "activityActive": "پیاده‌روی",
+  "sessionTitle": "جزئیات فعالیت",
+  "sessionDuration": "مدت",
+  "sessionPerMinute": "قدم در هر دقیقه",
+  "sessionVerified": "قدم تأییدشده",
+  "sessionSamplesExpired": "جزئیات دقیقه‌ای فقط تا ۳۰ روز نگهداری می‌شوند.",
+  "walkTitle": "پیاده‌روی",
+  "walkIntro": "پیاده‌روی را شروع کن تا قدم‌ها، زمان و مسافتت دقیق‌تر ثبت شود. می‌توانی برنامه را ببندی؛ ثبت ادامه دارد.",
+  "walkGpsToggle": "ثبت مسیر با GPS",
+  "walkGpsHint": "مسافت دقیق‌تر، مصرف باتری بیشتر",
+  "walkStart": "شروع",
+  "walkStop": "پایان پیاده‌روی",
+  "walkSaving": "در حال ذخیره…",
+  "walkElapsed": "زمان",
+  "walkDistance": "مسافت",
+  "walkDoneTitle": "آفرین! پیاده‌روی ثبت شد",
+  "walkDoneBody": "{steps} قدم در {minutes} دقیقه. امتیاز پس از بررسی به حسابت اضافه می‌شود.",
+  "@walkDoneBody": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "walkDoneOffline": "اینترنت در دسترس نیست؛ پیاده‌روی ذخیره شد و پس از اتصال ارسال می‌شود.",
+  "walkDone": "باشه",
+  "walkNoSensor": "این گوشی شمارنده قدم ندارد.",
+  "walkNeedsPermission": "برای شروع پیاده‌روی، دسترسی فعالیت بدنی لازم است.",
+  "walkFailed": "شروع پیاده‌روی ممکن نشد. دوباره تلاش کن."
 }

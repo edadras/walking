@@ -33,6 +33,26 @@ abstract final class FaDate {
 
   static String weekday(DateTime d) => _weekdays[_j(d).weekDay - 1];
 
+  static int dayOfMonth(DateTime d) => _j(d).day;
+
+  static String weekdayShort(DateTime d) => weekdaysShort[_j(d).weekDay - 1];
+
+  /// ۱ ساعت و ۵ دقیقه / ۱۲ دقیقه
+  static String duration(Duration d) {
+    final h = d.inHours;
+    final m = d.inMinutes % 60;
+    if (h == 0) return '${Fa.digits(d.inMinutes)} دقیقه';
+    return m == 0 ? '${Fa.digits(h)} ساعت' : '${Fa.digits(h)} ساعت و ${Fa.digits(m)} دقیقه';
+  }
+
+  /// ۱۲:۳۴ (stopwatch)
+  static String clock(Duration d) {
+    String two(int v) => v.toString().padLeft(2, '0');
+    final h = d.inHours;
+    final body = '${two(d.inMinutes % 60)}:${two(d.inSeconds % 60)}';
+    return Fa.digits(h > 0 ? '$h:$body' : body);
+  }
+
   /// ۰۸:۲۰
   static String time(DateTime d) {
     final l = d.toLocal();

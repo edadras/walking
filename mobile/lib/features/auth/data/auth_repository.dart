@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 
 import '../../../core/network/api_client.dart';
 import '../../../core/network/api_exception.dart';
@@ -35,13 +36,23 @@ class AuthRepository {
         final r = await _api.post('/auth/otp/verify', options: Req.anonymous(Req.signed()), data: {
           'phone': phone,
           'code': code,
-          'timezone': 'Asia/Tehran',
+          'timezone': await _deviceTimezone(),
           if (referralCode != null && referralCode.isNotEmpty) 'referral_code': referralCode,
         });
         final d = r['data'] as Map<String, dynamic>;
         await _store.write(SecureStore.kToken, d['token'] as String);
         return (Me.fromJson(d['user'] as Map<String, dynamic>), d['is_new_user'] == true);
       });
+
+  /// IANA name from the device (e.g. Asia/Tehran). Only used for new accounts;
+  /// the server validates it and falls back to Asia/Tehran.
+  Future<String> _deviceTimezone() async {
+    try {
+      return (await FlutterTimezone.getLocalTimezone()).identifier;
+    } catch (_) {
+      return 'Asia/Tehran';
+    }
+  }
 
   Future<Me> fetchMe() async {
     final r = await _api.get('/me');

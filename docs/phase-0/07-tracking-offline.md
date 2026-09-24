@@ -41,7 +41,7 @@ Local SQLite: pending_sessions
 ```
 
 1. هر Session پس از بسته شدن با `sequence` یکنواخت per device (از SecureStorage، هرگز کاهش نمی‌یابد) در صف قرار می‌گیرد.
-2. `SyncWorker` (WorkManager با Constraint اتصال شبکه + هنگام باز شدن اپ) تا ۲۰ Session در یک `POST /walking-sessions/batch` می‌فرستد. **امضا در لحظه ارسال** ساخته می‌شود (timestamp تازه)، نه در لحظه ضبط.
+2. Sync هنگام باز شدن اپ، بازگشت به اپ و هر ۵ دقیقه در Foreground (نسخه ۱؛ `SyncWorker` پس‌زمینه در فاز ۹) تا ۲۰ Session در یک `POST /walking-sessions/batch` می‌فرستد. **امضا در لحظه ارسال** ساخته می‌شود (timestamp تازه)، نه در لحظه ضبط.
 3. پاسخ per-item: `accepted`/`duplicate` → حذف از صف؛ `rejected` با کد → حذف و ثبت محلی؛ خطای شبکه → Backoff نمایی.
 4. سرور:
    - `client_session_id` تکراری → `duplicate` (Idempotent، بدون خطا).

@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/localization/l10n.dart';
+import '../features/activity/presentation/activity_page.dart';
+import '../features/activity/presentation/session_detail_page.dart';
+import '../features/activity/presentation/walk_page.dart';
 import '../features/auth/application/session_controller.dart';
 import '../features/auth/presentation/otp_page.dart';
 import '../features/auth/presentation/phone_page.dart';
@@ -57,11 +60,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(path: '/page/:slug', builder: (_, state) => ContentPage(slug: state.pathParameters['slug']!)),
       GoRoute(path: '/faq', builder: (_, _) => const FaqPage()),
+      GoRoute(path: '/walk', builder: (_, _) => const WalkPage()),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(shell: shell),
         branches: [
           StatefulShellBranch(routes: [GoRoute(path: '/home', builder: (_, _) => const HomePage())]),
-          StatefulShellBranch(routes: [GoRoute(path: '/activity', builder: (c, _) => ComingNextPage(title: c.l10n.navActivity))]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/activity',
+              builder: (_, _) => const ActivityPage(),
+              routes: [GoRoute(path: 'session/:id', builder: (_, s) => SessionDetailPage(id: s.pathParameters['id']!))],
+            ),
+          ]),
           StatefulShellBranch(routes: [GoRoute(path: '/rewards', builder: (c, _) => ComingNextPage(title: c.l10n.navRewards))]),
           StatefulShellBranch(routes: [GoRoute(path: '/store', builder: (c, _) => ComingNextPage(title: c.l10n.navStore))]),
           StatefulShellBranch(routes: [

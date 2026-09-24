@@ -1,0 +1,79 @@
+{
+  "sessions": [
+    {
+      "client_session_id": "00000000-0000-4000-8000-000000000001",
+      "sequence": 1,
+      "kind": "passive",
+      "source": "step_counter",
+      "started_at": "2026-09-24T04:30:00.000Z",
+      "ended_at": "2026-09-24T05:05:00.000Z",
+      "raw_steps": 1600,
+      "buckets": [
+        {
+          "started_at": "2026-09-24T04:30:00.000Z",
+          "duration_s": 1200,
+          "steps": 1240,
+          "activity_type": "walking"
+        },
+        {
+          "started_at": "2026-09-24T04:50:00.000Z",
+          "duration_s": 900,
+          "steps": 360,
+          "activity_type": "walking"
+        }
+      ]
+    },
+    {
+      "client_session_id": "00000000-0000-4000-8000-000000000002",
+      "sequence": 2,
+      "kind": "active",
+      "source": "step_counter",
+      "started_at": "2026-09-24T14:30:00.000Z",
+      "ended_at": "2026-09-24T14:33:00.000Z",
+      "raw_steps": 339,
+      "buckets": [
+        {
+          "started_at": "2026-09-24T14:30:00.000Z",
+          "duration_s": 60,
+          "steps": 112,
+          "detector_steps": 110,
+          "accel_std": 2.35,
+          "accel_peak_hz": 1.84,
+          "speed_mps": 1.4,
+          "gps_accuracy_m": 8
+        },
+        {
+          "started_at": "2026-09-24T14:31:00.000Z",
+          "duration_s": 60,
+          "steps": 113,
+          "detector_steps": 111,
+          "accel_std": 2.35,
+          "accel_peak_hz": 1.84,
+          "speed_mps": 1.4,
+          "gps_accuracy_m": 8
+        },
+        {
+          "started_at": "2026-09-24T14:32:00.000Z",
+          "duration_s": 60,
+          "steps": 114,
+          "detector_steps": 112,
+          "accel_std": 2.35,
+          "accel_peak_hz": 1.84,
+          "speed_mps": 1.4,
+          "gps_accuracy_m": 8
+        }
+      ],
+      "gps": {
+        "points": 36,
+        "distance_m": 262.5,
+        "avg_accuracy_m": 7.9,
+        "max_speed_mps": 1.9,
+        "jumps": 0,
+        "mock_detected": false
+      },
+      "motion": {
+        "mock_location": false
+      }
+    }
+  ]
+}

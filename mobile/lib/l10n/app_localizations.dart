@@ -813,6 +813,300 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'برای پیگیری با پشتیبانی تماس بگیرید.'**
   String get accountBlockedContact;
+
+  /// No description provided for @permAllow.
+  ///
+  /// In fa, this message translates to:
+  /// **'اجازه می‌دهم'**
+  String get permAllow;
+
+  /// No description provided for @permNotNow.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعلاً نه'**
+  String get permNotNow;
+
+  /// No description provided for @permOpenSettings.
+  ///
+  /// In fa, this message translates to:
+  /// **'رفتن به تنظیمات'**
+  String get permOpenSettings;
+
+  /// No description provided for @permOpenSettingsHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'این دسترسی قبلاً رد شده است. برای فعال‌سازی، از تنظیمات گوشی آن را روشن کنید.'**
+  String get permOpenSettingsHint;
+
+  /// No description provided for @permActivityTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت خودکار قدم‌ها'**
+  String get permActivityTitle;
+
+  /// No description provided for @permActivityBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'گام‌یار برای شمردن قدم‌هایت به «فعالیت بدنی» دسترسی لازم دارد. این کار با شمارنده قدم خود گوشی و با کمترین مصرف باتری انجام می‌شود؛ موقعیت مکانی تو ثبت نمی‌شود.'**
+  String get permActivityBody;
+
+  /// No description provided for @permNotificationsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'اعلان پیاده‌روی'**
+  String get permNotificationsTitle;
+
+  /// No description provided for @permNotificationsBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'وقتی پیاده‌روی را شروع می‌کنی، یک اعلان ثابت نشان می‌دهد که ثبت قدم فعال است و تعداد قدم‌ها را می‌بینی.'**
+  String get permNotificationsBody;
+
+  /// No description provided for @permLocationTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت مسیر پیاده‌روی'**
+  String get permLocationTitle;
+
+  /// No description provided for @permLocationBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای محاسبه دقیق‌تر مسافت، موقعیت مکانی فقط در همین پیاده‌روی و فقط وقتی خودت آن را فعال کنی استفاده می‌شود. مسیر کامل تو به سرور ارسال نمی‌شود.'**
+  String get permLocationBody;
+
+  /// No description provided for @trackingOffTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت خودکار قدم‌ها خاموش است'**
+  String get trackingOffTitle;
+
+  /// No description provided for @trackingOffBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'اجازه دسترسی به فعالیت بدنی را بده تا قدم‌هایت بدون باز بودن برنامه ثبت شوند.'**
+  String get trackingOffBody;
+
+  /// No description provided for @trackingEnable.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعال‌سازی'**
+  String get trackingEnable;
+
+  /// No description provided for @trackingNoSensor.
+  ///
+  /// In fa, this message translates to:
+  /// **'این گوشی شمارنده قدم ندارد؛ ثبت خودکار قدم امکان‌پذیر نیست.'**
+  String get trackingNoSensor;
+
+  /// No description provided for @homeAwaiting.
+  ///
+  /// In fa, this message translates to:
+  /// **'{steps} قدم در حال بررسی'**
+  String homeAwaiting(String steps);
+
+  /// No description provided for @homeStartWalk.
+  ///
+  /// In fa, this message translates to:
+  /// **'شروع پیاده‌روی'**
+  String get homeStartWalk;
+
+  /// No description provided for @homeWalkInProgress.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیاده‌روی در حال ثبت'**
+  String get homeWalkInProgress;
+
+  /// No description provided for @homeThisWeek.
+  ///
+  /// In fa, this message translates to:
+  /// **'این هفته'**
+  String get homeThisWeek;
+
+  /// No description provided for @homeSyncedAt.
+  ///
+  /// In fa, this message translates to:
+  /// **'به‌روزرسانی {time}'**
+  String homeSyncedAt(String time);
+
+  /// No description provided for @activityTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعالیت'**
+  String get activityTitle;
+
+  /// No description provided for @activityToday.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز'**
+  String get activityToday;
+
+  /// No description provided for @activityHourly.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم‌ها در طول روز'**
+  String get activityHourly;
+
+  /// No description provided for @activityTimeline.
+  ///
+  /// In fa, this message translates to:
+  /// **'زمان‌بندی'**
+  String get activityTimeline;
+
+  /// No description provided for @activityEmptyTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز قدمی ثبت نشده'**
+  String get activityEmptyTitle;
+
+  /// No description provided for @activityEmptyBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'کمی راه برو؛ قدم‌هایت اینجا نمایش داده می‌شوند.'**
+  String get activityEmptyBody;
+
+  /// No description provided for @activitySteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم'**
+  String get activitySteps;
+
+  /// No description provided for @activityPassive.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت خودکار'**
+  String get activityPassive;
+
+  /// No description provided for @activityActive.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیاده‌روی'**
+  String get activityActive;
+
+  /// No description provided for @sessionTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'جزئیات فعالیت'**
+  String get sessionTitle;
+
+  /// No description provided for @sessionDuration.
+  ///
+  /// In fa, this message translates to:
+  /// **'مدت'**
+  String get sessionDuration;
+
+  /// No description provided for @sessionPerMinute.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم در هر دقیقه'**
+  String get sessionPerMinute;
+
+  /// No description provided for @sessionVerified.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم تأییدشده'**
+  String get sessionVerified;
+
+  /// No description provided for @sessionSamplesExpired.
+  ///
+  /// In fa, this message translates to:
+  /// **'جزئیات دقیقه‌ای فقط تا ۳۰ روز نگهداری می‌شوند.'**
+  String get sessionSamplesExpired;
+
+  /// No description provided for @walkTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیاده‌روی'**
+  String get walkTitle;
+
+  /// No description provided for @walkIntro.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیاده‌روی را شروع کن تا قدم‌ها، زمان و مسافتت دقیق‌تر ثبت شود. می‌توانی برنامه را ببندی؛ ثبت ادامه دارد.'**
+  String get walkIntro;
+
+  /// No description provided for @walkGpsToggle.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت مسیر با GPS'**
+  String get walkGpsToggle;
+
+  /// No description provided for @walkGpsHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'مسافت دقیق‌تر، مصرف باتری بیشتر'**
+  String get walkGpsHint;
+
+  /// No description provided for @walkStart.
+  ///
+  /// In fa, this message translates to:
+  /// **'شروع'**
+  String get walkStart;
+
+  /// No description provided for @walkStop.
+  ///
+  /// In fa, this message translates to:
+  /// **'پایان پیاده‌روی'**
+  String get walkStop;
+
+  /// No description provided for @walkSaving.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال ذخیره…'**
+  String get walkSaving;
+
+  /// No description provided for @walkElapsed.
+  ///
+  /// In fa, this message translates to:
+  /// **'زمان'**
+  String get walkElapsed;
+
+  /// No description provided for @walkDistance.
+  ///
+  /// In fa, this message translates to:
+  /// **'مسافت'**
+  String get walkDistance;
+
+  /// No description provided for @walkDoneTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'آفرین! پیاده‌روی ثبت شد'**
+  String get walkDoneTitle;
+
+  /// No description provided for @walkDoneBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'{steps} قدم در {minutes} دقیقه. امتیاز پس از بررسی به حسابت اضافه می‌شود.'**
+  String walkDoneBody(String steps, String minutes);
+
+  /// No description provided for @walkDoneOffline.
+  ///
+  /// In fa, this message translates to:
+  /// **'اینترنت در دسترس نیست؛ پیاده‌روی ذخیره شد و پس از اتصال ارسال می‌شود.'**
+  String get walkDoneOffline;
+
+  /// No description provided for @walkDone.
+  ///
+  /// In fa, this message translates to:
+  /// **'باشه'**
+  String get walkDone;
+
+  /// No description provided for @walkNoSensor.
+  ///
+  /// In fa, this message translates to:
+  /// **'این گوشی شمارنده قدم ندارد.'**
+  String get walkNoSensor;
+
+  /// No description provided for @walkNeedsPermission.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای شروع پیاده‌روی، دسترسی فعالیت بدنی لازم است.'**
+  String get walkNeedsPermission;
+
+  /// No description provided for @walkFailed.
+  ///
+  /// In fa, this message translates to:
+  /// **'شروع پیاده‌روی ممکن نشد. دوباره تلاش کن.'**
+  String get walkFailed;
 }
 
 class _AppLocalizationsDelegate
