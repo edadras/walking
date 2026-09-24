@@ -86,6 +86,9 @@ return [
         'ads.rewarded_max_age_minutes' => ['value' => 10, 'group' => 'ads', 'public' => false, 'description' => 'مهلت تکمیل تبلیغ جایزه‌دار پس از شروع (دقیقه)'],
         'ads.rewarded_max_points' => ['value' => 20, 'group' => 'ads', 'public' => false, 'description' => 'سقف امتیاز هر تبلیغ جایزه‌دار'],
 
+        // Device keys
+        'security.device_key_max_age_days' => ['value' => 180, 'group' => 'security', 'public' => true, 'description' => 'عمر کلید دستگاه تا تعویض خودکار (روز)'],
+
         // Account
         'account.deletion_grace_days' => ['value' => 14, 'group' => 'account', 'public' => true, 'description' => 'مهلت انصراف از حذف حساب'],
     ],
@@ -100,6 +103,13 @@ return [
         'referral' => ['enabled' => true, 'description' => 'دعوت از دوستان'],
         'health_connect' => ['enabled' => false, 'description' => 'اتصال به Health Connect'],
         'ios' => ['enabled' => false, 'description' => 'پشتیبانی iOS'],
+    ],
+
+    'security' => [
+        // Admin panel requires TOTP. Only switch off for local development and the test suite.
+        'admin_mfa_required' => env('ADMIN_MFA_REQUIRED', true),
+        // Allowed certificate SPKI pins are shipped in the app (--dart-define); listed here for ops reference.
+        'hsts_max_age' => (int) env('HSTS_MAX_AGE', 31536000),
     ],
 
     'integrity' => [

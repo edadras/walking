@@ -10,5 +10,11 @@ abstract final class Env {
   /// Raster tiles for the nearby-rewards map (swap for a local provider in production).
   static const mapTileUrl = String.fromEnvironment('MAP_TILE_URL', defaultValue: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png');
 
+  /// Comma-separated base64 SHA-256 SPKI pins of the API host (current + backup).
+  /// Empty = no pinning (local development only; release builds must set it).
+  static const certPins = String.fromEnvironment('CERT_PINS');
+
+  static List<String> get certPinList => certPins.isEmpty ? const [] : certPins.split(',');
+
   static const platform = 'android';
 }

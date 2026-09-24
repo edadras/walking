@@ -42,6 +42,9 @@ Route::post('webhooks/ads/{provider}', [AdController::class, 'webhook'])->middle
 // Device registration (self-signed with the submitted key)
 Route::post('devices/register', [DeviceController::class, 'register'])->middleware('throttle:device-register');
 
+// Device key rotation: signed with the current key, works with or without a user session.
+Route::post('devices/rotate-key', [DeviceController::class, 'rotateKey'])->middleware(['signed.device', 'throttle:device-register'])->name('devices.rotate-key');
+
 // OTP login (signed by a registered device)
 Route::middleware(['signed.device', 'throttle:public'])->prefix('auth/otp')->group(function () {
     Route::post('request', [AuthController::class, 'requestOtp']);

@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\Dashboard;
 use App\Filament\Support\InitialsAvatarProvider;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -29,6 +30,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->authGuard('admin')
             ->login()
+            ->profile(isSimple: false)
+            // TOTP for every admin (enforced unless explicitly disabled for local dev/tests).
+            ->multiFactorAuthentication([AppAuthentication::make()->recoverable()->brandName('Gamyar Admin')], isRequired: fn () => (bool) config('walk.security.admin_mfa_required'))
             ->brandName('گام‌یار — مدیریت')
             ->font('Vazirmatn', url: '/fonts/vazirmatn/font.css', provider: LocalFontProvider::class)
             ->defaultAvatarProvider(InitialsAvatarProvider::class)

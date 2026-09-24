@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dio/dio.dart' show Options;
 import 'package:uuid/uuid.dart';
 
 import '../config/env.dart';
 import '../network/api_client.dart';
+import '../network/api_exception.dart';
 import '../storage/secure_store.dart';
 import 'device_key.dart';
 
@@ -31,6 +34,39 @@ class DeviceIdentity {
     final existing = await store.read(SecureStore.kDeviceId);
     if (existing != null) return existing;
     return _inFlight ??= _register().whenComplete(() => _inFlight = null);
+  }
+
+  Future<bool>? _rotating;
+
+  /// Replaces the Keystore key: the request is signed with the current key and
+  /// carries a proof made with the new one over (device, timestamp, new key).
+  /// The old key is only deleted after the server accepted the new one, so an
+  /// interrupted rotation leaves the device working with its old key.
+  Future<bool> rotateKey() => _rotating ??= _rotate().whenComplete(() => _rotating = null);
+
+  Future<bool> _rotate() async {
+    final deviceId = await store.read(SecureStore.kDeviceId);
+    if (deviceId == null) return false;
+    try {
+      final newKey = await key.pendingPublicKey();
+      final timestamp = '${await api.serverTimeNow()}';
+      final statement = 'gamyar-key-rotation\n$deviceId\n$timestamp\n${sha256.convert(base64Decode(newKey))}';
+      final proof = await key.signPending(Uint8List.fromList(utf8.encode(statement)));
+      await api.post('/devices/rotate-key', data: {'public_key': newKey, 'proof': proof}, options: Req.signed(Options(extra: {'timestamp': timestamp})));
+      await key.commitPending();
+      return true;
+    } on ApiException catch (e) {
+      // The new key was refused (e.g. already in use): start over next time.
+      if (e.code == 'key_in_use' || e.code == 'invalid_public_key') await key.discardPending();
+      return false;
+    }
+  }
+
+  /// Rotates proactively once the key is older than the server's max age.
+  Future<void> rotateIfOld(int maxAgeDays) async {
+    if (maxAgeDays <= 0) return;
+    final created = await key.keyCreatedAt();
+    if (created != null && DateTime.now().difference(created).inDays >= maxAgeDays) await rotateKey();
   }
 
   /// Server no longer knows this device (e.g. DB reset): forget it and register again.

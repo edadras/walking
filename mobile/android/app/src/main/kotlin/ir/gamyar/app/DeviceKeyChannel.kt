@@ -29,11 +29,19 @@ class DeviceKeyChannel(private val context: Context) : MethodChannel.MethodCallH
 
     companion object {
         const val NAME = "ir.gamyar/device_key"
-        private const val ALIAS = "gamyar_device_key_v1"
+        private const val FIRST_ALIAS = "gamyar_device_key_v1"
         private const val KEYSTORE = "AndroidKeyStore"
+        private const val PREFS = "gamyar_device_key"
+        private const val ACTIVE = "active_alias"
+        private const val PENDING = "pending_alias"
+        private const val CREATED = "active_created_at"
     }
 
     private val keyStore: KeyStore by lazy { KeyStore.getInstance(KEYSTORE).apply { load(null) } }
+    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
+
+    /** The alias currently registered with the server. Rotation switches it atomically. */
+    private val activeAlias: String get() = prefs.getString(ACTIVE, FIRST_ALIAS)!!
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         try {
@@ -45,6 +53,24 @@ class DeviceKeyChannel(private val context: Context) : MethodChannel.MethodCallH
                     result.success(sign(data))
                 }
                 "signals" -> result.success(signals())
+                // Rotation: new key under a new alias; the server only learns about it
+                // through a proof signed with it, and the old key is deleted only after
+                // the server has accepted the new one (commit).
+                "pendingPublicKey" -> result.success(pendingPublicKey())
+                "signPending" -> {
+                    val data = call.argument<ByteArray>("data")
+                        ?: return result.error("bad_args", "data is required", null)
+                    val alias = prefs.getString(PENDING, null) ?: return result.error("no_pending", "no pending key", null)
+                    result.success(sign(data, alias))
+                }
+                "commitPending" -> result.success(commitPending())
+                "discardPending" -> result.success(discardPending())
+                "keyCreatedAt" -> {
+                    ensureKey(activeAlias)
+                    // Keys from before rotation support start their clock now.
+                    if (!prefs.contains(CREATED)) prefs.edit().putLong(CREATED, System.currentTimeMillis()).apply()
+                    result.success(prefs.getLong(CREATED, 0L))
+                }
                 "integrityToken" -> integrityToken(call, result)
                 else -> result.notImplemented()
             }
@@ -53,9 +79,9 @@ class DeviceKeyChannel(private val context: Context) : MethodChannel.MethodCallH
         }
     }
 
-    private fun ensureKey() {
-        if (keyStore.containsAlias(ALIAS)) return
-        fun spec(strongBox: Boolean) = KeyGenParameterSpec.Builder(ALIAS, KeyProperties.PURPOSE_SIGN)
+    private fun ensureKey(alias: String = activeAlias) {
+        if (keyStore.containsAlias(alias)) return
+        fun spec(strongBox: Boolean) = KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_SIGN)
             .setAlgorithmParameterSpec(ECGenParameterSpec("secp256r1"))
             .setDigests(KeyProperties.DIGEST_SHA256)
             .apply { if (strongBox && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) setIsStrongBoxBacked(true) }
@@ -69,19 +95,49 @@ class DeviceKeyChannel(private val context: Context) : MethodChannel.MethodCallH
             generator.initialize(spec(strongBox = false))
             generator.generateKeyPair()
         }
+        if (alias == activeAlias) prefs.edit().putLong(CREATED, System.currentTimeMillis()).apply()
+    }
+
+    private fun pendingPublicKey(): String {
+        val existing = prefs.getString(PENDING, null)
+        val alias = existing ?: run {
+            val version = activeAlias.substringAfterLast("_v").toIntOrNull() ?: 1
+            "gamyar_device_key_v${version + 1}"
+        }
+        if (existing == null) {
+            if (keyStore.containsAlias(alias)) keyStore.deleteEntry(alias)
+            prefs.edit().putString(PENDING, alias).commit()
+        }
+        ensureKey(alias)
+        return Base64.encodeToString(keyStore.getCertificate(alias).publicKey.encoded, Base64.NO_WRAP)
+    }
+
+    private fun commitPending(): Boolean {
+        val pending = prefs.getString(PENDING, null) ?: return false
+        val old = activeAlias
+        prefs.edit().putString(ACTIVE, pending).remove(PENDING).putLong(CREATED, System.currentTimeMillis()).commit()
+        if (old != pending && keyStore.containsAlias(old)) keyStore.deleteEntry(old)
+        return true
+    }
+
+    private fun discardPending(): Boolean {
+        val pending = prefs.getString(PENDING, null) ?: return false
+        if (keyStore.containsAlias(pending)) keyStore.deleteEntry(pending)
+        prefs.edit().remove(PENDING).commit()
+        return true
     }
 
     /** Base64 of the DER SubjectPublicKeyInfo. */
     private fun publicKey(): String {
         ensureKey()
-        val cert = keyStore.getCertificate(ALIAS)
+        val cert = keyStore.getCertificate(activeAlias)
         return Base64.encodeToString(cert.publicKey.encoded, Base64.NO_WRAP)
     }
 
     /** Base64 of a DER-encoded ECDSA(SHA-256) signature. */
-    private fun sign(data: ByteArray): String {
-        ensureKey()
-        val key = keyStore.getKey(ALIAS, null) as PrivateKey
+    private fun sign(data: ByteArray, alias: String = activeAlias): String {
+        ensureKey(alias)
+        val key = keyStore.getKey(alias, null) as PrivateKey
         val signature = Signature.getInstance("SHA256withECDSA").apply {
             initSign(key)
             update(data)
@@ -103,7 +159,7 @@ class DeviceKeyChannel(private val context: Context) : MethodChannel.MethodCallH
     }
 
     private fun isHardwareBacked(): Boolean = try {
-        val key = keyStore.getKey(ALIAS, null) as PrivateKey
+        val key = keyStore.getKey(activeAlias, null) as PrivateKey
         val info = KeyFactory.getInstance(key.algorithm, KEYSTORE).getKeySpec(key, KeyInfo::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             info.securityLevel != KeyProperties.SECURITY_LEVEL_SOFTWARE

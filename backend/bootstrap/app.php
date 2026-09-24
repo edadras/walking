@@ -4,6 +4,7 @@ use App\Exceptions\ApiException;
 use App\Exceptions\ApiExceptionRenderer;
 use App\Http\Middleware\AssignRequestId;
 use App\Http\Middleware\ResolveDevice;
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\VerifyDeviceSignature;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->append(SecurityHeaders::class);
         $middleware->api(prepend: [AssignRequestId::class]);
         $middleware->alias([
             'signed.device' => VerifyDeviceSignature::class,

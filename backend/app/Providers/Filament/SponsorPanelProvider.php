@@ -8,6 +8,7 @@ use App\Filament\Sponsor\Widgets\CouponsChart;
 use App\Filament\Sponsor\Widgets\SponsorOverview;
 use App\Filament\Sponsor\Widgets\VisitsChart;
 use App\Filament\Support\InitialsAvatarProvider;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -38,6 +39,8 @@ class SponsorPanelProvider extends PanelProvider
             ->authGuard('sponsor')
             ->login()
             ->registration(Register::class)
+            ->profile(isSimple: false)
+            ->multiFactorAuthentication([AppAuthentication::make()->recoverable()->brandName('Gamyar Sponsor')])
             ->brandName('گام‌یار — پنل اسپانسر')
             ->font('Vazirmatn', url: '/fonts/vazirmatn/font.css', provider: LocalFontProvider::class)
             ->defaultAvatarProvider(InitialsAvatarProvider::class)

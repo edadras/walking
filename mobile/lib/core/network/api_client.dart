@@ -8,6 +8,7 @@ import '../config/env.dart';
 import '../security/device_key.dart';
 import '../storage/secure_store.dart';
 import 'api_exception.dart';
+import 'cert_pinning.dart';
 
 /// Per-request options understood by the interceptors.
 abstract final class Req {
@@ -19,6 +20,9 @@ abstract final class Req {
 }
 
 typedef UnauthorizedHandler = Future<void> Function(ApiException error);
+
+/// Rotates the device key when the server demands it; returns true on success.
+typedef KeyRotationHandler = Future<bool> Function();
 
 /// Thin wrapper over Dio: base headers, auth, request signing, clock-skew
 /// recovery and mapping every failure to [ApiException].
@@ -32,7 +36,7 @@ class ApiClient {
   })  : _store = store, // ignore: prefer_initializing_formals
         _deviceKey = deviceKey, // ignore: prefer_initializing_formals
         _appVersion = appVersion, // ignore: prefer_initializing_formals
-        dio = dio ?? Dio() {
+        dio = dio ?? CertPinning.pinned(Dio(), Env.certPinList) {
     this.dio.options
       ..baseUrl = baseUrl
       ..connectTimeout = const Duration(seconds: 10)
@@ -51,6 +55,8 @@ class ApiClient {
 
   /// Called when the server rejects our credentials (token expired/revoked, device mismatch).
   UnauthorizedHandler? onUnauthorized;
+
+  KeyRotationHandler? onKeyRotationRequired;
 
   int _clockOffset = 0;
   bool _clockLoaded = false;
@@ -128,7 +134,8 @@ class ApiClient {
       options.contentType = Headers.jsonContentType;
     }
 
-    final timestamp = '${await serverTimeNow()}';
+    // Key rotation signs a proof over the exact timestamp it will send.
+    final timestamp = options.extra['timestamp'] as String? ?? '${await serverTimeNow()}';
     final nonce = _uuid.v4().replaceAll('-', '');
     final path = options.uri.path;
     final canonical = canonicalRequest(options.method, path, timestamp, nonce, sha256.convert(utf8.encode(body)).toString());
@@ -151,6 +158,19 @@ class ApiClient {
         return handler.resolve(retry);
       } on DioException catch (retryError) {
         return handler.next(retryError);
+      }
+    }
+
+    // Server requires a fresh device key (suspected compromise): rotate, then retry once.
+    if (error.code == 'key_rotation_required' && options.extra['rotated'] != true && onKeyRotationRequired != null) {
+      if (await onKeyRotationRequired!()) {
+        options.extra['rotated'] = true;
+        try {
+          final retry = await dio.fetch<dynamic>(options..data = options.data is String ? jsonDecode(options.data as String) : options.data);
+          return handler.resolve(retry);
+        } on DioException catch (retryError) {
+          return handler.next(retryError);
+        }
       }
     }
 

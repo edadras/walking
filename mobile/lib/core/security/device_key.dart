@@ -17,6 +17,24 @@ abstract class DeviceKey {
 
   /// Play Integrity standard token bound to [requestHash], or null if unavailable.
   Future<String?> integrityToken(String requestHash, int cloudProjectNumber);
+
+  // Rotation (see DeviceIdentity.rotateKey): a pending key is created and used
+  // for the proof; the active key is replaced only after the server accepted it.
+
+  /// Creates (or reuses) the pending key and returns its base64 DER public key.
+  Future<String> pendingPublicKey();
+
+  /// Signs with the pending key.
+  Future<String> signPending(Uint8List data);
+
+  /// Makes the pending key active and deletes the old one.
+  Future<void> commitPending();
+
+  /// Drops an unused pending key.
+  Future<void> discardPending();
+
+  /// When the active key was created (for age-based rotation).
+  Future<DateTime?> keyCreatedAt();
 }
 
 class DeviceSignals {
@@ -44,6 +62,24 @@ class KeystoreDeviceKey implements DeviceKey {
       rooted: m['rooted'] == true,
       hardwareBacked: m['hardwareBacked'] == true,
     );
+  }
+
+  @override
+  Future<String> pendingPublicKey() async => (await _channel.invokeMethod<String>('pendingPublicKey'))!;
+
+  @override
+  Future<String> signPending(Uint8List data) async => (await _channel.invokeMethod<String>('signPending', {'data': data}))!;
+
+  @override
+  Future<void> commitPending() => _channel.invokeMethod<bool>('commitPending');
+
+  @override
+  Future<void> discardPending() => _channel.invokeMethod<bool>('discardPending');
+
+  @override
+  Future<DateTime?> keyCreatedAt() async {
+    final ms = await _channel.invokeMethod<int>('keyCreatedAt');
+    return ms == null || ms == 0 ? null : DateTime.fromMillisecondsSinceEpoch(ms);
   }
 
   @override

@@ -3,17 +3,22 @@
 namespace App\Models;
 
 use App\Enums\SponsorRole;
+use App\Models\Concerns\HasTotp;
+use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
+use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthenticationRecovery;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class SponsorUser extends Authenticatable implements FilamentUser, HasName
+class SponsorUser extends Authenticatable implements FilamentUser, HasAppAuthentication, HasAppAuthenticationRecovery, HasName
 {
+    use HasTotp;
+
     protected $fillable = ['sponsor_id', 'name', 'email', 'phone', 'password', 'role', 'is_active', 'last_login_at'];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'two_factor_secret', 'two_factor_recovery_codes'];
 
     /** Mirrors the column defaults so freshly created models are complete. */
     protected $attributes = ['is_active' => true, 'role' => 'owner'];
@@ -24,6 +29,8 @@ class SponsorUser extends Authenticatable implements FilamentUser, HasName
             'role' => SponsorRole::class,
             'is_active' => 'boolean',
             'password' => 'hashed',
+            'two_factor_secret' => 'encrypted',
+            'two_factor_recovery_codes' => 'encrypted:array',
             'last_login_at' => 'datetime',
         ];
     }

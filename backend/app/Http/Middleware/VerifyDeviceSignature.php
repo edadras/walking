@@ -36,6 +36,11 @@ class VerifyDeviceSignature
 
         $this->guard->assertValid($request, $device->public_key, 'd'.$device->id);
 
+        // After a suspected compromise only the rotation itself is accepted (with the current key).
+        if ($device->key_rotation_required && ! $request->routeIs('api.v1.devices.rotate-key')) {
+            throw new ApiException('key_rotation_required', 'برای ادامه، کلید امنیتی دستگاه باید تازه شود.', 428);
+        }
+
         $request->attributes->set('device', $device);
 
         return $next($request);

@@ -64,4 +64,30 @@ class FakeDeviceKey implements DeviceKey {
 
   @override
   Future<String?> integrityToken(String requestHash, int cloudProjectNumber) async => null;
+
+  /// Rotation: the pending key "signs" with a different secret.
+  bool hasPending = false;
+  bool committed = false;
+  DateTime? createdAt;
+
+  @override
+  Future<String> pendingPublicKey() async {
+    hasPending = true;
+    return base64Encode(List.filled(91, 2));
+  }
+
+  @override
+  Future<String> signPending(Uint8List data) async => base64Encode(Hmac(sha256, utf8.encode('pending-key')).convert(data).bytes);
+
+  @override
+  Future<void> commitPending() async {
+    committed = hasPending;
+    hasPending = false;
+  }
+
+  @override
+  Future<void> discardPending() async => hasPending = false;
+
+  @override
+  Future<DateTime?> keyCreatedAt() async => createdAt;
 }

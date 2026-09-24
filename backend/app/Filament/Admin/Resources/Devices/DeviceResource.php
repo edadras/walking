@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\Devices;
 
+use App\Domain\Audit\AuditLogger;
 use App\Domain\User\UserModeration;
 use App\Enums\DeviceStatus;
 use App\Enums\IntegrityVerdict;
@@ -90,6 +91,15 @@ class DeviceResource extends Resource
                             auth('admin')->user(),
                         );
                         Notification::make()->title('وضعیت دستگاه به‌روزرسانی شد.')->success()->send();
+                    }),
+                Action::make('require_rotation')->label('الزام تعویض کلید')->color('warning')->icon('heroicon-o-key')
+                    ->visible(fn (Device $record) => static::allows('devices.moderate') && ! $record->key_rotation_required)
+                    ->requiresConfirmation()
+                    ->modalDescription('تا زمانی که اپ کلید جدید بسازد و ثبت کند، درخواست‌های امضاشده این دستگاه پذیرفته نمی‌شوند.')
+                    ->action(function (Device $record) {
+                        $record->forceFill(['key_rotation_required' => true])->save();
+                        app(AuditLogger::class)->log('device.key_rotation_required', $record);
+                        Notification::make()->title('تعویض کلید در اولین درخواست بعدی انجام می‌شود.')->success()->send();
                     }),
             ]);
     }

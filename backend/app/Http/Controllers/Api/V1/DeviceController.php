@@ -6,6 +6,7 @@ use App\Domain\Device\Actions\RegisterDevice;
 use App\Domain\Device\RequestSignature;
 use App\Domain\Device\SignatureGuard;
 use App\Exceptions\ApiException;
+use App\Domain\Device\Actions\RotateDeviceKey;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\RegisterDeviceRequest;
 use App\Http\Requests\Api\V1\UpdatePushTokenRequest;
@@ -42,6 +43,15 @@ class DeviceController extends Controller
         ])->save();
 
         return response()->noContent();
+    }
+
+    /** Rotates the device key (signed with the current key; proof signed with the new one). */
+    public function rotateKey(Request $request, RotateDeviceKey $rotate): JsonResponse
+    {
+        $data = $request->validate(['public_key' => ['required', 'string', 'max:2000'], 'proof' => ['required', 'string', 'max:200']]);
+        $device = $rotate->handle($request->attributes->get('device'), $data['public_key'], $data['proof'], (string) $request->header('X-Timestamp'));
+
+        return response()->json(['data' => ['device_id' => $device->public_id, 'key_version' => $device->key_version]]);
     }
 
     /** Lets the app detect clock skew before signing anything. */
