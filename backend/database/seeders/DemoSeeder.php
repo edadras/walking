@@ -16,6 +16,7 @@ use App\Enums\ChallengeType;
 use App\Enums\CouponStatus;
 use App\Enums\DiscountType;
 use App\Enums\LocationStatus;
+use App\Enums\ProductType;
 use App\Enums\SessionKind;
 use App\Enums\SessionRewardStatus;
 use App\Enums\SessionStatus;
@@ -28,12 +29,15 @@ use App\Models\AdCampaign;
 use App\Models\Admin;
 use App\Models\AdPlacement;
 use App\Models\Campaign;
+use App\Models\Category;
 use App\Models\Challenge;
 use App\Models\Coupon;
 use App\Models\Device;
 use App\Models\FeatureFlag;
 use App\Models\Location;
 use App\Models\PointTransaction;
+use App\Models\Product;
+use App\Models\ProductCode;
 use App\Models\Sponsor;
 use App\Models\SponsorUser;
 use App\Models\User;
@@ -66,6 +70,7 @@ class DemoSeeder extends Seeder
 
         $this->seedSponsor();
         $this->seedAds();
+        $this->seedStore();
 
         // Deterministic "randomness" so every seed produces the same demo world.
         mt_srand(1405);
@@ -137,6 +142,38 @@ class DemoSeeder extends Seeder
             Ad::query()->create(['ad_campaign_id' => $campaign->id, ...$ad]);
         }
         app(FeatureFlags::class)->flush();
+    }
+
+    /** A small catalogue covering every product type. Demo codes only exist in non-production seeds. */
+    private function seedStore(): void
+    {
+        if (Product::query()->exists()) {
+            return;
+        }
+        $cat = fn (string $slug, string $name, int $sort) => Category::query()->firstOrCreate(['slug' => $slug], ['name' => $name, 'sort' => $sort]);
+        $gift = $cat('gift-cards', 'کارت هدیه', 1);
+        $sport = $cat('sport', 'ورزشی', 2);
+        $coupons = $cat('coupons', 'کوپن تخفیف', 3);
+        $charity = $cat('charity', 'نیکوکاری', 4);
+
+        $card = Product::query()->create(['category_id' => $gift->id, 'name' => 'کارت هدیه ۵۰۰ هزار ریالی', 'slug' => 'gift-card-500k', 'type' => ProductType::DigitalCode,
+            'summary' => 'قابل استفاده در فروشگاه‌های طرف قرارداد', 'point_price' => 1200, 'max_per_user' => 2, 'is_active' => true, 'sort' => 1]);
+        foreach (range(1, 20) as $i) {
+            $code = sprintf('DEMO-%04d-%04d', $card->id, $i);
+            ProductCode::query()->create(['product_id' => $card->id, 'code' => $code, 'code_hash' => ProductCode::hashOf($code)]);
+        }
+        $card->syncCodeStock();
+
+        Product::query()->create(['category_id' => $sport->id, 'name' => 'قمقمه ورزشی ۷۵۰ میلی‌لیتری', 'slug' => 'sport-bottle', 'type' => ProductType::Physical,
+            'summary' => 'فولادی، دوجداره', 'description' => '<p>آب را تا ۱۲ ساعت خنک نگه می‌دارد.</p>', 'point_price' => 2500, 'stock' => 40, 'is_active' => true, 'sort' => 2]);
+        Product::query()->create(['category_id' => $sport->id, 'name' => 'جوراب ورزشی (سه جفت)', 'slug' => 'sport-socks', 'type' => ProductType::Physical,
+            'point_price' => 900, 'stock' => 100, 'min_level' => 3, 'is_active' => true, 'sort' => 3]);
+        if ($coupon = Coupon::query()->where('title', 'یک کلوچه رایگان')->first()) {
+            Product::query()->create(['category_id' => $coupons->id, 'sponsor_id' => $coupon->sponsor_id, 'coupon_id' => $coupon->id, 'name' => 'کلوچه رایگان کافه قدم', 'slug' => 'cafe-cookie',
+                'type' => ProductType::Coupon, 'point_price' => 150, 'max_per_user' => 1, 'is_active' => true, 'sort' => 4]);
+        }
+        Product::query()->create(['category_id' => $charity->id, 'name' => 'کاشت یک نهال', 'slug' => 'plant-a-tree', 'type' => ProductType::Service,
+            'summary' => 'امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود', 'point_price' => 500, 'is_active' => true, 'sort' => 5]);
     }
 
     /**

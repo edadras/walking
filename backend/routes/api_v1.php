@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\ActivityController;
 use App\Http\Controllers\Api\V1\AdController;
+use App\Http\Controllers\Api\V1\AddressController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ChallengeController;
@@ -12,9 +13,11 @@ use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\GamificationController;
 use App\Http\Controllers\Api\V1\HealthController;
 use App\Http\Controllers\Api\V1\NotificationController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\RewardController;
 use App\Http\Controllers\Api\V1\SponsorOfferController;
+use App\Http\Controllers\Api\V1\StoreController;
 use App\Http\Controllers\Api\V1\VisitController;
 use App\Http\Controllers\Api\V1\WalkingSessionController;
 use App\Http\Controllers\Api\V1\WalletController;
@@ -112,6 +115,20 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
         Route::post('ads/rewarded/start', [AdController::class, 'startRewarded']);
         Route::post('ads/rewarded/{view}/complete', [AdController::class, 'completeRewarded']);
     });
+
+    Route::get('store/categories', [StoreController::class, 'categories']);
+    Route::get('store/products', [StoreController::class, 'products']);
+    Route::get('store/products/{product}', [StoreController::class, 'product']);
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('orders/{order}', [OrderController::class, 'show']);
+    Route::middleware(['signed.device', 'throttle:purchase'])->group(function () {
+        Route::post('orders', [OrderController::class, 'store']);
+        Route::post('orders/{order}/cancel', [OrderController::class, 'cancel']);
+    });
+    Route::get('addresses', [AddressController::class, 'index']);
+    Route::post('addresses', [AddressController::class, 'store']);
+    Route::patch('addresses/{address}', [AddressController::class, 'update']);
+    Route::delete('addresses/{address}', [AddressController::class, 'destroy']);
 
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::post('notifications/read', [NotificationController::class, 'read']);

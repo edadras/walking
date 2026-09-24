@@ -22,8 +22,10 @@ use App\Models\DailyActivity;
 use App\Models\Device;
 use App\Models\FraudCase;
 use App\Models\Location;
+use App\Models\Order;
 use App\Models\PersonalAccessToken;
 use App\Models\PointTransaction;
+use App\Models\Product;
 use App\Models\Sponsor;
 use App\Models\SponsorUser;
 use App\Models\User;
@@ -101,6 +103,8 @@ class AppServiceProvider extends ServiceProvider
             'user_coupon' => UserCoupon::class,
             'ad_campaign' => AdCampaign::class,
             'ad_view' => AdView::class,
+            'order' => Order::class,
+            'product' => Product::class,
         ]);
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
@@ -115,6 +119,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('api', fn (Request $r) => Limit::perMinute(120)->by('u:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('sessions', fn (Request $r) => Limit::perMinute(30)->by('sess:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('visits', fn (Request $r) => Limit::perMinute(60)->by('visit:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('purchase', fn (Request $r) => Limit::perMinute(10)->by('buy:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('ads', fn (Request $r) => Limit::perMinute(60)->by('ads:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }
