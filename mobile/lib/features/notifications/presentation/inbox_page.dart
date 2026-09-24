@@ -19,6 +19,7 @@ IconData _icon(InboxItem n) => switch (n.data['type']) {
       'challenge' => Icons.flag_circle_outlined,
       'visit' => Icons.storefront_outlined,
       'order' => Icons.receipt_long_outlined,
+      'support' => Icons.support_agent_rounded,
       _ => n.category == 'reward_received' ? Icons.toll_rounded : Icons.campaign_outlined,
     };
 
@@ -30,6 +31,7 @@ String? _route(InboxItem n) => switch (n.data['type']) {
       'challenge' when n.data['id'] is String => '/challenges/${n.data['id']}',
       'visit' => '/coupons',
       'order' when n.data['id'] is String => '/orders/${n.data['id']}',
+      'support' when n.data['id'] is String => '/support/${n.data['id']}',
       _ => null,
     };
 

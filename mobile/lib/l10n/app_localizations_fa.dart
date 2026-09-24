@@ -1471,4 +1471,57 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get profileAddresses => 'نشانی‌ها';
+
+  @override
+  String get supportTitle => 'پشتیبانی';
+
+  @override
+  String get supportEmpty =>
+      'درخواستی ثبت نکرده‌ای. اگر مشکلی داری، اینجا بنویس.';
+
+  @override
+  String get supportNew => 'درخواست جدید';
+
+  @override
+  String get supportFaqHint => 'شاید جوابت در سوالات متداول باشد.';
+
+  @override
+  String get supportFaqOpen => 'سوالات متداول';
+
+  @override
+  String get supportCategory => 'موضوع کلی';
+
+  @override
+  String get supportSubject => 'عنوان';
+
+  @override
+  String get supportBody => 'شرح مشکل';
+
+  @override
+  String get supportBodyHint =>
+      'هرچه دقیق‌تر بنویسی (تاریخ، مقدار، شماره سفارش)، سریع‌تر پاسخ می‌گیری.';
+
+  @override
+  String get supportSend => 'ارسال';
+
+  @override
+  String get supportReplyHint => 'پاسخ تو…';
+
+  @override
+  String get supportClose => 'بستن درخواست';
+
+  @override
+  String get supportClosed => 'این درخواست بسته شده است.';
+
+  @override
+  String get supportMe => 'تو';
+
+  @override
+  String get supportAgent => 'پشتیبانی گام‌یار';
+
+  @override
+  String get supportTooShort => 'کمی بیشتر توضیح بده (حداقل ۱۰ حرف).';
+
+  @override
+  String get profileSupport => 'پشتیبانی';
 }

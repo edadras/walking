@@ -126,6 +126,7 @@ class ProfilePage extends ConsumerWidget {
           tile(Icons.toll_outlined, l.profileHowToEarn, onTap: () => context.push('/page/how-to-earn')),
           tile(Icons.rule_rounded, l.profileRewardRules, onTap: () => context.push('/page/reward-rules')),
           tile(Icons.help_outline_rounded, l.profileFaq, onTap: () => context.push('/faq')),
+          tile(Icons.support_agent_rounded, l.profileSupport, onTap: () => context.push('/support')),
           tile(Icons.gavel_rounded, l.profileTerms, onTap: () => context.push('/page/terms')),
           tile(Icons.privacy_tip_outlined, l.profilePrivacy, onTap: () => context.push('/page/privacy')),
           tile(Icons.info_outline_rounded, l.profileAbout, onTap: () => context.push('/page/about')),

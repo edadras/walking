@@ -2655,6 +2655,108 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'نشانی‌ها'**
   String get profileAddresses;
+
+  /// No description provided for @supportTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'پشتیبانی'**
+  String get supportTitle;
+
+  /// No description provided for @supportEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواستی ثبت نکرده‌ای. اگر مشکلی داری، اینجا بنویس.'**
+  String get supportEmpty;
+
+  /// No description provided for @supportNew.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست جدید'**
+  String get supportNew;
+
+  /// No description provided for @supportFaqHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'شاید جوابت در سوالات متداول باشد.'**
+  String get supportFaqHint;
+
+  /// No description provided for @supportFaqOpen.
+  ///
+  /// In fa, this message translates to:
+  /// **'سوالات متداول'**
+  String get supportFaqOpen;
+
+  /// No description provided for @supportCategory.
+  ///
+  /// In fa, this message translates to:
+  /// **'موضوع کلی'**
+  String get supportCategory;
+
+  /// No description provided for @supportSubject.
+  ///
+  /// In fa, this message translates to:
+  /// **'عنوان'**
+  String get supportSubject;
+
+  /// No description provided for @supportBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'شرح مشکل'**
+  String get supportBody;
+
+  /// No description provided for @supportBodyHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'هرچه دقیق‌تر بنویسی (تاریخ، مقدار، شماره سفارش)، سریع‌تر پاسخ می‌گیری.'**
+  String get supportBodyHint;
+
+  /// No description provided for @supportSend.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارسال'**
+  String get supportSend;
+
+  /// No description provided for @supportReplyHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'پاسخ تو…'**
+  String get supportReplyHint;
+
+  /// No description provided for @supportClose.
+  ///
+  /// In fa, this message translates to:
+  /// **'بستن درخواست'**
+  String get supportClose;
+
+  /// No description provided for @supportClosed.
+  ///
+  /// In fa, this message translates to:
+  /// **'این درخواست بسته شده است.'**
+  String get supportClosed;
+
+  /// No description provided for @supportMe.
+  ///
+  /// In fa, this message translates to:
+  /// **'تو'**
+  String get supportMe;
+
+  /// No description provided for @supportAgent.
+  ///
+  /// In fa, this message translates to:
+  /// **'پشتیبانی گام‌یار'**
+  String get supportAgent;
+
+  /// No description provided for @supportTooShort.
+  ///
+  /// In fa, this message translates to:
+  /// **'کمی بیشتر توضیح بده (حداقل ۱۰ حرف).'**
+  String get supportTooShort;
+
+  /// No description provided for @profileSupport.
+  ///
+  /// In fa, this message translates to:
+  /// **'پشتیبانی'**
+  String get profileSupport;
 }
 
 class _AppLocalizationsDelegate

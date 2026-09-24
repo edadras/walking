@@ -973,5 +973,22 @@
   "addressInvalidPostal": "کد پستی باید ۱۰ رقم باشد.",
   "fieldRequired": "این فیلد لازم است.",
   "profileOrders": "سفارش‌های من",
-  "profileAddresses": "نشانی‌ها"
+  "profileAddresses": "نشانی‌ها",
+  "supportTitle": "پشتیبانی",
+  "supportEmpty": "درخواستی ثبت نکرده‌ای. اگر مشکلی داری، اینجا بنویس.",
+  "supportNew": "درخواست جدید",
+  "supportFaqHint": "شاید جوابت در سوالات متداول باشد.",
+  "supportFaqOpen": "سوالات متداول",
+  "supportCategory": "موضوع کلی",
+  "supportSubject": "عنوان",
+  "supportBody": "شرح مشکل",
+  "supportBodyHint": "هرچه دقیق‌تر بنویسی (تاریخ، مقدار، شماره سفارش)، سریع‌تر پاسخ می‌گیری.",
+  "supportSend": "ارسال",
+  "supportReplyHint": "پاسخ تو…",
+  "supportClose": "بستن درخواست",
+  "supportClosed": "این درخواست بسته شده است.",
+  "supportMe": "تو",
+  "supportAgent": "پشتیبانی گام‌یار",
+  "supportTooShort": "کمی بیشتر توضیح بده (حداقل ۱۰ حرف).",
+  "profileSupport": "پشتیبانی"
 }

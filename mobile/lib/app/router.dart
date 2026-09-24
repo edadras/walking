@@ -32,6 +32,7 @@ import '../features/sponsors/presentation/nearby_page.dart';
 import '../features/sponsors/presentation/qr_scan_page.dart';
 import '../features/sponsors/presentation/visit_page.dart';
 import '../features/store/data/store_models.dart';
+import '../features/support/presentation/support_pages.dart';
 import '../features/store/presentation/addresses_page.dart';
 import '../features/store/presentation/orders_page.dart';
 import '../features/store/presentation/product_page.dart';
@@ -94,6 +95,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/scan-qr', builder: (_, _) => const QrScanPage()),
       GoRoute(path: '/coupons', builder: (_, _) => const CouponsPage()),
       GoRoute(path: '/rewarded-ad', builder: (_, _) => const RewardedAdPage()),
+      GoRoute(path: '/support', builder: (_, _) => const SupportPage()),
+      GoRoute(path: '/support/new', builder: (_, _) => const NewTicketPage()),
+      GoRoute(path: '/support/:id', builder: (_, s) => TicketPage(id: s.pathParameters['id']!)),
       GoRoute(path: '/orders', builder: (_, _) => const OrdersPage()),
       GoRoute(path: '/orders/:id', builder: (_, s) => OrderDetailPage(id: s.pathParameters['id']!)),
       GoRoute(path: '/addresses', builder: (_, _) => const AddressesPage()),

@@ -12,7 +12,7 @@
 | 5 | Sponsors، Locations، Campaigns، Visits (Geofence + Stay + Rotating QR)، Coupons، Sponsor Panel | [phase-5.md](../phase-5.md) | ✅ |
 | 6 | Advertising: Placement، Internal ads، Provider adapters (Yektanet/AdSell پس از بررسی مستندات رسمی)، Rewarded S2S | [phase-6.md](../phase-6.md) | ✅ |
 | 7 | Store، Products، Orders، Point purchase (Atomic)، Addresses، Payment adapter (Flag) | [phase-7.md](../phase-7.md) | ✅ |
-| 8 | Admin analytics، Sponsor analytics، Fraud dashboard کامل، Reports، Support tickets، CMS | | ⏳ |
+| 8 | Admin analytics، Sponsor analytics، Fraud dashboard کامل، Reports، Support tickets، CMS | [phase-8.md](../phase-8.md) | ✅ |
 | 9 | Security hardening (Cert pinning، Admin 2FA، Key rotation)، Performance (Partitioning، Horizon)، Load test، Deployment (Docker، CI) | | ⏳ |
 
 ## وابستگی‌ها

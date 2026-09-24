@@ -90,7 +90,15 @@ void main() {
 
   tearDown(() => queue.close());
 
-  DateTime t(int minutesAgo) => DateTime.now().toUtc().subtract(Duration(minutes: minutesAgo));
+  // Readings are placed in a window that never straddles local midnight, so the
+  // result doesn't depend on when the suite runs (a split day = two sessions).
+  DateTime anchor() {
+    final now = tz.TZDateTime.now(tz.getLocation('Asia/Tehran'));
+    final midnight = tz.TZDateTime(now.location, now.year, now.month, now.day);
+    return (now.difference(midnight) < const Duration(hours: 3) ? midnight.subtract(const Duration(minutes: 5)) : now).toUtc();
+  }
+
+  DateTime t(int minutesAgo) => anchor().subtract(Duration(minutes: minutesAgo));
 
   test('collects readings, queues sessions, then acknowledges the readings', () async {
     platform.readings = [StepReading(time: t(40), counter: 100, bootCount: 1), StepReading(time: t(20), counter: 900, bootCount: 1)];
