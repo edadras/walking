@@ -70,6 +70,16 @@ return [
         'referral.referrer_points' => ['value' => 200, 'group' => 'referral', 'public' => true, 'description' => 'پاداش دعوت‌کننده'],
         'referral.referee_points' => ['value' => 100, 'group' => 'referral', 'public' => true, 'description' => 'پاداش دعوت‌شده'],
 
+        // Sponsored location visits
+        'visits.max_accuracy_m' => ['value' => 80, 'group' => 'visits', 'public' => true, 'description' => 'حداکثر خطای GPS قابل قبول (متر)'],
+        'visits.accuracy_allowance_m' => ['value' => 30, 'group' => 'visits', 'public' => false, 'description' => 'حداکثر خطای GPS که به شعاع مکان اضافه می‌شود (متر)'],
+        'visits.ping_interval_s' => ['value' => 30, 'group' => 'visits', 'public' => true, 'description' => 'فاصله ارسال موقعیت در حین بازدید (ثانیه)'],
+        'visits.max_ping_gap_s' => ['value' => 120, 'group' => 'visits', 'public' => false, 'description' => 'بیشترین فاصله دو Ping که زمان حضور محسوب می‌شود (ثانیه)'],
+        'visits.max_speed_mps' => ['value' => 45, 'group' => 'visits', 'public' => false, 'description' => 'سرعت جابه‌جایی غیرممکن بین دو Ping (متر بر ثانیه)'],
+        'visits.expire_minutes' => ['value' => 20, 'group' => 'visits', 'public' => false, 'description' => 'انقضای بازدید بدون Ping (دقیقه)'],
+        'visits.qr_window_s' => ['value' => 30, 'group' => 'visits', 'public' => false, 'description' => 'طول هر پنجره QR چرخشی (ثانیه)'],
+        'visits.nearby_max_km' => ['value' => 20, 'group' => 'visits', 'public' => false, 'description' => 'حداکثر شعاع جستجوی مکان‌های اطراف (کیلومتر)'],
+
         // Account
         'account.deletion_grace_days' => ['value' => 14, 'group' => 'account', 'public' => true, 'description' => 'مهلت انصراف از حذف حساب'],
     ],

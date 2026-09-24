@@ -8,16 +8,28 @@ use App\Domain\Gamification\ProgressService;
 use App\Domain\Reward\RewardEngine;
 use App\Domain\Wallet\WalletService;
 use App\Enums\AdminRole;
+use App\Enums\CampaignStatus;
 use App\Enums\ChallengeStatus;
 use App\Enums\ChallengeType;
+use App\Enums\CouponStatus;
+use App\Enums\DiscountType;
+use App\Enums\LocationStatus;
 use App\Enums\SessionKind;
 use App\Enums\SessionRewardStatus;
 use App\Enums\SessionStatus;
+use App\Enums\SponsorRole;
+use App\Enums\SponsorStatus;
 use App\Enums\TransactionStatus;
+use App\Enums\VerificationMethod;
 use App\Models\Admin;
+use App\Models\Campaign;
 use App\Models\Challenge;
+use App\Models\Coupon;
 use App\Models\Device;
+use App\Models\Location;
 use App\Models\PointTransaction;
+use App\Models\Sponsor;
+use App\Models\SponsorUser;
 use App\Models\User;
 use App\Models\WalkingSession;
 use Carbon\CarbonImmutable;
@@ -46,6 +58,8 @@ class DemoSeeder extends Seeder
             Challenge::query()->firstOrCreate(['title' => $challenge['title']], [...$challenge, 'status' => ChallengeStatus::Active, 'created_by_type' => 'admin']);
         }
 
+        $this->seedSponsor();
+
         // Deterministic "randomness" so every seed produces the same demo world.
         mt_srand(1405);
 
@@ -63,6 +77,37 @@ class DemoSeeder extends Seeder
                 $this->seedWalkingHistory($user, fitness: 0.6 + ($i % 5) * 0.2);
             }
         }
+    }
+
+    /** An approved café with two Tehran branches, a QR campaign and a coupon (login: sponsor@gamyar.test / password). */
+    private function seedSponsor(): void
+    {
+        if (Sponsor::query()->where('name', 'کافه قدم')->exists()) {
+            return;
+        }
+        $sponsor = Sponsor::query()->create(['name' => 'کافه قدم', 'description' => 'قهوه تازه برای قدم‌زن‌ها', 'status' => SponsorStatus::Approved, 'approved_at' => now()]);
+        $sponsor->forceFill(['point_budget' => 50_000])->save();
+        SponsorUser::query()->create(['sponsor_id' => $sponsor->id, 'name' => 'مالک کافه', 'email' => 'sponsor@gamyar.test', 'password' => 'password', 'role' => SponsorRole::Owner]);
+        SponsorUser::query()->create(['sponsor_id' => $sponsor->id, 'name' => 'صندوق‌دار', 'email' => 'cashier@gamyar.test', 'password' => 'password', 'role' => SponsorRole::Cashier]);
+
+        $branches = collect([
+            ['name' => 'شعبه پارک ملت', 'address' => 'خیابان ولیعصر، ضلع غربی پارک ملت', 'latitude' => 35.7790, 'longitude' => 51.4145],
+            ['name' => 'شعبه پل طبیعت', 'address' => 'بزرگراه مدرس، پل طبیعت', 'latitude' => 35.7545, 'longitude' => 51.4197],
+        ])->map(fn ($b) => Location::query()->create([...$b, 'sponsor_id' => $sponsor->id, 'city' => 'تهران', 'radius_m' => 60, 'status' => LocationStatus::Approved,
+            'opening_hours' => array_fill_keys(Location::DAYS, [['08:00', '23:00']])]));
+
+        $coupon = Coupon::query()->create(['sponsor_id' => $sponsor->id, 'title' => '۲۰٪ تخفیف نوشیدنی گرم', 'discount_type' => DiscountType::Percent, 'discount_value' => 20,
+            'terms' => 'فقط در شعبه‌های کافه قدم، یک بار.', 'valid_days' => 14, 'status' => CouponStatus::Active]);
+        Coupon::query()->create(['sponsor_id' => $sponsor->id, 'title' => 'یک کلوچه رایگان', 'discount_type' => DiscountType::FreeItem, 'discount_value' => 0,
+            'valid_days' => 30, 'claimable' => true, 'point_cost' => 150, 'usage_limit' => 500, 'status' => CouponStatus::Active]);
+
+        $campaign = Campaign::query()->create([
+            'sponsor_id' => $sponsor->id, 'name' => 'قدم بزن، قهوه بگیر', 'description' => 'به یکی از شعبه‌ها سر بزن، ۳ دقیقه بمان و QR صندوق را اسکن کن.',
+            'verification_method' => VerificationMethod::GeofenceQr, 'min_stay_seconds' => 180, 'reward_points' => 40, 'coupon_id' => $coupon->id,
+            'max_rewards_per_user' => 4, 'cooldown_hours' => 24, 'point_budget' => 20_000, 'starts_at' => now()->subDay(), 'ends_at' => now()->addMonth(),
+            'status' => CampaignStatus::Active, 'approved_at' => now(),
+        ]);
+        $campaign->locations()->attach($branches->pluck('id'));
     }
 
     /**

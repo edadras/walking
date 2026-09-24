@@ -6,12 +6,15 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ChallengeController;
 use App\Http\Controllers\Api\V1\ConfigController;
 use App\Http\Controllers\Api\V1\ContentController;
+use App\Http\Controllers\Api\V1\CouponController;
 use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\GamificationController;
 use App\Http\Controllers\Api\V1\HealthController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\RewardController;
+use App\Http\Controllers\Api\V1\SponsorOfferController;
+use App\Http\Controllers\Api\V1\VisitController;
 use App\Http\Controllers\Api\V1\WalkingSessionController;
 use App\Http\Controllers\Api\V1\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -83,6 +86,20 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::get('challenges', [ChallengeController::class, 'index']);
     Route::get('challenges/{challenge}', [ChallengeController::class, 'show']);
     Route::post('challenges/{challenge}/join', [ChallengeController::class, 'join'])->middleware('signed.device');
+
+    Route::get('locations/nearby', [SponsorOfferController::class, 'nearby']);
+    Route::get('campaigns/{campaign}', [SponsorOfferController::class, 'campaign']);
+    Route::get('visits', [VisitController::class, 'index']);
+    Route::get('visits/{visit}', [VisitController::class, 'show']);
+    Route::middleware(['signed.device', 'throttle:visits'])->group(function () {
+        Route::post('visits', [VisitController::class, 'store']);
+        Route::post('visits/{visit}/ping', [VisitController::class, 'ping']);
+        Route::post('visits/{visit}/qr', [VisitController::class, 'qr']);
+    });
+
+    Route::get('coupons', [CouponController::class, 'index']);
+    Route::get('coupons/{userCoupon}', [CouponController::class, 'show']);
+    Route::post('coupons/{coupon}/claim', [CouponController::class, 'claim'])->middleware('signed.device');
 
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::post('notifications/read', [NotificationController::class, 'read']);

@@ -14,12 +14,19 @@ use App\Domain\Notification\PushSender;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
 use App\Models\Admin;
+use App\Models\Campaign;
+use App\Models\Coupon;
 use App\Models\DailyActivity;
 use App\Models\Device;
 use App\Models\FraudCase;
+use App\Models\Location;
 use App\Models\PersonalAccessToken;
 use App\Models\PointTransaction;
+use App\Models\Sponsor;
+use App\Models\SponsorUser;
 use App\Models\User;
+use App\Models\UserCoupon;
+use App\Models\Visit;
 use App\Models\WalkingSession;
 use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -83,6 +90,13 @@ class AppServiceProvider extends ServiceProvider
             'daily_activity' => DailyActivity::class,
             'fraud_case' => FraudCase::class,
             'point_transaction' => PointTransaction::class,
+            'sponsor' => Sponsor::class,
+            'sponsor_user' => SponsorUser::class,
+            'location' => Location::class,
+            'campaign' => Campaign::class,
+            'visit' => Visit::class,
+            'coupon' => Coupon::class,
+            'user_coupon' => UserCoupon::class,
         ]);
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
@@ -96,6 +110,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('device-register', fn (Request $r) => Limit::perHour(20)->by('ip:'.$r->ip()));
         RateLimiter::for('api', fn (Request $r) => Limit::perMinute(120)->by('u:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('sessions', fn (Request $r) => Limit::perMinute(30)->by('sess:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('visits', fn (Request $r) => Limit::perMinute(60)->by('visit:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }
 }

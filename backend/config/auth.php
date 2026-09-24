@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Admin;
+use App\Models\SponsorUser;
 use App\Models\User;
 
 return [
@@ -49,6 +50,11 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'sponsor' => [
+            'driver' => 'session',
+            'provider' => 'sponsor_users',
+        ],
     ],
 
     /*
@@ -77,6 +83,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => Admin::class,
+        ],
+
+        'sponsor_users' => [
+            'driver' => 'eloquent',
+            'model' => SponsorUser::class,
         ],
 
         // 'users' => [
