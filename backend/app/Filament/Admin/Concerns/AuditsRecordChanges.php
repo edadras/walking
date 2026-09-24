@@ -34,6 +34,11 @@ trait AuditsRecordChanges
 
     protected function afterCreate(): void
     {
+        $this->auditCreate();
+    }
+
+    protected function auditCreate(): void
+    {
         $record = $this->getRecord();
         app(AuditLogger::class)->log(
             $this->auditAction('created', $record),

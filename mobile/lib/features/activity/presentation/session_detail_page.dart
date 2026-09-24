@@ -66,6 +66,17 @@ class _Body extends StatelessWidget {
             Text(s.verifiedSteps == null ? s.statusLabel : Fa.number(s.verifiedSteps!), style: context.text.titleSmall),
           ]),
         ),
+        if (s.confidenceScore != null) ...[
+          const SizedBox(height: AppSpacing.sm),
+          AppCard(
+            child: Row(children: [
+              Icon(Icons.insights_rounded, color: p.inkSubtle, size: 20),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(child: Text(l.sessionConfidence, style: context.text.bodyMedium)),
+              Text(Fa.percent(s.confidenceScore!), style: context.text.titleSmall),
+            ]),
+          ),
+        ],
         if (s.isActive) ...[
           SectionHeader(title: l.sessionPerMinute),
           if (s.samples.isEmpty)

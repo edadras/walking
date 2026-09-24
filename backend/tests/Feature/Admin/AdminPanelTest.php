@@ -3,13 +3,19 @@
 namespace Tests\Feature\Admin;
 
 use App\Domain\Settings\Settings;
+use App\Domain\Wallet\ConversionRate;
 use App\Enums\AdminRole;
 use App\Enums\UserStatus;
 use App\Filament\Admin\Pages\ManageSettings;
+use App\Filament\Admin\Resources\ConversionRates\Pages\ListConversionRates;
+use App\Filament\Admin\Resources\FraudCases\Pages\ViewFraudCase;
 use App\Filament\Admin\Resources\Users\Pages\ViewUser;
 use App\Models\Admin;
 use App\Models\AuditLog;
+use App\Models\FraudCase;
+use App\Models\PointConversionRate;
 use App\Models\User;
+use App\Models\Wallet;
 use Database\Seeders\PlatformSeeder;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -52,7 +58,7 @@ class AdminPanelTest extends TestCase
         $this->actingAsAdmin();
         User::factory()->count(3)->create();
 
-        foreach (['/admin', '/admin/users', '/admin/devices', '/admin/feature-flags', '/admin/settings', '/admin/audit-logs', '/admin/admins', '/admin/cms-pages', '/admin/faqs', '/admin/walking-sessions'] as $url) {
+        foreach (['/admin', '/admin/users', '/admin/devices', '/admin/feature-flags', '/admin/settings', '/admin/audit-logs', '/admin/admins', '/admin/cms-pages', '/admin/faqs', '/admin/walking-sessions', '/admin/fraud-rules', '/admin/fraud-cases', '/admin/reward-rules', '/admin/conversion-rates'] as $url) {
             $this->get($url)->assertOk();
         }
     }
@@ -106,6 +112,45 @@ class AdminPanelTest extends TestCase
         $user = User::factory()->create();
 
         Livewire::test(ViewUser::class, ['record' => $user->public_id])->assertActionHidden('ban');
+    }
+
+    public function test_fraud_case_decision_from_the_panel(): void
+    {
+        $this->actingAsAdmin(AdminRole::FraudAnalyst);
+        $user = User::factory()->create();
+        $case = FraudCase::query()->create(['user_id' => $user->id, 'risk_score' => 60, 'status' => 'open', 'reason' => 'x']);
+
+        $this->get('/admin/fraud-cases/'.$case->id)->assertOk();
+        Livewire::test(ViewFraudCase::class, ['record' => $case->id])
+            ->callAction('safe', data: ['note' => 'بررسی شد'])
+            ->assertHasNoActionErrors();
+
+        $this->assertSame('safe', $case->fresh()->status->value);
+        $this->assertTrue(AuditLog::query()->where('action', 'fraud_case.approved')->exists());
+    }
+
+    public function test_finance_adjusts_points_with_reason(): void
+    {
+        $this->actingAsAdmin(AdminRole::Finance);
+        $user = User::factory()->create();
+
+        Livewire::test(ViewUser::class, ['record' => $user->public_id])
+            ->callAction('adjust_points', data: ['delta' => 120, 'reason' => 'جبران'])
+            ->assertHasNoActionErrors();
+
+        $this->assertSame(120, Wallet::query()->find($user->id)->available_balance);
+    }
+
+    public function test_conversion_rate_change_is_append_only(): void
+    {
+        $this->actingAsAdmin(AdminRole::Finance);
+
+        Livewire::test(ListConversionRates::class)
+            ->callAction('new_rate', data: ['rial' => 650])
+            ->assertHasNoActionErrors();
+
+        $this->assertSame(650, app(ConversionRate::class)->current());
+        $this->assertSame(2, PointConversionRate::query()->count());
     }
 
     public function test_audit_logs_are_immutable(): void

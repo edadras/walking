@@ -76,6 +76,8 @@ class SkeletonList extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Shimmer(
         child: ListView.separated(
+          // Safe inside other scroll views (pages often nest AsyncView in a ListView).
+          shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsetsDirectional.all(AppSpacing.gutter),
           itemCount: rows,

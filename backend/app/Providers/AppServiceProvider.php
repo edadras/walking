@@ -10,10 +10,18 @@ use App\Domain\Device\Integrity\NullIntegrityVerifier;
 use App\Domain\Device\Integrity\PlayIntegrityVerifier;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
+use App\Models\Admin;
+use App\Models\DailyActivity;
+use App\Models\Device;
+use App\Models\FraudCase;
 use App\Models\PersonalAccessToken;
+use App\Models\PointTransaction;
+use App\Models\User;
+use App\Models\WalkingSession;
 use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -51,6 +59,20 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Listeners in app/Listeners are auto-discovered (WalkingSessionSubmitted → ScoreWalkingSession,
+        // WalkingSessionScored → IssueSessionReward); don't register them again here.
+
+        // Short, stable names in polymorphic columns (ledger sources, fraud subjects).
+        Relation::morphMap([
+            'user' => User::class,
+            'admin' => Admin::class,
+            'device' => Device::class,
+            'walking_session' => WalkingSession::class,
+            'daily_activity' => DailyActivity::class,
+            'fraud_case' => FraudCase::class,
+            'point_transaction' => PointTransaction::class,
+        ]);
+
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         // Storage stays UTC; panels display Iran time.

@@ -572,4 +572,158 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get walkFailed => 'شروع پیاده‌روی ممکن نشد. دوباره تلاش کن.';
+
+  @override
+  String get pointsUnit => 'امتیاز';
+
+  @override
+  String pointsPlus(String points) {
+    return '+$points امتیاز';
+  }
+
+  @override
+  String get homePointsCard => 'امتیاز امروز';
+
+  @override
+  String get homeWalletLink => 'کیف پول';
+
+  @override
+  String get walletTitle => 'کیف پول';
+
+  @override
+  String get walletAvailable => 'امتیاز قابل استفاده';
+
+  @override
+  String walletValue(String value) {
+    return 'ارزش تقریبی: $value';
+  }
+
+  @override
+  String get walletPending => 'در حال بررسی';
+
+  @override
+  String get walletPendingHint =>
+      'امتیازهای جدید پس از بررسی امنیتی قابل استفاده می‌شوند.';
+
+  @override
+  String walletNextRelease(String time) {
+    return 'آزادسازی بعدی: $time';
+  }
+
+  @override
+  String get walletLifetime => 'کل دریافتی';
+
+  @override
+  String get walletSpent => 'کل مصرف';
+
+  @override
+  String walletRate(String rial) {
+    return 'هر امتیاز ≈ $rial';
+  }
+
+  @override
+  String get walletHistory => 'تاریخچه';
+
+  @override
+  String get walletFilterAll => 'همه';
+
+  @override
+  String get walletFilterEarned => 'دریافتی';
+
+  @override
+  String get walletFilterSpent => 'مصرف';
+
+  @override
+  String get walletFilterPurchase => 'خرید';
+
+  @override
+  String get walletFilterReward => 'جایزه';
+
+  @override
+  String get walletFilterSponsor => 'اسپانسر';
+
+  @override
+  String get walletFilterAdjustment => 'اصلاح';
+
+  @override
+  String get walletEmpty => 'هنوز تراکنشی نداری';
+
+  @override
+  String get walletEmptyBody => 'با راه رفتن اولین امتیازت را بگیر.';
+
+  @override
+  String get walletReversed => 'لغو شد';
+
+  @override
+  String get rewardsTitle => 'جایزه‌ها';
+
+  @override
+  String get rewardsToday => 'امتیاز امروز';
+
+  @override
+  String rewardsTodayOf(String cap) {
+    return 'از سقف $cap امتیاز روزانه';
+  }
+
+  @override
+  String get rewardsHowTitle => 'چطور امتیاز بیشتری بگیری؟';
+
+  @override
+  String rewardsRate(String steps) {
+    return 'هر $steps قدم تأییدشده';
+  }
+
+  @override
+  String rewardsRemaining(String steps) {
+    return 'امروز تا $steps قدم دیگر امتیاز دارد';
+  }
+
+  @override
+  String get rewardsGoalBonus => 'رسیدن به هدف روزانه';
+
+  @override
+  String get rewardsGoalDone => 'دریافت شد';
+
+  @override
+  String rewardsStreak(String days) {
+    return '$days روز متوالی';
+  }
+
+  @override
+  String rewardsMultiplierNow(String factor) {
+    return 'الان ضریب ×$factor فعال است';
+  }
+
+  @override
+  String get rewardsUpcoming => 'روزهای ویژه';
+
+  @override
+  String get rewardsRecent => 'آخرین جایزه‌ها';
+
+  @override
+  String get rewardKindWalking => 'پاداش قدم';
+
+  @override
+  String get rewardKindGoal => 'پاداش هدف روزانه';
+
+  @override
+  String get rewardKindStreak => 'پاداش روزهای متوالی';
+
+  @override
+  String get rewardKindOther => 'جایزه';
+
+  @override
+  String get rewardPending => 'در حال بررسی';
+
+  @override
+  String get rewardDenied => 'سقف روزانه';
+
+  @override
+  String get rewardReversed => 'لغوشده';
+
+  @override
+  String get sessionConfidence => 'اطمینان';
+
+  @override
+  String get sessionReward => 'امتیاز این فعالیت';
 }

@@ -2,11 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Domain\Fraud\RuleRegistry;
+use App\Domain\Reward\RewardRules;
+use App\Domain\Wallet\ConversionRate;
 use App\Enums\AdminRole;
+use App\Enums\RewardRuleType;
 use App\Models\Admin;
 use App\Models\CmsPage;
 use App\Models\Faq;
 use App\Models\FeatureFlag;
+use App\Models\PointConversionRate;
+use App\Models\RewardRule;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -21,6 +27,19 @@ class PlatformSeeder extends Seeder
                 'description' => $definition['description'],
             ]);
         }
+
+        app(RuleRegistry::class)->sync();
+
+        if (PointConversionRate::query()->doesntExist()) {
+            app(ConversionRate::class)->set((int) config('walk.default_rial_per_point'));
+        }
+
+        if (RewardRule::query()->doesntExist()) {
+            foreach ($this->rewardRules() as $rule) {
+                RewardRule::query()->create($rule);
+            }
+        }
+        app(RewardRules::class)->flush();
 
         foreach ($this->pages() as $slug => [$title, $body]) {
             CmsPage::query()->firstOrCreate(['slug' => $slug], ['title' => $title, 'body' => $body]);
@@ -39,6 +58,20 @@ class PlatformSeeder extends Seeder
                 'role' => AdminRole::SuperAdmin,
             ]);
         }
+    }
+
+    /** Starting economy; every value is editable in the admin panel. */
+    private function rewardRules(): array
+    {
+        return [
+            ['name' => 'نرخ پایه: ۱۰۰۰ قدم = ۱۰ امتیاز', 'rule_type' => RewardRuleType::StepRate, 'steps' => 1000, 'points' => 10],
+            ['name' => 'سقف قدم پاداش‌دار روزانه', 'rule_type' => RewardRuleType::MaxRewardedSteps, 'cap' => 20000],
+            ['name' => 'سقف امتیاز روزانه', 'rule_type' => RewardRuleType::DailyCap, 'cap' => 300],
+            ['name' => 'سقف امتیاز هفتگی', 'rule_type' => RewardRuleType::WeeklyCap, 'cap' => 1500],
+            ['name' => 'پاداش هدف روزانه', 'rule_type' => RewardRuleType::GoalBonus, 'points' => 20],
+            ['name' => 'جمعه‌ها ×۱٫۵', 'rule_type' => RewardRuleType::Multiplier, 'days_of_week' => '5', 'multiplier' => 1.5],
+            ['name' => 'پاداش روزهای متوالی', 'rule_type' => RewardRuleType::StreakBonus, 'params' => ['7' => 30, '14' => 60, '30' => 150]],
+        ];
     }
 
     /** @return array<string, array{0:string,1:string}> */

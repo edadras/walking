@@ -64,6 +64,16 @@ abstract final class FaDate {
     return '${_months[j.month - 1]} ${Fa.digits(j.year)}';
   }
 
+  /// «۳ ساعت دیگر», «فردا», else the date.
+  static String relativeFuture(DateTime d, {DateTime? now}) {
+    final diff = d.difference(now ?? DateTime.now());
+    if (diff.inMinutes < 1) return 'همین حالا';
+    if (diff.inMinutes < 60) return '${Fa.digits(diff.inMinutes)} دقیقه دیگر';
+    if (diff.inHours < 24) return '${Fa.digits(diff.inHours)} ساعت دیگر';
+    if (diff.inDays < 2) return 'فردا';
+    return long(d);
+  }
+
   /// Relative time for lists: «همین حالا», «۵ دقیقه پیش», «دیروز», else the date.
   static String relative(DateTime d, {DateTime? now}) {
     final n = now ?? DateTime.now();

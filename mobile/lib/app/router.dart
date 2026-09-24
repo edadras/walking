@@ -17,7 +17,9 @@ import '../features/profile/presentation/devices_page.dart';
 import '../features/profile/presentation/edit_profile_page.dart';
 import '../features/profile/presentation/notifications_page.dart';
 import '../features/profile/presentation/profile_page.dart';
+import '../features/rewards/presentation/rewards_page.dart';
 import '../features/shell/presentation/app_shell.dart';
+import '../features/wallet/presentation/wallet_page.dart';
 import '../features/shell/presentation/splash_page.dart';
 
 /// Bridges Riverpod session changes to GoRouter's refreshListenable.
@@ -61,6 +63,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/page/:slug', builder: (_, state) => ContentPage(slug: state.pathParameters['slug']!)),
       GoRoute(path: '/faq', builder: (_, _) => const FaqPage()),
       GoRoute(path: '/walk', builder: (_, _) => const WalkPage()),
+      GoRoute(path: '/wallet', builder: (_, _) => const WalletPage()),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(shell: shell),
         branches: [
@@ -72,7 +75,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               routes: [GoRoute(path: 'session/:id', builder: (_, s) => SessionDetailPage(id: s.pathParameters['id']!))],
             ),
           ]),
-          StatefulShellBranch(routes: [GoRoute(path: '/rewards', builder: (c, _) => ComingNextPage(title: c.l10n.navRewards))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/rewards', builder: (_, _) => const RewardsPage())]),
           StatefulShellBranch(routes: [GoRoute(path: '/store', builder: (c, _) => ComingNextPage(title: c.l10n.navStore))]),
           StatefulShellBranch(routes: [
             GoRoute(

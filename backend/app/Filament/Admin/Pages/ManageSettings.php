@@ -33,6 +33,8 @@ class ManageSettings extends Page
         'activity' => 'فعالیت',
         'health' => 'سلامت',
         'account' => 'حساب کاربری',
+        'fraud' => 'ضد تقلب',
+        'reward' => 'پاداش',
     ];
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;

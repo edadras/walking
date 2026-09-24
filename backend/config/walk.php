@@ -12,6 +12,9 @@
 return [
     'panel_timezone' => env('PANEL_TIMEZONE', 'Asia/Tehran'),
 
+    // Used only until an admin records the first conversion rate.
+    'default_rial_per_point' => 500,
+
     'settings' => [
         // Auth
         'auth.otp_length' => ['value' => 5, 'group' => 'auth', 'public' => true, 'description' => 'تعداد ارقام کد یکبارمصرف'],
@@ -47,6 +50,15 @@ return [
         // Health
         'health.default_water_goal_ml' => ['value' => 2000, 'group' => 'health', 'public' => true, 'description' => 'هدف آب پیش‌فرض (میلی‌لیتر)'],
         'health.glass_ml' => ['value' => 250, 'group' => 'health', 'public' => true, 'description' => 'حجم هر لیوان'],
+
+        // Fraud
+        'fraud.review_threshold' => ['value' => 50, 'group' => 'fraud', 'public' => false, 'description' => 'آستانه بررسی دستی (ریسک)'],
+        'fraud.reject_threshold' => ['value' => 80, 'group' => 'fraud', 'public' => false, 'description' => 'آستانه رد خودکار (ریسک)'],
+        'fraud.rule_set_version' => ['value' => 1, 'group' => 'fraud', 'public' => false, 'description' => 'نسخه قوانین (خودکار با هر تغییر)'],
+
+        // Reward
+        'reward.hold_hours' => ['value' => 24, 'group' => 'reward', 'public' => true, 'description' => 'مدت بررسی امتیاز قبل از قابل استفاده شدن (ساعت)'],
+        'reward.max_multiplier' => ['value' => 3, 'group' => 'reward', 'public' => false, 'description' => 'حداکثر ضریب ترکیبی'],
 
         // Account
         'account.deletion_grace_days' => ['value' => 14, 'group' => 'account', 'public' => true, 'description' => 'مهلت انصراف از حذف حساب'],

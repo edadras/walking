@@ -7,7 +7,9 @@ use App\Http\Controllers\Api\V1\ConfigController;
 use App\Http\Controllers\Api\V1\ContentController;
 use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\ProfileController;
+use App\Http\Controllers\Api\V1\RewardController;
 use App\Http\Controllers\Api\V1\WalkingSessionController;
+use App\Http\Controllers\Api\V1\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +59,11 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
         Route::post('walking-sessions', [WalkingSessionController::class, 'store']);
         Route::post('walking-sessions/batch', [WalkingSessionController::class, 'batch']);
     });
+
+    Route::get('wallet', [WalletController::class, 'show']);
+    Route::get('wallet/transactions', [WalletController::class, 'transactions']);
+    Route::get('rewards', [RewardController::class, 'index']);
+    Route::get('rewards/{reward}', [RewardController::class, 'show']);
 
     Route::post('analytics/events', [AnalyticsController::class, 'store'])->middleware('throttle:analytics');
 });

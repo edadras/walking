@@ -3,6 +3,8 @@
 namespace App\Filament\Admin\Resources\Users;
 
 use App\Domain\User\UserModeration;
+use App\Domain\Wallet\InsufficientPoints;
+use App\Domain\Wallet\WalletService;
 use App\Enums\UserStatus;
 use App\Filament\Admin\Concerns\RequiresAbility;
 use App\Models\Admin;
@@ -11,6 +13,7 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
@@ -91,6 +94,12 @@ class UserResource extends Resource
                 TextEntry::make('created_at')->label('تاریخ عضویت')->dateTime(),
                 TextEntry::make('last_active_at')->label('آخرین فعالیت')->since()->placeholder('—'),
             ]),
+            Section::make('کیف پول')->columns(4)->schema([
+                TextEntry::make('wallet.available_balance')->label('قابل استفاده')->numeric()->placeholder('۰'),
+                TextEntry::make('wallet.pending_balance')->label('در حال بررسی')->numeric()->placeholder('۰'),
+                TextEntry::make('wallet.lifetime_earned')->label('کل دریافتی')->numeric()->placeholder('۰'),
+                TextEntry::make('wallet.lifetime_spent')->label('کل مصرف')->numeric()->placeholder('۰'),
+            ]),
             Section::make('پروفایل')->columns(4)->schema([
                 TextEntry::make('profile.birth_year')->label('سال تولد')->placeholder('—'),
                 TextEntry::make('profile.height_cm')->label('قد (cm)')->placeholder('—'),
@@ -117,6 +126,24 @@ class UserResource extends Resource
             });
 
         return [
+            Action::make('adjust_points')
+                ->label('اصلاح امتیاز')
+                ->color('gray')
+                ->visible(fn () => static::allows('wallet.adjust'))
+                ->requiresConfirmation()
+                ->modalDescription('هر اصلاح با دلیل، نام شما و موجودی قبل و بعد در دفتر امتیاز و گزارش عملیات ثبت می‌شود.')
+                ->schema([
+                    TextInput::make('delta')->label('مقدار (منفی برای کسر)')->numeric()->integer()->required()->notIn([0])->minValue(-1_000_000)->maxValue(1_000_000),
+                    Textarea::make('reason')->label('دلیل')->required()->maxLength(255),
+                ])
+                ->action(function (User $record, array $data) {
+                    try {
+                        app(WalletService::class)->adjust($record, (int) $data['delta'], $data['reason'], auth('admin')->user());
+                        Notification::make()->title('امتیاز اصلاح شد.')->success()->send();
+                    } catch (InsufficientPoints) {
+                        Notification::make()->title('موجودی قابل استفاده کافی نیست.')->danger()->send();
+                    }
+                }),
             $action('activate', 'فعال‌سازی', UserStatus::Active, 'success'),
             $action('suspend', 'تعلیق', UserStatus::Suspended, 'warning'),
             $action('ban', 'مسدودسازی', UserStatus::Banned, 'danger'),
@@ -125,7 +152,7 @@ class UserResource extends Resource
 
     public static function getRelations(): array
     {
-        return [RelationManagers\DevicesRelationManager::class, RelationManagers\DailyActivitiesRelationManager::class];
+        return [RelationManagers\DevicesRelationManager::class, RelationManagers\DailyActivitiesRelationManager::class, RelationManagers\PointTransactionsRelationManager::class];
     }
 
     public static function getPages(): array

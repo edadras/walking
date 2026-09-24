@@ -25,6 +25,7 @@ class WalkingSessionController extends Controller
             $request->user(),
             $request->attributes->get('device'),
             WalkingSessionRules::only($request->validated()),
+            (int) $request->attributes->get('clock_skew_seconds', 0),
         );
 
         return WalkingSessionResource::make($session)
@@ -52,7 +53,7 @@ class WalkingSessionController extends Controller
             }
 
             try {
-                [$session, $created] = $this->submit->handle($request->user(), $request->attributes->get('device'), WalkingSessionRules::only($validator->validated()));
+                [$session, $created] = $this->submit->handle($request->user(), $request->attributes->get('device'), WalkingSessionRules::only($validator->validated()), (int) $request->attributes->get('clock_skew_seconds', 0));
                 $results[] = ['client_session_id' => $id, 'status' => $created ? 'accepted' : 'duplicate', 'session_id' => $session->public_id];
             } catch (ApiException $e) {
                 $results[] = ['client_session_id' => $id, 'status' => 'rejected', 'error' => ['code' => $e->errorCode, 'message' => $e->getMessage()]];

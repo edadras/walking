@@ -33,8 +33,8 @@ enum AdminRole: string
         return match ($this) {
             self::SuperAdmin => ['*'],
             self::Operations => ['users.view', 'users.moderate', 'devices.view', 'content.manage', 'challenges.manage'],
-            self::FraudAnalyst => ['users.view', 'users.moderate', 'devices.view', 'devices.moderate', 'fraud.manage', 'audit.view'],
-            self::Finance => ['users.view', 'wallet.view', 'wallet.adjust', 'reports.view', 'audit.view'],
+            self::FraudAnalyst => ['users.view', 'users.moderate', 'devices.view', 'devices.moderate', 'fraud.manage', 'wallet.view', 'audit.view'],
+            self::Finance => ['users.view', 'wallet.view', 'wallet.adjust', 'rewards.manage', 'reports.view', 'audit.view'],
             self::StoreManager => ['store.manage', 'orders.manage', 'users.view'],
             self::SponsorManager => ['sponsors.manage', 'ads.manage'],
             self::Support => ['users.view', 'devices.view', 'support.manage'],

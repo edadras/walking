@@ -4,12 +4,16 @@ namespace Database\Seeders;
 
 use App\Domain\Activity\ActivityEstimator;
 use App\Domain\Activity\DailyActivityAggregator;
+use App\Domain\Reward\RewardEngine;
+use App\Domain\Wallet\WalletService;
 use App\Enums\AdminRole;
 use App\Enums\SessionKind;
 use App\Enums\SessionRewardStatus;
 use App\Enums\SessionStatus;
+use App\Enums\TransactionStatus;
 use App\Models\Admin;
 use App\Models\Device;
+use App\Models\PointTransaction;
 use App\Models\User;
 use App\Models\WalkingSession;
 use Carbon\CarbonImmutable;
@@ -105,5 +109,14 @@ class DemoSeeder extends Seeder
             $aggregator->refresh($user, $day->toDateString());
         }
         $device->forceFill(['last_sequence' => $sequence])->save();
+
+        // Real rewards through the engine; holds older than a day are released like the scheduler would.
+        $engine = app(RewardEngine::class);
+        $wallet = app(WalletService::class);
+        $user->walkingSessions()->orderBy('started_at')->each(fn (WalkingSession $s) => $engine->forSession($s));
+        PointTransaction::query()->where('user_id', $user->id)->where('status', TransactionStatus::Pending)->where('created_at', '<', now())
+            ->get()
+            ->filter(fn (PointTransaction $t) => $t->source_type !== 'walking_session' || WalkingSession::query()->find($t->source_id)?->started_at->lt(now()->subDay()))
+            ->each(fn (PointTransaction $t) => $wallet->release($t));
     }
 }

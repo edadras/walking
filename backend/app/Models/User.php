@@ -92,6 +92,21 @@ class User extends Authenticatable
         return $this->hasMany(DailyActivity::class);
     }
 
+    public function wallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
+    public function pointTransactions(): HasMany
+    {
+        return $this->hasMany(PointTransaction::class);
+    }
+
+    public function fraudCases(): HasMany
+    {
+        return $this->hasMany(FraudCase::class);
+    }
+
     public function referrer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'referred_by_id');

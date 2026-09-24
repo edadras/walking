@@ -1,3 +1,5 @@
+import '../../wallet/data/wallet_models.dart';
+
 int _i(Object? v) => (v as num?)?.toInt() ?? 0;
 double _d(Object? v) => (v as num?)?.toDouble() ?? 0;
 
@@ -49,6 +51,7 @@ class HomeToday {
     required this.activeMinutes,
     required this.goalReached,
     required this.lastSyncedAt,
+    this.points = 0,
   });
 
   factory HomeToday.fromJson(Map<String, dynamic> j) => HomeToday(
@@ -61,6 +64,7 @@ class HomeToday {
         caloriesKcal: _d(j['calories_kcal']),
         activeMinutes: _i(j['active_minutes']),
         goalReached: j['goal_reached'] == true,
+        points: _i(j['points']),
         lastSyncedAt: DateTime.tryParse(j['last_synced_at'] as String? ?? ''),
       );
 
@@ -74,6 +78,7 @@ class HomeToday {
   final int activeMinutes;
   final bool goalReached;
   final DateTime? lastSyncedAt;
+  final int points;
 }
 
 class WeekDay {
@@ -85,7 +90,7 @@ class WeekDay {
 }
 
 class HomeData {
-  const HomeData({required this.today, required this.week});
+  const HomeData({required this.today, required this.week, this.wallet});
 
   factory HomeData.fromJson(Map<String, dynamic> j) => HomeData(
         today: HomeToday.fromJson(j['today'] as Map<String, dynamic>),
@@ -93,10 +98,12 @@ class HomeData {
             .map((e) => e as Map<String, dynamic>)
             .map((e) => WeekDay(date: DateTime.parse(e['date'] as String), steps: _i(e['steps']), goal: _i(e['goal'])))
             .toList(),
+        wallet: j['wallet'] == null ? null : WalletBalance.fromJson(j['wallet'] as Map<String, dynamic>),
       );
 
   final HomeToday today;
   final List<WeekDay> week;
+  final WalletBalance? wallet;
 }
 
 class WalkSession {
@@ -115,6 +122,8 @@ class WalkSession {
     required this.status,
     required this.statusLabel,
     required this.samples,
+    this.confidenceScore,
+    this.rewardStatus = 'none',
   });
 
   factory WalkSession.fromJson(Map<String, dynamic> j) => WalkSession(
@@ -131,6 +140,8 @@ class WalkSession {
         activityType: j['activity_type'] as String? ?? 'unknown',
         status: j['status'] as String,
         statusLabel: j['status_label'] as String? ?? '',
+        confidenceScore: (j['confidence_score'] as num?)?.toInt(),
+        rewardStatus: j['reward_status'] as String? ?? 'none',
         samples: (j['samples'] as List? ?? const [])
             .map((e) => e as Map<String, dynamic>)
             .map((e) => (start: DateTime.parse(e['started_at'] as String), durationS: _i(e['duration_s']), steps: _i(e['steps'])))
@@ -151,6 +162,8 @@ class WalkSession {
   final String status;
   final String statusLabel;
   final List<({DateTime start, int durationS, int steps})> samples;
+  final int? confidenceScore;
+  final String rewardStatus;
 
   bool get isActive => kind == 'active';
 }

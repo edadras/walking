@@ -40,7 +40,7 @@ class SubmitWalkingSession
      * @param  array<string, mixed>  $data  validated payload (SubmitWalkingSessionRequest)
      * @return array{0: WalkingSession, 1: bool} session and whether it was newly created
      */
-    public function handle(User $user, Device $device, array $data): array
+    public function handle(User $user, Device $device, array $data, int $clockSkewSeconds = 0): array
     {
         $hash = self::payloadHash($data);
 
@@ -61,7 +61,7 @@ class SubmitWalkingSession
         $buckets = $this->normalizeBuckets($kind, $data['buckets'], $start, $end, (int) $data['raw_steps']);
 
         try {
-            $session = DB::transaction(function () use ($user, $device, $data, $kind, $start, $end, $localDate, $buckets, $hash) {
+            $session = DB::transaction(function () use ($user, $device, $data, $kind, $start, $end, $localDate, $buckets, $hash, $clockSkewSeconds) {
                 // Serialises submissions per device: the sequence check and bump are atomic.
                 $locked = Device::query()->whereKey($device->id)->lockForUpdate()->firstOrFail();
                 if ((int) $data['sequence'] <= $locked->last_sequence) {
@@ -89,7 +89,7 @@ class SubmitWalkingSession
                     'calories_kcal' => $estimate['calories_kcal'],
                     'activity_type' => $estimate['activity_type'],
                     'gps_summary' => $data['gps'] ?? null,
-                    'motion_summary' => $this->motionSummary($data, $buckets),
+                    'motion_summary' => [...$this->motionSummary($data, $buckets), 'clock_skew_s' => $clockSkewSeconds],
                     'overlap_s' => $this->overlapSeconds($user, $start, $end),
                     'status' => SessionStatus::Submitted,
                     'reward_status' => SessionRewardStatus::None,

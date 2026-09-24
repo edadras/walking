@@ -1107,6 +1107,276 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'شروع پیاده‌روی ممکن نشد. دوباره تلاش کن.'**
   String get walkFailed;
+
+  /// No description provided for @pointsUnit.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز'**
+  String get pointsUnit;
+
+  /// No description provided for @pointsPlus.
+  ///
+  /// In fa, this message translates to:
+  /// **'+{points} امتیاز'**
+  String pointsPlus(String points);
+
+  /// No description provided for @homePointsCard.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز امروز'**
+  String get homePointsCard;
+
+  /// No description provided for @homeWalletLink.
+  ///
+  /// In fa, this message translates to:
+  /// **'کیف پول'**
+  String get homeWalletLink;
+
+  /// No description provided for @walletTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'کیف پول'**
+  String get walletTitle;
+
+  /// No description provided for @walletAvailable.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز قابل استفاده'**
+  String get walletAvailable;
+
+  /// No description provided for @walletValue.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارزش تقریبی: {value}'**
+  String walletValue(String value);
+
+  /// No description provided for @walletPending.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال بررسی'**
+  String get walletPending;
+
+  /// No description provided for @walletPendingHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیازهای جدید پس از بررسی امنیتی قابل استفاده می‌شوند.'**
+  String get walletPendingHint;
+
+  /// No description provided for @walletNextRelease.
+  ///
+  /// In fa, this message translates to:
+  /// **'آزادسازی بعدی: {time}'**
+  String walletNextRelease(String time);
+
+  /// No description provided for @walletLifetime.
+  ///
+  /// In fa, this message translates to:
+  /// **'کل دریافتی'**
+  String get walletLifetime;
+
+  /// No description provided for @walletSpent.
+  ///
+  /// In fa, this message translates to:
+  /// **'کل مصرف'**
+  String get walletSpent;
+
+  /// No description provided for @walletRate.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر امتیاز ≈ {rial}'**
+  String walletRate(String rial);
+
+  /// No description provided for @walletHistory.
+  ///
+  /// In fa, this message translates to:
+  /// **'تاریخچه'**
+  String get walletHistory;
+
+  /// No description provided for @walletFilterAll.
+  ///
+  /// In fa, this message translates to:
+  /// **'همه'**
+  String get walletFilterAll;
+
+  /// No description provided for @walletFilterEarned.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافتی'**
+  String get walletFilterEarned;
+
+  /// No description provided for @walletFilterSpent.
+  ///
+  /// In fa, this message translates to:
+  /// **'مصرف'**
+  String get walletFilterSpent;
+
+  /// No description provided for @walletFilterPurchase.
+  ///
+  /// In fa, this message translates to:
+  /// **'خرید'**
+  String get walletFilterPurchase;
+
+  /// No description provided for @walletFilterReward.
+  ///
+  /// In fa, this message translates to:
+  /// **'جایزه'**
+  String get walletFilterReward;
+
+  /// No description provided for @walletFilterSponsor.
+  ///
+  /// In fa, this message translates to:
+  /// **'اسپانسر'**
+  String get walletFilterSponsor;
+
+  /// No description provided for @walletFilterAdjustment.
+  ///
+  /// In fa, this message translates to:
+  /// **'اصلاح'**
+  String get walletFilterAdjustment;
+
+  /// No description provided for @walletEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز تراکنشی نداری'**
+  String get walletEmpty;
+
+  /// No description provided for @walletEmptyBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'با راه رفتن اولین امتیازت را بگیر.'**
+  String get walletEmptyBody;
+
+  /// No description provided for @walletReversed.
+  ///
+  /// In fa, this message translates to:
+  /// **'لغو شد'**
+  String get walletReversed;
+
+  /// No description provided for @rewardsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'جایزه‌ها'**
+  String get rewardsTitle;
+
+  /// No description provided for @rewardsToday.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز امروز'**
+  String get rewardsToday;
+
+  /// No description provided for @rewardsTodayOf.
+  ///
+  /// In fa, this message translates to:
+  /// **'از سقف {cap} امتیاز روزانه'**
+  String rewardsTodayOf(String cap);
+
+  /// No description provided for @rewardsHowTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'چطور امتیاز بیشتری بگیری؟'**
+  String get rewardsHowTitle;
+
+  /// No description provided for @rewardsRate.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر {steps} قدم تأییدشده'**
+  String rewardsRate(String steps);
+
+  /// No description provided for @rewardsRemaining.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز تا {steps} قدم دیگر امتیاز دارد'**
+  String rewardsRemaining(String steps);
+
+  /// No description provided for @rewardsGoalBonus.
+  ///
+  /// In fa, this message translates to:
+  /// **'رسیدن به هدف روزانه'**
+  String get rewardsGoalBonus;
+
+  /// No description provided for @rewardsGoalDone.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت شد'**
+  String get rewardsGoalDone;
+
+  /// No description provided for @rewardsStreak.
+  ///
+  /// In fa, this message translates to:
+  /// **'{days} روز متوالی'**
+  String rewardsStreak(String days);
+
+  /// No description provided for @rewardsMultiplierNow.
+  ///
+  /// In fa, this message translates to:
+  /// **'الان ضریب ×{factor} فعال است'**
+  String rewardsMultiplierNow(String factor);
+
+  /// No description provided for @rewardsUpcoming.
+  ///
+  /// In fa, this message translates to:
+  /// **'روزهای ویژه'**
+  String get rewardsUpcoming;
+
+  /// No description provided for @rewardsRecent.
+  ///
+  /// In fa, this message translates to:
+  /// **'آخرین جایزه‌ها'**
+  String get rewardsRecent;
+
+  /// No description provided for @rewardKindWalking.
+  ///
+  /// In fa, this message translates to:
+  /// **'پاداش قدم'**
+  String get rewardKindWalking;
+
+  /// No description provided for @rewardKindGoal.
+  ///
+  /// In fa, this message translates to:
+  /// **'پاداش هدف روزانه'**
+  String get rewardKindGoal;
+
+  /// No description provided for @rewardKindStreak.
+  ///
+  /// In fa, this message translates to:
+  /// **'پاداش روزهای متوالی'**
+  String get rewardKindStreak;
+
+  /// No description provided for @rewardKindOther.
+  ///
+  /// In fa, this message translates to:
+  /// **'جایزه'**
+  String get rewardKindOther;
+
+  /// No description provided for @rewardPending.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال بررسی'**
+  String get rewardPending;
+
+  /// No description provided for @rewardDenied.
+  ///
+  /// In fa, this message translates to:
+  /// **'سقف روزانه'**
+  String get rewardDenied;
+
+  /// No description provided for @rewardReversed.
+  ///
+  /// In fa, this message translates to:
+  /// **'لغوشده'**
+  String get rewardReversed;
+
+  /// No description provided for @sessionConfidence.
+  ///
+  /// In fa, this message translates to:
+  /// **'اطمینان'**
+  String get sessionConfidence;
+
+  /// No description provided for @sessionReward.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز این فعالیت'**
+  String get sessionReward;
 }
 
 class _AppLocalizationsDelegate

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Activity;
 
+use App\Domain\Wallet\WalletSummary;
 use App\Enums\SessionStatus;
 use App\Models\DailyActivity;
 use App\Models\User;
@@ -19,6 +20,8 @@ class HomeSummary
     {
         return 'home:v1:'.$user->id;
     }
+
+    public function __construct(private readonly WalletSummary $wallet) {}
 
     /** @return array<string, mixed> */
     public function for(User $user): array
@@ -62,9 +65,11 @@ class HomeSummary
                     'calories_kcal' => $row?->calories_kcal ?? 0,
                     'active_minutes' => $row?->active_minutes ?? 0,
                     'goal_reached' => $row?->goal_reached_at !== null,
+                    'points' => $row?->points_earned ?? 0,
                     'last_synced_at' => ($last = WalkingSession::query()->where('user_id', $user->id)->max('created_at')) ? CarbonImmutable::parse($last, 'UTC')->toIso8601String() : null,
                 ],
                 'week' => $week,
+                'wallet' => $this->wallet->for($user),
             ];
         });
     }

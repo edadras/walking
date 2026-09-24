@@ -300,5 +300,113 @@
   "walkDone": "باشه",
   "walkNoSensor": "این گوشی شمارنده قدم ندارد.",
   "walkNeedsPermission": "برای شروع پیاده‌روی، دسترسی فعالیت بدنی لازم است.",
-  "walkFailed": "شروع پیاده‌روی ممکن نشد. دوباره تلاش کن."
+  "walkFailed": "شروع پیاده‌روی ممکن نشد. دوباره تلاش کن.",
+  "pointsUnit": "امتیاز",
+  "pointsPlus": "+{points} امتیاز",
+  "@pointsPlus": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "homePointsCard": "امتیاز امروز",
+  "homeWalletLink": "کیف پول",
+  "walletTitle": "کیف پول",
+  "walletAvailable": "امتیاز قابل استفاده",
+  "walletValue": "ارزش تقریبی: {value}",
+  "@walletValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "walletPending": "در حال بررسی",
+  "walletPendingHint": "امتیازهای جدید پس از بررسی امنیتی قابل استفاده می‌شوند.",
+  "walletNextRelease": "آزادسازی بعدی: {time}",
+  "@walletNextRelease": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "walletLifetime": "کل دریافتی",
+  "walletSpent": "کل مصرف",
+  "walletRate": "هر امتیاز ≈ {rial}",
+  "@walletRate": {
+    "placeholders": {
+      "rial": {
+        "type": "String"
+      }
+    }
+  },
+  "walletHistory": "تاریخچه",
+  "walletFilterAll": "همه",
+  "walletFilterEarned": "دریافتی",
+  "walletFilterSpent": "مصرف",
+  "walletFilterPurchase": "خرید",
+  "walletFilterReward": "جایزه",
+  "walletFilterSponsor": "اسپانسر",
+  "walletFilterAdjustment": "اصلاح",
+  "walletEmpty": "هنوز تراکنشی نداری",
+  "walletEmptyBody": "با راه رفتن اولین امتیازت را بگیر.",
+  "walletReversed": "لغو شد",
+  "rewardsTitle": "جایزه‌ها",
+  "rewardsToday": "امتیاز امروز",
+  "rewardsTodayOf": "از سقف {cap} امتیاز روزانه",
+  "@rewardsTodayOf": {
+    "placeholders": {
+      "cap": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardsHowTitle": "چطور امتیاز بیشتری بگیری؟",
+  "rewardsRate": "هر {steps} قدم تأییدشده",
+  "@rewardsRate": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardsRemaining": "امروز تا {steps} قدم دیگر امتیاز دارد",
+  "@rewardsRemaining": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardsGoalBonus": "رسیدن به هدف روزانه",
+  "rewardsGoalDone": "دریافت شد",
+  "rewardsStreak": "{days} روز متوالی",
+  "@rewardsStreak": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardsMultiplierNow": "الان ضریب ×{factor} فعال است",
+  "@rewardsMultiplierNow": {
+    "placeholders": {
+      "factor": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardsUpcoming": "روزهای ویژه",
+  "rewardsRecent": "آخرین جایزه‌ها",
+  "rewardKindWalking": "پاداش قدم",
+  "rewardKindGoal": "پاداش هدف روزانه",
+  "rewardKindStreak": "پاداش روزهای متوالی",
+  "rewardKindOther": "جایزه",
+  "rewardPending": "در حال بررسی",
+  "rewardDenied": "سقف روزانه",
+  "rewardReversed": "لغوشده",
+  "sessionConfidence": "اطمینان",
+  "sessionReward": "امتیاز این فعالیت"
 }

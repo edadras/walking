@@ -7,7 +7,7 @@
 | 0 | Architecture، ERD، API، Flows، Security، Tracking، Design System | این پوشه | ✅ |
 | 1 | Auth (OTP)، Profile، Device registration + Request signing، Settings/Feature flags، Config API، Audit log، Admin foundation، پایه Flutter (Design system، Network، Storage، Router، Onboarding، Auth، Shell، Home اولیه، Profile) | [phase-1.md](../phase-1.md) | ✅ |
 | 2 | Step tracking (Kotlin sensor channel + WorkManager)، Walking sessions API، Offline queue، Daily activity، Calories، Activity timeline | [phase-2.md](../phase-2.md) | ✅ |
-| 3 | Fraud Engine + Rules، Verified steps، Reward Engine، Point Ledger، Wallet، Pending release scheduler، Fraud cases پایه | | ⏳ |
+| 3 | Fraud Engine + Rules، Verified steps، Reward Engine، Point Ledger، Wallet، Pending release scheduler، Fraud cases پایه | [phase-3.md](../phase-3.md) | ✅ |
 | 4 | Health dashboard، Water tracker، XP/Level، Achievements، Streak، Leaderboard (Redis)، Challenges، Weekly report، Referral | | ⏳ |
 | 5 | Sponsors، Locations، Campaigns، Visits (Geofence + Stay + Rotating QR)، Coupons، Sponsor Panel | | ⏳ |
 | 6 | Advertising: Placement، Internal ads، Provider adapters (Yektanet/AdSell پس از بررسی مستندات رسمی)، Rewarded S2S | | ⏳ |
