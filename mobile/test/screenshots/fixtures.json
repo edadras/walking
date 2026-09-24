@@ -1,0 +1,3450 @@
+{
+ "fixtures": {
+  "/config": {
+   "data": {
+    "server_time": 1790286395,
+    "update": {
+     "required": false,
+     "min_version": "1.0.0",
+     "latest_version": "1.0.0"
+    },
+    "features": {
+     "store": true,
+     "money_payment": false,
+     "cash_conversion": true,
+     "sponsored_locations": true,
+     "ads": true,
+     "rewarded_ads": true,
+     "referral": true,
+     "health_connect": false,
+     "ios": false
+    },
+    "settings": {
+     "auth.otp_length": 5,
+     "auth.otp_resend_seconds": 60,
+     "app.min_supported_version": "1.0.0",
+     "app.latest_version": "1.0.0",
+     "app.support_phone": null,
+     "activity.daily_goal_options": [
+      5000,
+      7500,
+      10000,
+      12500,
+      15000
+     ],
+     "activity.default_daily_goal": 7500,
+     "activity.min_daily_goal": 1000,
+     "activity.max_daily_goal": 50000,
+     "activity.offline_max_age_days": 7,
+     "activity.max_active_session_hours": 6,
+     "activity.max_passive_session_minutes": 120,
+     "health.default_water_goal_ml": 2000,
+     "health.glass_ml": 250,
+     "reward.hold_hours": 24,
+     "referral.qualify_steps": 5000,
+     "referral.window_days": 30,
+     "referral.referrer_points": 200,
+     "referral.referee_points": 100,
+     "visits.max_accuracy_m": 80,
+     "visits.ping_interval_s": 30,
+     "ads.rewarded_daily_cap": 3,
+     "security.device_key_max_age_days": 180,
+     "account.deletion_grace_days": 14
+    }
+   }
+  },
+  "/me": {
+   "data": {
+    "id": "01m3afhvm5w1mk74816me482qz",
+    "phone_masked": "0912***0001",
+    "display_name": "علی رضایی",
+    "public_name": "علی رضایی",
+    "avatar_url": null,
+    "status": "active",
+    "level": 5,
+    "xp": 1556,
+    "referral_code": "DIDLEVV",
+    "timezone": "Asia/Tehran",
+    "joined_at": "2026-07-26T19:51:18+00:00",
+    "deletion_requested_at": null,
+    "profile": {
+     "birth_year": null,
+     "gender": null,
+     "height_cm": 170,
+     "weight_kg": 92
+    },
+    "settings": {
+     "daily_step_goal": 7500,
+     "water_goal_ml": 2000,
+     "water_reminder_enabled": false,
+     "water_reminder_interval_min": 120,
+     "quiet_hours_start": null,
+     "quiet_hours_end": null,
+     "leaderboard_visible": true
+    },
+    "profile_completed": true
+   }
+  },
+  "/home": {
+   "data": {
+    "today": {
+     "date": "2026-09-25",
+     "steps": 4903,
+     "verified_steps": 4263,
+     "pending_steps": 640,
+     "goal": 7500,
+     "distance_m": 2930,
+     "calories_kcal": 123.1,
+     "active_minutes": 42,
+     "goal_reached": false,
+     "points": 42,
+     "last_synced_at": "2026-09-24T19:51:20+00:00"
+    },
+    "week": [
+     {
+      "date": "2026-09-19",
+      "steps": 4130,
+      "goal": 7500
+     },
+     {
+      "date": "2026-09-20",
+      "steps": 3684,
+      "goal": 7500
+     },
+     {
+      "date": "2026-09-21",
+      "steps": 4263,
+      "goal": 7500
+     },
+     {
+      "date": "2026-09-22",
+      "steps": 4684,
+      "goal": 7500
+     },
+     {
+      "date": "2026-09-23",
+      "steps": 4691,
+      "goal": 7500
+     },
+     {
+      "date": "2026-09-24",
+      "steps": 3737,
+      "goal": 7500
+     },
+     {
+      "date": "2026-09-25",
+      "steps": 4903,
+      "goal": 7500
+     }
+    ],
+    "wallet": {
+     "available": 1521,
+     "pending": 37,
+     "total": 1558,
+     "rial_per_point": 500,
+     "rial_value": 760500,
+     "pending_rial_value": 18500,
+     "lifetime_earned": 5221,
+     "lifetime_spent": 3700,
+     "lifetime_expired": 0,
+     "next_release_at": "2026-09-25T19:51:22+00:00"
+    },
+    "streak": {
+     "current": 0,
+     "week": [
+      {
+       "date": "2026-09-19",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-20",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-21",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-22",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-23",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-24",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-25",
+       "reached": false,
+       "future": false
+      }
+     ]
+    },
+    "level": {
+     "level": 5,
+     "title": "قدم‌زن",
+     "xp": 1556,
+     "current_min": 1400,
+     "next_min": 2000
+    },
+    "water": {
+     "goal_ml": 2000,
+     "glass_ml": 250,
+     "total_ml": 1000,
+     "glasses": 4,
+     "goal_glasses": 8
+    },
+    "challenge": {
+     "id": "01m3afhvkk2g32pemvhfzpqt1e",
+     "title": "هفته ۵۰ هزار قدمی",
+     "progress": 0,
+     "target": 50000,
+     "metric": "steps",
+     "ends_at": "2026-09-29T19:51:18+00:00"
+    },
+    "unread_notifications": 5
+   }
+  },
+  "/activity/day": {
+   "data": {
+    "date": "2026-09-21",
+    "summary": {
+     "date": "2026-09-21",
+     "steps": 4263,
+     "verified_steps": 4263,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2930,
+     "calories_kcal": 123.1,
+     "active_minutes": 42,
+     "points": 42
+    },
+    "hourly": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1142,
+     0,
+     0,
+     0,
+     1226,
+     0,
+     0,
+     0,
+     0,
+     420,
+     280,
+     0,
+     1195,
+     0,
+     0,
+     0
+    ],
+    "sessions": [
+     {
+      "id": "01m3afhwv72x5v33k6a85ww0mk",
+      "client_session_id": "40d46a75-feab-4811-a8b1-15cba879e29a",
+      "kind": "passive",
+      "started_at": "2026-09-21T04:50:00+00:00",
+      "ended_at": "2026-09-21T05:15:00+00:00",
+      "local_date": "2026-09-21",
+      "steps": 1142,
+      "verified_steps": 1142,
+      "distance_m": 785,
+      "duration_s": 1500,
+      "active_duration_s": 685,
+      "calories_kcal": 33,
+      "activity_type": "walking",
+      "status": "verified",
+      "status_label": "تأییدشده",
+      "reward_status": "pending",
+      "confidence_score": 95
+     },
+     {
+      "id": "01m3afhwvddnndfxatdpm7zpcs",
+      "client_session_id": "a08c4a9a-4a1a-407d-af92-9fc1fe355f83",
+      "kind": "passive",
+      "started_at": "2026-09-21T08:40:00+00:00",
+      "ended_at": "2026-09-21T09:20:00+00:00",
+      "local_date": "2026-09-21",
+      "steps": 1226,
+      "verified_steps": 1226,
+      "distance_m": 843,
+      "duration_s": 2400,
+      "active_duration_s": 736,
+      "calories_kcal": 35.4,
+      "activity_type": "walking",
+      "status": "verified",
+      "status_label": "تأییدشده",
+      "reward_status": "pending",
+      "confidence_score": 95
+     },
+     {
+      "id": "01m3afhwvqr1v543ncqjnkrtzc",
+      "client_session_id": "2584202a-a3f1-4f31-b632-0621cf6060d1",
+      "kind": "active",
+      "started_at": "2026-09-21T14:00:00+00:00",
+      "ended_at": "2026-09-21T14:50:00+00:00",
+      "local_date": "2026-09-21",
+      "steps": 700,
+      "verified_steps": 700,
+      "distance_m": 481,
+      "duration_s": 3000,
+      "active_duration_s": 400,
+      "calories_kcal": 20.2,
+      "activity_type": "walking",
+      "status": "verified",
+      "status_label": "تأییدشده",
+      "reward_status": "pending",
+      "confidence_score": 96
+     },
+     {
+      "id": "01m3afhwz19jk9j8w3z141xfsr",
+      "client_session_id": "5266e372-88e7-4e1e-a413-d83373bcb0a8",
+      "kind": "passive",
+      "started_at": "2026-09-21T16:30:00+00:00",
+      "ended_at": "2026-09-21T17:15:00+00:00",
+      "local_date": "2026-09-21",
+      "steps": 1195,
+      "verified_steps": 1195,
+      "distance_m": 821,
+      "duration_s": 2700,
+      "active_duration_s": 717,
+      "calories_kcal": 34.5,
+      "activity_type": "walking",
+      "status": "verified",
+      "status_label": "تأییدشده",
+      "reward_status": "pending",
+      "confidence_score": 97
+     }
+    ]
+   }
+  },
+  "/activity/weekly-report": {
+   "data": {
+    "week_start": "2026-09-19",
+    "days_elapsed": 7,
+    "steps": 25189,
+    "distance_m": 17311,
+    "calories_kcal": 727.2,
+    "points": 248,
+    "active_minutes": 248,
+    "goal_days": 0,
+    "previous_steps": 26845,
+    "change_percent": -6
+   }
+  },
+  "/health/water": {
+   "data": {
+    "date": "2026-09-25",
+    "goal_ml": 2000,
+    "glass_ml": 250,
+    "total_ml": 1000,
+    "glasses": 4,
+    "goal_glasses": 8,
+    "suggested_goal_ml": 3000,
+    "reminder_enabled": false,
+    "reminder_interval_min": 120,
+    "logs": [
+     {
+      "id": 1,
+      "amount_ml": 250,
+      "logged_at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "id": 2,
+      "amount_ml": 250,
+      "logged_at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "id": 3,
+      "amount_ml": 500,
+      "logged_at": "2026-09-24T21:46:03+00:00"
+     }
+    ]
+   }
+  },
+  "/progress": {
+   "data": {
+    "level": {
+     "level": 5,
+     "title": "قدم‌زن",
+     "xp": 1556,
+     "current_min": 1400,
+     "next_min": 2000
+    },
+    "streak": {
+     "current": 0,
+     "longest": 0,
+     "week": [
+      {
+       "date": "2026-09-19",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-20",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-21",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-22",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-23",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-24",
+       "reached": false,
+       "future": false
+      },
+      {
+       "date": "2026-09-25",
+       "reached": false,
+       "future": false
+      }
+     ]
+    }
+   }
+  },
+  "/achievements": {
+   "data": [
+    {
+     "key": "first_5k_day",
+     "name": "اولین ۵٬۰۰۰",
+     "description": "در یک روز ۵٬۰۰۰ قدم تأییدشده بردار.",
+     "icon": "footsteps",
+     "threshold": 5000,
+     "progress": 4848,
+     "unlocked_at": null,
+     "xp_reward": 50,
+     "point_reward": 0
+    },
+    {
+     "key": "first_10k_day",
+     "name": "اولین ۱۰٬۰۰۰ قدم",
+     "description": "در یک روز ۱۰٬۰۰۰ قدم تأییدشده بردار.",
+     "icon": "footsteps",
+     "threshold": 10000,
+     "progress": 4848,
+     "unlocked_at": null,
+     "xp_reward": 100,
+     "point_reward": 20
+    },
+    {
+     "key": "day_20k",
+     "name": "روز پرقدم",
+     "description": "در یک روز ۲۰٬۰۰۰ قدم بردار.",
+     "icon": "bolt",
+     "threshold": 20000,
+     "progress": 4848,
+     "unlocked_at": null,
+     "xp_reward": 200,
+     "point_reward": 50
+    },
+    {
+     "key": "streak_3",
+     "name": "۳ روز متوالی",
+     "description": "سه روز پشت سر هم به هدفت برس.",
+     "icon": "chain",
+     "threshold": 3,
+     "progress": 0,
+     "unlocked_at": null,
+     "xp_reward": 60,
+     "point_reward": 0
+    },
+    {
+     "key": "streak_7",
+     "name": "۷ روز متوالی",
+     "description": "یک هفته کامل هر روز به هدفت برس.",
+     "icon": "chain",
+     "threshold": 7,
+     "progress": 0,
+     "unlocked_at": null,
+     "xp_reward": 150,
+     "point_reward": 30
+    },
+    {
+     "key": "streak_30",
+     "name": "۳۰ روز متوالی",
+     "description": "یک ماه بدون وقفه به هدفت برس.",
+     "icon": "chain",
+     "threshold": 30,
+     "progress": 0,
+     "unlocked_at": null,
+     "xp_reward": 600,
+     "point_reward": 150
+    },
+    {
+     "key": "total_100k",
+     "name": "۱۰۰٬۰۰۰ قدم",
+     "description": "مجموع قدم‌های تأییدشده‌ات به ۱۰۰ هزار برسد.",
+     "icon": "trail",
+     "threshold": 100000,
+     "progress": 100000,
+     "unlocked_at": "2026-09-24T19:51:22+00:00",
+     "xp_reward": 200,
+     "point_reward": 30
+    },
+    {
+     "key": "total_1m",
+     "name": "یک میلیون قدم",
+     "description": "مجموع قدم‌هایت به یک میلیون برسد.",
+     "icon": "trail",
+     "threshold": 1000000,
+     "progress": 116576,
+     "unlocked_at": null,
+     "xp_reward": 1000,
+     "point_reward": 200
+    },
+    {
+     "key": "distance_100km",
+     "name": "۱۰۰ کیلومتر",
+     "description": "مجموع مسافت پیاده‌روی‌ات ۱۰۰ کیلومتر شود.",
+     "icon": "route",
+     "threshold": 100000,
+     "progress": 80115,
+     "unlocked_at": null,
+     "xp_reward": 300,
+     "point_reward": 50
+    },
+    {
+     "key": "active_30",
+     "name": "۳۰ روز فعال",
+     "description": "در ۳۰ روز مختلف راه برو.",
+     "icon": "calendar",
+     "threshold": 30,
+     "progress": 30,
+     "unlocked_at": "2026-09-24T19:51:22+00:00",
+     "xp_reward": 250,
+     "point_reward": 0
+    },
+    {
+     "key": "challenge_first",
+     "name": "اولین چالش",
+     "description": "اولین چالشت را کامل کن.",
+     "icon": "flag",
+     "threshold": 1,
+     "progress": 0,
+     "unlocked_at": null,
+     "xp_reward": 100,
+     "point_reward": 0
+    }
+   ]
+  },
+  "/referral": {
+   "data": {
+    "code": "DIDLEVV",
+    "qualify_steps": 5000,
+    "referrer_points": 200,
+    "referee_points": 100,
+    "invited": 0,
+    "pending": 0,
+    "rewarded": 0,
+    "points_earned": 0
+   }
+  },
+  "/wallet": {
+   "data": {
+    "available": 1521,
+    "pending": 37,
+    "total": 1558,
+    "rial_per_point": 500,
+    "rial_value": 760500,
+    "pending_rial_value": 18500,
+    "lifetime_earned": 5221,
+    "lifetime_spent": 3700,
+    "lifetime_expired": 0,
+    "next_release_at": "2026-09-25T19:51:22+00:00"
+   }
+  },
+  "/rewards": {
+   "data": {
+    "today": {
+     "points": 0,
+     "rial_value": 0,
+     "verified_steps": 0,
+     "rewarded_steps": 0,
+     "remaining_rewardable_steps": 20000,
+     "remaining_points": 300,
+     "goal": 7500,
+     "goal_reached": false
+    },
+    "wallet": {
+     "available": 1521,
+     "pending": 37,
+     "total": 1558,
+     "rial_per_point": 500,
+     "rial_value": 760500,
+     "pending_rial_value": 18500,
+     "lifetime_earned": 5221,
+     "lifetime_spent": 3700,
+     "lifetime_expired": 0,
+     "next_release_at": "2026-09-25T19:51:22+00:00"
+    },
+    "earning": {
+     "steps_per_unit": 1000,
+     "points_per_unit": 10,
+     "daily_cap": 300,
+     "weekly_cap": 1500,
+     "max_rewarded_steps": 20000,
+     "goal_bonus": 20,
+     "streak_bonuses": {
+      "7": 30,
+      "14": 60,
+      "30": 150
+     },
+     "multiplier_now": 1.5,
+     "upcoming_multipliers": [
+      {
+       "date": "2026-09-25",
+       "multiplier": 1.5,
+       "names": [
+        "جمعه‌ها ×۱٫۵"
+       ]
+      }
+     ]
+    },
+    "recent": [
+     {
+      "id": "01m3afhz4tpq9qzc4q61q0c0wc",
+      "kind": "walking",
+      "points": 7,
+      "base_points": 7,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz49qqcxtdx3gazz90pd",
+      "kind": "walking",
+      "points": 5,
+      "base_points": 5,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz2h7mz9kfqb61fqe2zh",
+      "kind": "walking",
+      "points": 10,
+      "base_points": 10,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz21xjgwafqkxnqax9ca",
+      "kind": "walking",
+      "points": 15,
+      "base_points": 15,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz1jgkx4gy9znhnk0pze",
+      "kind": "walking",
+      "points": 13,
+      "base_points": 13,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz12th69bzbd5x6pwgt5",
+      "kind": "walking",
+      "points": 11,
+      "base_points": 11,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz0mx20t7mmrn7wg81nq",
+      "kind": "walking",
+      "points": 15,
+      "base_points": 15,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhz06qq03aq1y3bwryy9d",
+      "kind": "walking",
+      "points": 7,
+      "base_points": 7,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhyzprjav7ypvxrrk27fa",
+      "kind": "walking",
+      "points": 5,
+      "base_points": 5,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     },
+     {
+      "id": "01m3afhyz74aze886t60g674vx",
+      "kind": "walking",
+      "points": 11,
+      "base_points": 11,
+      "multiplier": 1,
+      "capped_points": 0,
+      "status": "pending",
+      "created_at": "2026-09-24T19:51:22+00:00"
+     }
+    ]
+   }
+  },
+  "/notifications": {
+   "data": [
+    {
+     "id": "b5595d38-a1a9-4c24-b1c6-7dde2092a1c9",
+     "category": "support",
+     "title": "پاسخ پشتیبانی",
+     "body": "به درخواست «امتیاز پیاده‌روی دیروز اضافه نشد» پاسخ داده شد.",
+     "data": {
+      "type": "support",
+      "id": "01m3ap3zbpwb1x6x62rqdz56ev"
+     },
+     "read": false,
+     "created_at": "2026-09-24T21:46:04+00:00"
+    },
+    {
+     "id": "e0766325-54b4-4130-89b7-3717446ff1f1",
+     "category": "order_update",
+     "title": "سفارش ثبت شد",
+     "body": "سفارش #Z0F4QE با 2,500 امتیاز ثبت شد.",
+     "data": {
+      "type": "order",
+      "id": "01m3ap3z7z8ng1fb6ez8z0f4qe"
+     },
+     "read": false,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "6f67c7b7-d35c-4078-81ab-4cb8a64ea8c9",
+     "category": "order_update",
+     "title": "سفارش #Z0F4QE: در حال آماده‌سازی",
+     "body": "",
+     "data": {
+      "type": "order",
+      "id": "01m3ap3z7z8ng1fb6ez8z0f4qe"
+     },
+     "read": false,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "4dcb4f30-2a14-4473-8607-d769d739a8f4",
+     "category": "order_update",
+     "title": "سفارش ثبت شد",
+     "body": "سفارش #DZ4G0T با 1,200 امتیاز ثبت شد.",
+     "data": {
+      "type": "order",
+      "id": "01m3ap3z64ggt47rqvtadz4g0t"
+     },
+     "read": false,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "22b0130a-0dfc-4ca7-b815-2aec2beaa0f7",
+     "category": "order_update",
+     "title": "سفارش #Z0F4QE: ارسال‌شده",
+     "body": "کد رهگیری: IR1405070012345",
+     "data": {
+      "type": "order",
+      "id": "01m3ap3z7z8ng1fb6ez8z0f4qe"
+     },
+     "read": false,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    }
+   ],
+   "meta": {
+    "next_cursor": null,
+    "unread": 5
+   }
+  },
+  "/challenges": {
+   "data": [
+    {
+     "id": "01m3afhvkk2g32pemvhfzpqt1e",
+     "title": "هفته ۵۰ هزار قدمی",
+     "description": "در ۷ روز ۵۰٬۰۰۰ قدم تأییدشده بردار.",
+     "image_url": null,
+     "type": "weekly",
+     "type_label": "چالش هفتگی",
+     "metric": "steps",
+     "target": 50000,
+     "reward_points": 500,
+     "reward_xp": 300,
+     "sponsored": false,
+     "starts_at": "2026-09-22T19:51:18+00:00",
+     "ends_at": "2026-09-29T19:51:18+00:00",
+     "participants": 1,
+     "status": "running",
+     "joinable": false,
+     "joined": true,
+     "progress": 0,
+     "completed_at": null
+    },
+    {
+     "id": "01m3afhvknsvav2dhcahztnrx8",
+     "title": "روز ۱۲ هزار قدمی",
+     "description": "در یک روز ۱۲٬۰۰۰ قدم بردار.",
+     "image_url": null,
+     "type": "daily",
+     "type_label": "چالش روزانه",
+     "metric": "steps",
+     "target": 12000,
+     "reward_points": 100,
+     "reward_xp": 100,
+     "sponsored": false,
+     "starts_at": "2026-09-23T19:51:18+00:00",
+     "ends_at": "2026-09-30T19:51:18+00:00",
+     "participants": 0,
+     "status": "running",
+     "joinable": true,
+     "joined": false,
+     "progress": 0,
+     "completed_at": null
+    },
+    {
+     "id": "01m3afhvkrr5q4xpgmfz7y01z4",
+     "title": "ماراتن ماه مهر",
+     "description": "در این ماه ۴۲ کیلومتر پیاده‌روی کن.",
+     "image_url": null,
+     "type": "distance",
+     "type_label": "چالش مسافت",
+     "metric": "distance",
+     "target": 42000,
+     "reward_points": 800,
+     "reward_xp": 500,
+     "sponsored": false,
+     "starts_at": "2026-09-23T19:51:18+00:00",
+     "ends_at": "2026-10-22T19:51:18+00:00",
+     "participants": 0,
+     "status": "running",
+     "joinable": true,
+     "joined": false,
+     "progress": 0,
+     "completed_at": null
+    }
+   ]
+  },
+  "/coupons": {
+   "data": [
+    {
+     "id": "01m3ap3zae73tztdbwc39x5gr2",
+     "code": "N4VQCX2X",
+     "status": "available",
+     "status_label": "قابل استفاده",
+     "title": "۲۰٪ تخفیف نوشیدنی گرم",
+     "description": null,
+     "terms": "فقط در شعبه‌های کافه قدم، یک بار.",
+     "discount_label": "20٪ تخفیف",
+     "shared_code": null,
+     "sponsor": {
+      "id": "01m3aga0hbyhr07k5k51rp1yyz",
+      "name": "کافه قدم",
+      "logo_url": null
+     },
+     "claimed_at": "2026-09-24T21:46:03+00:00",
+     "expires_at": "2026-10-08T21:46:03+00:00",
+     "used_at": null
+    }
+   ]
+  },
+  "/store/categories": {
+   "data": [
+    {
+     "id": "gift-cards",
+     "name": "کارت هدیه",
+     "icon": null,
+     "parent": null
+    },
+    {
+     "id": "sport",
+     "name": "ورزشی",
+     "icon": null,
+     "parent": null
+    },
+    {
+     "id": "coupons",
+     "name": "کوپن تخفیف",
+     "icon": null,
+     "parent": null
+    },
+    {
+     "id": "charity",
+     "name": "نیکوکاری",
+     "icon": null,
+     "parent": null
+    }
+   ]
+  },
+  "/store/products": {
+   "data": [
+    {
+     "id": "01m3ahz69nmd2azc1xwsrxdb9f",
+     "slug": "gift-card-500k",
+     "name": "کارت هدیه ۵۰۰ هزار ریالی",
+     "summary": "قابل استفاده در فروشگاه‌های طرف قرارداد",
+     "type": "digital_code",
+     "type_label": "کد دیجیتال",
+     "point_price": 1200,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": 2,
+     "min_level": 1,
+     "needs_address": false,
+     "image_url": null,
+     "category": "gift-cards",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6b1dg3a291ndy02fr47",
+     "slug": "sport-bottle",
+     "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+     "summary": "فولادی، دوجداره",
+     "type": "physical",
+     "type_label": "کالای فیزیکی",
+     "point_price": 2500,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 1,
+     "needs_address": true,
+     "image_url": null,
+     "category": "sport",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6b37yffwnyseezve0mt",
+     "slug": "sport-socks",
+     "name": "جوراب ورزشی (سه جفت)",
+     "summary": null,
+     "type": "physical",
+     "type_label": "کالای فیزیکی",
+     "point_price": 900,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 3,
+     "needs_address": true,
+     "image_url": null,
+     "category": "sport",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6b87bmjc7wj94dkaaay",
+     "slug": "cafe-cookie",
+     "name": "کلوچه رایگان کافه قدم",
+     "summary": null,
+     "type": "coupon",
+     "type_label": "کوپن",
+     "point_price": 150,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": 1,
+     "min_level": 1,
+     "needs_address": false,
+     "image_url": null,
+     "category": "coupons",
+     "sponsor": "کافه قدم"
+    },
+    {
+     "id": "01m3ahz6bavp9padardk21rx12",
+     "slug": "plant-a-tree",
+     "name": "کاشت یک نهال",
+     "summary": "امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود",
+     "type": "service",
+     "type_label": "خدمت / اهدا",
+     "point_price": 500,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 1,
+     "needs_address": false,
+     "image_url": null,
+     "category": "charity",
+     "sponsor": null
+    }
+   ],
+   "meta": {
+    "next_cursor": null
+   }
+  },
+  "/orders": {
+   "data": [
+    {
+     "id": "01m3ap3z7z8ng1fb6ez8z0f4qe",
+     "number": "#Z0F4QE",
+     "status": "shipped",
+     "status_label": "ارسال‌شده",
+     "total_points": 2500,
+     "placed_at": "2026-09-24T21:46:03+00:00",
+     "item_count": 1,
+     "title": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+     "cancellable": false
+    },
+    {
+     "id": "01m3ap3z64ggt47rqvtadz4g0t",
+     "number": "#DZ4G0T",
+     "status": "delivered",
+     "status_label": "تحویل‌شده",
+     "total_points": 1200,
+     "placed_at": "2026-09-24T21:46:03+00:00",
+     "item_count": 1,
+     "title": "کارت هدیه ۵۰۰ هزار ریالی",
+     "cancellable": false
+    }
+   ],
+   "meta": {
+    "next_cursor": null
+   }
+  },
+  "/addresses": {
+   "data": [
+    {
+     "id": "01m3ap3z597bfykzmg3qzh32kd",
+     "title": "خانه",
+     "recipient": "علی رضایی",
+     "phone": "09120000001",
+     "province": "تهران",
+     "city": "تهران",
+     "line": "خیابان ولیعصر، کوچه نسترن، پلاک ۱۲، واحد ۴",
+     "postal_code": "1965812345",
+     "is_default": true
+    }
+   ]
+  },
+  "/support/categories": {
+   "data": [
+    {
+     "id": "account",
+     "label": "حساب کاربری"
+    },
+    {
+     "id": "points",
+     "label": "امتیاز و کیف پول"
+    },
+    {
+     "id": "steps",
+     "label": "ثبت قدم"
+    },
+    {
+     "id": "store",
+     "label": "فروشگاه و سفارش"
+    },
+    {
+     "id": "sponsor",
+     "label": "مکان‌ها و کوپن‌ها"
+    },
+    {
+     "id": "technical",
+     "label": "مشکل فنی"
+    },
+    {
+     "id": "other",
+     "label": "سایر"
+    }
+   ]
+  },
+  "/support/tickets": {
+   "data": [
+    {
+     "id": "01m3ap3zbpwb1x6x62rqdz56ev",
+     "number": "#DZ56EV",
+     "category": "points",
+     "category_label": "امتیاز و کیف پول",
+     "subject": "امتیاز پیاده‌روی دیروز اضافه نشد",
+     "status": "awaiting_user",
+     "status_label": "در انتظار پاسخ شما",
+     "can_reply": true,
+     "last_message_at": "2026-09-24T21:46:04+00:00"
+    }
+   ]
+  },
+  "/faqs": {
+   "data": [
+    {
+     "id": 5,
+     "category": "account",
+     "question": "آیا شماره موبایلم به دیگران نمایش داده می‌شود؟",
+     "answer": "خیر. در رتبه‌بندی فقط نام نمایشی و تصویر شما (در صورت تمایل) نمایش داده می‌شود و می‌توانید آن را در تنظیمات حریم خصوصی خاموش کنید."
+    },
+    {
+     "id": 3,
+     "category": "points",
+     "question": "امتیاز «در حال بررسی» یعنی چه؟",
+     "answer": "هر امتیاز پس از ثبت، مدتی کوتاه برای بررسی امنیتی نگه داشته می‌شود و سپس به موجودی قابل استفاده اضافه می‌شود."
+    },
+    {
+     "id": 4,
+     "category": "points",
+     "question": "ارزش ریالی امتیاز چطور محاسبه می‌شود؟",
+     "answer": "ارزش ریالی بر اساس نرخ تبدیل فعلی نمایش داده می‌شود و تقریبی است."
+    },
+    {
+     "id": 1,
+     "category": "steps",
+     "question": "چرا همه قدم‌هایم امتیاز نگرفت؟",
+     "answer": "فقط قدم‌هایی که بررسی امنیتی را با موفقیت پشت سر بگذارند «تأییدشده» هستند. قدم‌هایی که مثلاً در خودرو یا با تکان دادن گوشی ثبت شده باشند حذف می‌شوند. همچنین امتیاز روزانه سقف دارد."
+    },
+    {
+     "id": 2,
+     "category": "steps",
+     "question": "آیا برنامه باید همیشه باز باشد؟",
+     "answer": "خیر. گام‌یار از شمارنده قدم سخت‌افزاری گوشی استفاده می‌کند که در پس‌زمینه و با مصرف بسیار کم باتری کار می‌کند."
+    }
+   ]
+  },
+  "/me/notification-preferences": {
+   "data": {
+    "daily_goal": true,
+    "water_reminder": true,
+    "streak_warning": true,
+    "reward_received": true,
+    "challenge": true,
+    "sponsor_campaign": true,
+    "coupon_expiration": true,
+    "order_update": true,
+    "announcement": true,
+    "support": true
+   }
+  },
+  "/auth/devices": {
+   "data": [
+    {
+     "id": "01m3afhvmsr80z6cshkwsv086q",
+     "platform": "android",
+     "model": "Google Pixel 8",
+     "app_version": "1.0.0",
+     "last_seen_at": "2026-09-24T19:51:18+00:00",
+     "is_current": true
+    }
+   ]
+  },
+  "/activity/daily": {
+   "data": [
+    {
+     "date": "2026-08-26",
+     "steps": 3813,
+     "verified_steps": 3813,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2620,
+     "calories_kcal": 110.1,
+     "active_minutes": 37,
+     "points": 38
+    },
+    {
+     "date": "2026-08-27",
+     "steps": 3195,
+     "verified_steps": 3195,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2197,
+     "calories_kcal": 92.2,
+     "active_minutes": 31,
+     "points": 31
+    },
+    {
+     "date": "2026-08-28",
+     "steps": 4155,
+     "verified_steps": 4155,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2855,
+     "calories_kcal": 120,
+     "active_minutes": 41,
+     "points": 61
+    },
+    {
+     "date": "2026-08-29",
+     "steps": 4848,
+     "verified_steps": 4848,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3331,
+     "calories_kcal": 140,
+     "active_minutes": 48,
+     "points": 48
+    },
+    {
+     "date": "2026-08-30",
+     "steps": 3769,
+     "verified_steps": 3769,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2591,
+     "calories_kcal": 108.8,
+     "active_minutes": 37,
+     "points": 37
+    },
+    {
+     "date": "2026-08-31",
+     "steps": 4414,
+     "verified_steps": 4414,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3034,
+     "calories_kcal": 127.5,
+     "active_minutes": 44,
+     "points": 44
+    },
+    {
+     "date": "2026-09-01",
+     "steps": 4790,
+     "verified_steps": 4790,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3291,
+     "calories_kcal": 138.3,
+     "active_minutes": 48,
+     "points": 47
+    },
+    {
+     "date": "2026-09-02",
+     "steps": 2783,
+     "verified_steps": 2783,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 1913,
+     "calories_kcal": 80.4,
+     "active_minutes": 27,
+     "points": 27
+    },
+    {
+     "date": "2026-09-03",
+     "steps": 3238,
+     "verified_steps": 3238,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2225,
+     "calories_kcal": 93.4,
+     "active_minutes": 32,
+     "points": 32
+    },
+    {
+     "date": "2026-09-04",
+     "steps": 4527,
+     "verified_steps": 4527,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3110,
+     "calories_kcal": 130.7,
+     "active_minutes": 45,
+     "points": 66
+    },
+    {
+     "date": "2026-09-05",
+     "steps": 2805,
+     "verified_steps": 2805,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 1928,
+     "calories_kcal": 81,
+     "active_minutes": 28,
+     "points": 28
+    },
+    {
+     "date": "2026-09-06",
+     "steps": 3090,
+     "verified_steps": 3090,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2123,
+     "calories_kcal": 89.1,
+     "active_minutes": 30,
+     "points": 30
+    },
+    {
+     "date": "2026-09-07",
+     "steps": 3436,
+     "verified_steps": 3436,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2361,
+     "calories_kcal": 99.3,
+     "active_minutes": 34,
+     "points": 34
+    },
+    {
+     "date": "2026-09-08",
+     "steps": 3470,
+     "verified_steps": 3470,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2385,
+     "calories_kcal": 100.1,
+     "active_minutes": 34,
+     "points": 34
+    },
+    {
+     "date": "2026-09-09",
+     "steps": 3765,
+     "verified_steps": 3765,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2587,
+     "calories_kcal": 108.7,
+     "active_minutes": 37,
+     "points": 37
+    },
+    {
+     "date": "2026-09-10",
+     "steps": 4396,
+     "verified_steps": 4396,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3021,
+     "calories_kcal": 126.9,
+     "active_minutes": 43,
+     "points": 43
+    },
+    {
+     "date": "2026-09-11",
+     "steps": 4048,
+     "verified_steps": 4048,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2782,
+     "calories_kcal": 116.8,
+     "active_minutes": 40,
+     "points": 58
+    },
+    {
+     "date": "2026-09-12",
+     "steps": 4160,
+     "verified_steps": 4160,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2859,
+     "calories_kcal": 120,
+     "active_minutes": 41,
+     "points": 41
+    },
+    {
+     "date": "2026-09-13",
+     "steps": 4009,
+     "verified_steps": 4009,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2756,
+     "calories_kcal": 115.7,
+     "active_minutes": 40,
+     "points": 40
+    },
+    {
+     "date": "2026-09-14",
+     "steps": 3489,
+     "verified_steps": 3489,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2397,
+     "calories_kcal": 100.6,
+     "active_minutes": 35,
+     "points": 34
+    },
+    {
+     "date": "2026-09-15",
+     "steps": 2427,
+     "verified_steps": 2427,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 1669,
+     "calories_kcal": 70,
+     "active_minutes": 24,
+     "points": 24
+    },
+    {
+     "date": "2026-09-16",
+     "steps": 4291,
+     "verified_steps": 4291,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2949,
+     "calories_kcal": 123.9,
+     "active_minutes": 42,
+     "points": 42
+    },
+    {
+     "date": "2026-09-17",
+     "steps": 3981,
+     "verified_steps": 3981,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2735,
+     "calories_kcal": 114.8,
+     "active_minutes": 39,
+     "points": 39
+    },
+    {
+     "date": "2026-09-18",
+     "steps": 4488,
+     "verified_steps": 4488,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3085,
+     "calories_kcal": 129.6,
+     "active_minutes": 44,
+     "points": 65
+    },
+    {
+     "date": "2026-09-19",
+     "steps": 4130,
+     "verified_steps": 4130,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2838,
+     "calories_kcal": 119.3,
+     "active_minutes": 41,
+     "points": 41
+    },
+    {
+     "date": "2026-09-20",
+     "steps": 3684,
+     "verified_steps": 3684,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2532,
+     "calories_kcal": 106.3,
+     "active_minutes": 36,
+     "points": 36
+    },
+    {
+     "date": "2026-09-21",
+     "steps": 4263,
+     "verified_steps": 4263,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2930,
+     "calories_kcal": 123.1,
+     "active_minutes": 42,
+     "points": 42
+    },
+    {
+     "date": "2026-09-22",
+     "steps": 4684,
+     "verified_steps": 4684,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3219,
+     "calories_kcal": 135.2,
+     "active_minutes": 46,
+     "points": 46
+    },
+    {
+     "date": "2026-09-23",
+     "steps": 4691,
+     "verified_steps": 4691,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 3224,
+     "calories_kcal": 135.4,
+     "active_minutes": 46,
+     "points": 46
+    },
+    {
+     "date": "2026-09-24",
+     "steps": 3737,
+     "verified_steps": 3737,
+     "goal": 7500,
+     "goal_reached": false,
+     "distance_m": 2568,
+     "calories_kcal": 107.9,
+     "active_minutes": 37,
+     "points": 37
+    }
+   ]
+  },
+  "/leaderboard?period=day": {
+   "data": {
+    "period": "day",
+    "key": "day:2026-09-25",
+    "entries": [],
+    "me": null
+   }
+  },
+  "/leaderboard?period=week": {
+   "data": {
+    "period": "week",
+    "key": "week:2026-09-19",
+    "entries": [],
+    "me": null
+   }
+  },
+  "/leaderboard?period=month": {
+   "data": {
+    "period": "month",
+    "key": "month:1405-07",
+    "entries": [],
+    "me": null
+   }
+  },
+  "/health/summary?range=week": {
+   "data": {
+    "range": "week",
+    "days": [
+     {
+      "date": "2026-09-19",
+      "steps": 4130,
+      "raw_steps": 4130,
+      "distance_m": 2838,
+      "calories_kcal": 119.3,
+      "active_minutes": 41,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-20",
+      "steps": 3684,
+      "raw_steps": 3684,
+      "distance_m": 2532,
+      "calories_kcal": 106.3,
+      "active_minutes": 36,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-21",
+      "steps": 4263,
+      "raw_steps": 4263,
+      "distance_m": 2930,
+      "calories_kcal": 123.1,
+      "active_minutes": 42,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-22",
+      "steps": 4684,
+      "raw_steps": 4684,
+      "distance_m": 3219,
+      "calories_kcal": 135.2,
+      "active_minutes": 46,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-23",
+      "steps": 4691,
+      "raw_steps": 4691,
+      "distance_m": 3224,
+      "calories_kcal": 135.4,
+      "active_minutes": 46,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-24",
+      "steps": 3737,
+      "raw_steps": 3737,
+      "distance_m": 2568,
+      "calories_kcal": 107.9,
+      "active_minutes": 37,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-25",
+      "steps": 0,
+      "raw_steps": 0,
+      "distance_m": 0,
+      "calories_kcal": 0,
+      "active_minutes": 0,
+      "goal": 7500,
+      "goal_reached": false
+     }
+    ],
+    "totals": {
+     "steps": 25189,
+     "distance_m": 17311,
+     "calories_kcal": 727.2,
+     "active_minutes": 248,
+     "goal_days": 0
+    },
+    "averages": {
+     "daily_steps": 3598,
+     "weekly_steps": 26353,
+     "monthly_steps": 38859
+    },
+    "streak": {
+     "current": 0,
+     "longest": 0
+    },
+    "records": {
+     "best_day_steps": {
+      "value": 4848,
+      "date": "2026-08-29"
+     },
+     "best_week_steps": {
+      "value": 28369,
+      "date": "2026-08-29"
+     },
+     "best_session_steps": {
+      "value": 1534,
+      "date": "2026-09-04"
+     }
+    }
+   }
+  },
+  "/health/summary?range=month": {
+   "data": {
+    "range": "month",
+    "days": [
+     {
+      "date": "2026-08-27",
+      "steps": 3195,
+      "raw_steps": 3195,
+      "distance_m": 2197,
+      "calories_kcal": 92.2,
+      "active_minutes": 31,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-08-28",
+      "steps": 4155,
+      "raw_steps": 4155,
+      "distance_m": 2855,
+      "calories_kcal": 120,
+      "active_minutes": 41,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-08-29",
+      "steps": 4848,
+      "raw_steps": 4848,
+      "distance_m": 3331,
+      "calories_kcal": 140,
+      "active_minutes": 48,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-08-30",
+      "steps": 3769,
+      "raw_steps": 3769,
+      "distance_m": 2591,
+      "calories_kcal": 108.8,
+      "active_minutes": 37,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-08-31",
+      "steps": 4414,
+      "raw_steps": 4414,
+      "distance_m": 3034,
+      "calories_kcal": 127.5,
+      "active_minutes": 44,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-01",
+      "steps": 4790,
+      "raw_steps": 4790,
+      "distance_m": 3291,
+      "calories_kcal": 138.3,
+      "active_minutes": 48,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-02",
+      "steps": 2783,
+      "raw_steps": 2783,
+      "distance_m": 1913,
+      "calories_kcal": 80.4,
+      "active_minutes": 27,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-03",
+      "steps": 3238,
+      "raw_steps": 3238,
+      "distance_m": 2225,
+      "calories_kcal": 93.4,
+      "active_minutes": 32,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-04",
+      "steps": 4527,
+      "raw_steps": 4527,
+      "distance_m": 3110,
+      "calories_kcal": 130.7,
+      "active_minutes": 45,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-05",
+      "steps": 2805,
+      "raw_steps": 2805,
+      "distance_m": 1928,
+      "calories_kcal": 81,
+      "active_minutes": 28,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-06",
+      "steps": 3090,
+      "raw_steps": 3090,
+      "distance_m": 2123,
+      "calories_kcal": 89.1,
+      "active_minutes": 30,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-07",
+      "steps": 3436,
+      "raw_steps": 3436,
+      "distance_m": 2361,
+      "calories_kcal": 99.3,
+      "active_minutes": 34,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-08",
+      "steps": 3470,
+      "raw_steps": 3470,
+      "distance_m": 2385,
+      "calories_kcal": 100.1,
+      "active_minutes": 34,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-09",
+      "steps": 3765,
+      "raw_steps": 3765,
+      "distance_m": 2587,
+      "calories_kcal": 108.7,
+      "active_minutes": 37,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-10",
+      "steps": 4396,
+      "raw_steps": 4396,
+      "distance_m": 3021,
+      "calories_kcal": 126.9,
+      "active_minutes": 43,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-11",
+      "steps": 4048,
+      "raw_steps": 4048,
+      "distance_m": 2782,
+      "calories_kcal": 116.8,
+      "active_minutes": 40,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-12",
+      "steps": 4160,
+      "raw_steps": 4160,
+      "distance_m": 2859,
+      "calories_kcal": 120,
+      "active_minutes": 41,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-13",
+      "steps": 4009,
+      "raw_steps": 4009,
+      "distance_m": 2756,
+      "calories_kcal": 115.7,
+      "active_minutes": 40,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-14",
+      "steps": 3489,
+      "raw_steps": 3489,
+      "distance_m": 2397,
+      "calories_kcal": 100.6,
+      "active_minutes": 35,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-15",
+      "steps": 2427,
+      "raw_steps": 2427,
+      "distance_m": 1669,
+      "calories_kcal": 70,
+      "active_minutes": 24,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-16",
+      "steps": 4291,
+      "raw_steps": 4291,
+      "distance_m": 2949,
+      "calories_kcal": 123.9,
+      "active_minutes": 42,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-17",
+      "steps": 3981,
+      "raw_steps": 3981,
+      "distance_m": 2735,
+      "calories_kcal": 114.8,
+      "active_minutes": 39,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-18",
+      "steps": 4488,
+      "raw_steps": 4488,
+      "distance_m": 3085,
+      "calories_kcal": 129.6,
+      "active_minutes": 44,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-19",
+      "steps": 4130,
+      "raw_steps": 4130,
+      "distance_m": 2838,
+      "calories_kcal": 119.3,
+      "active_minutes": 41,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-20",
+      "steps": 3684,
+      "raw_steps": 3684,
+      "distance_m": 2532,
+      "calories_kcal": 106.3,
+      "active_minutes": 36,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-21",
+      "steps": 4263,
+      "raw_steps": 4263,
+      "distance_m": 2930,
+      "calories_kcal": 123.1,
+      "active_minutes": 42,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-22",
+      "steps": 4684,
+      "raw_steps": 4684,
+      "distance_m": 3219,
+      "calories_kcal": 135.2,
+      "active_minutes": 46,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-23",
+      "steps": 4691,
+      "raw_steps": 4691,
+      "distance_m": 3224,
+      "calories_kcal": 135.4,
+      "active_minutes": 46,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-24",
+      "steps": 3737,
+      "raw_steps": 3737,
+      "distance_m": 2568,
+      "calories_kcal": 107.9,
+      "active_minutes": 37,
+      "goal": 7500,
+      "goal_reached": false
+     },
+     {
+      "date": "2026-09-25",
+      "steps": 0,
+      "raw_steps": 0,
+      "distance_m": 0,
+      "calories_kcal": 0,
+      "active_minutes": 0,
+      "goal": 7500,
+      "goal_reached": false
+     }
+    ],
+    "totals": {
+     "steps": 112763,
+     "distance_m": 77495,
+     "calories_kcal": 3255,
+     "active_minutes": 1112,
+     "goal_days": 0
+    },
+    "averages": {
+     "daily_steps": 3759,
+     "weekly_steps": 26353,
+     "monthly_steps": 38859
+    },
+    "streak": {
+     "current": 0,
+     "longest": 0
+    },
+    "records": {
+     "best_day_steps": {
+      "value": 4848,
+      "date": "2026-08-29"
+     },
+     "best_week_steps": {
+      "value": 28369,
+      "date": "2026-08-29"
+     },
+     "best_session_steps": {
+      "value": 1534,
+      "date": "2026-09-04"
+     }
+    }
+   }
+  },
+  "/coupons?tab=available": {
+   "data": [
+    {
+     "id": "01m3aga10sskdzr94b48rct03b",
+     "title": "یک کلوچه رایگان",
+     "description": null,
+     "terms": null,
+     "discount_label": "رایگان",
+     "image_url": null,
+     "point_cost": 150,
+     "sponsor": {
+      "id": "01m3aga0hbyhr07k5k51rp1yyz",
+      "name": "کافه قدم",
+      "logo_url": null
+     },
+     "expires_at": null,
+     "remaining": 500
+    }
+   ]
+  },
+  "/wallet/transactions?filter=all": {
+   "data": [
+    {
+     "id": "01m3ap3z827c0yzcsasytq7tbe",
+     "type": "purchase",
+     "type_label": "خرید",
+     "group": "purchase",
+     "amount": -2500,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "خرید #Z0F4QE",
+     "balance_after": 1521,
+     "rial_value": 1250000,
+     "available_at": null,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "01m3ap3z69z7t8r7a107ergrh3",
+     "type": "purchase",
+     "type_label": "خرید",
+     "group": "purchase",
+     "amount": -1200,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "خرید #DZ4G0T",
+     "balance_after": 4021,
+     "rial_value": 600000,
+     "available_at": null,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "01m3ap3z4j8jpcdmes5mkqaf96",
+     "type": "adjustment",
+     "type_label": "اصلاح",
+     "group": "adjustment",
+     "amount": 4000,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "شارژ نمایشی",
+     "balance_after": 5221,
+     "rial_value": 2000000,
+     "available_at": null,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "01m3afhz6ttpd7ftdzsp454ce2",
+     "type": "achievement_reward",
+     "type_label": "پاداش دستاورد",
+     "group": "reward",
+     "amount": 30,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "دستاورد: ۱۰۰٬۰۰۰ قدم",
+     "balance_after": 1221,
+     "rial_value": 15000,
+     "available_at": "2026-09-24T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz4ya7rq0hfrtq8c81kw",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 7,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 646 قدم",
+     "balance_after": null,
+     "rial_value": 3500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz4d7h7066rb7txd6vjj",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 5,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 513 قدم",
+     "balance_after": null,
+     "rial_value": 2500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz2m6j6ahe9e63hdtp7w",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 10,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 1,076 قدم",
+     "balance_after": null,
+     "rial_value": 5000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz243m4d45njj2xe7c0v",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 1,502 قدم",
+     "balance_after": null,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz1pe2bhbdchk14vc0az",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 13,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,346 قدم",
+     "balance_after": 1191,
+     "rial_value": 6500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz1557x4s8g8sfftrd1f",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 11,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,099 قدم",
+     "balance_after": 1178,
+     "rial_value": 5500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz0rzm2czvf4n2f0ne6y",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,465 قدم",
+     "balance_after": 1167,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz0920781jfyswpzbcfc",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 7,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 781 قدم",
+     "balance_after": 1152,
+     "rial_value": 3500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyzs98qf8svkszzggtqy",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 5,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 565 قدم",
+     "balance_after": 1145,
+     "rial_value": 2500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyzbe8d8csyav11pmxs9",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 11,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,103 قدم",
+     "balance_after": 1140,
+     "rial_value": 5500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyytkkmqsc21bynp0qx6",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,493 قدم",
+     "balance_after": 1129,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyy6qyej65vbp0qnjwkm",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,523 قدم",
+     "balance_after": 1114,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyxj3r5hqkqhbrxxcc9f",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 12,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,195 قدم",
+     "balance_after": 1099,
+     "rial_value": 6000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyx1rqhamk33q1wj9rd9",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 7,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 700 قدم",
+     "balance_after": 1087,
+     "rial_value": 3500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhywhpxvvwx1v9vmgtce5",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 12,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,226 قدم",
+     "balance_after": 1080,
+     "rial_value": 6000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyvz7cc1dqn8emnsa68p",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 11,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,142 قدم",
+     "balance_after": 1068,
+     "rial_value": 5500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    }
+   ],
+   "links": {
+    "first": null,
+    "last": null,
+    "prev": null,
+    "next": "http://127.0.0.1:8123/api/v1/wallet/transactions?cursor=eyJpZCI6MTA1LCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9"
+   },
+   "meta": {
+    "path": "http://127.0.0.1:8123/api/v1/wallet/transactions",
+    "per_page": 20,
+    "next_cursor": "eyJpZCI6MTA1LCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9",
+    "prev_cursor": null
+   }
+  },
+  "/wallet/transactions?filter=earned": {
+   "data": [
+    {
+     "id": "01m3ap3z4j8jpcdmes5mkqaf96",
+     "type": "adjustment",
+     "type_label": "اصلاح",
+     "group": "adjustment",
+     "amount": 4000,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "شارژ نمایشی",
+     "balance_after": 5221,
+     "rial_value": 2000000,
+     "available_at": null,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "01m3afhz6ttpd7ftdzsp454ce2",
+     "type": "achievement_reward",
+     "type_label": "پاداش دستاورد",
+     "group": "reward",
+     "amount": 30,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "دستاورد: ۱۰۰٬۰۰۰ قدم",
+     "balance_after": 1221,
+     "rial_value": 15000,
+     "available_at": "2026-09-24T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz4ya7rq0hfrtq8c81kw",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 7,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 646 قدم",
+     "balance_after": null,
+     "rial_value": 3500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz4d7h7066rb7txd6vjj",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 5,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 513 قدم",
+     "balance_after": null,
+     "rial_value": 2500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz2m6j6ahe9e63hdtp7w",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 10,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 1,076 قدم",
+     "balance_after": null,
+     "rial_value": 5000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz243m4d45njj2xe7c0v",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "pending",
+     "status_label": "در حال بررسی",
+     "description": "پاداش 1,502 قدم",
+     "balance_after": null,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz1pe2bhbdchk14vc0az",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 13,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,346 قدم",
+     "balance_after": 1191,
+     "rial_value": 6500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz1557x4s8g8sfftrd1f",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 11,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,099 قدم",
+     "balance_after": 1178,
+     "rial_value": 5500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz0rzm2czvf4n2f0ne6y",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,465 قدم",
+     "balance_after": 1167,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhz0920781jfyswpzbcfc",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 7,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 781 قدم",
+     "balance_after": 1152,
+     "rial_value": 3500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyzs98qf8svkszzggtqy",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 5,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 565 قدم",
+     "balance_after": 1145,
+     "rial_value": 2500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyzbe8d8csyav11pmxs9",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 11,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,103 قدم",
+     "balance_after": 1140,
+     "rial_value": 5500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyytkkmqsc21bynp0qx6",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,493 قدم",
+     "balance_after": 1129,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyy6qyej65vbp0qnjwkm",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 15,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,523 قدم",
+     "balance_after": 1114,
+     "rial_value": 7500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyxj3r5hqkqhbrxxcc9f",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 12,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,195 قدم",
+     "balance_after": 1099,
+     "rial_value": 6000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyx1rqhamk33q1wj9rd9",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 7,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 700 قدم",
+     "balance_after": 1087,
+     "rial_value": 3500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhywhpxvvwx1v9vmgtce5",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 12,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,226 قدم",
+     "balance_after": 1080,
+     "rial_value": 6000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyvz7cc1dqn8emnsa68p",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 11,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,142 قدم",
+     "balance_after": 1068,
+     "rial_value": 5500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhyvddfsjy88st32x39sn",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 14,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 1,424 قدم",
+     "balance_after": 1057,
+     "rial_value": 7000,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    },
+    {
+     "id": "01m3afhytvqrh0ee6y418hexc1",
+     "type": "walking_reward",
+     "type_label": "پاداش قدم",
+     "group": "reward",
+     "amount": 9,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "پاداش 863 قدم",
+     "balance_after": 1043,
+     "rial_value": 4500,
+     "available_at": "2026-09-25T19:51:22+00:00",
+     "created_at": "2026-09-24T19:51:22+00:00"
+    }
+   ],
+   "links": {
+    "first": null,
+    "last": null,
+    "prev": null,
+    "next": "http://127.0.0.1:8123/api/v1/wallet/transactions?cursor=eyJpZCI6MTAzLCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9"
+   },
+   "meta": {
+    "path": "http://127.0.0.1:8123/api/v1/wallet/transactions",
+    "per_page": 20,
+    "next_cursor": "eyJpZCI6MTAzLCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9",
+    "prev_cursor": null
+   }
+  },
+  "/wallet/transactions?filter=spent": {
+   "data": [
+    {
+     "id": "01m3ap3z827c0yzcsasytq7tbe",
+     "type": "purchase",
+     "type_label": "خرید",
+     "group": "purchase",
+     "amount": -2500,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "خرید #Z0F4QE",
+     "balance_after": 1521,
+     "rial_value": 1250000,
+     "available_at": null,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    },
+    {
+     "id": "01m3ap3z69z7t8r7a107ergrh3",
+     "type": "purchase",
+     "type_label": "خرید",
+     "group": "purchase",
+     "amount": -1200,
+     "status": "completed",
+     "status_label": "انجام‌شده",
+     "description": "خرید #DZ4G0T",
+     "balance_after": 4021,
+     "rial_value": 600000,
+     "available_at": null,
+     "created_at": "2026-09-24T21:46:03+00:00"
+    }
+   ],
+   "links": {
+    "first": null,
+    "last": null,
+    "prev": null,
+    "next": null
+   },
+   "meta": {
+    "path": "http://127.0.0.1:8123/api/v1/wallet/transactions",
+    "per_page": 20,
+    "next_cursor": null,
+    "prev_cursor": null
+   }
+  },
+  "/locations/nearby": {
+   "data": [
+    {
+     "id": "01m3aga10es9cvph5ej8ccx61d",
+     "name": "شعبه پارک ملت",
+     "address": "خیابان ولیعصر، ضلع غربی پارک ملت",
+     "city": "تهران",
+     "lat": 35.779,
+     "lng": 51.4145,
+     "radius_m": 60,
+     "open_now": false,
+     "distance_m": 180,
+     "sponsor": {
+      "id": "01m3aga0hbyhr07k5k51rp1yyz",
+      "name": "کافه قدم",
+      "logo_url": null
+     },
+     "campaigns": [
+      {
+       "id": "01m3aga10x8x5t1vypez8zbtbr",
+       "name": "قدم بزن، قهوه بگیر",
+       "reward_points": 40,
+       "coupon": {
+        "id": "01m3aga10q4qahph1j0h0pxbfy",
+        "title": "۲۰٪ تخفیف نوشیدنی گرم",
+        "description": null,
+        "terms": "فقط در شعبه‌های کافه قدم، یک بار.",
+        "discount_label": "20٪ تخفیف",
+        "image_url": null,
+        "point_cost": 0,
+        "sponsor": {
+         "id": "01m3aga0hbyhr07k5k51rp1yyz",
+         "name": "کافه قدم",
+         "logo_url": null
+        },
+        "expires_at": null,
+        "remaining": null
+       },
+       "verification_method": "geofence_qr",
+       "requires_qr": true,
+       "min_stay_seconds": 180,
+       "ends_at": "2026-10-24T20:04:30+00:00",
+       "eligible": true,
+       "ineligible_reason": null
+      }
+     ]
+    },
+    {
+     "id": "01m3aga10kvdc751m80306qk16",
+     "name": "شعبه پل طبیعت",
+     "address": "بزرگراه مدرس، پل طبیعت",
+     "city": "تهران",
+     "lat": 35.7545,
+     "lng": 51.4197,
+     "radius_m": 60,
+     "open_now": false,
+     "distance_m": 2680,
+     "sponsor": {
+      "id": "01m3aga0hbyhr07k5k51rp1yyz",
+      "name": "کافه قدم",
+      "logo_url": null
+     },
+     "campaigns": [
+      {
+       "id": "01m3aga10x8x5t1vypez8zbtbr",
+       "name": "قدم بزن، قهوه بگیر",
+       "reward_points": 40,
+       "coupon": {
+        "id": "01m3aga10q4qahph1j0h0pxbfy",
+        "title": "۲۰٪ تخفیف نوشیدنی گرم",
+        "description": null,
+        "terms": "فقط در شعبه‌های کافه قدم، یک بار.",
+        "discount_label": "20٪ تخفیف",
+        "image_url": null,
+        "point_cost": 0,
+        "sponsor": {
+         "id": "01m3aga0hbyhr07k5k51rp1yyz",
+         "name": "کافه قدم",
+         "logo_url": null
+        },
+        "expires_at": null,
+        "remaining": null
+       },
+       "verification_method": "geofence_qr",
+       "requires_qr": true,
+       "min_stay_seconds": 180,
+       "ends_at": "2026-10-24T20:04:30+00:00",
+       "eligible": true,
+       "ineligible_reason": null
+      }
+     ]
+    }
+   ]
+  },
+  "/ads/rewarded?placement=rewarded_default": {
+   "data": {
+    "enabled": true,
+    "remaining_today": 3,
+    "daily_cap": 3
+   }
+  },
+  "/ads/placements/home_banner": {
+   "data": {
+    "id": "01m3ah921rmh6f6k1dw5n6mezm",
+    "format": "banner",
+    "title": "چالش ۵۰ هزار قدمی این هفته",
+    "body": "همین حالا شرکت کن و ۵۰۰ امتیاز بگیر",
+    "image_url": null,
+    "cta_label": "شرکت",
+    "action_url": "/challenges",
+    "min_view_seconds": 15,
+    "advertiser": null,
+    "token": "eyJzIjoiMDFNM0FQNFpISDhSM1BYRzc4S1FZSDFIWDciLCJhIjoxLCJjIjoxLCJwIjoxLCJ1IjoxLCJkIjoiMjAyNi0wOS0yNSIsIngiOjE3OTAzNzI3OTZ9.oVPQomnU5J9XLaGWq9XbCE2LGTZkKaqYcr8V4_FK_7Q"
+   }
+  },
+  "/ads/placements/activity_banner": {
+   "data": {
+    "id": "01m3ah921rmh6f6k1dw5n6mezm",
+    "format": "banner",
+    "title": "چالش ۵۰ هزار قدمی این هفته",
+    "body": "همین حالا شرکت کن و ۵۰۰ امتیاز بگیر",
+    "image_url": null,
+    "cta_label": "شرکت",
+    "action_url": "/challenges",
+    "min_view_seconds": 15,
+    "advertiser": null,
+    "token": "eyJzIjoiMDFNM0FQNFpKWlhWNlZUMEZOV0pXWllQQzAiLCJhIjoxLCJjIjoxLCJwIjoyLCJ1IjoxLCJkIjoiMjAyNi0wOS0yNSIsIngiOjE3OTAzNzI3OTd9.xXsn4qN98mFtCSrqy0IaSxLWKuTDyaRoVxmWfr1eueI"
+   }
+  },
+  "/ads/placements/rewards_native": {
+   "data": {
+    "id": "01m3ah921zkq0ej7tphxgf4p4m",
+    "format": "native",
+    "title": "کافه قدم",
+    "body": "به شعبه‌های کافه قدم سر بزن و قهوه هدیه بگیر",
+    "image_url": null,
+    "cta_label": "جایزه‌های اطراف",
+    "action_url": "/nearby",
+    "min_view_seconds": 15,
+    "advertiser": null,
+    "token": "eyJzIjoiMDFNM0FQNFpNRFhNUlJDQjU1Qjc5R05QWUsiLCJhIjoyLCJjIjoyLCJwIjozLCJ1IjoxLCJkIjoiMjAyNi0wOS0yNSIsIngiOjE3OTAzNzI3OTd9.5zZ9Jbt2jGRzm8N32RRC8cWEYRNLT0zjOS_PTUt_SZg"
+   }
+  },
+  "/pages/terms": {
+   "data": {
+    "slug": "terms",
+    "title": "قوانین و مقررات",
+    "body": "## استفاده از گام‌یار\n\n- هر کاربر فقط یک حساب مجاز دارد.\n- استفاده از هر روش شبیه‌سازی قدم، GPS جعلی یا دستکاری برنامه باعث حذف امتیازها و مسدود شدن حساب می‌شود.\n- امتیازها ارزش ریالی تقریبی دارند و فقط در گام‌یار قابل استفاده‌اند.\n- گام‌یار می‌تواند قوانین امتیازدهی را با اطلاع‌رسانی قبلی تغییر دهد.",
+    "updated_at": "2026-09-24T19:51:18+00:00"
+   }
+  },
+  "/pages/privacy": {
+   "data": {
+    "slug": "privacy",
+    "title": "حریم خصوصی",
+    "body": "## چه اطلاعاتی جمع‌آوری می‌کنیم؟\n\n- **شماره موبایل**: برای ورود. در هیچ بخش عمومی نمایش داده نمی‌شود.\n- **داده‌های حرکتی**: تعداد قدم و خلاصه دقیقه‌ای حرکت (نه داده خام سنسور) برای ثبت فعالیت و جلوگیری از تقلب.\n- **موقعیت مکانی**: فقط وقتی خودتان پیاده‌روی با مسیر را شروع کنید یا از «جایزه‌های اطراف من» استفاده کنید. موقعیت شما هرگز به‌صورت دائمی در پس‌زمینه ثبت نمی‌شود.\n- **اطلاعات دستگاه**: مدل و نسخه سیستم‌عامل برای امنیت حساب.\n\n## حذف حساب\n\nاز بخش پروفایل می‌توانید درخواست حذف حساب بدهید. اطلاعات شخصی شما حذف یا ناشناس می‌شود؛ سوابق مالی (تراکنش امتیاز و سفارش) به‌صورت ناشناس برای الزامات قانونی نگهداری می‌شوند.",
+    "updated_at": "2026-09-24T19:51:18+00:00"
+   }
+  },
+  "/pages/about": {
+   "data": {
+    "slug": "about",
+    "title": "درباره ما",
+    "body": "گام‌یار به شما کمک می‌کند هر روز کمی بیشتر حرکت کنید و برای این حرکت پاداش بگیرید.\n\nقدم‌های شما پس از بررسی به امتیاز تبدیل می‌شوند و می‌توانید با امتیاز از فروشگاه خرید کنید یا جایزه‌های اسپانسرها را دریافت کنید.",
+    "updated_at": "2026-09-24T19:51:18+00:00"
+   }
+  },
+  "/pages/how-to-earn": {
+   "data": {
+    "slug": "how-to-earn",
+    "title": "نحوه دریافت امتیاز",
+    "body": "- **قدم روزانه**: به ازای قدم‌های تأییدشده امتیاز می‌گیرید.\n- **هدف روزانه**: رسیدن به هدف، امتیاز جایزه دارد.\n- **روزهای متوالی**: هرچه زنجیره روزهایتان طولانی‌تر باشد، جایزه بیشتری می‌گیرید.\n- **چالش‌ها و مکان‌های اسپانسری**: با شرکت در چالش‌ها و مراجعه به فروشگاه‌های همکار امتیاز بیشتری بگیرید.",
+    "updated_at": "2026-09-24T19:51:18+00:00"
+   }
+  },
+  "/pages/reward-rules": {
+   "data": {
+    "slug": "reward-rules",
+    "title": "قوانین پاداش",
+    "body": "- فقط **قدم‌های تأییدشده** امتیاز دارند.\n- امتیازها ابتدا «در حال بررسی» هستند و پس از بررسی امنیتی قابل استفاده می‌شوند.\n- برای امتیاز روزانه سقف وجود دارد.\n- ارزش ریالی امتیاز ممکن است تغییر کند؛ تراکنش‌های گذشته تحت تأثیر قرار نمی‌گیرند.",
+    "updated_at": "2026-09-24T19:51:18+00:00"
+   }
+  },
+  "/challenges/01m3afhvkk2g32pemvhfzpqt1e": {
+   "data": {
+    "id": "01m3afhvkk2g32pemvhfzpqt1e",
+    "title": "هفته ۵۰ هزار قدمی",
+    "description": "در ۷ روز ۵۰٬۰۰۰ قدم تأییدشده بردار.",
+    "image_url": null,
+    "type": "weekly",
+    "type_label": "چالش هفتگی",
+    "metric": "steps",
+    "target": 50000,
+    "reward_points": 500,
+    "reward_xp": 300,
+    "sponsored": false,
+    "starts_at": "2026-09-22T19:51:18+00:00",
+    "ends_at": "2026-09-29T19:51:18+00:00",
+    "participants": 1,
+    "status": "running",
+    "joinable": false,
+    "joined": true,
+    "progress": 0,
+    "completed_at": null,
+    "top": [
+     {
+      "rank": 1,
+      "name": "علی رضایی",
+      "progress": 0,
+      "completed": false,
+      "is_me": true
+     }
+    ]
+   }
+  },
+  "/campaigns/01m3aga10x8x5t1vypez8zbtbr": {
+   "data": {
+    "id": "01m3aga10x8x5t1vypez8zbtbr",
+    "name": "قدم بزن، قهوه بگیر",
+    "reward_points": 40,
+    "coupon": {
+     "id": "01m3aga10q4qahph1j0h0pxbfy",
+     "title": "۲۰٪ تخفیف نوشیدنی گرم",
+     "description": null,
+     "terms": "فقط در شعبه‌های کافه قدم، یک بار.",
+     "discount_label": "20٪ تخفیف",
+     "image_url": null,
+     "point_cost": 0,
+     "sponsor": {
+      "id": "01m3aga0hbyhr07k5k51rp1yyz",
+      "name": "کافه قدم",
+      "logo_url": null
+     },
+     "expires_at": null,
+     "remaining": null
+    },
+    "verification_method": "geofence_qr",
+    "requires_qr": true,
+    "min_stay_seconds": 180,
+    "ends_at": "2026-10-24T20:04:30+00:00",
+    "eligible": true,
+    "ineligible_reason": null,
+    "description": "به یکی از شعبه‌ها سر بزن، ۳ دقیقه بمان و QR صندوق را اسکن کن.",
+    "image_url": null,
+    "sponsor": {
+     "id": "01m3aga0hbyhr07k5k51rp1yyz",
+     "name": "کافه قدم",
+     "logo_url": null
+    },
+    "starts_at": "2026-09-23T20:04:30+00:00",
+    "max_rewards_per_user": 4,
+    "my_rewards": 0,
+    "locations": [
+     {
+      "id": "01m3aga10es9cvph5ej8ccx61d",
+      "name": "شعبه پارک ملت",
+      "address": "خیابان ولیعصر، ضلع غربی پارک ملت",
+      "city": "تهران",
+      "lat": 35.779,
+      "lng": 51.4145,
+      "radius_m": 60,
+      "open_now": false,
+      "distance_m": null
+     },
+     {
+      "id": "01m3aga10kvdc751m80306qk16",
+      "name": "شعبه پل طبیعت",
+      "address": "بزرگراه مدرس، پل طبیعت",
+      "city": "تهران",
+      "lat": 35.7545,
+      "lng": 51.4197,
+      "radius_m": 60,
+      "open_now": false,
+      "distance_m": null
+     }
+    ]
+   }
+  },
+  "/visits/01m3ap3zavk8znpb4kkadp1z4g": {
+   "data": {
+    "id": "01m3ap3zavk8znpb4kkadp1z4g",
+    "status": "started",
+    "campaign_id": "01m3aga10x8x5t1vypez8zbtbr",
+    "campaign_name": "قدم بزن، قهوه بگیر",
+    "location_id": "01m3aga10es9cvph5ej8ccx61d",
+    "location_name": "شعبه پارک ملت",
+    "stay_seconds": 90,
+    "min_stay_seconds": 180,
+    "requires_qr": true,
+    "qr_verified": false,
+    "inside": true,
+    "points_awarded": 0,
+    "rejection_reason": null,
+    "ping_interval_s": 30,
+    "entered_at": "2026-09-24T21:44:23+00:00",
+    "verified_at": null,
+    "coupon": null
+   }
+  },
+  "/orders/01m3ap3z7z8ng1fb6ez8z0f4qe": {
+   "data": {
+    "id": "01m3ap3z7z8ng1fb6ez8z0f4qe",
+    "number": "#Z0F4QE",
+    "status": "shipped",
+    "status_label": "ارسال‌شده",
+    "total_points": 2500,
+    "placed_at": "2026-09-24T21:46:03+00:00",
+    "item_count": 1,
+    "title": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+    "cancellable": false,
+    "items": [
+     {
+      "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+      "type": "physical",
+      "quantity": 1,
+      "unit_point_price": 2500,
+      "image_url": null,
+      "codes": [],
+      "coupon_id": null
+     }
+    ],
+    "shipping_address": {
+     "city": "تهران",
+     "line": "خیابان ولیعصر، کوچه نسترن، پلاک ۱۲، واحد ۴",
+     "phone": "09120000001",
+     "title": "خانه",
+     "province": "تهران",
+     "recipient": "علی رضایی",
+     "postal_code": "1965812345"
+    },
+    "tracking_code": "IR1405070012345",
+    "history": [
+     {
+      "status": "paid",
+      "label": "ثبت‌شده",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "status": "processing",
+      "label": "در حال آماده‌سازی",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "status": "shipped",
+      "label": "ارسال‌شده",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     }
+    ]
+   }
+  },
+  "/orders/01m3ap3z64ggt47rqvtadz4g0t": {
+   "data": {
+    "id": "01m3ap3z64ggt47rqvtadz4g0t",
+    "number": "#DZ4G0T",
+    "status": "delivered",
+    "status_label": "تحویل‌شده",
+    "total_points": 1200,
+    "placed_at": "2026-09-24T21:46:03+00:00",
+    "item_count": 1,
+    "title": "کارت هدیه ۵۰۰ هزار ریالی",
+    "cancellable": false,
+    "items": [
+     {
+      "name": "کارت هدیه ۵۰۰ هزار ریالی",
+      "type": "digital_code",
+      "quantity": 1,
+      "unit_point_price": 1200,
+      "image_url": null,
+      "codes": [
+       {
+        "code": "DEMO-0001-0001",
+        "expires_at": null
+       }
+      ],
+      "coupon_id": null
+     }
+    ],
+    "shipping_address": null,
+    "tracking_code": null,
+    "history": [
+     {
+      "status": "paid",
+      "label": "ثبت‌شده",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "status": "delivered",
+      "label": "تحویل‌شده",
+      "note": "تحویل خودکار",
+      "at": "2026-09-24T21:46:03+00:00"
+     }
+    ]
+   }
+  },
+  "/support/tickets/01m3ap3zbpwb1x6x62rqdz56ev": {
+   "data": {
+    "id": "01m3ap3zbpwb1x6x62rqdz56ev",
+    "number": "#DZ56EV",
+    "category": "points",
+    "category_label": "امتیاز و کیف پول",
+    "subject": "امتیاز پیاده‌روی دیروز اضافه نشد",
+    "status": "awaiting_user",
+    "status_label": "در انتظار پاسخ شما",
+    "can_reply": true,
+    "last_message_at": "2026-09-24T21:46:04+00:00",
+    "messages": [
+     {
+      "from": "me",
+      "body": "سلام، دیروز حدود ۹ هزار قدم راه رفتم ولی امتیاز آن هنوز در کیف پولم «در حال بررسی» است.",
+      "at": "2026-09-24T21:46:04+00:00"
+     },
+     {
+      "from": "support",
+      "body": "سلام علی جان، امتیازهای قدم پس از ۲۴ ساعت بررسی آزاد می‌شوند. امتیاز دیروز شما تا ساعاتی دیگر قابل استفاده خواهد بود.",
+      "at": "2026-09-24T21:46:04+00:00"
+     }
+    ]
+   }
+  },
+  "/store/products/gift-card-500k": {
+   "data": {
+    "id": "01m3ahz69nmd2azc1xwsrxdb9f",
+    "slug": "gift-card-500k",
+    "name": "کارت هدیه ۵۰۰ هزار ریالی",
+    "summary": "قابل استفاده در فروشگاه‌های طرف قرارداد",
+    "type": "digital_code",
+    "type_label": "کد دیجیتال",
+    "point_price": 1200,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": 2,
+    "min_level": 1,
+    "needs_address": false,
+    "image_url": null,
+    "category": "gift-cards",
+    "sponsor": null,
+    "description": null,
+    "images": []
+   }
+  },
+  "/store/products/sport-bottle": {
+   "data": {
+    "id": "01m3ahz6b1dg3a291ndy02fr47",
+    "slug": "sport-bottle",
+    "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+    "summary": "فولادی، دوجداره",
+    "type": "physical",
+    "type_label": "کالای فیزیکی",
+    "point_price": 2500,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 1,
+    "needs_address": true,
+    "image_url": null,
+    "category": "sport",
+    "sponsor": null,
+    "description": "<p>آب را تا ۱۲ ساعت خنک نگه می‌دارد.</p>",
+    "images": []
+   }
+  },
+  "/store/products/sport-socks": {
+   "data": {
+    "id": "01m3ahz6b37yffwnyseezve0mt",
+    "slug": "sport-socks",
+    "name": "جوراب ورزشی (سه جفت)",
+    "summary": null,
+    "type": "physical",
+    "type_label": "کالای فیزیکی",
+    "point_price": 900,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 3,
+    "needs_address": true,
+    "image_url": null,
+    "category": "sport",
+    "sponsor": null,
+    "description": null,
+    "images": []
+   }
+  },
+  "/store/products/cafe-cookie": {
+   "data": {
+    "id": "01m3ahz6b87bmjc7wj94dkaaay",
+    "slug": "cafe-cookie",
+    "name": "کلوچه رایگان کافه قدم",
+    "summary": null,
+    "type": "coupon",
+    "type_label": "کوپن",
+    "point_price": 150,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": 1,
+    "min_level": 1,
+    "needs_address": false,
+    "image_url": null,
+    "category": "coupons",
+    "sponsor": "کافه قدم",
+    "description": null,
+    "images": []
+   }
+  },
+  "/store/products/plant-a-tree": {
+   "data": {
+    "id": "01m3ahz6bavp9padardk21rx12",
+    "slug": "plant-a-tree",
+    "name": "کاشت یک نهال",
+    "summary": "امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود",
+    "type": "service",
+    "type_label": "خدمت / اهدا",
+    "point_price": 500,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 1,
+    "needs_address": false,
+    "image_url": null,
+    "category": "charity",
+    "sponsor": null,
+    "description": null,
+    "images": []
+   }
+  },
+  "/walking-sessions/01m3afhwvqr1v543ncqjnkrtzc": {
+   "data": {
+    "id": "01m3afhwvqr1v543ncqjnkrtzc",
+    "client_session_id": "2584202a-a3f1-4f31-b632-0621cf6060d1",
+    "kind": "active",
+    "started_at": "2026-09-21T14:00:00+00:00",
+    "ended_at": "2026-09-21T14:50:00+00:00",
+    "local_date": "2026-09-21",
+    "steps": 700,
+    "verified_steps": 700,
+    "distance_m": 481,
+    "duration_s": 3000,
+    "active_duration_s": 400,
+    "calories_kcal": 20.2,
+    "activity_type": "walking",
+    "status": "verified",
+    "status_label": "تأییدشده",
+    "reward_status": "pending",
+    "confidence_score": 96,
+    "samples": [
+     {
+      "started_at": "2026-09-21T14:00:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:01:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:02:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:03:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:04:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:05:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:06:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:07:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:08:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:09:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:10:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:11:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:12:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:13:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:14:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:15:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:16:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:17:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:18:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:19:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:20:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:21:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:22:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:23:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:24:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:25:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:26:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:27:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:28:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:29:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:30:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:31:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:32:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:33:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:34:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:35:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:36:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:37:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:38:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:39:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:40:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:41:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:42:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:43:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:44:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:45:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:46:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:47:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:48:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     },
+     {
+      "started_at": "2026-09-21T14:49:00+00:00",
+      "duration_s": 60,
+      "steps": 14
+     }
+    ]
+   }
+  },
+  "/ads/placements/rewarded_default": {
+   "data": {
+    "id": "01m3ah9225s7w0t6qt5xcftj13",
+    "format": "rewarded",
+    "title": "کفش مخصوص پیاده‌روی",
+    "body": "سبک، نرم و مناسب قدم‌های روزانه",
+    "image_url": null,
+    "cta_label": "مشاهده",
+    "action_url": "/store",
+    "min_view_seconds": 15,
+    "advertiser": null,
+    "token": "eyJzIjoiMDFNM0FQNlZYV0gyOVhFSDZCUURSQTdSWDYiLCJhIjozLCJjIjozLCJwIjo0LCJ1IjoxLCJkIjoiMjAyNi0wOS0yNSIsIngiOjE3OTAzNzI4NTh9.Wj_rxi9j6m7VawOnWTQLh54cUTTsj0jAv7kLhrwhJ6U"
+   }
+  }
+ },
+ "ids": {
+  "challenge": "01m3afhvkk2g32pemvhfzpqt1e",
+  "campaign": "01m3aga10x8x5t1vypez8zbtbr",
+  "visit": "01m3ap3zavk8znpb4kkadp1z4g",
+  "orders": [
+   "01m3ap3z7z8ng1fb6ez8z0f4qe",
+   "01m3ap3z64ggt47rqvtadz4g0t"
+  ],
+  "ticket": "01m3ap3zbpwb1x6x62rqdz56ev",
+  "product": "gift-card-500k",
+  "session": "01m3afhwvqr1v543ncqjnkrtzc"
+ }
+}
