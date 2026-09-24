@@ -2,14 +2,13 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Admin\Widgets\PlatformOverview;
+use App\Filament\Admin\Pages\Dashboard;
 use App\Filament\Support\InitialsAvatarProvider;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -40,12 +39,11 @@ class AdminPanelProvider extends PanelProvider
                 'gray' => Color::Zinc,
             ])
             ->sidebarCollapsibleOnDesktop()
-            ->navigationGroups(['کاربران', 'فعالیت', 'ضد تقلب', 'امتیاز و کیف پول', 'تعامل', 'اسپانسرها', 'تبلیغات', 'فروشگاه', 'امنیت', 'محتوا', 'تنظیمات'])
+            ->navigationGroups(['کاربران', 'فعالیت', 'ضد تقلب', 'امتیاز و کیف پول', 'تعامل', 'اسپانسرها', 'تبلیغات', 'فروشگاه', 'پشتیبانی', 'گزارش‌ها', 'امنیت', 'محتوا', 'تنظیمات'])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
             ->pages([Dashboard::class])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\Filament\Admin\Widgets')
-            ->widgets([PlatformOverview::class])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

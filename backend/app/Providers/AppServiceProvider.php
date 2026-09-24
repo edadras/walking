@@ -28,6 +28,7 @@ use App\Models\PointTransaction;
 use App\Models\Product;
 use App\Models\Sponsor;
 use App\Models\SponsorUser;
+use App\Models\SupportTicket;
 use App\Models\User;
 use App\Models\UserCoupon;
 use App\Models\Visit;
@@ -105,6 +106,7 @@ class AppServiceProvider extends ServiceProvider
             'ad_view' => AdView::class,
             'order' => Order::class,
             'product' => Product::class,
+            'support_ticket' => SupportTicket::class,
         ]);
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
@@ -120,6 +122,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('sessions', fn (Request $r) => Limit::perMinute(30)->by('sess:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('visits', fn (Request $r) => Limit::perMinute(60)->by('visit:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('purchase', fn (Request $r) => Limit::perMinute(10)->by('buy:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('support', fn (Request $r) => Limit::perHour(30)->by('sup:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('ads', fn (Request $r) => Limit::perMinute(60)->by('ads:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }

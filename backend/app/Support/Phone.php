@@ -21,4 +21,12 @@ final class Phone
 
         return preg_match('/^9\d{9}$/', $digits) ? '+98'.$digits : null;
     }
+
+    /** +989121234567 → 0912***4567 */
+    public static function mask(string $e164): string
+    {
+        $local = '0'.substr($e164, 3);
+
+        return substr($local, 0, 4).'***'.substr($local, -4);
+    }
 }

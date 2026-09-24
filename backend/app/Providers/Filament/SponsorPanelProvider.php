@@ -3,7 +3,10 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Sponsor\Pages\Register;
+use App\Filament\Sponsor\Widgets\AdsChart;
+use App\Filament\Sponsor\Widgets\CouponsChart;
 use App\Filament\Sponsor\Widgets\SponsorOverview;
+use App\Filament\Sponsor\Widgets\VisitsChart;
 use App\Filament\Support\InitialsAvatarProvider;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
@@ -48,7 +51,7 @@ class SponsorPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Sponsor/Resources'), for: 'App\Filament\Sponsor\Resources')
             ->discoverPages(in: app_path('Filament/Sponsor/Pages'), for: 'App\Filament\Sponsor\Pages')
             ->pages([Dashboard::class])
-            ->widgets([SponsorOverview::class])
+            ->widgets([SponsorOverview::class, VisitsChart::class, CouponsChart::class, AdsChart::class])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

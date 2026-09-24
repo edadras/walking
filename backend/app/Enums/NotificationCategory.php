@@ -13,6 +13,7 @@ enum NotificationCategory: string
     case CouponExpiration = 'coupon_expiration';
     case OrderUpdate = 'order_update';
     case Announcement = 'announcement';
+    case Support = 'support';
 
     public function label(): string
     {
@@ -26,12 +27,13 @@ enum NotificationCategory: string
             self::CouponExpiration => 'انقضای کوپن',
             self::OrderUpdate => 'وضعیت سفارش',
             self::Announcement => 'اطلاعیه‌ها',
+            self::Support => 'پاسخ پشتیبانی',
         };
     }
 
     /** Transactional categories the user cannot switch off (they concern their own orders/money). */
     public function isMandatory(): bool
     {
-        return $this === self::OrderUpdate;
+        return $this === self::OrderUpdate || $this === self::Support;
     }
 }

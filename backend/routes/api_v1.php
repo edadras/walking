@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\RewardController;
 use App\Http\Controllers\Api\V1\SponsorOfferController;
 use App\Http\Controllers\Api\V1\StoreController;
+use App\Http\Controllers\Api\V1\SupportController;
 use App\Http\Controllers\Api\V1\VisitController;
 use App\Http\Controllers\Api\V1\WalkingSessionController;
 use App\Http\Controllers\Api\V1\WalletController;
@@ -129,6 +130,15 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::post('addresses', [AddressController::class, 'store']);
     Route::patch('addresses/{address}', [AddressController::class, 'update']);
     Route::delete('addresses/{address}', [AddressController::class, 'destroy']);
+
+    Route::get('support/categories', [SupportController::class, 'categories']);
+    Route::get('support/tickets', [SupportController::class, 'index']);
+    Route::get('support/tickets/{ticket}', [SupportController::class, 'show']);
+    Route::middleware('throttle:support')->group(function () {
+        Route::post('support/tickets', [SupportController::class, 'store']);
+        Route::post('support/tickets/{ticket}/messages', [SupportController::class, 'reply']);
+        Route::post('support/tickets/{ticket}/close', [SupportController::class, 'close']);
+    });
 
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::post('notifications/read', [NotificationController::class, 'read']);

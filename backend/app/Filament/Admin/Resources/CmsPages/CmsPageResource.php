@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\CmsPages;
 use App\Filament\Admin\Concerns\RequiresAbility;
 use App\Models\CmsPage;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
@@ -15,6 +16,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use UnitEnum;
 
 class CmsPageResource extends Resource
@@ -54,7 +57,13 @@ class CmsPageResource extends Resource
                 IconColumn::make('is_published')->label('منتشر')->boolean(),
                 TextColumn::make('updated_at')->label('به‌روزرسانی')->since(),
             ])
-            ->recordActions([EditAction::make()]);
+            ->recordActions([
+                Action::make('preview')->label('پیش‌نمایش')->icon('heroicon-o-eye')->color('gray')
+                    ->modalHeading(fn (CmsPage $record) => $record->title)
+                    ->modalContent(fn (CmsPage $record) => new HtmlString('<div class="prose max-w-none dark:prose-invert" dir="rtl">'.Str::markdown($record->body, ['html_input' => 'strip', 'allow_unsafe_links' => false]).'</div>'))
+                    ->modalSubmitAction(false)->modalCancelActionLabel('بستن'),
+                EditAction::make(),
+            ]);
     }
 
     public static function getPages(): array

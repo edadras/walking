@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserStatus;
+use App\Support\Phone;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -120,9 +121,7 @@ class User extends Authenticatable
     /** Masked phone for display in admin lists and the user's own profile, e.g. 0912***4567. */
     public function maskedPhone(): string
     {
-        $local = '0'.substr($this->phone, 3);
-
-        return substr($local, 0, 4).'***'.substr($local, -4);
+        return Phone::mask($this->phone);
     }
 
     public function publicName(): string
