@@ -12,7 +12,7 @@
 return [
     'settings' => [
         // Auth
-        'auth.otp_length' => ['value' => 5, 'group' => 'auth', 'public' => false, 'description' => 'تعداد ارقام کد یکبارمصرف'],
+        'auth.otp_length' => ['value' => 5, 'group' => 'auth', 'public' => true, 'description' => 'تعداد ارقام کد یکبارمصرف'],
         'auth.otp_ttl_seconds' => ['value' => 120, 'group' => 'auth', 'public' => false, 'description' => 'مدت اعتبار کد (ثانیه)'],
         'auth.otp_max_attempts' => ['value' => 5, 'group' => 'auth', 'public' => false, 'description' => 'حداکثر تلاش برای هر کد'],
         'auth.otp_resend_seconds' => ['value' => 60, 'group' => 'auth', 'public' => true, 'description' => 'فاصله ارسال مجدد کد'],

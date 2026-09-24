@@ -19,7 +19,7 @@ class ConfigTest extends TestCase
         $this->assertTrue($data['features']['store']);
         $this->assertFalse($data['features']['ads']);
         $this->assertSame(7500, $data['settings']['activity.default_daily_goal']);
-        $this->assertArrayNotHasKey('auth.otp_length', $data['settings']);
+        $this->assertArrayNotHasKey('auth.otp_max_attempts', $data['settings']);
     }
 
     public function test_admin_overrides_apply_immediately(): void

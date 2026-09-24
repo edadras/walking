@@ -5,7 +5,7 @@
 | Phase | محتوا | خروجی کلیدی | وضعیت |
 |-------|-------|-------------|-------|
 | 0 | Architecture، ERD، API، Flows، Security، Tracking، Design System | این پوشه | ✅ |
-| 1 | Auth (OTP)، Profile، Device registration + Request signing، Settings/Feature flags، Config API، Audit log، Admin foundation، پایه Flutter (Design system، Network، Storage، Router، Onboarding، Auth، Shell، Home اولیه، Profile) | `docs/phase-1.md` | ✅ |
+| 1 | Auth (OTP)، Profile، Device registration + Request signing، Settings/Feature flags، Config API، Audit log، Admin foundation، پایه Flutter (Design system، Network، Storage، Router، Onboarding، Auth، Shell، Home اولیه، Profile) | [phase-1.md](../phase-1.md) | ✅ |
 | 2 | Step tracking (Kotlin sensor channel + WorkManager)، Walking sessions API، Offline queue، Daily activity، Calories، Activity timeline | | ⏳ |
 | 3 | Fraud Engine + Rules، Verified steps، Reward Engine، Point Ledger، Wallet، Pending release scheduler، Fraud cases پایه | | ⏳ |
 | 4 | Health dashboard، Water tracker، XP/Level، Achievements، Streak، Leaderboard (Redis)، Challenges، Weekly report، Referral | | ⏳ |

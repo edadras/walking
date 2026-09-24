@@ -1,0 +1,84 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../core/localization/l10n.dart';
+import '../features/auth/application/session_controller.dart';
+import '../features/auth/presentation/otp_page.dart';
+import '../features/auth/presentation/phone_page.dart';
+import '../features/content/presentation/content_page.dart';
+import '../features/home/presentation/home_page.dart';
+import '../features/onboarding/presentation/onboarding_page.dart';
+import '../features/profile/presentation/delete_account_page.dart';
+import '../features/profile/presentation/devices_page.dart';
+import '../features/profile/presentation/edit_profile_page.dart';
+import '../features/profile/presentation/notifications_page.dart';
+import '../features/profile/presentation/profile_page.dart';
+import '../features/shell/presentation/app_shell.dart';
+import '../features/shell/presentation/splash_page.dart';
+
+/// Bridges Riverpod session changes to GoRouter's refreshListenable.
+class _SessionListenable extends ChangeNotifier {
+  _SessionListenable(Ref ref) {
+    ref.listen(sessionProvider, (_, _) => notifyListeners());
+  }
+}
+
+final routerProvider = Provider<GoRouter>((ref) {
+  final refresh = _SessionListenable(ref);
+  ref.onDispose(refresh.dispose);
+
+  return GoRouter(
+    initialLocation: '/splash',
+    refreshListenable: refresh,
+    redirect: (context, state) {
+      final session = ref.read(sessionProvider);
+      final loc = state.matchedLocation;
+      final public = loc.startsWith('/page/');
+
+      if (!session.hasValue) return loc == '/splash' ? null : '/splash';
+
+      return switch (session.value!) {
+        SessionUnauthenticated(onboardingDone: false) => loc == '/onboarding' ? null : '/onboarding',
+        SessionUnauthenticated() => loc.startsWith('/auth') || public ? null : '/auth/phone',
+        SessionBlocked() => loc == '/blocked' || public ? null : '/blocked',
+        SessionAuthenticated() => (loc == '/splash' || loc == '/onboarding' || loc.startsWith('/auth') || loc == '/blocked') ? '/home' : null,
+      };
+    },
+    routes: [
+      GoRoute(path: '/splash', builder: (_, _) => const SplashPage()),
+      GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingPage()),
+      GoRoute(path: '/blocked', builder: (_, _) => const BlockedPage()),
+      GoRoute(path: '/auth/phone', builder: (_, _) => const PhonePage()),
+      GoRoute(
+        path: '/auth/otp',
+        redirect: (_, state) => state.extra is OtpArgs ? null : '/auth/phone',
+        builder: (_, state) => OtpPage(args: state.extra! as OtpArgs),
+      ),
+      GoRoute(path: '/page/:slug', builder: (_, state) => ContentPage(slug: state.pathParameters['slug']!)),
+      GoRoute(path: '/faq', builder: (_, _) => const FaqPage()),
+      StatefulShellRoute.indexedStack(
+        builder: (_, _, shell) => AppShell(shell: shell),
+        branches: [
+          StatefulShellBranch(routes: [GoRoute(path: '/home', builder: (_, _) => const HomePage())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/activity', builder: (c, _) => ComingNextPage(title: c.l10n.navActivity))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/rewards', builder: (c, _) => ComingNextPage(title: c.l10n.navRewards))]),
+          StatefulShellBranch(routes: [GoRoute(path: '/store', builder: (c, _) => ComingNextPage(title: c.l10n.navStore))]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/profile',
+              builder: (_, _) => const ProfilePage(),
+              routes: [
+                GoRoute(path: 'edit', builder: (_, _) => const EditProfilePage()),
+                GoRoute(path: 'notifications', builder: (_, _) => const NotificationsPage()),
+                GoRoute(path: 'devices', builder: (_, _) => const DevicesPage()),
+                GoRoute(path: 'delete', builder: (_, _) => const DeleteAccountPage()),
+              ],
+            ),
+          ]),
+        ],
+      ),
+    ],
+    debugLogDiagnostics: kDebugMode,
+  );
+});
