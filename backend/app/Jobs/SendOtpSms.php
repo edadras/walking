@@ -4,11 +4,13 @@ namespace App\Jobs;
 
 use App\Domain\Auth\Sms\SmsSender;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendOtpSms implements ShouldQueue
+/** Payload is encrypted in Redis (it contains the phone number and the code). */
+class SendOtpSms implements ShouldBeEncrypted, ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
 

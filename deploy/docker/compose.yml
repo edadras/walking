@@ -1,0 +1,91 @@
+# Single-host deployment (staging / small production). For larger scale run
+# app, horizon and scheduler on separate hosts against managed MySQL/Redis.
+#
+#   cp deploy/docker/.env.example deploy/docker/.env   # fill secrets
+#   docker compose -f deploy/docker/compose.yml --env-file deploy/docker/.env up -d --build
+name: gamyar
+
+x-app: &app
+  build:
+    context: ../../backend
+    target: app
+  image: gamyar/api:${IMAGE_TAG:-latest}
+  env_file: .env
+  environment:
+    DB_HOST: mysql
+    REDIS_HOST: redis
+    LOG_CHANNEL: stderr
+  volumes:
+    - storage:/var/www/html/storage/app
+  depends_on:
+    mysql: { condition: service_healthy }
+    redis: { condition: service_healthy }
+  restart: unless-stopped
+
+services:
+  # Runs once per deploy before the app starts serving.
+  migrate:
+    <<: *app
+    command: ["sh", "-c", "php artisan migrate --force && php artisan db:seed --class=PlatformSeeder --force && php artisan optimize"]
+    restart: "no"
+
+  app:
+    <<: *app
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  horizon:
+    <<: *app
+    command: ["php", "artisan", "horizon"]
+    stop_grace_period: 60s
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  scheduler:
+    <<: *app
+    command: ["php", "artisan", "schedule:work"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  nginx:
+    build:
+      context: ../../backend
+      target: web
+    image: gamyar/web:${IMAGE_TAG:-latest}
+    ports: ["${HTTP_PORT:-8080}:80"]
+    volumes:
+      # User uploads (avatars, product images) behind the public/storage symlink.
+      - storage:/var/www/html/storage/app:ro
+    depends_on: [app]
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-gamyar}
+      MYSQL_USER: ${DB_USERNAME:-gamyar}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--innodb-buffer-pool-size=1G", "--slow-query-log=1", "--long-query-time=0.5"]
+    volumes: [mysql:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    # AOF: queued jobs (rewards, SMS) survive a restart.
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    volumes: [redis:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  mysql:
+  redis:
+  storage:

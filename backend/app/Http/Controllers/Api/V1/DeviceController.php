@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Domain\Device\Actions\RegisterDevice;
+use App\Domain\Device\Actions\RotateDeviceKey;
 use App\Domain\Device\RequestSignature;
 use App\Domain\Device\SignatureGuard;
 use App\Exceptions\ApiException;
-use App\Domain\Device\Actions\RotateDeviceKey;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\RegisterDeviceRequest;
 use App\Http\Requests\Api\V1\UpdatePushTokenRequest;

@@ -18,7 +18,22 @@
 | 8 | [design-system.md](phase-0/08-design-system.md) | Design System و Visual Language |
 | 9 | [roadmap.md](phase-0/09-roadmap.md) | نقشه اجرای Phaseها و وضعیت فعلی |
 
+## Phaseها
+
+| Phase | مستند |
+|-------|-------|
+| 1 — پایه، احراز هویت، دستگاه | [phase-1.md](phase-1.md) |
+| 2 — ثبت قدم و فعالیت | [phase-2.md](phase-2.md) |
+| 3 — ضد تقلب، پاداش، کیف پول | [phase-3.md](phase-3.md) |
+| 4 — سلامت، سطح، چالش، اعلان | [phase-4.md](phase-4.md) |
+| 5 — اسپانسر، بازدید، کوپن | [phase-5.md](phase-5.md) |
+| 6 — تبلیغات | [phase-6.md](phase-6.md) |
+| 7 — فروشگاه و سفارش | [phase-7.md](phase-7.md) |
+| 8 — تحلیل، پشتیبانی، گزارش | [phase-8.md](phase-8.md) |
+| 9 — امنیت، کارایی، استقرار | [phase-9.md](phase-9.md) · [deployment.md](deployment.md) |
+
 ## اجرای پروژه
 
 - Backend: [`backend/README.md`](../backend/README.md)
 - Mobile: [`mobile/README.md`](../mobile/README.md)
+- استقرار: [`deployment.md`](deployment.md) · تست بار: [`loadtest/README.md`](../loadtest/README.md)

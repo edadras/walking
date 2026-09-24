@@ -105,6 +105,16 @@ return [
         'ios' => ['enabled' => false, 'description' => 'پشتیبانی iOS'],
     ],
 
+    // Only honoured outside production and only for +98999… numbers (loadtest/README.md).
+    'loadtest' => [
+        'otp_code' => env('LOADTEST_OTP_CODE'),
+    ],
+
+    'ops' => [
+        // Long queue waits / failed jobs (Horizon) are mailed here.
+        'alert_email' => env('OPS_ALERT_EMAIL'),
+    ],
+
     'security' => [
         // Admin panel requires TOTP. Only switch off for local development and the test suite.
         'admin_mfa_required' => env('ADMIN_MFA_REQUIRED', true),

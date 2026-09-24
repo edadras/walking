@@ -48,10 +48,25 @@ php artisan test
 | `PLAY_INTEGRITY_CREDENTIALS` | مسیر فایل JSON سرویس‌اکانت Google |
 | `ANDROID_PACKAGE_NAME` | باید با `applicationId` اپ یکی باشد |
 | `TRUSTED_PROXIES` | IP لود‌بالانسر؛ خالی = هیچ Proxy مورد اعتماد نیست |
+| `ADMIN_MFA_REQUIRED` | TOTP اجباری پنل مدیریت (پیش‌فرض `true`؛ فقط در توسعه محلی `false`) |
+| `OPS_ALERT_EMAIL` | هشدارهای Horizon |
+| `LOADTEST_OTP_CODE` | فقط Staging برای k6 (در Production بی‌اثر) |
+
+## صف‌ها و زمان‌بندی
+
+```bash
+php artisan horizon          # Worker ها (critical / fraud / general) — داشبورد: /horizon (فقط مدیر ارشد)
+php artisan schedule:work    # آزادسازی امتیاز، بستن چالش‌ها، Snapshot رتبه‌بندی، انقضای بازدید/کوپن، ...
+```
+
+## Docker
+
+`Dockerfile` (Target‌های `app` و `web`) و `../deploy/docker/compose.yml` — راهنمای کامل در [`../docs/deployment.md`](../docs/deployment.md).
 
 ## ساختار
 
 - `app/Domain/*` — منطق کسب‌وکار (Service/Action). Controllerها نازک‌اند.
 - `app/Http/Middleware/VerifyDeviceSignature.php` — امضای ECDSA، Nonce و Timestamp.
 - `app/Filament/Admin` — پنل مدیریت (دسترسی بر اساس `AdminRole::abilities()`).
+- `app/Filament/Sponsor` — پنل اسپانسر (`/sponsor`، Guard جدا، محدود به اسپانسر کاربر).
 - `config/walk.php` — مقادیر پیش‌فرض تنظیمات و Feature Flagها (قابل تغییر از پنل).

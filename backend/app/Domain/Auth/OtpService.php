@@ -27,11 +27,14 @@ class OtpService
 
         $this->hit("otp:resend:$phone", 1, $resend);
         $this->hit("otp:phone:$phone", 5, 3600);
-        $this->hit("otp:device:{$device->id}", 10, 3600);
-        $this->hit('otp:ip:'.Ip::hash($ip), 20, 3600);
+        if (self::loadTestCode($phone) === null) {
+            // A single load-test host logs in thousands of reserved numbers (never in production).
+            $this->hit("otp:device:{$device->id}", 10, 3600);
+            $this->hit('otp:ip:'.Ip::hash($ip), 20, 3600);
+        }
 
         $length = $this->settings->int('auth.otp_length');
-        $code = str_pad((string) random_int(0, 10 ** $length - 1), $length, '0', STR_PAD_LEFT);
+        $code = self::loadTestCode($phone) ?? str_pad((string) random_int(0, 10 ** $length - 1), $length, '0', STR_PAD_LEFT);
         $ttl = $this->settings->int('auth.otp_ttl_seconds');
 
         DB::transaction(function () use ($phone, $code, $ttl, $device, $ip) {
@@ -90,6 +93,21 @@ class OtpService
         if ($error !== null) {
             throw $error;
         }
+    }
+
+    /**
+     * Load tests (loadtest/k6) can't read SMS. Outside production only, numbers in
+     * the reserved +98999… range get the configured fixed code. In production this
+     * always returns null, whatever the configuration says.
+     */
+    private static function loadTestCode(string $phone): ?string
+    {
+        $code = config('walk.loadtest.otp_code');
+        if (app()->isProduction() || ! is_string($code) || $code === '' || ! str_starts_with($phone, '+98999')) {
+            return null;
+        }
+
+        return $code;
     }
 
     public static function hash(string $phone, string $code): string
