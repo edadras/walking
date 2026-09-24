@@ -4,14 +4,18 @@ namespace Database\Seeders;
 
 use App\Domain\Activity\ActivityEstimator;
 use App\Domain\Activity\DailyActivityAggregator;
+use App\Domain\Gamification\ProgressService;
 use App\Domain\Reward\RewardEngine;
 use App\Domain\Wallet\WalletService;
 use App\Enums\AdminRole;
+use App\Enums\ChallengeStatus;
+use App\Enums\ChallengeType;
 use App\Enums\SessionKind;
 use App\Enums\SessionRewardStatus;
 use App\Enums\SessionStatus;
 use App\Enums\TransactionStatus;
 use App\Models\Admin;
+use App\Models\Challenge;
 use App\Models\Device;
 use App\Models\PointTransaction;
 use App\Models\User;
@@ -33,6 +37,14 @@ class DemoSeeder extends Seeder
             'password' => 'password',
             'role' => AdminRole::SuperAdmin,
         ]);
+
+        foreach ([
+            ['title' => 'هفته ۵۰ هزار قدمی', 'description' => 'در ۷ روز ۵۰٬۰۰۰ قدم تأییدشده بردار.', 'type' => ChallengeType::Weekly, 'metric' => 'steps', 'target_value' => 50000, 'reward_points' => 500, 'reward_xp' => 300, 'starts_at' => now()->subDays(2), 'ends_at' => now()->addDays(5)],
+            ['title' => 'روز ۱۲ هزار قدمی', 'description' => 'در یک روز ۱۲٬۰۰۰ قدم بردار.', 'type' => ChallengeType::Daily, 'metric' => 'steps', 'target_value' => 12000, 'reward_points' => 100, 'reward_xp' => 100, 'starts_at' => now()->subDay(), 'ends_at' => now()->addDays(6)],
+            ['title' => 'ماراتن ماه مهر', 'description' => 'در این ماه ۴۲ کیلومتر پیاده‌روی کن.', 'type' => ChallengeType::Distance, 'metric' => 'distance', 'target_value' => 42000, 'reward_points' => 800, 'reward_xp' => 500, 'starts_at' => now()->subDays(1), 'ends_at' => now()->addDays(28)],
+        ] as $challenge) {
+            Challenge::query()->firstOrCreate(['title' => $challenge['title']], [...$challenge, 'status' => ChallengeStatus::Active, 'created_by_type' => 'admin']);
+        }
 
         // Deterministic "randomness" so every seed produces the same demo world.
         mt_srand(1405);
@@ -114,6 +126,9 @@ class DemoSeeder extends Seeder
         $engine = app(RewardEngine::class);
         $wallet = app(WalletService::class);
         $user->walkingSessions()->orderBy('started_at')->each(fn (WalkingSession $s) => $engine->forSession($s));
+        $user->forceFill(['leaderboard_visible' => true])->save();
+        $progress = app(ProgressService::class);
+        $user->walkingSessions()->orderBy('started_at')->each(fn (WalkingSession $s) => $progress->afterSession($s));
         PointTransaction::query()->where('user_id', $user->id)->where('status', TransactionStatus::Pending)->where('created_at', '<', now())
             ->get()
             ->filter(fn (PointTransaction $t) => $t->source_type !== 'walking_session' || WalkingSession::query()->find($t->source_id)?->started_at->lt(now()->subDay()))

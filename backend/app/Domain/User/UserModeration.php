@@ -3,6 +3,7 @@
 namespace App\Domain\User;
 
 use App\Domain\Audit\AuditLogger;
+use App\Domain\Leaderboard\LeaderboardService;
 use App\Enums\DeviceStatus;
 use App\Enums\UserStatus;
 use App\Models\Admin;
@@ -24,6 +25,7 @@ class UserModeration
 
             if ($status !== UserStatus::Active) {
                 PersonalAccessToken::query()->where('tokenable_type', $user->getMorphClass())->where('tokenable_id', $user->id)->delete();
+                app(LeaderboardService::class)->forget($user);
             }
 
             $this->audit->log('user.status_changed', $user, ['status' => $old->value], ['status' => $status->value], ['reason' => $reason], $admin);

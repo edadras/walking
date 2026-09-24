@@ -3,6 +3,7 @@
 namespace App\Domain\User;
 
 use App\Domain\Audit\AuditLogger;
+use App\Domain\Leaderboard\LeaderboardService;
 use App\Domain\Settings\Settings;
 use App\Enums\NotificationCategory;
 use App\Exceptions\ApiException;
@@ -49,6 +50,10 @@ class ProfileService
         return DB::transaction(function () use ($user, $data) {
             if (array_key_exists('leaderboard_visible', $data)) {
                 $user->forceFill(['leaderboard_visible' => $data['leaderboard_visible']])->save();
+                $boards = app(LeaderboardService::class);
+                $data['leaderboard_visible']
+                    ? $boards->sync($user, now($user->timezone)->toDateString())
+                    : $boards->forget($user);
             }
 
             $profileFields = array_intersect_key($data, array_flip([

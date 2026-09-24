@@ -3,9 +3,13 @@
 use App\Http\Controllers\Api\V1\ActivityController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\ChallengeController;
 use App\Http\Controllers\Api\V1\ConfigController;
 use App\Http\Controllers\Api\V1\ContentController;
 use App\Http\Controllers\Api\V1\DeviceController;
+use App\Http\Controllers\Api\V1\GamificationController;
+use App\Http\Controllers\Api\V1\HealthController;
+use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\RewardController;
 use App\Http\Controllers\Api\V1\WalkingSessionController;
@@ -64,6 +68,24 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::get('wallet/transactions', [WalletController::class, 'transactions']);
     Route::get('rewards', [RewardController::class, 'index']);
     Route::get('rewards/{reward}', [RewardController::class, 'show']);
+
+    Route::get('health/summary', [HealthController::class, 'summary']);
+    Route::get('activity/weekly-report', [HealthController::class, 'weeklyReport']);
+    Route::get('health/water', [HealthController::class, 'water']);
+    Route::post('health/water', [HealthController::class, 'addWater']);
+    Route::delete('health/water/{log}', [HealthController::class, 'deleteWater']);
+
+    Route::get('progress', [GamificationController::class, 'progress']);
+    Route::get('achievements', [GamificationController::class, 'achievements']);
+    Route::get('leaderboard', [GamificationController::class, 'leaderboard']);
+    Route::get('referral', [GamificationController::class, 'referral']);
+
+    Route::get('challenges', [ChallengeController::class, 'index']);
+    Route::get('challenges/{challenge}', [ChallengeController::class, 'show']);
+    Route::post('challenges/{challenge}/join', [ChallengeController::class, 'join'])->middleware('signed.device');
+
+    Route::get('notifications', [NotificationController::class, 'index']);
+    Route::post('notifications/read', [NotificationController::class, 'read']);
 
     Route::post('analytics/events', [AnalyticsController::class, 'store'])->middleware('throttle:analytics');
 });

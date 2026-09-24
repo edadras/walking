@@ -60,6 +60,16 @@ return [
         'reward.hold_hours' => ['value' => 24, 'group' => 'reward', 'public' => true, 'description' => 'مدت بررسی امتیاز قبل از قابل استفاده شدن (ساعت)'],
         'reward.max_multiplier' => ['value' => 3, 'group' => 'reward', 'public' => false, 'description' => 'حداکثر ضریب ترکیبی'],
 
+        // Gamification
+        'gamification.steps_per_xp' => ['value' => 100, 'group' => 'gamification', 'public' => false, 'description' => 'هر چند قدم تأییدشده = ۱ XP'],
+        'gamification.goal_xp' => ['value' => 50, 'group' => 'gamification', 'public' => false, 'description' => 'XP رسیدن به هدف روزانه'],
+
+        // Referral
+        'referral.qualify_steps' => ['value' => 5000, 'group' => 'referral', 'public' => true, 'description' => 'قدم تأییدشده لازم برای پاداش دعوت'],
+        'referral.window_days' => ['value' => 30, 'group' => 'referral', 'public' => true, 'description' => 'مهلت فعال شدن دعوت‌شده (روز)'],
+        'referral.referrer_points' => ['value' => 200, 'group' => 'referral', 'public' => true, 'description' => 'پاداش دعوت‌کننده'],
+        'referral.referee_points' => ['value' => 100, 'group' => 'referral', 'public' => true, 'description' => 'پاداش دعوت‌شده'],
+
         // Account
         'account.deletion_grace_days' => ['value' => 14, 'group' => 'account', 'public' => true, 'description' => 'مهلت انصراف از حذف حساب'],
     ],
@@ -81,6 +91,16 @@ return [
         'driver' => env('INTEGRITY_DRIVER', 'null'),
         'package_name' => env('ANDROID_PACKAGE_NAME', 'ir.gamyar.app'),
         'credentials' => env('PLAY_INTEGRITY_CREDENTIALS'),
+    ],
+
+    'push' => [
+        'driver' => env('PUSH_DRIVER', 'log'),
+        'fcm_credentials' => env('FCM_CREDENTIALS'),
+    ],
+
+    'leaderboard' => [
+        'driver' => env('LEADERBOARD_DRIVER', 'redis'),
+        'top' => 50,
     ],
 
     'sms' => [

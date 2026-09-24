@@ -35,6 +35,8 @@ class ManageSettings extends Page
         'account' => 'حساب کاربری',
         'fraud' => 'ضد تقلب',
         'reward' => 'پاداش',
+        'gamification' => 'سطح و XP',
+        'referral' => 'دعوت از دوستان',
     ];
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;

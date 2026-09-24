@@ -3,14 +3,17 @@
 namespace Database\Seeders;
 
 use App\Domain\Fraud\RuleRegistry;
+use App\Domain\Gamification\XpService;
 use App\Domain\Reward\RewardRules;
 use App\Domain\Wallet\ConversionRate;
 use App\Enums\AdminRole;
 use App\Enums\RewardRuleType;
+use App\Models\Achievement;
 use App\Models\Admin;
 use App\Models\CmsPage;
 use App\Models\Faq;
 use App\Models\FeatureFlag;
+use App\Models\Level;
 use App\Models\PointConversionRate;
 use App\Models\RewardRule;
 use Illuminate\Database\Seeder;
@@ -41,6 +44,14 @@ class PlatformSeeder extends Seeder
         }
         app(RewardRules::class)->flush();
 
+        if (Level::query()->doesntExist()) {
+            Level::query()->insert(XpService::curve());
+        }
+
+        foreach ($this->achievements() as $i => [$key, $name, $description, $icon, $metric, $threshold, $xp, $points]) {
+            Achievement::query()->firstOrCreate(['key' => $key], compact('name', 'description', 'icon', 'metric', 'threshold') + ['xp_reward' => $xp, 'point_reward' => $points, 'sort' => $i]);
+        }
+
         foreach ($this->pages() as $slug => [$title, $body]) {
             CmsPage::query()->firstOrCreate(['slug' => $slug], ['title' => $title, 'body' => $body]);
         }
@@ -58,6 +69,24 @@ class PlatformSeeder extends Seeder
                 'role' => AdminRole::SuperAdmin,
             ]);
         }
+    }
+
+    /** @return list<array{0:string,1:string,2:string,3:string,4:string,5:int,6:int,7:int}> */
+    private function achievements(): array
+    {
+        return [
+            ['first_5k_day', 'اولین ۵٬۰۰۰', 'در یک روز ۵٬۰۰۰ قدم تأییدشده بردار.', 'footsteps', 'daily_steps', 5000, 50, 0],
+            ['first_10k_day', 'اولین ۱۰٬۰۰۰ قدم', 'در یک روز ۱۰٬۰۰۰ قدم تأییدشده بردار.', 'footsteps', 'daily_steps', 10000, 100, 20],
+            ['day_20k', 'روز پرقدم', 'در یک روز ۲۰٬۰۰۰ قدم بردار.', 'bolt', 'daily_steps', 20000, 200, 50],
+            ['streak_3', '۳ روز متوالی', 'سه روز پشت سر هم به هدفت برس.', 'chain', 'streak_days', 3, 60, 0],
+            ['streak_7', '۷ روز متوالی', 'یک هفته کامل هر روز به هدفت برس.', 'chain', 'streak_days', 7, 150, 30],
+            ['streak_30', '۳۰ روز متوالی', 'یک ماه بدون وقفه به هدفت برس.', 'chain', 'streak_days', 30, 600, 150],
+            ['total_100k', '۱۰۰٬۰۰۰ قدم', 'مجموع قدم‌های تأییدشده‌ات به ۱۰۰ هزار برسد.', 'trail', 'total_steps', 100000, 200, 30],
+            ['total_1m', 'یک میلیون قدم', 'مجموع قدم‌هایت به یک میلیون برسد.', 'trail', 'total_steps', 1000000, 1000, 200],
+            ['distance_100km', '۱۰۰ کیلومتر', 'مجموع مسافت پیاده‌روی‌ات ۱۰۰ کیلومتر شود.', 'route', 'total_distance_m', 100000, 300, 50],
+            ['active_30', '۳۰ روز فعال', 'در ۳۰ روز مختلف راه برو.', 'calendar', 'active_days', 30, 250, 0],
+            ['challenge_first', 'اولین چالش', 'اولین چالشت را کامل کن.', 'flag', 'challenges_completed', 1, 100, 0],
+        ];
     }
 
     /** Starting economy; every value is editable in the admin panel. */

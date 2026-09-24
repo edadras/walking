@@ -8,6 +8,9 @@ use App\Domain\Auth\Sms\SmsSender;
 use App\Domain\Device\Integrity\IntegrityVerifier;
 use App\Domain\Device\Integrity\NullIntegrityVerifier;
 use App\Domain\Device\Integrity\PlayIntegrityVerifier;
+use App\Domain\Notification\FcmPushSender;
+use App\Domain\Notification\LogPushSender;
+use App\Domain\Notification\PushSender;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
 use App\Models\Admin;
@@ -44,6 +47,15 @@ class AppServiceProvider extends ServiceProvider
                     : new LogSmsSender,
                 default => throw new RuntimeException('Unknown SMS driver.'),
             };
+        });
+
+        $this->app->singleton(PushSender::class, function ($app) {
+            $credentials = config('walk.push.fcm_credentials');
+            if (config('walk.push.driver') === 'fcm' && $credentials) {
+                return new FcmPushSender(json_decode((string) file_get_contents($credentials), true));
+            }
+
+            return new LogPushSender;
         });
 
         $this->app->singleton(IntegrityVerifier::class, function () {

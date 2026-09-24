@@ -2,10 +2,16 @@
 
 namespace App\Domain\Activity;
 
+use App\Domain\Gamification\StreakService;
+use App\Domain\Gamification\XpService;
+use App\Domain\Health\WaterService;
 use App\Domain\Wallet\WalletSummary;
+use App\Enums\ChallengeStatus;
 use App\Enums\SessionStatus;
+use App\Models\ChallengeParticipant;
 use App\Models\DailyActivity;
 use App\Models\User;
+use App\Models\UserStreak;
 use App\Models\WalkingSession;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
@@ -16,12 +22,36 @@ use Illuminate\Support\Facades\Cache;
  */
 class HomeSummary
 {
+    /** The user's running challenge closest to completion, for the home card. */
+    private function activeChallenge(User $user): ?array
+    {
+        $p = ChallengeParticipant::query()->where('user_id', $user->id)->whereNull('completed_at')
+            ->whereHas('challenge', fn ($q) => $q->where('status', ChallengeStatus::Active)->where('ends_at', '>', now()))
+            ->with('challenge')->get()
+            ->sortByDesc(fn ($p) => $p->progress / max(1, $p->challenge->target_value))
+            ->first();
+
+        return $p === null ? null : [
+            'id' => $p->challenge->public_id,
+            'title' => $p->challenge->title,
+            'progress' => $p->progress,
+            'target' => $p->challenge->target_value,
+            'metric' => $p->challenge->metric,
+            'ends_at' => $p->challenge->ends_at->toIso8601String(),
+        ];
+    }
+
     public static function cacheKey(User $user): string
     {
         return 'home:v1:'.$user->id;
     }
 
-    public function __construct(private readonly WalletSummary $wallet) {}
+    public function __construct(
+        private readonly WalletSummary $wallet,
+        private readonly StreakService $streaks,
+        private readonly XpService $xp,
+        private readonly WaterService $water,
+    ) {}
 
     /** @return array<string, mixed> */
     public function for(User $user): array
@@ -70,6 +100,14 @@ class HomeSummary
                 ],
                 'week' => $week,
                 'wallet' => $this->wallet->for($user),
+                'streak' => [
+                    'current' => (int) (UserStreak::query()->find($user->id)?->current_days ?? 0),
+                    'week' => $this->streaks->weekDots($user),
+                ],
+                'level' => $this->xp->progress($user),
+                'water' => array_intersect_key($this->water->day($user), array_flip(['total_ml', 'goal_ml', 'glass_ml', 'glasses', 'goal_glasses'])),
+                'challenge' => $this->activeChallenge($user),
+                'unread_notifications' => $user->unreadNotifications()->count(),
             ];
         });
     }

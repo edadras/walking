@@ -2,6 +2,7 @@
 
 namespace App\Domain\User;
 
+use App\Domain\Referral\ReferralService;
 use App\Domain\Settings\Settings;
 use App\Enums\UserStatus;
 use App\Models\User;
@@ -36,6 +37,7 @@ class UserProvisioner
             'daily_step_goal' => $this->settings->int('activity.default_daily_goal'),
             'water_goal_ml' => $this->settings->int('health.default_water_goal_ml'),
         ]);
+        app(ReferralService::class)->register($user);
 
         return [$user, true];
     }
