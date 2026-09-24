@@ -1,0 +1,8 @@
+/* Vazirmatn (SIL OFL 1.1) — self-hosted so the panels make no third-party font requests. */
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('Vazirmatn-Variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
