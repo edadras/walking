@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gamyar/core/network/api_client.dart';
 import 'package:gamyar/core/network/api_exception.dart';
 import 'package:gamyar/core/storage/secure_store.dart';
+import 'package:gamyar/core/widgets/net_image.dart';
 import 'package:gamyar/features/auth/application/session_controller.dart';
 import 'package:gamyar/features/config/data/app_config.dart';
 import 'package:gamyar/features/profile/data/me.dart';
@@ -85,7 +89,36 @@ List overrides(FakeStoreRepository repo, {int points = 600}) => [
       meProvider.overrideWithValue(me),
     ];
 
+/// 1×1 transparent PNG so image widgets resolve without network.
+final _pixel = Uint8List.fromList(base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
+
+class _GalleryRepo extends FakeStoreRepository {
+  @override
+  Future<Product> product(String slug) async =>
+      Product.fromJson({...productJson(), 'image_url': 'https://cdn.test/1.jpg', 'images': ['https://cdn.test/1.jpg', 'https://cdn.test/2.jpg']});
+}
+
 void main() {
+  testWidgets('product gallery pages through every image', (tester) async {
+    final semantics = tester.ensureSemantics();
+    final requested = <String>[];
+    await tester.pumpWidget(testApp(const ProductPage(slug: 'bottle'), overrides: [
+      ...overrides(_GalleryRepo()),
+      imageResolverProvider.overrideWithValue((url) {
+        requested.add(url);
+        return MemoryImage(_pixel);
+      }),
+    ]));
+    await tester.pumpAndSettle();
+
+    expect(find.bySemanticsLabel('تصویر ۱ از ۲'), findsOneWidget);
+    await tester.drag(find.byType(PageView), const Offset(600, 0));
+    await tester.pumpAndSettle();
+    expect(find.bySemanticsLabel('تصویر ۲ از ۲'), findsOneWidget);
+    expect(requested, containsAll(['https://cdn.test/1.jpg', 'https://cdn.test/2.jpg']));
+    semantics.dispose();
+  });
+
   testWidgets('catalogue shows products, prices and level locks', (tester) async {
     await tester.pumpWidget(testApp(const StorePage(), overrides: overrides(FakeStoreRepository())));
     await tester.pumpAndSettle();
@@ -98,6 +131,11 @@ void main() {
   });
 
   testWidgets('checkout reuses one idempotency key across retries and needs enough points', (tester) async {
+    // Phone-sized surface: the gallery sits above the description.
+    tester.view
+      ..physicalSize = const Size(1080, 2340)
+      ..devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
     final repo = FakeStoreRepository()..failFirst = 1;
     await tester.pumpWidget(testApp(const ProductPage(slug: 'bottle'), overrides: overrides(repo)));
     await tester.pumpAndSettle();

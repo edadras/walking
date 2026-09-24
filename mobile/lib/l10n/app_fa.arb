@@ -222,8 +222,6 @@
     }
   },
   "deleteAccountCancel": "انصراف از حذف حساب",
-  "comingNextTitle": "این بخش در حال آماده‌سازی است",
-  "comingNextBody": "به‌زودی از همین‌جا در دسترس خواهد بود.",
   "updateRequiredTitle": "نسخه جدید لازم است",
   "updateRequiredBody": "برای ادامه، گام‌یار را به‌روزرسانی کنید.",
   "accountBlockedTitle": "دسترسی محدود شده است",
@@ -990,5 +988,22 @@
   "supportMe": "تو",
   "supportAgent": "پشتیبانی گام‌یار",
   "supportTooShort": "کمی بیشتر توضیح بده (حداقل ۱۰ حرف).",
-  "profileSupport": "پشتیبانی"
+  "profileSupport": "پشتیبانی",
+  "avatarChange": "تغییر عکس",
+  "avatarFromGallery": "انتخاب از گالری",
+  "avatarFromCamera": "گرفتن عکس",
+  "avatarRemove": "حذف عکس",
+  "avatarUpdated": "عکس پروفایل به‌روز شد.",
+  "avatarRemoved": "عکس پروفایل حذف شد.",
+  "productGalleryLabel": "تصویر {index} از {count}",
+  "@productGalleryLabel": {
+    "placeholders": {
+      "index": {
+        "type": "String"
+      },
+      "count": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -19,6 +19,7 @@ use App\Models\UserCoupon;
 use Carbon\CarbonImmutable;
 use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Tests\Concerns\CreatesProducts;
 use Tests\Concerns\CreatesSponsorOffers;
@@ -65,6 +66,29 @@ class StoreApiTest extends TestCase
         $this->authedJson('GET', '/api/v1/store/products?q=بطری')->assertJsonCount(1, 'data');
         $slug = $list->json('data.0.slug');
         $this->authedJson('GET', "/api/v1/store/products/{$slug}")->assertOk()->assertJsonPath('data.needs_address', true);
+    }
+
+    public function test_product_images_are_ordered_urls_and_files_are_cleaned_up(): void
+    {
+        Storage::fake('public');
+        $this->loginAs();
+        $product = $this->product(['name' => 'قمقمه']);
+        Storage::disk('public')->put('products/b.jpg', 'b');
+        Storage::disk('public')->put('products/a.jpg', 'a');
+        $second = $product->images()->create(['path' => 'products/b.jpg', 'sort' => 2]);
+        $product->images()->create(['path' => 'products/a.jpg', 'sort' => 1]);
+
+        $this->authedJson('GET', '/api/v1/store/products')->assertOk()
+            ->assertJsonPath('data.0.image_url', Storage::disk('public')->url('products/a.jpg'));
+        $this->authedJson('GET', "/api/v1/store/products/{$product->slug}")
+            ->assertJsonPath('data.images', [Storage::disk('public')->url('products/a.jpg'), Storage::disk('public')->url('products/b.jpg')]);
+
+        Storage::disk('public')->put('products/c.jpg', 'c');
+        $second->update(['path' => 'products/c.jpg']);
+        Storage::disk('public')->assertMissing('products/b.jpg');
+        $second->delete();
+        Storage::disk('public')->assertMissing('products/c.jpg');
+        Storage::disk('public')->assertExists('products/a.jpg');
     }
 
     public function test_physical_purchase_is_atomic_idempotent_and_uses_server_prices(): void

@@ -11,6 +11,7 @@ import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_card.dart';
 import '../application/ad_providers.dart';
 import '../data/ads_repository.dart';
+import '../../../core/widgets/net_image.dart';
 
 /// Opens an ad destination: in-app routes stay in the app, https opens outside.
 Future<void> openAdAction(BuildContext context, String? url) async {
@@ -95,13 +96,13 @@ class _AdCardState extends ConsumerState<_AdCard> {
           if (native && ad.imageUrl != null)
             ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.md)),
-              child: AspectRatio(aspectRatio: 2, child: Image.network(ad.imageUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => const SizedBox())),
+              child: AspectRatio(aspectRatio: 2, child: NetImage(ad.imageUrl)),
             ),
           Padding(
             padding: const EdgeInsetsDirectional.all(AppSpacing.md),
             child: Row(children: [
               if (!native && ad.imageUrl != null) ...[
-                ClipRRect(borderRadius: AppRadius.smAll, child: Image.network(ad.imageUrl!, width: 48, height: 48, fit: BoxFit.cover, errorBuilder: (_, _, _) => const SizedBox())),
+                ClipRRect(borderRadius: AppRadius.smAll, child: NetImage(ad.imageUrl, width: 48, height: 48)),
                 const SizedBox(width: AppSpacing.md),
               ],
               Expanded(

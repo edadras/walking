@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/providers.dart';
 import '../../../core/storage/secure_store.dart';
@@ -76,6 +77,7 @@ class SessionController extends AsyncNotifier<SessionState> {
 
   Future<void> completeOnboarding() async {
     await _store.write(SecureStore.kOnboardingDone, '1');
+    ref.read(analyticsProvider).track('onboarding_completed');
     state = const AsyncData(SessionUnauthenticated(onboardingDone: true));
   }
 

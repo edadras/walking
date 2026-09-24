@@ -15,6 +15,7 @@ import '../../rewards/data/rewards_repository.dart';
 import '../application/ad_providers.dart';
 import '../data/ads_repository.dart';
 import 'ad_slot.dart';
+import '../../../core/widgets/net_image.dart';
 
 /// Full-screen internal rewarded ad. The countdown is only UX: the server
 /// checks the elapsed time itself before paying.
@@ -92,7 +93,7 @@ class _RewardedAdPageState extends ConsumerState<RewardedAdPage> {
               Expanded(
                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                   if (v.ad.imageUrl != null)
-                    ClipRRect(borderRadius: AppRadius.mdAll, child: Image.network(v.ad.imageUrl!, height: 220, fit: BoxFit.cover, errorBuilder: (_, _, _) => const SizedBox())),
+                    ClipRRect(borderRadius: AppRadius.mdAll, child: NetImage(v.ad.imageUrl, height: 220)),
                   const SizedBox(height: AppSpacing.xl),
                   if (v.ad.advertiser != null) Text(v.ad.advertiser!, style: context.text.labelMedium),
                   Text(v.ad.title, style: context.text.headlineSmall, textAlign: TextAlign.center),

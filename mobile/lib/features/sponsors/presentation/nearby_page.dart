@@ -18,6 +18,7 @@ import '../../../core/widgets/state_views.dart';
 import '../application/location_source.dart';
 import '../data/sponsor_models.dart';
 import 'sponsor_widgets.dart';
+import '../../../core/widgets/net_image.dart';
 
 /// «جایزه‌های اطراف من» — list and map of sponsor branches with running offers.
 class NearbyPage extends ConsumerStatefulWidget {
@@ -142,9 +143,9 @@ class PlaceCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
           child: Row(children: [
-            CircleAvatar(
+            NetAvatar(
               backgroundColor: p.greenSoft,
-              foregroundImage: place.sponsor.logoUrl != null ? NetworkImage(place.sponsor.logoUrl!) : null,
+              url: place.sponsor.logoUrl,
               child: Icon(Icons.storefront_outlined, color: p.green),
             ),
             const SizedBox(width: AppSpacing.md),

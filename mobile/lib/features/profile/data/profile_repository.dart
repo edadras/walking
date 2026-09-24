@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_client.dart';
@@ -30,6 +31,15 @@ class ProfileRepository {
   Me _me(Map<String, dynamic> r) => Me.fromJson(r['data'] as Map<String, dynamic>);
 
   Future<Me> updateProfile(Map<String, Object?> fields) async => _me(await _api.patch('/me', data: fields));
+
+  /// Multipart and unsigned: the server re-encodes the image, so the bytes aren't evidence of anything.
+  Future<Me> uploadAvatar(String filePath) async => _me(await _api.post(
+        '/me/avatar',
+        data: FormData.fromMap({'avatar': await MultipartFile.fromFile(filePath, filename: 'avatar.jpg')}),
+        options: Options(contentType: 'multipart/form-data', sendTimeout: const Duration(seconds: 60)),
+      ));
+
+  Future<Me> removeAvatar() async => _me(await _api.delete('/me/avatar'));
 
   Future<Me> updateSettings(Map<String, Object?> fields) async => _me(await _api.patch('/me/settings', data: fields));
 

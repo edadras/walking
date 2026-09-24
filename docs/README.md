@@ -31,6 +31,7 @@
 | 7 — فروشگاه و سفارش | [phase-7.md](phase-7.md) |
 | 8 — تحلیل، پشتیبانی، گزارش | [phase-8.md](phase-8.md) |
 | 9 — امنیت، کارایی، استقرار | [phase-9.md](phase-9.md) · [deployment.md](deployment.md) |
+| تکمیل — تصویر کالا، آواتار، Push، تحلیل و گزارش خطا | [completion.md](completion.md) |
 
 ## اجرای پروژه
 

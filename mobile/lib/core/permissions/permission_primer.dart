@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../analytics/analytics.dart';
 import '../localization/l10n.dart';
 import '../theme/app_palette.dart';
 import '../theme/tokens.dart';
@@ -49,9 +50,11 @@ abstract final class PermissionPrimer {
       return false;
     }
 
+    trackFrom(context, 'permission_prompt', {'permission': permission.name});
     final proceed = await _sheet(context, permission.icon, title, body, l.permAllow);
-    if (proceed != true) return false;
-    return (await permission.handler.request()).isGranted;
+    final granted = proceed == true && (await permission.handler.request()).isGranted;
+    if (context.mounted) trackFrom(context, 'permission_result', {'permission': permission.name, 'granted': granted});
+    return granted;
   }
 
   static Future<bool?> _sheet(BuildContext context, IconData icon, String title, String body, String action) =>

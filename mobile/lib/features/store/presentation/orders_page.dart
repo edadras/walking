@@ -11,10 +11,12 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/net_image.dart';
 import '../../../core/widgets/stat_tile.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../wallet/data/wallet_repository.dart';
 import '../data/store_repository.dart';
+import 'store_page.dart' show ProductImagePlaceholder;
 
 Color _statusColor(BuildContext context, String status) {
   final p = context.palette;
@@ -51,6 +53,8 @@ class OrdersPage extends ConsumerWidget {
                     return AppCard(
                       onTap: () => context.push('/orders/${o.id}'),
                       child: Row(children: [
+                        _Thumb(url: o.imageUrl),
+                        const SizedBox(width: AppSpacing.md),
                         Expanded(
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Text(o.title ?? o.number, style: context.text.titleSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
@@ -135,6 +139,8 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
               AppCard(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   Row(children: [
+                    _Thumb(url: item.imageUrl, type: item.type),
+                    const SizedBox(width: AppSpacing.md),
                     Expanded(child: Text(item.name, style: context.text.titleSmall)),
                     Text('${Fa.digits(item.quantity)} × ${Fa.number(item.unitPointPrice)}', style: context.text.bodySmall),
                   ]),
@@ -204,4 +210,20 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
       ),
     );
   }
+}
+
+class _Thumb extends StatelessWidget {
+  const _Thumb({required this.url, this.type = 'physical'});
+
+  final String? url;
+  final String type;
+
+  @override
+  Widget build(BuildContext context) => ClipRRect(
+        borderRadius: AppRadius.smAll,
+        child: SizedBox.square(
+          dimension: 52,
+          child: NetImage(url, fallback: FittedBox(child: SizedBox.square(dimension: 96, child: ProductImagePlaceholder(type: type)))),
+        ),
+      );
 }

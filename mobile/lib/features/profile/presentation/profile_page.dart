@@ -16,6 +16,7 @@ import '../../gamification/data/gamification_repository.dart';
 import '../../gamification/presentation/achievements_page.dart';
 import '../data/profile_repository.dart';
 import 'goal_sheet.dart';
+import '../../../core/widgets/net_image.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -149,10 +150,10 @@ class _Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    return CircleAvatar(
+    return NetAvatar(
       radius: 28,
       backgroundColor: p.greenSoft,
-      foregroundImage: url != null ? NetworkImage(url!) : null,
+      url: url,
       child: Text(name.isEmpty ? '؟' : name.characters.first, style: context.text.titleMedium?.copyWith(color: p.greenStrong)),
     );
   }

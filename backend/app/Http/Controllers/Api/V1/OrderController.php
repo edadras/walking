@@ -16,7 +16,7 @@ class OrderController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $page = Order::query()->where('user_id', $request->user()->id)->with('items')->orderByDesc('id')->cursorPaginate(20);
+        $page = Order::query()->where('user_id', $request->user()->id)->with('items.product.images')->orderByDesc('id')->cursorPaginate(20);
 
         return response()->json([
             'data' => collect($page->items())->map(fn (Order $o) => $this->present->order($o))->values(),

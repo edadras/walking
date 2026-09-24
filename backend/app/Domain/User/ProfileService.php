@@ -10,9 +10,11 @@ use App\Exceptions\ApiException;
 use App\Models\AccountDeletionRequest;
 use App\Models\NotificationPreference;
 use App\Models\User;
+use App\Support\ImageSanitizer;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProfileService
 {
@@ -70,8 +72,19 @@ class ProfileService
 
     public function updateAvatar(User $user, UploadedFile $file): User
     {
-        $path = $file->storeAs('avatars', $user->public_id.'-'.now()->timestamp.'.'.$file->extension(), 'public');
+        $path = 'avatars/'.$user->public_id.'-'.Str::lower((string) Str::ulid()).'.jpg';
+        Storage::disk('public')->put($path, ImageSanitizer::squareJpeg((string) file_get_contents($file->getRealPath())));
 
+        return $this->replaceAvatar($user, $path);
+    }
+
+    public function removeAvatar(User $user): User
+    {
+        return $this->replaceAvatar($user, null);
+    }
+
+    private function replaceAvatar(User $user, ?string $path): User
+    {
         if ($user->avatar_path) {
             Storage::disk('public')->delete($user->avatar_path);
         }

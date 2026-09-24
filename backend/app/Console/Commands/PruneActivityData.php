@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Domain\Settings\Settings;
 use App\Models\ActivitySample;
 use App\Models\AnalyticsEvent;
+use App\Models\ClientError;
 use App\Models\OtpCode;
 use Illuminate\Console\Command;
 
@@ -13,15 +14,17 @@ class PruneActivityData extends Command
 {
     protected $signature = 'retention:prune';
 
-    protected $description = 'Delete minute samples, analytics events and OTP rows past retention';
+    protected $description = 'Delete minute samples, analytics events, OTP rows and stale crash reports past retention';
 
     public function handle(Settings $settings): int
     {
         $samples = $this->chunkDelete(ActivitySample::query()->where('started_at', '<', now()->subDays($settings->int('activity.samples_retention_days'))));
         $events = $this->chunkDelete(AnalyticsEvent::query()->where('occurred_at', '<', now()->subDays($settings->int('analytics.retention_days'))));
         $otps = $this->chunkDelete(OtpCode::query()->where('created_at', '<', now()->subDay()));
+        // Crash groups not seen for 90 days are fixed or gone with old app versions.
+        $crashes = $this->chunkDelete(ClientError::query()->where('last_seen_at', '<', now()->subDays(90)));
 
-        $this->info("Pruned samples={$samples} analytics={$events} otp={$otps}");
+        $this->info("Pruned samples={$samples} analytics={$events} otp={$otps} client_errors={$crashes}");
 
         return self::SUCCESS;
     }

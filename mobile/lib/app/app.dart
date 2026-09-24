@@ -4,13 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/localization/l10n.dart';
 import '../core/theme/app_theme.dart';
+import '../features/notifications/application/push_service.dart';
 import 'router.dart';
+import 'session_effects.dart';
 
 class GamyarApp extends ConsumerWidget {
   const GamyarApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Push registration and notification-tap routing follow the session.
+    ref.watch(pushControllerProvider);
+    ref.watch(sessionEffectsProvider);
     return MaterialApp.router(
       onGenerateTitle: (c) => c.l10n.appName,
       debugShowCheckedModeBanner: false,

@@ -3,18 +3,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/net_image.dart';
 import '../../../core/widgets/stat_tile.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../auth/application/session_controller.dart';
 import '../../wallet/data/wallet_repository.dart';
 import '../data/store_models.dart';
 import '../data/store_repository.dart';
+import 'store_page.dart' show ProductImagePlaceholder;
 
 class ProductPage extends ConsumerWidget {
   const ProductPage({super.key, required this.slug});
@@ -36,11 +39,7 @@ class ProductPage extends ConsumerWidget {
           return Column(children: [
             Expanded(
               child: ListView(children: [
-                if (pr.images.isNotEmpty)
-                  AspectRatio(
-                    aspectRatio: 1.3,
-                    child: PageView(children: [for (final url in pr.images) Image.network(url, fit: BoxFit.cover, errorBuilder: (_, _, _) => const SizedBox())]),
-                  ),
+                ProductGallery(slug: pr.slug, type: pr.type, images: pr.images.isNotEmpty ? pr.images : [?pr.imageUrl]),
                 Padding(
                   padding: const EdgeInsetsDirectional.all(AppSpacing.gutter),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -107,6 +106,7 @@ class _CheckoutSheetState extends ConsumerState<CheckoutSheet> {
     setState(() => _busy = true);
     try {
       final order = await ref.read(storeRepositoryProvider).placeOrder(productId: widget.product.id, quantity: _qty, idempotencyKey: _key, addressId: _addressId);
+      ref.read(analyticsProvider).track('purchase', {'product_type': widget.product.type, 'quantity': _qty, 'points': order.totalPoints});
       ref.invalidate(walletBalanceProvider);
       ref.invalidate(ordersProvider);
       if (!mounted) return;
@@ -200,6 +200,68 @@ class _CheckoutSheetState extends ConsumerState<CheckoutSheet> {
           onPressed: short || (pr.needsAddress && _addressId == null) ? null : _pay,
         ),
       ]),
+    );
+  }
+}
+
+/// Swipeable 6:5 gallery; the first image continues the store card's Hero.
+class ProductGallery extends StatefulWidget {
+  const ProductGallery({super.key, required this.slug, required this.type, required this.images});
+
+  final String slug;
+  final String type;
+  final List<String> images;
+
+  @override
+  State<ProductGallery> createState() => _ProductGalleryState();
+}
+
+class _ProductGalleryState extends State<ProductGallery> {
+  int _page = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final images = widget.images;
+    final placeholder = ProductImagePlaceholder(type: widget.type);
+    return AspectRatio(
+      aspectRatio: 1.2,
+      child: images.isEmpty
+          ? Hero(tag: 'product-${widget.slug}', child: placeholder)
+          : Stack(children: [
+              PageView.builder(
+                itemCount: images.length,
+                onPageChanged: (i) => setState(() => _page = i),
+                itemBuilder: (_, i) {
+                  final image = Semantics(
+                    image: true,
+                    label: images.length > 1 ? context.l10n.productGalleryLabel(Fa.digits(i + 1), Fa.digits(images.length)) : null,
+                    child: NetImage(images[i], fallback: placeholder),
+                  );
+                  return i == 0 ? Hero(tag: 'product-${widget.slug}', child: image) : image;
+                },
+              ),
+              if (images.length > 1)
+                PositionedDirectional(
+                  bottom: AppSpacing.md,
+                  start: 0,
+                  end: 0,
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    for (var i = 0; i < images.length; i++)
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        width: i == _page ? 18 : 7,
+                        height: 7,
+                        decoration: BoxDecoration(
+                          color: i == _page ? p.green : Colors.white.withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(4),
+                          boxShadow: const [BoxShadow(color: Color(0x33000000), blurRadius: 3)],
+                        ),
+                      ),
+                  ]),
+                ),
+            ]),
     );
   }
 }

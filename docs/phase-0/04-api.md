@@ -60,7 +60,8 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | **Profile** |||||
 | GET | `/me` | ✓ | – | 1 | پروفایل + آمار کلی |
 | PATCH | `/me` | ✓ | – | 1 | نام، قد، وزن، سال تولد، timezone |
-| POST | `/me/avatar` | ✓ | – | 1 | |
+| POST | `/me/avatar` | ✓ | – | 1 | Multipart؛ روی سرور به JPEG مربعی ۵۱۲ پیکسلی Encode می‌شود (بدون EXIF) |
+| DELETE | `/me/avatar` | ✓ | – | تکمیل | حذف عکس |
 | PATCH | `/me/settings` | ✓ | – | 1 | هدف روزانه، هدف آب، Leaderboard visibility |
 | GET/PATCH | `/me/notification-preferences` | ✓ | – | 1 | |
 | POST | `/me/deletion-request` | ✓ | ✓ | 1 | درخواست حذف حساب |
@@ -112,6 +113,7 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | GET/POST | `/support/tickets` · `/support/tickets/{id}/messages` | ✓ | – | 8 | |
 | GET | `/pages/{slug}` · `/faqs` | – | – | 1 | CMS |
 | POST | `/analytics/events` | ✓ | – | 2 | Batch، بدون PII |
+| POST | `/client-errors` | – | – | تکمیل | گزارش کرش؛ عمومی، Throttle ۱۰/دقیقه، گروه‌بندی و پاک‌سازی PII |
 
 ## ۴.۳ Rate Limitها (Redis)
 

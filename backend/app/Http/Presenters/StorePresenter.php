@@ -59,6 +59,7 @@ class StorePresenter
             'placed_at' => $o->placed_at->toIso8601String(),
             'item_count' => $o->items->sum('quantity'),
             'title' => $o->items->first()?->name,
+            'image_url' => $this->imageUrl($o->items->first()),
             'cancellable' => $o->status === OrderStatus::Paid,
             ...($full ? [
                 'items' => $o->items->map(fn (OrderItem $i) => $this->item($i))->values(),
@@ -76,10 +77,17 @@ class StorePresenter
             'type' => $i->type->value,
             'quantity' => $i->quantity,
             'unit_point_price' => $i->unit_point_price,
-            'image_url' => ($path = $i->product?->images->first()?->path) ? Storage::disk('public')->url($path) : null,
+            'image_url' => $this->imageUrl($i),
             // Codes are only ever shown to their owner, on the order detail.
             'codes' => $i->codes->map(fn (ProductCode $c) => ['code' => $c->code, 'expires_at' => $c->expires_at?->toIso8601String()])->values(),
             'coupon_id' => $i->userCoupon?->public_id,
         ];
+    }
+
+    private function imageUrl(?OrderItem $i): ?string
+    {
+        $path = $i?->product?->images->first()?->path;
+
+        return $path ? Storage::disk('public')->url($path) : null;
     }
 }

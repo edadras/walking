@@ -392,12 +392,6 @@ class AppLocalizationsFa extends AppLocalizations {
   String get deleteAccountCancel => 'انصراف از حذف حساب';
 
   @override
-  String get comingNextTitle => 'این بخش در حال آماده‌سازی است';
-
-  @override
-  String get comingNextBody => 'به‌زودی از همین‌جا در دسترس خواهد بود.';
-
-  @override
   String get updateRequiredTitle => 'نسخه جدید لازم است';
 
   @override
@@ -1524,4 +1518,27 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get profileSupport => 'پشتیبانی';
+
+  @override
+  String get avatarChange => 'تغییر عکس';
+
+  @override
+  String get avatarFromGallery => 'انتخاب از گالری';
+
+  @override
+  String get avatarFromCamera => 'گرفتن عکس';
+
+  @override
+  String get avatarRemove => 'حذف عکس';
+
+  @override
+  String get avatarUpdated => 'عکس پروفایل به‌روز شد.';
+
+  @override
+  String get avatarRemoved => 'عکس پروفایل حذف شد.';
+
+  @override
+  String productGalleryLabel(String index, String count) {
+    return 'تصویر $index از $count';
+  }
 }

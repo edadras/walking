@@ -7,9 +7,10 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-interaction --no-scripts --no-autoloader --prefer-dist
 
 FROM php:8.4-fpm-alpine AS app
-RUN apk add --no-cache icu-libs libzip fcgi \
- && apk add --no-cache --virtual .build $PHPIZE_DEPS icu-dev libzip-dev linux-headers \
- && docker-php-ext-install -j"$(nproc)" pdo_mysql intl bcmath pcntl opcache zip \
+RUN apk add --no-cache icu-libs libzip fcgi libpng libjpeg-turbo libwebp freetype \
+ && apk add --no-cache --virtual .build $PHPIZE_DEPS icu-dev libzip-dev linux-headers libpng-dev libjpeg-turbo-dev libwebp-dev freetype-dev \
+ && docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype \
+ && docker-php-ext-install -j"$(nproc)" pdo_mysql intl bcmath pcntl opcache zip gd \
  && pecl install redis && docker-php-ext-enable redis \
  && apk del .build
 

@@ -29,36 +29,3 @@ class AppShell extends StatelessWidget {
     );
   }
 }
-
-/// Temporary tab body for sections delivered in later phases.
-class ComingNextPage extends StatelessWidget {
-  const ComingNextPage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: _ComingNext(title: l.comingNextTitle, body: l.comingNextBody)),
-    );
-  }
-}
-
-class _ComingNext extends StatelessWidget {
-  const _ComingNext({required this.title, required this.body});
-
-  final String title;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(title, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
-          const SizedBox(height: 8),
-          Text(body, style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
-        ]),
-      );
-}

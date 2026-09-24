@@ -2,12 +2,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../../core/notifications/local_notifications.dart';
+
 /// Water reminders are LOCAL notifications: they work offline, need no server
 /// and stop the moment the user turns them off. Scheduled as daily repeating
 /// times between [startHour] and [endHour] (never at night), inexact to spare
 /// the battery (no exact-alarm permission needed).
 class WaterReminders {
-  WaterReminders([FlutterLocalNotificationsPlugin? plugin]) : _plugin = plugin ?? FlutterLocalNotificationsPlugin();
+  WaterReminders([FlutterLocalNotificationsPlugin? plugin]) : _plugin = plugin ?? LocalNotifications.plugin;
 
   final FlutterLocalNotificationsPlugin _plugin;
   bool _initialised = false;
@@ -19,7 +21,7 @@ class WaterReminders {
 
   Future<void> _init() async {
     if (_initialised) return;
-    await _plugin.initialize(settings: const InitializationSettings(android: AndroidInitializationSettings('@mipmap/ic_launcher')));
+    await LocalNotifications.ensureInitialized(_plugin);
     _initialised = true;
   }
 

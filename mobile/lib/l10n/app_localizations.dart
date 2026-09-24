@@ -778,18 +778,6 @@ abstract class AppLocalizations {
   /// **'انصراف از حذف حساب'**
   String get deleteAccountCancel;
 
-  /// No description provided for @comingNextTitle.
-  ///
-  /// In fa, this message translates to:
-  /// **'این بخش در حال آماده‌سازی است'**
-  String get comingNextTitle;
-
-  /// No description provided for @comingNextBody.
-  ///
-  /// In fa, this message translates to:
-  /// **'به‌زودی از همین‌جا در دسترس خواهد بود.'**
-  String get comingNextBody;
-
   /// No description provided for @updateRequiredTitle.
   ///
   /// In fa, this message translates to:
@@ -2757,6 +2745,48 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'پشتیبانی'**
   String get profileSupport;
+
+  /// No description provided for @avatarChange.
+  ///
+  /// In fa, this message translates to:
+  /// **'تغییر عکس'**
+  String get avatarChange;
+
+  /// No description provided for @avatarFromGallery.
+  ///
+  /// In fa, this message translates to:
+  /// **'انتخاب از گالری'**
+  String get avatarFromGallery;
+
+  /// No description provided for @avatarFromCamera.
+  ///
+  /// In fa, this message translates to:
+  /// **'گرفتن عکس'**
+  String get avatarFromCamera;
+
+  /// No description provided for @avatarRemove.
+  ///
+  /// In fa, this message translates to:
+  /// **'حذف عکس'**
+  String get avatarRemove;
+
+  /// No description provided for @avatarUpdated.
+  ///
+  /// In fa, this message translates to:
+  /// **'عکس پروفایل به‌روز شد.'**
+  String get avatarUpdated;
+
+  /// No description provided for @avatarRemoved.
+  ///
+  /// In fa, this message translates to:
+  /// **'عکس پروفایل حذف شد.'**
+  String get avatarRemoved;
+
+  /// No description provided for @productGalleryLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'تصویر {index} از {count}'**
+  String productGalleryLabel(String index, String count);
 }
 
 class _AppLocalizationsDelegate

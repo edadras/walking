@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/format/dates.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
@@ -17,6 +18,7 @@ import '../application/location_source.dart';
 import '../data/sponsor_models.dart';
 import '../data/sponsor_repository.dart';
 import 'sponsor_widgets.dart';
+import '../../../core/widgets/net_image.dart';
 
 class CampaignPage extends ConsumerStatefulWidget {
   const CampaignPage({super.key, required this.id});
@@ -37,6 +39,7 @@ class _CampaignPageState extends ConsumerState<CampaignPage> {
     try {
       final fix = await ref.read(locationSourceProvider).current();
       final visit = await ref.read(sponsorRepositoryProvider).startVisit(c.summary.id, branch.id, fix);
+      ref.read(analyticsProvider).track('sponsor_visit', {'stage': 'started'});
       if (mounted) context.push('/visits/${visit.id}');
     } on ApiException catch (e) {
       if (mounted) showAppSnack(context, e.message);
@@ -63,7 +66,7 @@ class _CampaignPageState extends ConsumerState<CampaignPage> {
             padding: const EdgeInsetsDirectional.fromSTEB(AppSpacing.gutter, 0, AppSpacing.gutter, AppSpacing.xxl),
             children: [
               if (c.imageUrl != null) ...[
-                ClipRRect(borderRadius: AppRadius.mdAll, child: AspectRatio(aspectRatio: 16 / 9, child: Image.network(c.imageUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => const SizedBox()))),
+                ClipRRect(borderRadius: AppRadius.mdAll, child: AspectRatio(aspectRatio: 16 / 9, child: NetImage(c.imageUrl))),
                 const SizedBox(height: AppSpacing.lg),
               ],
               Text(c.sponsor.name, style: context.text.labelMedium),

@@ -11,6 +11,7 @@ import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../auth/application/session_controller.dart';
 import '../data/profile_repository.dart';
+import 'avatar_editor.dart';
 
 class EditProfilePage extends ConsumerStatefulWidget {
   const EditProfilePage({super.key});
@@ -76,6 +77,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       body: ListView(
         padding: const EdgeInsetsDirectional.all(AppSpacing.gutter),
         children: [
+          const AvatarEditor(),
+          gap,
           AppTextField(label: l.editDisplayName, hint: l.editDisplayNameHint, controller: _name, maxLength: 30, errorText: err('display_name')),
           gap,
           Row(children: [

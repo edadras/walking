@@ -152,6 +152,7 @@ class Order {
     required this.itemCount,
     required this.cancellable,
     this.title,
+    this.imageUrl,
     this.items = const [],
     this.shippingAddress,
     this.trackingCode,
@@ -167,6 +168,7 @@ class Order {
         placedAt: DateTime.parse(j['placed_at'] as String),
         itemCount: _i(j['item_count']),
         title: j['title'] as String?,
+        imageUrl: j['image_url'] as String?,
         cancellable: j['cancellable'] == true,
         items: ((j['items'] as List?) ?? const []).map((e) => OrderItem.fromJson(e as Map<String, dynamic>)).toList(),
         shippingAddress: j['shipping_address'] == null ? null : Address.fromJson(j['shipping_address'] as Map<String, dynamic>),
@@ -185,6 +187,7 @@ class Order {
   final DateTime placedAt;
   final int itemCount;
   final String? title;
+  final String? imageUrl;
   final bool cancellable;
   final List<OrderItem> items;
   final Address? shippingAddress;

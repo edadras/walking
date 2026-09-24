@@ -9,6 +9,7 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../activity/application/activity_providers.dart';
+import '../application/notification_routes.dart';
 import '../data/notification_repository.dart';
 
 IconData _icon(InboxItem n) => switch (n.data['type']) {
@@ -21,18 +22,6 @@ IconData _icon(InboxItem n) => switch (n.data['type']) {
       'order' => Icons.receipt_long_outlined,
       'support' => Icons.support_agent_rounded,
       _ => n.category == 'reward_received' ? Icons.toll_rounded : Icons.campaign_outlined,
-    };
-
-/// Where tapping a notification leads (server data never carries raw routes).
-String? _route(InboxItem n) => switch (n.data['type']) {
-      'referral' => '/referral',
-      'achievement' => '/achievements',
-      'goal' || 'streak' => '/rewards',
-      'challenge' when n.data['id'] is String => '/challenges/${n.data['id']}',
-      'visit' => '/coupons',
-      'order' when n.data['id'] is String => '/orders/${n.data['id']}',
-      'support' when n.data['id'] is String => '/support/${n.data['id']}',
-      _ => null,
     };
 
 /// In-app inbox. Opening marks everything read after the first frame.
@@ -55,12 +44,9 @@ class _InboxPageState extends ConsumerState<InboxPage> {
   }
 
   void _open(InboxItem n) {
-    final route = _route(n);
-    if (route == '/rewards') {
-      context.go(route!);
-    } else if (route != null) {
-      context.push(route);
-    }
+    final route = notificationRoute(n.data);
+    if (route == null) return;
+    isTabRoute(route) ? context.go(route) : context.push(route);
   }
 
   @override

@@ -17,6 +17,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -73,7 +74,10 @@ class ProductResource extends Resource
     {
         return $table
             ->defaultSort('sort')
+            ->modifyQueryUsing(fn ($query) => $query->with('images'))
             ->columns([
+                ImageColumn::make('images.path')->label('تصویر')->disk('public')->limit(1)->square()->imageSize(44)
+                    ->placeholder('بدون تصویر'),
                 TextColumn::make('name')->label('نام')->searchable(),
                 TextColumn::make('category.name')->label('دسته'),
                 TextColumn::make('type')->label('نوع')->badge()->formatStateUsing(fn (ProductType $state) => $state->label()),

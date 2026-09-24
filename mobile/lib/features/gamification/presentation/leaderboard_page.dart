@@ -9,6 +9,7 @@ import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/state_views.dart';
 import '../data/gamification_models.dart';
 import '../data/gamification_repository.dart';
+import '../../../core/widgets/net_image.dart';
 
 /// Ranked by verified steps only. Users who hid themselves never appear.
 class LeaderboardPage extends ConsumerWidget {
@@ -89,10 +90,10 @@ class _Row extends StatelessWidget {
               : Text(Fa.digits(entry.rank), style: context.text.titleSmall, textAlign: TextAlign.center),
         ),
         const SizedBox(width: AppSpacing.sm),
-        CircleAvatar(
+        NetAvatar(
           radius: 18,
           backgroundColor: p.surfaceSunken,
-          foregroundImage: entry.avatarUrl != null ? NetworkImage(entry.avatarUrl!) : null,
+          url: entry.avatarUrl,
           child: Text(entry.name.isEmpty ? '؟' : entry.name.characters.first),
         ),
         const SizedBox(width: AppSpacing.md),

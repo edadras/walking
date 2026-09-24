@@ -37,6 +37,11 @@ class ProfileController extends Controller
         return MeResource::make($this->profiles->updateAvatar($request->user(), $request->file('avatar'))->load('profile'));
     }
 
+    public function removeAvatar(Request $request): MeResource
+    {
+        return MeResource::make($this->profiles->removeAvatar($request->user())->load('profile'));
+    }
+
     public function notificationPreferences(Request $request): JsonResponse
     {
         return response()->json(['data' => $this->profiles->notificationPreferences($request->user())]);

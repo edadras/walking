@@ -16,5 +16,14 @@ abstract final class Env {
 
   static List<String> get certPinList => certPins.isEmpty ? const [] : certPins.split(',');
 
+  /// Firebase Cloud Messaging (all four or none; empty = push disabled, the in-app inbox still works).
+  /// Values come from the Firebase console's Android app config, so no google-services.json is committed.
+  static const fcmApiKey = String.fromEnvironment('FCM_API_KEY');
+  static const fcmAppId = String.fromEnvironment('FCM_APP_ID');
+  static const fcmSenderId = String.fromEnvironment('FCM_SENDER_ID');
+  static const fcmProjectId = String.fromEnvironment('FCM_PROJECT_ID');
+
+  static bool get pushConfigured => fcmApiKey.isNotEmpty && fcmAppId.isNotEmpty && fcmSenderId.isNotEmpty && fcmProjectId.isNotEmpty;
+
   static const platform = 'android';
 }

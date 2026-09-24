@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/format/dates.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
@@ -33,6 +34,7 @@ class _WalkPageState extends ConsumerState<WalkPage> {
     // Optional: without it the walk still records, the ongoing notification is just hidden.
     await PermissionPrimer.ensure(context, AppPermission.notifications);
     await ref.read(activeWalkProvider.notifier).start(gps: _gps);
+    ref.read(analyticsProvider).track('walking_started', {'gps': _gps});
   }
 
   @override
@@ -49,7 +51,10 @@ class _WalkPageState extends ConsumerState<WalkPage> {
             duration: AppMotion.base,
             child: switch (state) {
               WalkIdle() => _Idle(key: const ValueKey('idle'), gps: _gps, onGps: _toggleGps, onStart: _start),
-              WalkRunning(:final live) => _Live(key: const ValueKey('run'), steps: live.steps, elapsed: live.elapsed, distance: live.gps ? live.distanceM : null, onStop: () => ref.read(activeWalkProvider.notifier).stop()),
+              WalkRunning(:final live) => _Live(key: const ValueKey('run'), steps: live.steps, elapsed: live.elapsed, distance: live.gps ? live.distanceM : null, onStop: () {
+                ref.read(analyticsProvider).track('walking_completed', {'steps': live.steps, 'minutes': live.elapsed.inMinutes, 'gps': live.gps});
+                ref.read(activeWalkProvider.notifier).stop();
+              }),
               WalkSaving(:final live) => _Live(key: const ValueKey('save'), steps: live.steps, elapsed: live.elapsed, distance: live.gps ? live.distanceM : null, saving: true),
               WalkFinished() => _Finished(key: const ValueKey('done'), state: state, onDone: () {
                   ref.read(activeWalkProvider.notifier).reset();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/format/dates.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
@@ -16,6 +17,7 @@ import '../../../core/widgets/state_views.dart';
 import '../../activity/application/activity_providers.dart';
 import '../data/challenge_models.dart';
 import '../data/challenge_repository.dart';
+import '../../../core/widgets/net_image.dart';
 
 String metricTarget(BuildContext context, ChallengeItem c, int value) =>
     c.metric == 'distance_m' ? '${Fa.decimal(value / 1000)} ${context.l10n.unitKm}' : '${Fa.number(value)} ${context.l10n.unitSteps}';
@@ -135,6 +137,7 @@ class _ChallengeDetailPageState extends ConsumerState<ChallengeDetailPage> {
     setState(() => _joining = true);
     try {
       await joinChallenge(ref.read(apiClientProvider), widget.id);
+      ref.read(analyticsProvider).track('challenge_joined');
       ref.invalidate(challengeProvider(widget.id));
       ref.invalidate(challengesProvider);
       ref.invalidate(homeProvider);
@@ -158,7 +161,7 @@ class _ChallengeDetailPageState extends ConsumerState<ChallengeDetailPage> {
           padding: const EdgeInsetsDirectional.all(AppSpacing.gutter),
           children: [
             if (c.imageUrl != null) ...[
-              ClipRRect(borderRadius: AppRadius.mdAll, child: AspectRatio(aspectRatio: 16 / 9, child: Image.network(c.imageUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => const SizedBox()))),
+              ClipRRect(borderRadius: AppRadius.mdAll, child: AspectRatio(aspectRatio: 16 / 9, child: NetImage(c.imageUrl))),
               const SizedBox(height: AppSpacing.lg),
             ],
             Text(c.title, style: context.text.headlineSmall),

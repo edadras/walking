@@ -918,127 +918,6 @@
     }
    ]
   },
-  "/store/products": {
-   "data": [
-    {
-     "id": "01m3ahz69nmd2azc1xwsrxdb9f",
-     "slug": "gift-card-500k",
-     "name": "کارت هدیه ۵۰۰ هزار ریالی",
-     "summary": "قابل استفاده در فروشگاه‌های طرف قرارداد",
-     "type": "digital_code",
-     "type_label": "کد دیجیتال",
-     "point_price": 1200,
-     "in_stock": true,
-     "stock": null,
-     "max_per_user": 2,
-     "min_level": 1,
-     "needs_address": false,
-     "image_url": null,
-     "category": "gift-cards",
-     "sponsor": null
-    },
-    {
-     "id": "01m3ahz6b1dg3a291ndy02fr47",
-     "slug": "sport-bottle",
-     "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
-     "summary": "فولادی، دوجداره",
-     "type": "physical",
-     "type_label": "کالای فیزیکی",
-     "point_price": 2500,
-     "in_stock": true,
-     "stock": null,
-     "max_per_user": null,
-     "min_level": 1,
-     "needs_address": true,
-     "image_url": null,
-     "category": "sport",
-     "sponsor": null
-    },
-    {
-     "id": "01m3ahz6b37yffwnyseezve0mt",
-     "slug": "sport-socks",
-     "name": "جوراب ورزشی (سه جفت)",
-     "summary": null,
-     "type": "physical",
-     "type_label": "کالای فیزیکی",
-     "point_price": 900,
-     "in_stock": true,
-     "stock": null,
-     "max_per_user": null,
-     "min_level": 3,
-     "needs_address": true,
-     "image_url": null,
-     "category": "sport",
-     "sponsor": null
-    },
-    {
-     "id": "01m3ahz6b87bmjc7wj94dkaaay",
-     "slug": "cafe-cookie",
-     "name": "کلوچه رایگان کافه قدم",
-     "summary": null,
-     "type": "coupon",
-     "type_label": "کوپن",
-     "point_price": 150,
-     "in_stock": true,
-     "stock": null,
-     "max_per_user": 1,
-     "min_level": 1,
-     "needs_address": false,
-     "image_url": null,
-     "category": "coupons",
-     "sponsor": "کافه قدم"
-    },
-    {
-     "id": "01m3ahz6bavp9padardk21rx12",
-     "slug": "plant-a-tree",
-     "name": "کاشت یک نهال",
-     "summary": "امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود",
-     "type": "service",
-     "type_label": "خدمت / اهدا",
-     "point_price": 500,
-     "in_stock": true,
-     "stock": null,
-     "max_per_user": null,
-     "min_level": 1,
-     "needs_address": false,
-     "image_url": null,
-     "category": "charity",
-     "sponsor": null
-    }
-   ],
-   "meta": {
-    "next_cursor": null
-   }
-  },
-  "/orders": {
-   "data": [
-    {
-     "id": "01m3ap3z7z8ng1fb6ez8z0f4qe",
-     "number": "#Z0F4QE",
-     "status": "shipped",
-     "status_label": "ارسال‌شده",
-     "total_points": 2500,
-     "placed_at": "2026-09-24T21:46:03+00:00",
-     "item_count": 1,
-     "title": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
-     "cancellable": false
-    },
-    {
-     "id": "01m3ap3z64ggt47rqvtadz4g0t",
-     "number": "#DZ4G0T",
-     "status": "delivered",
-     "status_label": "تحویل‌شده",
-     "total_points": 1200,
-     "placed_at": "2026-09-24T21:46:03+00:00",
-     "item_count": 1,
-     "title": "کارت هدیه ۵۰۰ هزار ریالی",
-     "cancellable": false
-    }
-   ],
-   "meta": {
-    "next_cursor": null
-   }
-  },
   "/addresses": {
    "data": [
     {
@@ -2918,105 +2797,6 @@
     "coupon": null
    }
   },
-  "/orders/01m3ap3z7z8ng1fb6ez8z0f4qe": {
-   "data": {
-    "id": "01m3ap3z7z8ng1fb6ez8z0f4qe",
-    "number": "#Z0F4QE",
-    "status": "shipped",
-    "status_label": "ارسال‌شده",
-    "total_points": 2500,
-    "placed_at": "2026-09-24T21:46:03+00:00",
-    "item_count": 1,
-    "title": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
-    "cancellable": false,
-    "items": [
-     {
-      "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
-      "type": "physical",
-      "quantity": 1,
-      "unit_point_price": 2500,
-      "image_url": null,
-      "codes": [],
-      "coupon_id": null
-     }
-    ],
-    "shipping_address": {
-     "city": "تهران",
-     "line": "خیابان ولیعصر، کوچه نسترن، پلاک ۱۲، واحد ۴",
-     "phone": "09120000001",
-     "title": "خانه",
-     "province": "تهران",
-     "recipient": "علی رضایی",
-     "postal_code": "1965812345"
-    },
-    "tracking_code": "IR1405070012345",
-    "history": [
-     {
-      "status": "paid",
-      "label": "ثبت‌شده",
-      "note": null,
-      "at": "2026-09-24T21:46:03+00:00"
-     },
-     {
-      "status": "processing",
-      "label": "در حال آماده‌سازی",
-      "note": null,
-      "at": "2026-09-24T21:46:03+00:00"
-     },
-     {
-      "status": "shipped",
-      "label": "ارسال‌شده",
-      "note": null,
-      "at": "2026-09-24T21:46:03+00:00"
-     }
-    ]
-   }
-  },
-  "/orders/01m3ap3z64ggt47rqvtadz4g0t": {
-   "data": {
-    "id": "01m3ap3z64ggt47rqvtadz4g0t",
-    "number": "#DZ4G0T",
-    "status": "delivered",
-    "status_label": "تحویل‌شده",
-    "total_points": 1200,
-    "placed_at": "2026-09-24T21:46:03+00:00",
-    "item_count": 1,
-    "title": "کارت هدیه ۵۰۰ هزار ریالی",
-    "cancellable": false,
-    "items": [
-     {
-      "name": "کارت هدیه ۵۰۰ هزار ریالی",
-      "type": "digital_code",
-      "quantity": 1,
-      "unit_point_price": 1200,
-      "image_url": null,
-      "codes": [
-       {
-        "code": "DEMO-0001-0001",
-        "expires_at": null
-       }
-      ],
-      "coupon_id": null
-     }
-    ],
-    "shipping_address": null,
-    "tracking_code": null,
-    "history": [
-     {
-      "status": "paid",
-      "label": "ثبت‌شده",
-      "note": null,
-      "at": "2026-09-24T21:46:03+00:00"
-     },
-     {
-      "status": "delivered",
-      "label": "تحویل‌شده",
-      "note": "تحویل خودکار",
-      "at": "2026-09-24T21:46:03+00:00"
-     }
-    ]
-   }
-  },
   "/support/tickets/01m3ap3zbpwb1x6x62rqdz56ev": {
    "data": {
     "id": "01m3ap3zbpwb1x6x62rqdz56ev",
@@ -3040,111 +2820,6 @@
       "at": "2026-09-24T21:46:04+00:00"
      }
     ]
-   }
-  },
-  "/store/products/gift-card-500k": {
-   "data": {
-    "id": "01m3ahz69nmd2azc1xwsrxdb9f",
-    "slug": "gift-card-500k",
-    "name": "کارت هدیه ۵۰۰ هزار ریالی",
-    "summary": "قابل استفاده در فروشگاه‌های طرف قرارداد",
-    "type": "digital_code",
-    "type_label": "کد دیجیتال",
-    "point_price": 1200,
-    "in_stock": true,
-    "stock": null,
-    "max_per_user": 2,
-    "min_level": 1,
-    "needs_address": false,
-    "image_url": null,
-    "category": "gift-cards",
-    "sponsor": null,
-    "description": null,
-    "images": []
-   }
-  },
-  "/store/products/sport-bottle": {
-   "data": {
-    "id": "01m3ahz6b1dg3a291ndy02fr47",
-    "slug": "sport-bottle",
-    "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
-    "summary": "فولادی، دوجداره",
-    "type": "physical",
-    "type_label": "کالای فیزیکی",
-    "point_price": 2500,
-    "in_stock": true,
-    "stock": null,
-    "max_per_user": null,
-    "min_level": 1,
-    "needs_address": true,
-    "image_url": null,
-    "category": "sport",
-    "sponsor": null,
-    "description": "<p>آب را تا ۱۲ ساعت خنک نگه می‌دارد.</p>",
-    "images": []
-   }
-  },
-  "/store/products/sport-socks": {
-   "data": {
-    "id": "01m3ahz6b37yffwnyseezve0mt",
-    "slug": "sport-socks",
-    "name": "جوراب ورزشی (سه جفت)",
-    "summary": null,
-    "type": "physical",
-    "type_label": "کالای فیزیکی",
-    "point_price": 900,
-    "in_stock": true,
-    "stock": null,
-    "max_per_user": null,
-    "min_level": 3,
-    "needs_address": true,
-    "image_url": null,
-    "category": "sport",
-    "sponsor": null,
-    "description": null,
-    "images": []
-   }
-  },
-  "/store/products/cafe-cookie": {
-   "data": {
-    "id": "01m3ahz6b87bmjc7wj94dkaaay",
-    "slug": "cafe-cookie",
-    "name": "کلوچه رایگان کافه قدم",
-    "summary": null,
-    "type": "coupon",
-    "type_label": "کوپن",
-    "point_price": 150,
-    "in_stock": true,
-    "stock": null,
-    "max_per_user": 1,
-    "min_level": 1,
-    "needs_address": false,
-    "image_url": null,
-    "category": "coupons",
-    "sponsor": "کافه قدم",
-    "description": null,
-    "images": []
-   }
-  },
-  "/store/products/plant-a-tree": {
-   "data": {
-    "id": "01m3ahz6bavp9padardk21rx12",
-    "slug": "plant-a-tree",
-    "name": "کاشت یک نهال",
-    "summary": "امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود",
-    "type": "service",
-    "type_label": "خدمت / اهدا",
-    "point_price": 500,
-    "in_stock": true,
-    "stock": null,
-    "max_per_user": null,
-    "min_level": 1,
-    "needs_address": false,
-    "image_url": null,
-    "category": "charity",
-    "sponsor": null,
-    "description": null,
-    "images": []
    }
   },
   "/walking-sessions/01m3afhwvqr1v543ncqjnkrtzc": {
@@ -3433,6 +3108,426 @@
     "advertiser": null,
     "token": "eyJzIjoiMDFNM0FQNlZYV0gyOVhFSDZCUURSQTdSWDYiLCJhIjozLCJjIjozLCJwIjo0LCJ1IjoxLCJkIjoiMjAyNi0wOS0yNSIsIngiOjE3OTAzNzI4NTh9.Wj_rxi9j6m7VawOnWTQLh54cUTTsj0jAv7kLhrwhJ6U"
    }
+  },
+  "/store/products": {
+   "data": [
+    {
+     "id": "01m3ahz69nmd2azc1xwsrxdb9f",
+     "slug": "gift-card-500k",
+     "name": "کارت هدیه ۵۰۰ هزار ریالی",
+     "summary": "قابل استفاده در فروشگاه‌های طرف قرارداد",
+     "type": "digital_code",
+     "type_label": "کد دیجیتال",
+     "point_price": 1200,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": 2,
+     "min_level": 1,
+     "needs_address": false,
+     "image_url": "http://localhost:8000/storage/products/gift-card-500k-1.jpg",
+     "category": "gift-cards",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6b1dg3a291ndy02fr47",
+     "slug": "sport-bottle",
+     "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+     "summary": "فولادی، دوجداره",
+     "type": "physical",
+     "type_label": "کالای فیزیکی",
+     "point_price": 2500,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 1,
+     "needs_address": true,
+     "image_url": "http://localhost:8000/storage/products/sport-bottle-1.jpg",
+     "category": "sport",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6b37yffwnyseezve0mt",
+     "slug": "sport-socks",
+     "name": "جوراب ورزشی (سه جفت)",
+     "summary": null,
+     "type": "physical",
+     "type_label": "کالای فیزیکی",
+     "point_price": 900,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 3,
+     "needs_address": true,
+     "image_url": "http://localhost:8000/storage/products/sport-socks-1.jpg",
+     "category": "sport",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6b87bmjc7wj94dkaaay",
+     "slug": "cafe-cookie",
+     "name": "کلوچه رایگان کافه قدم",
+     "summary": null,
+     "type": "coupon",
+     "type_label": "کوپن",
+     "point_price": 150,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": 1,
+     "min_level": 1,
+     "needs_address": false,
+     "image_url": "http://localhost:8000/storage/products/cafe-cookie-1.jpg",
+     "category": "coupons",
+     "sponsor": "کافه قدم"
+    },
+    {
+     "id": "01m3aqzjjke1j8ccdhjpe9wtmp",
+     "slug": "yoga-mat",
+     "name": "مت یوگا ۶ میلی‌متری",
+     "summary": "ضدلغزش، همراه بند حمل",
+     "type": "physical",
+     "type_label": "کالای فیزیکی",
+     "point_price": 3200,
+     "in_stock": true,
+     "stock": 8,
+     "max_per_user": null,
+     "min_level": 2,
+     "needs_address": true,
+     "image_url": "http://localhost:8000/storage/products/yoga-mat-1.jpg",
+     "category": "sport",
+     "sponsor": null
+    },
+    {
+     "id": "01m3ahz6bavp9padardk21rx12",
+     "slug": "plant-a-tree",
+     "name": "کاشت یک نهال",
+     "summary": "امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود",
+     "type": "service",
+     "type_label": "خدمت / اهدا",
+     "point_price": 500,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 1,
+     "needs_address": false,
+     "image_url": "http://localhost:8000/storage/products/plant-a-tree-1.jpg",
+     "category": "charity",
+     "sponsor": null
+    },
+    {
+     "id": "01m3aqzjknbk25zerqmf73qj1x",
+     "slug": "sport-towel",
+     "name": "حوله ورزشی میکروفایبر",
+     "summary": "سبک و زودخشک",
+     "type": "physical",
+     "type_label": "کالای فیزیکی",
+     "point_price": 1100,
+     "in_stock": true,
+     "stock": null,
+     "max_per_user": null,
+     "min_level": 1,
+     "needs_address": true,
+     "image_url": "http://localhost:8000/storage/products/sport-towel-1.jpg",
+     "category": "sport",
+     "sponsor": null
+    }
+   ],
+   "meta": {
+    "next_cursor": null
+   }
+  },
+  "/orders": {
+   "data": [
+    {
+     "id": "01m3ap3z7z8ng1fb6ez8z0f4qe",
+     "number": "#Z0F4QE",
+     "status": "shipped",
+     "status_label": "ارسال‌شده",
+     "total_points": 2500,
+     "placed_at": "2026-09-24T21:46:03+00:00",
+     "item_count": 1,
+     "title": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+     "image_url": "http://localhost:8000/storage/products/sport-bottle-1.jpg",
+     "cancellable": false
+    },
+    {
+     "id": "01m3ap3z64ggt47rqvtadz4g0t",
+     "number": "#DZ4G0T",
+     "status": "delivered",
+     "status_label": "تحویل‌شده",
+     "total_points": 1200,
+     "placed_at": "2026-09-24T21:46:03+00:00",
+     "item_count": 1,
+     "title": "کارت هدیه ۵۰۰ هزار ریالی",
+     "image_url": "http://localhost:8000/storage/products/gift-card-500k-1.jpg",
+     "cancellable": false
+    }
+   ],
+   "meta": {
+    "next_cursor": null
+   }
+  },
+  "/store/products/gift-card-500k": {
+   "data": {
+    "id": "01m3ahz69nmd2azc1xwsrxdb9f",
+    "slug": "gift-card-500k",
+    "name": "کارت هدیه ۵۰۰ هزار ریالی",
+    "summary": "قابل استفاده در فروشگاه‌های طرف قرارداد",
+    "type": "digital_code",
+    "type_label": "کد دیجیتال",
+    "point_price": 1200,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": 2,
+    "min_level": 1,
+    "needs_address": false,
+    "image_url": "http://localhost:8000/storage/products/gift-card-500k-1.jpg",
+    "category": "gift-cards",
+    "sponsor": null,
+    "description": null,
+    "images": [
+     "http://localhost:8000/storage/products/gift-card-500k-1.jpg",
+     "http://localhost:8000/storage/products/gift-card-500k-2.jpg"
+    ]
+   }
+  },
+  "/store/products/sport-bottle": {
+   "data": {
+    "id": "01m3ahz6b1dg3a291ndy02fr47",
+    "slug": "sport-bottle",
+    "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+    "summary": "فولادی، دوجداره",
+    "type": "physical",
+    "type_label": "کالای فیزیکی",
+    "point_price": 2500,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 1,
+    "needs_address": true,
+    "image_url": "http://localhost:8000/storage/products/sport-bottle-1.jpg",
+    "category": "sport",
+    "sponsor": null,
+    "description": "<p>آب را تا ۱۲ ساعت خنک نگه می‌دارد.</p>",
+    "images": [
+     "http://localhost:8000/storage/products/sport-bottle-1.jpg"
+    ]
+   }
+  },
+  "/store/products/sport-socks": {
+   "data": {
+    "id": "01m3ahz6b37yffwnyseezve0mt",
+    "slug": "sport-socks",
+    "name": "جوراب ورزشی (سه جفت)",
+    "summary": null,
+    "type": "physical",
+    "type_label": "کالای فیزیکی",
+    "point_price": 900,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 3,
+    "needs_address": true,
+    "image_url": "http://localhost:8000/storage/products/sport-socks-1.jpg",
+    "category": "sport",
+    "sponsor": null,
+    "description": null,
+    "images": [
+     "http://localhost:8000/storage/products/sport-socks-1.jpg"
+    ]
+   }
+  },
+  "/store/products/cafe-cookie": {
+   "data": {
+    "id": "01m3ahz6b87bmjc7wj94dkaaay",
+    "slug": "cafe-cookie",
+    "name": "کلوچه رایگان کافه قدم",
+    "summary": null,
+    "type": "coupon",
+    "type_label": "کوپن",
+    "point_price": 150,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": 1,
+    "min_level": 1,
+    "needs_address": false,
+    "image_url": "http://localhost:8000/storage/products/cafe-cookie-1.jpg",
+    "category": "coupons",
+    "sponsor": "کافه قدم",
+    "description": null,
+    "images": [
+     "http://localhost:8000/storage/products/cafe-cookie-1.jpg"
+    ]
+   }
+  },
+  "/store/products/yoga-mat": {
+   "data": {
+    "id": "01m3aqzjjke1j8ccdhjpe9wtmp",
+    "slug": "yoga-mat",
+    "name": "مت یوگا ۶ میلی‌متری",
+    "summary": "ضدلغزش، همراه بند حمل",
+    "type": "physical",
+    "type_label": "کالای فیزیکی",
+    "point_price": 3200,
+    "in_stock": true,
+    "stock": 8,
+    "max_per_user": null,
+    "min_level": 2,
+    "needs_address": true,
+    "image_url": "http://localhost:8000/storage/products/yoga-mat-1.jpg",
+    "category": "sport",
+    "sponsor": null,
+    "description": "<p>مناسب حرکات کششی قبل و بعد از پیاده‌روی.</p>",
+    "images": [
+     "http://localhost:8000/storage/products/yoga-mat-1.jpg"
+    ]
+   }
+  },
+  "/store/products/plant-a-tree": {
+   "data": {
+    "id": "01m3ahz6bavp9padardk21rx12",
+    "slug": "plant-a-tree",
+    "name": "کاشت یک نهال",
+    "summary": "امتیازت به کاشت یک نهال در طرح‌های شهری تبدیل می‌شود",
+    "type": "service",
+    "type_label": "خدمت / اهدا",
+    "point_price": 500,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 1,
+    "needs_address": false,
+    "image_url": "http://localhost:8000/storage/products/plant-a-tree-1.jpg",
+    "category": "charity",
+    "sponsor": null,
+    "description": null,
+    "images": [
+     "http://localhost:8000/storage/products/plant-a-tree-1.jpg"
+    ]
+   }
+  },
+  "/store/products/sport-towel": {
+   "data": {
+    "id": "01m3aqzjknbk25zerqmf73qj1x",
+    "slug": "sport-towel",
+    "name": "حوله ورزشی میکروفایبر",
+    "summary": "سبک و زودخشک",
+    "type": "physical",
+    "type_label": "کالای فیزیکی",
+    "point_price": 1100,
+    "in_stock": true,
+    "stock": null,
+    "max_per_user": null,
+    "min_level": 1,
+    "needs_address": true,
+    "image_url": "http://localhost:8000/storage/products/sport-towel-1.jpg",
+    "category": "sport",
+    "sponsor": null,
+    "description": null,
+    "images": [
+     "http://localhost:8000/storage/products/sport-towel-1.jpg"
+    ]
+   }
+  },
+  "/orders/01m3ap3z7z8ng1fb6ez8z0f4qe": {
+   "data": {
+    "id": "01m3ap3z7z8ng1fb6ez8z0f4qe",
+    "number": "#Z0F4QE",
+    "status": "shipped",
+    "status_label": "ارسال‌شده",
+    "total_points": 2500,
+    "placed_at": "2026-09-24T21:46:03+00:00",
+    "item_count": 1,
+    "title": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+    "image_url": "http://localhost:8000/storage/products/sport-bottle-1.jpg",
+    "cancellable": false,
+    "items": [
+     {
+      "name": "قمقمه ورزشی ۷۵۰ میلی‌لیتری",
+      "type": "physical",
+      "quantity": 1,
+      "unit_point_price": 2500,
+      "image_url": "http://localhost:8000/storage/products/sport-bottle-1.jpg",
+      "codes": [],
+      "coupon_id": null
+     }
+    ],
+    "shipping_address": {
+     "city": "تهران",
+     "line": "خیابان ولیعصر، کوچه نسترن، پلاک ۱۲، واحد ۴",
+     "phone": "09120000001",
+     "title": "خانه",
+     "province": "تهران",
+     "recipient": "علی رضایی",
+     "postal_code": "1965812345"
+    },
+    "tracking_code": "IR1405070012345",
+    "history": [
+     {
+      "status": "paid",
+      "label": "ثبت‌شده",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "status": "processing",
+      "label": "در حال آماده‌سازی",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "status": "shipped",
+      "label": "ارسال‌شده",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     }
+    ]
+   }
+  },
+  "/orders/01m3ap3z64ggt47rqvtadz4g0t": {
+   "data": {
+    "id": "01m3ap3z64ggt47rqvtadz4g0t",
+    "number": "#DZ4G0T",
+    "status": "delivered",
+    "status_label": "تحویل‌شده",
+    "total_points": 1200,
+    "placed_at": "2026-09-24T21:46:03+00:00",
+    "item_count": 1,
+    "title": "کارت هدیه ۵۰۰ هزار ریالی",
+    "image_url": "http://localhost:8000/storage/products/gift-card-500k-1.jpg",
+    "cancellable": false,
+    "items": [
+     {
+      "name": "کارت هدیه ۵۰۰ هزار ریالی",
+      "type": "digital_code",
+      "quantity": 1,
+      "unit_point_price": 1200,
+      "image_url": "http://localhost:8000/storage/products/gift-card-500k-1.jpg",
+      "codes": [
+       {
+        "code": "DEMO-0001-0001",
+        "expires_at": null
+       }
+      ],
+      "coupon_id": null
+     }
+    ],
+    "shipping_address": null,
+    "tracking_code": null,
+    "history": [
+     {
+      "status": "paid",
+      "label": "ثبت‌شده",
+      "note": null,
+      "at": "2026-09-24T21:46:03+00:00"
+     },
+     {
+      "status": "delivered",
+      "label": "تحویل‌شده",
+      "note": "تحویل خودکار",
+      "at": "2026-09-24T21:46:03+00:00"
+     }
+    ]
+   }
   }
  },
  "ids": {
@@ -3444,7 +3539,7 @@
    "01m3ap3z64ggt47rqvtadz4g0t"
   ],
   "ticket": "01m3ap3zbpwb1x6x62rqdz56ev",
-  "product": "gift-card-500k",
+  "product": "sport-bottle",
   "session": "01m3afhwvqr1v543ncqjnkrtzc"
  }
 }

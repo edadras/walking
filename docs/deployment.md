@@ -67,8 +67,12 @@ flutter build appbundle --release \
   --dart-define=API_BASE_URL=https://api.gamyar.ir/api/v1 \
   --dart-define=INTEGRITY_PROJECT_NUMBER=<cloud project number> \
   --dart-define=CERT_PINS=<pin فعلی>,<pin پشتیبان> \
-  --dart-define=MAP_TILE_URL=<سرور Tile>
+  --dart-define=MAP_TILE_URL=<سرور Tile> \
+  --dart-define=FCM_API_KEY=<...> --dart-define=FCM_APP_ID=<...> \
+  --dart-define=FCM_SENDER_ID=<...> --dart-define=FCM_PROJECT_ID=<...>
 ```
+
+مقادیر `FCM_*` از تنظیمات اپ اندروید در کنسول Firebase برداشته می‌شوند (فایل `google-services.json` در مخزن نیست). بدون آن‌ها Push غیرفعال است و صندوق اعلان داخل اپ همچنان کار می‌کند. سمت سرور هم `PUSH_DRIVER=fcm` و `FCM_CREDENTIALS` لازم است.
 
 Pin از کلید عمومی گواهی سرور:
 
@@ -95,5 +99,7 @@ openssl s_client -connect api.gamyar.ir:443 -servername api.gamyar.ir </dev/null
 - [ ] Redis و MySQL فقط در شبکه داخلی
 - [ ] Play Integrity فعال و `security.require_integrity` پس از دوره آزمایشی روشن
 - [ ] `CERT_PINS` در Build Release
+- [ ] `FCM_*` در Build Release و `PUSH_DRIVER=fcm` روی سرور؛ یک Push آزمایشی روی گوشی واقعی
+- [ ] Volume مربوط به `storage/app/public` (تصاویر کالا و آواتار) در پشتیبان‌گیری
 - [ ] شبکه‌های تبلیغاتی خارجی فقط پس از بررسی مستند رسمی و با Secret فعال شوند
 - [ ] پشتیبان و بازیابی تست شده

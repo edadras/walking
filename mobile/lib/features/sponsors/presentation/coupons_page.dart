@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/format/dates.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
@@ -161,6 +162,7 @@ class _AvailableState extends ConsumerState<_Available> {
     try {
       // One key per tap: a retried request never charges twice.
       await ref.read(sponsorRepositoryProvider).claim(offer.id, const Uuid().v4());
+      ref.read(analyticsProvider).track('coupon_claimed', {'point_cost': offer.pointCost});
       ref.invalidate(myCouponsProvider);
       ref.invalidate(availableCouponsProvider);
       ref.invalidate(walletBalanceProvider);

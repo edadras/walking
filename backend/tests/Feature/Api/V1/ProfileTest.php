@@ -83,13 +83,36 @@ class ProfileTest extends TestCase
     public function test_avatar_upload(): void
     {
         Storage::fake('public');
-        $this->loginAs();
+        $user = $this->loginAs();
 
         $response = $this->withHeaders(['Authorization' => 'Bearer '.$this->token])
             ->post('/api/v1/me/avatar', ['avatar' => UploadedFile::fake()->image('a.png', 256, 256)], ['Accept' => 'application/json'])
             ->assertOk();
 
         $this->assertNotNull($response->json('data.avatar_url'));
+        $path = $user->fresh()->avatar_path;
+        $this->assertStringEndsWith('.jpg', $path);
+        // Re-encoded: a square JPEG no larger than 512px, whatever was uploaded.
+        [$w, $h, $type] = getimagesizefromstring(Storage::disk('public')->get($path));
+        $this->assertSame([256, 256, IMAGETYPE_JPEG], [$w, $h, $type]);
+
+        $this->withHeaders(['Authorization' => 'Bearer '.$this->token])
+            ->post('/api/v1/me/avatar', ['avatar' => UploadedFile::fake()->image('b.jpg', 1600, 900)], ['Accept' => 'application/json'])->assertOk();
+        Storage::disk('public')->assertMissing($path);
+        $path = $user->fresh()->avatar_path;
+        $this->assertSame([512, 512], array_slice(getimagesizefromstring(Storage::disk('public')->get($path)), 0, 2));
+
+        $this->authedJson('DELETE', '/api/v1/me/avatar')->assertOk()->assertJsonPath('data.avatar_url', null);
+        Storage::disk('public')->assertMissing($path);
+    }
+
+    public function test_avatar_upload_rejects_non_images(): void
+    {
+        Storage::fake('public');
+        $this->loginAs();
+        $this->withHeaders(['Authorization' => 'Bearer '.$this->token])
+            ->post('/api/v1/me/avatar', ['avatar' => UploadedFile::fake()->create('a.jpg', 10, 'text/plain')], ['Accept' => 'application/json'])
+            ->assertStatus(422);
     }
 
     public function test_deletion_request_requires_signature_and_can_be_cancelled(): void

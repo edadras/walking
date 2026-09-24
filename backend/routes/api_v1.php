@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\AddressController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ChallengeController;
+use App\Http\Controllers\Api\V1\ClientErrorController;
 use App\Http\Controllers\Api\V1\ConfigController;
 use App\Http\Controllers\Api\V1\ContentController;
 use App\Http\Controllers\Api\V1\CouponController;
@@ -35,6 +36,7 @@ Route::get('config', ConfigController::class)->middleware('throttle:public');
 Route::get('time', [DeviceController::class, 'time'])->middleware('throttle:public');
 Route::get('pages/{slug}', [ContentController::class, 'page'])->middleware('throttle:public');
 Route::get('faqs', [ContentController::class, 'faqs'])->middleware('throttle:public');
+Route::post('client-errors', [ClientErrorController::class, 'store'])->middleware('throttle:client-errors');
 
 // Ad network server-to-server reward callbacks (HMAC per provider)
 Route::post('webhooks/ads/{provider}', [AdController::class, 'webhook'])->middleware('throttle:public');
@@ -61,6 +63,7 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::get('me', [ProfileController::class, 'show']);
     Route::patch('me', [ProfileController::class, 'update']);
     Route::post('me/avatar', [ProfileController::class, 'updateAvatar']);
+    Route::delete('me/avatar', [ProfileController::class, 'removeAvatar']);
     Route::patch('me/settings', [ProfileController::class, 'updateSettings']);
     Route::get('me/notification-preferences', [ProfileController::class, 'notificationPreferences']);
     Route::patch('me/notification-preferences', [ProfileController::class, 'updateNotificationPreferences']);

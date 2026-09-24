@@ -23,6 +23,7 @@ import 'package:gamyar/core/network/api_client.dart';
 import 'package:gamyar/core/network/api_exception.dart';
 import 'package:gamyar/core/providers.dart';
 import 'package:gamyar/core/storage/secure_store.dart';
+import 'package:gamyar/core/widgets/net_image.dart';
 import 'package:gamyar/features/activity/application/tracking_service.dart';
 import 'package:gamyar/features/activity/data/session_queue.dart';
 import 'package:gamyar/features/auth/presentation/phone_page.dart';
@@ -110,6 +111,11 @@ void main() {
     for (var i = 0; i < 12; i++) {
       await tester.pump(const Duration(milliseconds: 150));
     }
+    // Let image decodes (real async work) finish, then settle their fade-in.
+    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 400)));
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     final boundary = key.currentContext!.findRenderObject()! as RenderRepaintBoundary;
     await tester.runAsync(() async {
       final image = await boundary.toImage(pixelRatio: 3);
@@ -136,6 +142,7 @@ void main() {
         sessionQueueProvider.overrideWithValue(Future.value(queue)),
         locationPermissionProvider.overrideWith((_) async => true),
         locationSourceProvider.overrideWithValue(_Here()),
+        imageResolverProvider.overrideWithValue(_localImage),
       ],
       child: RepaintBoundary(key: key, child: const GamyarApp()),
     ));
@@ -212,6 +219,14 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   }, skip: !enabled);
 }
+
+/// Server image URLs map to the demo seeder's files (same basenames), so the
+/// fixtures render real product images with no network.
+final _imageCache = <String, MemoryImage>{};
+ImageProvider _localImage(String url) => _imageCache.putIfAbsent(url, () {
+      final file = File('../backend/database/seeders/assets/products/${Uri.parse(url).pathSegments.last}');
+      return MemoryImage(file.existsSync() ? file.readAsBytesSync() : Uint8List(0));
+    });
 
 class _Here implements LocationSource {
   @override

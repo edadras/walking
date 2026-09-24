@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/analytics/analytics.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/theme/app_palette.dart';
@@ -15,6 +16,7 @@ import '../../config/data/app_config.dart';
 import '../../wallet/data/wallet_repository.dart';
 import '../data/store_models.dart';
 import '../data/store_repository.dart';
+import '../../../core/widgets/net_image.dart';
 
 class StorePage extends ConsumerStatefulWidget {
   const StorePage({super.key});
@@ -28,6 +30,12 @@ class _StorePageState extends ConsumerState<StorePage> {
   String _q = '';
   String _sort = 'featured';
   Timer? _debounce;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(analyticsProvider).track('store_view');
+  }
 
   @override
   void dispose() {
@@ -144,14 +152,15 @@ class ProductCard extends StatelessWidget {
     final pr = product;
     return AppCard(
       padding: EdgeInsets.zero,
-      onTap: () => context.push('/store/${pr.slug}'),
+      onTap: () {
+        trackFrom(context, 'product_view', {'product': pr.slug, 'product_type': pr.type});
+        context.push('/store/${pr.slug}');
+      },
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Expanded(
           child: ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.md)),
-            child: pr.imageUrl != null
-                ? Image.network(pr.imageUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _Placeholder(type: pr.type))
-                : _Placeholder(type: pr.type),
+            child: Hero(tag: 'product-${pr.slug}', child: NetImage(pr.imageUrl, fallback: ProductImagePlaceholder(type: pr.type))),
           ),
         ),
         Padding(
@@ -179,8 +188,8 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-class _Placeholder extends StatelessWidget {
-  const _Placeholder({required this.type});
+class ProductImagePlaceholder extends StatelessWidget {
+  const ProductImagePlaceholder({super.key, required this.type});
 
   final String type;
 
