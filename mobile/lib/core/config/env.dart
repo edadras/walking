@@ -7,5 +7,8 @@ abstract final class Env {
   /// Google Cloud project number used for Play Integrity standard requests (0 = disabled).
   static const integrityCloudProjectNumber = int.fromEnvironment('INTEGRITY_PROJECT_NUMBER');
 
+  /// Raster tiles for the nearby-rewards map (swap for a local provider in production).
+  static const mapTileUrl = String.fromEnvironment('MAP_TILE_URL', defaultValue: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png');
+
   static const platform = 'android';
 }

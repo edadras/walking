@@ -1006,4 +1006,245 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get unitKm => 'کیلومتر';
+
+  @override
+  String get nearbyTitle => 'جایزه‌های اطراف';
+
+  @override
+  String get nearbyList => 'فهرست';
+
+  @override
+  String get nearbyMap => 'نقشه';
+
+  @override
+  String get nearbyEmpty =>
+      'فعلاً در این اطراف پیشنهادی نیست. کمی جابه‌جا شو یا بعداً سر بزن.';
+
+  @override
+  String get nearbyLocationOff => 'موقعیت مکانی (GPS) گوشی خاموش است.';
+
+  @override
+  String get nearbyLocationDenied =>
+      'برای دیدن جایزه‌های اطراف، اجازه دسترسی به موقعیت لازم است.';
+
+  @override
+  String get nearbyEnableLocation => 'فعال کردن موقعیت';
+
+  @override
+  String get nearbyPrivacy =>
+      'موقعیتت فقط برای همین جستجو استفاده می‌شود و ذخیره نمی‌شود.';
+
+  @override
+  String distanceM(String m) {
+    return '$m متر';
+  }
+
+  @override
+  String distanceKm(String km) {
+    return '$km کیلومتر';
+  }
+
+  @override
+  String get branchClosed => 'الان بسته است';
+
+  @override
+  String campaignStay(String min) {
+    return '$min دقیقه حضور';
+  }
+
+  @override
+  String get campaignQr => 'اسکن QR صندوق';
+
+  @override
+  String campaignCoupon(String title) {
+    return 'کوپن هدیه: $title';
+  }
+
+  @override
+  String get campaignHow => 'چطور جایزه بگیرم؟';
+
+  @override
+  String get campaignStep1 => 'به یکی از شعبه‌های زیر برو.';
+
+  @override
+  String campaignStep2(String min) {
+    return '«شروع بازدید» را بزن و $min دقیقه در شعبه بمان.';
+  }
+
+  @override
+  String get campaignStep3 => 'QR روی صفحه صندوق را اسکن کن.';
+
+  @override
+  String get campaignStart => 'شروع بازدید';
+
+  @override
+  String get campaignBranches => 'شعبه‌ها';
+
+  @override
+  String campaignMine(String n, String max) {
+    return '$n از $max پاداش گرفته‌ای';
+  }
+
+  @override
+  String get reason_limit_reached => 'پاداش این کمپین را گرفته‌ای.';
+
+  @override
+  String get reason_cooldown => 'به‌تازگی از این شعبه پاداش گرفته‌ای.';
+
+  @override
+  String get reason_campaign_exhausted => 'ظرفیت این کمپین تمام شده است.';
+
+  @override
+  String get reason_campaign_ended => 'این کمپین تمام شده است.';
+
+  @override
+  String get reason_teleport => 'موقعیتت به‌شکل غیرعادی جابه‌جا شد.';
+
+  @override
+  String get reason_mock_location => 'موقعیت شبیه‌سازی‌شده قابل قبول نیست.';
+
+  @override
+  String get reason_other => 'شرایط پاداش کامل نشد.';
+
+  @override
+  String get visitTitle => 'بازدید';
+
+  @override
+  String get visitInside => 'داخل محدوده شعبه هستی';
+
+  @override
+  String get visitOutside => 'بیرون از محدوده شعبه‌ای';
+
+  @override
+  String get visitLocating => 'در حال پیدا کردن موقعیت…';
+
+  @override
+  String visitStay(String done, String total) {
+    return '$done از $total';
+  }
+
+  @override
+  String get visitKeepOpen =>
+      'این صفحه را باز نگه دار. زمان حضور را سرور اندازه می‌گیرد، نه گوشی.';
+
+  @override
+  String get visitScanQr => 'اسکن QR صندوق';
+
+  @override
+  String get visitQrDone => 'QR شعبه تأیید شد';
+
+  @override
+  String get visitQrHint =>
+      'کد روی صفحه صندوق هر ۳۰ ثانیه عوض می‌شود. عکس آن کار نمی‌کند.';
+
+  @override
+  String get visitRewarded => 'بازدید تأیید شد!';
+
+  @override
+  String visitRewardedBody(String n) {
+    return '$n امتیاز پس از دوره بررسی به کیف پولت اضافه می‌شود.';
+  }
+
+  @override
+  String get visitCouponReceived => 'کوپن هدیه به کوپن‌هایت اضافه شد';
+
+  @override
+  String get visitRejected => 'بازدید تأیید نشد';
+
+  @override
+  String get visitExpired => 'این بازدید منقضی شد';
+
+  @override
+  String get visitBack => 'بازگشت';
+
+  @override
+  String get qrScanTitle => 'اسکن QR شعبه';
+
+  @override
+  String get qrScanHint => 'کد روی صفحه صندوق را داخل کادر بگیر.';
+
+  @override
+  String get couponsTitle => 'کوپن‌ها';
+
+  @override
+  String get couponsMine => 'کوپن‌های من';
+
+  @override
+  String get couponsAvailable => 'دریافت با امتیاز';
+
+  @override
+  String get couponsEmpty =>
+      'هنوز کوپنی نداری. با بازدید از شعبه‌های اسپانسر کوپن هدیه بگیر.';
+
+  @override
+  String get couponsAvailableEmpty => 'فعلاً کوپنی برای دریافت نیست.';
+
+  @override
+  String get couponCode => 'کد کوپن';
+
+  @override
+  String get couponShowCashier => 'این کد را به صندوق‌دار نشان بده.';
+
+  @override
+  String couponExpires(String date) {
+    return 'اعتبار تا $date';
+  }
+
+  @override
+  String couponUsedAt(String date) {
+    return 'استفاده‌شده در $date';
+  }
+
+  @override
+  String couponClaim(String n) {
+    return 'دریافت با $n امتیاز';
+  }
+
+  @override
+  String get couponClaimFree => 'دریافت رایگان';
+
+  @override
+  String couponClaimConfirm(String n) {
+    return '$n امتیاز از کیف پولت کم می‌شود. ادامه می‌دهی؟';
+  }
+
+  @override
+  String get couponClaimed => 'کوپن به کوپن‌هایت اضافه شد.';
+
+  @override
+  String couponRemaining(String n) {
+    return '$n عدد باقی مانده';
+  }
+
+  @override
+  String get couponTerms => 'شرایط استفاده';
+
+  @override
+  String couponOnlineCode(String code) {
+    return 'کد خرید آنلاین: $code';
+  }
+
+  @override
+  String get couponCopied => 'کد کپی شد.';
+
+  @override
+  String get permCameraTitle => 'دسترسی به دوربین';
+
+  @override
+  String get permCameraBody =>
+      'برای اسکن QR صندوق شعبه. دوربین فقط در همین صفحه روشن می‌شود و تصویری ذخیره نمی‌شود.';
+
+  @override
+  String get rewardsNearby => 'جایزه‌های اطراف';
+
+  @override
+  String get rewardsCoupons => 'کوپن‌ها';
+
+  @override
+  String get profileCoupons => 'کوپن‌های من';
+
+  @override
+  String visitOfTotal(String total) {
+    return 'از $total';
+  }
 }

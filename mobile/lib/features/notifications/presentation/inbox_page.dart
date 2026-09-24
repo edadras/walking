@@ -17,6 +17,7 @@ IconData _icon(InboxItem n) => switch (n.data['type']) {
       'goal' => Icons.flag_outlined,
       'streak' => Icons.local_fire_department_outlined,
       'challenge' => Icons.flag_circle_outlined,
+      'visit' => Icons.storefront_outlined,
       _ => n.category == 'reward_received' ? Icons.toll_rounded : Icons.campaign_outlined,
     };
 
@@ -26,6 +27,7 @@ String? _route(InboxItem n) => switch (n.data['type']) {
       'achievement' => '/achievements',
       'goal' || 'streak' => '/rewards',
       'challenge' when n.data['id'] is String => '/challenges/${n.data['id']}',
+      'visit' => '/coupons',
       _ => null,
     };
 

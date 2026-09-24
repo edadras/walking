@@ -114,6 +114,12 @@ class _Body extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.md),
         Row(children: [
+          Expanded(child: _Shortcut(icon: Icons.place_rounded, label: l.rewardsNearby, route: '/nearby')),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(child: _Shortcut(icon: Icons.confirmation_number_rounded, label: l.rewardsCoupons, route: '/coupons')),
+        ]),
+        const SizedBox(height: AppSpacing.sm),
+        Row(children: [
           Expanded(child: _Shortcut(icon: Icons.flag_rounded, label: l.challengesTitle, route: '/challenges')),
           const SizedBox(width: AppSpacing.sm),
           Expanded(child: _Shortcut(icon: Icons.group_add_rounded, label: l.referralTitle, route: '/referral')),

@@ -9,7 +9,7 @@
 | 2 | Step tracking (Kotlin sensor channel + WorkManager)، Walking sessions API، Offline queue، Daily activity، Calories، Activity timeline | [phase-2.md](../phase-2.md) | ✅ |
 | 3 | Fraud Engine + Rules، Verified steps، Reward Engine، Point Ledger، Wallet، Pending release scheduler، Fraud cases پایه | [phase-3.md](../phase-3.md) | ✅ |
 | 4 | Health dashboard، Water tracker، XP/Level، Achievements، Streak، Leaderboard (Redis)، Challenges، Weekly report، Referral، Notifications | [phase-4.md](../phase-4.md) | ✅ |
-| 5 | Sponsors، Locations، Campaigns، Visits (Geofence + Stay + Rotating QR)، Coupons، Sponsor Panel | | ⏳ |
+| 5 | Sponsors، Locations، Campaigns، Visits (Geofence + Stay + Rotating QR)، Coupons، Sponsor Panel | [phase-5.md](../phase-5.md) | ✅ |
 | 6 | Advertising: Placement، Internal ads، Provider adapters (Yektanet/AdSell پس از بررسی مستندات رسمی)، Rewarded S2S | | ⏳ |
 | 7 | Store، Products، Orders، Point purchase (Atomic)، Addresses، Payment adapter (Flag) | | ⏳ |
 | 8 | Admin analytics، Sponsor analytics، Fraud dashboard کامل، Reports، Support tickets، CMS | | ⏳ |

@@ -638,5 +638,184 @@
   "profileLeaderboard": "رتبه‌بندی",
   "profileWater": "مصرف آب",
   "unitSteps": "قدم",
-  "unitKm": "کیلومتر"
+  "unitKm": "کیلومتر",
+  "nearbyTitle": "جایزه‌های اطراف",
+  "nearbyList": "فهرست",
+  "nearbyMap": "نقشه",
+  "nearbyEmpty": "فعلاً در این اطراف پیشنهادی نیست. کمی جابه‌جا شو یا بعداً سر بزن.",
+  "nearbyLocationOff": "موقعیت مکانی (GPS) گوشی خاموش است.",
+  "nearbyLocationDenied": "برای دیدن جایزه‌های اطراف، اجازه دسترسی به موقعیت لازم است.",
+  "nearbyEnableLocation": "فعال کردن موقعیت",
+  "nearbyPrivacy": "موقعیتت فقط برای همین جستجو استفاده می‌شود و ذخیره نمی‌شود.",
+  "distanceM": "{m} متر",
+  "@distanceM": {
+    "placeholders": {
+      "m": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceKm": "{km} کیلومتر",
+  "@distanceKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "branchClosed": "الان بسته است",
+  "campaignStay": "{min} دقیقه حضور",
+  "@campaignStay": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignQr": "اسکن QR صندوق",
+  "campaignCoupon": "کوپن هدیه: {title}",
+  "@campaignCoupon": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignHow": "چطور جایزه بگیرم؟",
+  "campaignStep1": "به یکی از شعبه‌های زیر برو.",
+  "campaignStep2": "«شروع بازدید» را بزن و {min} دقیقه در شعبه بمان.",
+  "@campaignStep2": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      }
+    }
+  },
+  "campaignStep3": "QR روی صفحه صندوق را اسکن کن.",
+  "campaignStart": "شروع بازدید",
+  "campaignBranches": "شعبه‌ها",
+  "campaignMine": "{n} از {max} پاداش گرفته‌ای",
+  "@campaignMine": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "reason_limit_reached": "پاداش این کمپین را گرفته‌ای.",
+  "reason_cooldown": "به‌تازگی از این شعبه پاداش گرفته‌ای.",
+  "reason_campaign_exhausted": "ظرفیت این کمپین تمام شده است.",
+  "reason_campaign_ended": "این کمپین تمام شده است.",
+  "reason_teleport": "موقعیتت به‌شکل غیرعادی جابه‌جا شد.",
+  "reason_mock_location": "موقعیت شبیه‌سازی‌شده قابل قبول نیست.",
+  "reason_other": "شرایط پاداش کامل نشد.",
+  "visitTitle": "بازدید",
+  "visitInside": "داخل محدوده شعبه هستی",
+  "visitOutside": "بیرون از محدوده شعبه‌ای",
+  "visitLocating": "در حال پیدا کردن موقعیت…",
+  "visitStay": "{done} از {total}",
+  "@visitStay": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "visitKeepOpen": "این صفحه را باز نگه دار. زمان حضور را سرور اندازه می‌گیرد، نه گوشی.",
+  "visitScanQr": "اسکن QR صندوق",
+  "visitQrDone": "QR شعبه تأیید شد",
+  "visitQrHint": "کد روی صفحه صندوق هر ۳۰ ثانیه عوض می‌شود. عکس آن کار نمی‌کند.",
+  "visitRewarded": "بازدید تأیید شد!",
+  "visitRewardedBody": "{n} امتیاز پس از دوره بررسی به کیف پولت اضافه می‌شود.",
+  "@visitRewardedBody": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "visitCouponReceived": "کوپن هدیه به کوپن‌هایت اضافه شد",
+  "visitRejected": "بازدید تأیید نشد",
+  "visitExpired": "این بازدید منقضی شد",
+  "visitBack": "بازگشت",
+  "qrScanTitle": "اسکن QR شعبه",
+  "qrScanHint": "کد روی صفحه صندوق را داخل کادر بگیر.",
+  "couponsTitle": "کوپن‌ها",
+  "couponsMine": "کوپن‌های من",
+  "couponsAvailable": "دریافت با امتیاز",
+  "couponsEmpty": "هنوز کوپنی نداری. با بازدید از شعبه‌های اسپانسر کوپن هدیه بگیر.",
+  "couponsAvailableEmpty": "فعلاً کوپنی برای دریافت نیست.",
+  "couponCode": "کد کوپن",
+  "couponShowCashier": "این کد را به صندوق‌دار نشان بده.",
+  "couponExpires": "اعتبار تا {date}",
+  "@couponExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "couponUsedAt": "استفاده‌شده در {date}",
+  "@couponUsedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "couponClaim": "دریافت با {n} امتیاز",
+  "@couponClaim": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "couponClaimFree": "دریافت رایگان",
+  "couponClaimConfirm": "{n} امتیاز از کیف پولت کم می‌شود. ادامه می‌دهی؟",
+  "@couponClaimConfirm": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "couponClaimed": "کوپن به کوپن‌هایت اضافه شد.",
+  "couponRemaining": "{n} عدد باقی مانده",
+  "@couponRemaining": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "couponTerms": "شرایط استفاده",
+  "couponOnlineCode": "کد خرید آنلاین: {code}",
+  "@couponOnlineCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "couponCopied": "کد کپی شد.",
+  "permCameraTitle": "دسترسی به دوربین",
+  "permCameraBody": "برای اسکن QR صندوق شعبه. دوربین فقط در همین صفحه روشن می‌شود و تصویری ذخیره نمی‌شود.",
+  "rewardsNearby": "جایزه‌های اطراف",
+  "rewardsCoupons": "کوپن‌ها",
+  "profileCoupons": "کوپن‌های من",
+  "visitOfTotal": "از {total}",
+  "@visitOfTotal": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  }
 }

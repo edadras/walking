@@ -6,19 +6,21 @@ import '../theme/app_palette.dart';
 import '../theme/tokens.dart';
 import '../widgets/app_button.dart';
 
-enum AppPermission { activity, notifications, location }
+enum AppPermission { activity, notifications, location, camera }
 
 extension on AppPermission {
   Permission get handler => switch (this) {
         AppPermission.activity => Permission.activityRecognition,
         AppPermission.notifications => Permission.notification,
         AppPermission.location => Permission.locationWhenInUse,
+        AppPermission.camera => Permission.camera,
       };
 
   IconData get icon => switch (this) {
         AppPermission.activity => Icons.directions_walk_rounded,
         AppPermission.notifications => Icons.notifications_none_rounded,
         AppPermission.location => Icons.place_outlined,
+        AppPermission.camera => Icons.qr_code_scanner_rounded,
       };
 }
 
@@ -38,6 +40,7 @@ abstract final class PermissionPrimer {
       AppPermission.activity => (l.permActivityTitle, l.permActivityBody),
       AppPermission.notifications => (l.permNotificationsTitle, l.permNotificationsBody),
       AppPermission.location => (l.permLocationTitle, l.permLocationBody),
+      AppPermission.camera => (l.permCameraTitle, l.permCameraBody),
     };
 
     if (status.isPermanentlyDenied) {

@@ -1857,6 +1857,414 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'کیلومتر'**
   String get unitKm;
+
+  /// No description provided for @nearbyTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'جایزه‌های اطراف'**
+  String get nearbyTitle;
+
+  /// No description provided for @nearbyList.
+  ///
+  /// In fa, this message translates to:
+  /// **'فهرست'**
+  String get nearbyList;
+
+  /// No description provided for @nearbyMap.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه'**
+  String get nearbyMap;
+
+  /// No description provided for @nearbyEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعلاً در این اطراف پیشنهادی نیست. کمی جابه‌جا شو یا بعداً سر بزن.'**
+  String get nearbyEmpty;
+
+  /// No description provided for @nearbyLocationOff.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت مکانی (GPS) گوشی خاموش است.'**
+  String get nearbyLocationOff;
+
+  /// No description provided for @nearbyLocationDenied.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای دیدن جایزه‌های اطراف، اجازه دسترسی به موقعیت لازم است.'**
+  String get nearbyLocationDenied;
+
+  /// No description provided for @nearbyEnableLocation.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعال کردن موقعیت'**
+  String get nearbyEnableLocation;
+
+  /// No description provided for @nearbyPrivacy.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیتت فقط برای همین جستجو استفاده می‌شود و ذخیره نمی‌شود.'**
+  String get nearbyPrivacy;
+
+  /// No description provided for @distanceM.
+  ///
+  /// In fa, this message translates to:
+  /// **'{m} متر'**
+  String distanceM(String m);
+
+  /// No description provided for @distanceKm.
+  ///
+  /// In fa, this message translates to:
+  /// **'{km} کیلومتر'**
+  String distanceKm(String km);
+
+  /// No description provided for @branchClosed.
+  ///
+  /// In fa, this message translates to:
+  /// **'الان بسته است'**
+  String get branchClosed;
+
+  /// No description provided for @campaignStay.
+  ///
+  /// In fa, this message translates to:
+  /// **'{min} دقیقه حضور'**
+  String campaignStay(String min);
+
+  /// No description provided for @campaignQr.
+  ///
+  /// In fa, this message translates to:
+  /// **'اسکن QR صندوق'**
+  String get campaignQr;
+
+  /// No description provided for @campaignCoupon.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن هدیه: {title}'**
+  String campaignCoupon(String title);
+
+  /// No description provided for @campaignHow.
+  ///
+  /// In fa, this message translates to:
+  /// **'چطور جایزه بگیرم؟'**
+  String get campaignHow;
+
+  /// No description provided for @campaignStep1.
+  ///
+  /// In fa, this message translates to:
+  /// **'به یکی از شعبه‌های زیر برو.'**
+  String get campaignStep1;
+
+  /// No description provided for @campaignStep2.
+  ///
+  /// In fa, this message translates to:
+  /// **'«شروع بازدید» را بزن و {min} دقیقه در شعبه بمان.'**
+  String campaignStep2(String min);
+
+  /// No description provided for @campaignStep3.
+  ///
+  /// In fa, this message translates to:
+  /// **'QR روی صفحه صندوق را اسکن کن.'**
+  String get campaignStep3;
+
+  /// No description provided for @campaignStart.
+  ///
+  /// In fa, this message translates to:
+  /// **'شروع بازدید'**
+  String get campaignStart;
+
+  /// No description provided for @campaignBranches.
+  ///
+  /// In fa, this message translates to:
+  /// **'شعبه‌ها'**
+  String get campaignBranches;
+
+  /// No description provided for @campaignMine.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} از {max} پاداش گرفته‌ای'**
+  String campaignMine(String n, String max);
+
+  /// No description provided for @reason_limit_reached.
+  ///
+  /// In fa, this message translates to:
+  /// **'پاداش این کمپین را گرفته‌ای.'**
+  String get reason_limit_reached;
+
+  /// No description provided for @reason_cooldown.
+  ///
+  /// In fa, this message translates to:
+  /// **'به‌تازگی از این شعبه پاداش گرفته‌ای.'**
+  String get reason_cooldown;
+
+  /// No description provided for @reason_campaign_exhausted.
+  ///
+  /// In fa, this message translates to:
+  /// **'ظرفیت این کمپین تمام شده است.'**
+  String get reason_campaign_exhausted;
+
+  /// No description provided for @reason_campaign_ended.
+  ///
+  /// In fa, this message translates to:
+  /// **'این کمپین تمام شده است.'**
+  String get reason_campaign_ended;
+
+  /// No description provided for @reason_teleport.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیتت به‌شکل غیرعادی جابه‌جا شد.'**
+  String get reason_teleport;
+
+  /// No description provided for @reason_mock_location.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت شبیه‌سازی‌شده قابل قبول نیست.'**
+  String get reason_mock_location;
+
+  /// No description provided for @reason_other.
+  ///
+  /// In fa, this message translates to:
+  /// **'شرایط پاداش کامل نشد.'**
+  String get reason_other;
+
+  /// No description provided for @visitTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'بازدید'**
+  String get visitTitle;
+
+  /// No description provided for @visitInside.
+  ///
+  /// In fa, this message translates to:
+  /// **'داخل محدوده شعبه هستی'**
+  String get visitInside;
+
+  /// No description provided for @visitOutside.
+  ///
+  /// In fa, this message translates to:
+  /// **'بیرون از محدوده شعبه‌ای'**
+  String get visitOutside;
+
+  /// No description provided for @visitLocating.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال پیدا کردن موقعیت…'**
+  String get visitLocating;
+
+  /// No description provided for @visitStay.
+  ///
+  /// In fa, this message translates to:
+  /// **'{done} از {total}'**
+  String visitStay(String done, String total);
+
+  /// No description provided for @visitKeepOpen.
+  ///
+  /// In fa, this message translates to:
+  /// **'این صفحه را باز نگه دار. زمان حضور را سرور اندازه می‌گیرد، نه گوشی.'**
+  String get visitKeepOpen;
+
+  /// No description provided for @visitScanQr.
+  ///
+  /// In fa, this message translates to:
+  /// **'اسکن QR صندوق'**
+  String get visitScanQr;
+
+  /// No description provided for @visitQrDone.
+  ///
+  /// In fa, this message translates to:
+  /// **'QR شعبه تأیید شد'**
+  String get visitQrDone;
+
+  /// No description provided for @visitQrHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد روی صفحه صندوق هر ۳۰ ثانیه عوض می‌شود. عکس آن کار نمی‌کند.'**
+  String get visitQrHint;
+
+  /// No description provided for @visitRewarded.
+  ///
+  /// In fa, this message translates to:
+  /// **'بازدید تأیید شد!'**
+  String get visitRewarded;
+
+  /// No description provided for @visitRewardedBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} امتیاز پس از دوره بررسی به کیف پولت اضافه می‌شود.'**
+  String visitRewardedBody(String n);
+
+  /// No description provided for @visitCouponReceived.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن هدیه به کوپن‌هایت اضافه شد'**
+  String get visitCouponReceived;
+
+  /// No description provided for @visitRejected.
+  ///
+  /// In fa, this message translates to:
+  /// **'بازدید تأیید نشد'**
+  String get visitRejected;
+
+  /// No description provided for @visitExpired.
+  ///
+  /// In fa, this message translates to:
+  /// **'این بازدید منقضی شد'**
+  String get visitExpired;
+
+  /// No description provided for @visitBack.
+  ///
+  /// In fa, this message translates to:
+  /// **'بازگشت'**
+  String get visitBack;
+
+  /// No description provided for @qrScanTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'اسکن QR شعبه'**
+  String get qrScanTitle;
+
+  /// No description provided for @qrScanHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد روی صفحه صندوق را داخل کادر بگیر.'**
+  String get qrScanHint;
+
+  /// No description provided for @couponsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن‌ها'**
+  String get couponsTitle;
+
+  /// No description provided for @couponsMine.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن‌های من'**
+  String get couponsMine;
+
+  /// No description provided for @couponsAvailable.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت با امتیاز'**
+  String get couponsAvailable;
+
+  /// No description provided for @couponsEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز کوپنی نداری. با بازدید از شعبه‌های اسپانسر کوپن هدیه بگیر.'**
+  String get couponsEmpty;
+
+  /// No description provided for @couponsAvailableEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعلاً کوپنی برای دریافت نیست.'**
+  String get couponsAvailableEmpty;
+
+  /// No description provided for @couponCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد کوپن'**
+  String get couponCode;
+
+  /// No description provided for @couponShowCashier.
+  ///
+  /// In fa, this message translates to:
+  /// **'این کد را به صندوق‌دار نشان بده.'**
+  String get couponShowCashier;
+
+  /// No description provided for @couponExpires.
+  ///
+  /// In fa, this message translates to:
+  /// **'اعتبار تا {date}'**
+  String couponExpires(String date);
+
+  /// No description provided for @couponUsedAt.
+  ///
+  /// In fa, this message translates to:
+  /// **'استفاده‌شده در {date}'**
+  String couponUsedAt(String date);
+
+  /// No description provided for @couponClaim.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت با {n} امتیاز'**
+  String couponClaim(String n);
+
+  /// No description provided for @couponClaimFree.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت رایگان'**
+  String get couponClaimFree;
+
+  /// No description provided for @couponClaimConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} امتیاز از کیف پولت کم می‌شود. ادامه می‌دهی؟'**
+  String couponClaimConfirm(String n);
+
+  /// No description provided for @couponClaimed.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن به کوپن‌هایت اضافه شد.'**
+  String get couponClaimed;
+
+  /// No description provided for @couponRemaining.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} عدد باقی مانده'**
+  String couponRemaining(String n);
+
+  /// No description provided for @couponTerms.
+  ///
+  /// In fa, this message translates to:
+  /// **'شرایط استفاده'**
+  String get couponTerms;
+
+  /// No description provided for @couponOnlineCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد خرید آنلاین: {code}'**
+  String couponOnlineCode(String code);
+
+  /// No description provided for @couponCopied.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد کپی شد.'**
+  String get couponCopied;
+
+  /// No description provided for @permCameraTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'دسترسی به دوربین'**
+  String get permCameraTitle;
+
+  /// No description provided for @permCameraBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای اسکن QR صندوق شعبه. دوربین فقط در همین صفحه روشن می‌شود و تصویری ذخیره نمی‌شود.'**
+  String get permCameraBody;
+
+  /// No description provided for @rewardsNearby.
+  ///
+  /// In fa, this message translates to:
+  /// **'جایزه‌های اطراف'**
+  String get rewardsNearby;
+
+  /// No description provided for @rewardsCoupons.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن‌ها'**
+  String get rewardsCoupons;
+
+  /// No description provided for @profileCoupons.
+  ///
+  /// In fa, this message translates to:
+  /// **'کوپن‌های من'**
+  String get profileCoupons;
+
+  /// No description provided for @visitOfTotal.
+  ///
+  /// In fa, this message translates to:
+  /// **'از {total}'**
+  String visitOfTotal(String total);
 }
 
 class _AppLocalizationsDelegate

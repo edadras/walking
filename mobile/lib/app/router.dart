@@ -26,6 +26,11 @@ import '../features/profile/presentation/notifications_page.dart';
 import '../features/profile/presentation/profile_page.dart';
 import '../features/rewards/presentation/rewards_page.dart';
 import '../features/shell/presentation/app_shell.dart';
+import '../features/sponsors/presentation/campaign_page.dart';
+import '../features/sponsors/presentation/coupons_page.dart';
+import '../features/sponsors/presentation/nearby_page.dart';
+import '../features/sponsors/presentation/qr_scan_page.dart';
+import '../features/sponsors/presentation/visit_page.dart';
 import '../features/wallet/presentation/wallet_page.dart';
 import '../features/shell/presentation/splash_page.dart';
 
@@ -78,6 +83,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/achievements', builder: (_, _) => const AchievementsPage()),
       GoRoute(path: '/referral', builder: (_, _) => const ReferralPage()),
       GoRoute(path: '/notifications', builder: (_, _) => const InboxPage()),
+      GoRoute(path: '/nearby', builder: (_, _) => const NearbyPage()),
+      GoRoute(path: '/campaigns/:id', builder: (_, s) => CampaignPage(id: s.pathParameters['id']!)),
+      GoRoute(path: '/visits/:id', builder: (_, s) => VisitPage(id: s.pathParameters['id']!)),
+      GoRoute(path: '/scan-qr', builder: (_, _) => const QrScanPage()),
+      GoRoute(path: '/coupons', builder: (_, _) => const CouponsPage()),
       GoRoute(
         path: '/challenges',
         builder: (_, _) => const ChallengesPage(),
