@@ -30,6 +30,12 @@ abstract class TrendChart extends ChartWidget
         return 'line';
     }
 
+    protected function getOptions(): array
+    {
+        // Counts are never negative; keep an all-zero series from centring on 0.
+        return ['scales' => ['y' => ['beginAtZero' => true, 'suggestedMax' => 1, 'ticks' => ['precision' => 0]]]];
+    }
+
     protected function getData(): array
     {
         $days = (int) ($this->filter ?? 30);
