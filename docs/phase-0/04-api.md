@@ -71,7 +71,7 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | POST | `/walking-sessions/batch` | ✓ | ✓ | 2 | Sync آفلاین (حداکثر ۲۰ Session) |
 | GET | `/walking-sessions` | ✓ | – | 2 | |
 | GET | `/walking-sessions/{id}` | ✓ | – | 2 | |
-| GET | `/activity/today` | ✓ | – | 2 | Timeline امروز |
+| GET | `/activity/day?date=` | ✓ | – | 2 | Timeline یک روز (پیش‌فرض امروز) + قدم ساعتی |
 | GET | `/activity/daily?from&to` | ✓ | – | 2 | |
 | GET | `/activity/weekly-report` | ✓ | – | 4 | |
 | **Health** |||||

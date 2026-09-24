@@ -52,7 +52,7 @@ class AdminPanelTest extends TestCase
         $this->actingAsAdmin();
         User::factory()->count(3)->create();
 
-        foreach (['/admin', '/admin/users', '/admin/devices', '/admin/feature-flags', '/admin/settings', '/admin/audit-logs', '/admin/admins', '/admin/cms-pages', '/admin/faqs'] as $url) {
+        foreach (['/admin', '/admin/users', '/admin/devices', '/admin/feature-flags', '/admin/settings', '/admin/audit-logs', '/admin/admins', '/admin/cms-pages', '/admin/faqs', '/admin/walking-sessions'] as $url) {
             $this->get($url)->assertOk();
         }
     }

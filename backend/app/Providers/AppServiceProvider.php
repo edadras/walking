@@ -11,6 +11,7 @@ use App\Domain\Device\Integrity\PlayIntegrityVerifier;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
 use App\Models\PersonalAccessToken;
+use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -52,10 +53,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
+        // Storage stays UTC; panels display Iran time.
+        FilamentTimezone::set(config('walk.panel_timezone'));
+
         Model::shouldBeStrict(! $this->app->isProduction());
 
         RateLimiter::for('public', fn (Request $r) => Limit::perMinute(60)->by('ip:'.$r->ip()));
         RateLimiter::for('device-register', fn (Request $r) => Limit::perHour(20)->by('ip:'.$r->ip()));
         RateLimiter::for('api', fn (Request $r) => Limit::perMinute(120)->by('u:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('sessions', fn (Request $r) => Limit::perMinute(30)->by('sess:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }
 }

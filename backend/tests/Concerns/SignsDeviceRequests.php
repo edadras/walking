@@ -91,12 +91,17 @@ trait SignsDeviceRequests
 
     protected function authedJson(string $method, string $uri, array $data = []): TestResponse
     {
-        return $this->withHeaders(['Authorization' => 'Bearer '.$this->token])->json($method, $uri, $data);
+        // Per-request header (withHeaders() would leak the token into later requests).
+        return $this->json($method, $uri, $data, ['Authorization' => 'Bearer '.$this->token]);
     }
 
     /** Full login through the real OTP flow; captures the code from the queued SMS job. */
     protected function loginAs(string $phone = '09121234567'): User
     {
+        // OTP requests are anonymous (as in the app); drop any previous session.
+        $this->token = null;
+        $this->app['auth']->forgetGuards();
+
         if ($this->device === null) {
             $this->registerDevice()->assertSuccessful();
         }

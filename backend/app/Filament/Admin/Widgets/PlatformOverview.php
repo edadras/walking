@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Widgets;
 
 use App\Enums\UserStatus;
+use App\Models\DailyActivity;
 use App\Models\Device;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget;
@@ -23,6 +24,9 @@ class PlatformOverview extends StatsOverviewWidget
             'new_today' => User::query()->where('created_at', '>=', now()->startOfDay())->count(),
             'devices' => Device::query()->count(),
             'low_trust' => Device::query()->where('trust_score', '<', 30)->count(),
+            // Tehran calendar day; per-user timezones make this an approximation for foreign users.
+            'steps_today' => (int) DailyActivity::query()->where('local_date', now('Asia/Tehran')->toDateString())->sum('raw_steps'),
+            'verified_today' => (int) DailyActivity::query()->where('local_date', now('Asia/Tehran')->toDateString())->sum('verified_steps'),
         ]);
 
         $fmt = fn (int $n) => number_format($n);
@@ -32,6 +36,7 @@ class PlatformOverview extends StatsOverviewWidget
             Stat::make('کاربران فعال روزانه (DAU)', $fmt($stats['dau'])),
             Stat::make('کاربران فعال ماهانه (MAU)', $fmt($stats['mau'])),
             Stat::make('ثبت‌نام امروز', $fmt($stats['new_today'])),
+            Stat::make('قدم‌های امروز', $fmt($stats['steps_today']))->description($fmt($stats['verified_today']).' تأییدشده'),
             Stat::make('دستگاه‌ها', $fmt($stats['devices']))->description($fmt($stats['low_trust']).' با اعتماد پایین')
                 ->color($stats['low_trust'] > 0 ? 'warning' : 'success'),
         ];

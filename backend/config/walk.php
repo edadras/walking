@@ -10,6 +10,8 @@
 */
 
 return [
+    'panel_timezone' => env('PANEL_TIMEZONE', 'Asia/Tehran'),
+
     'settings' => [
         // Auth
         'auth.otp_length' => ['value' => 5, 'group' => 'auth', 'public' => true, 'description' => 'تعداد ارقام کد یکبارمصرف'],
@@ -34,6 +36,13 @@ return [
         'activity.default_daily_goal' => ['value' => 7500, 'group' => 'activity', 'public' => true, 'description' => 'هدف روزانه پیش‌فرض'],
         'activity.min_daily_goal' => ['value' => 1000, 'group' => 'activity', 'public' => true, 'description' => 'حداقل هدف سفارشی'],
         'activity.max_daily_goal' => ['value' => 50000, 'group' => 'activity', 'public' => true, 'description' => 'حداکثر هدف سفارشی'],
+        'activity.offline_max_age_days' => ['value' => 7, 'group' => 'activity', 'public' => true, 'description' => 'حداکثر عمر جلسه آفلاین قابل ارسال (روز)'],
+        'activity.max_active_session_hours' => ['value' => 6, 'group' => 'activity', 'public' => true, 'description' => 'حداکثر طول پیاده‌روی فعال (ساعت)'],
+        'activity.max_passive_session_minutes' => ['value' => 120, 'group' => 'activity', 'public' => true, 'description' => 'حداکثر طول جلسه پس‌زمینه (دقیقه)'],
+        'activity.samples_retention_days' => ['value' => 30, 'group' => 'activity', 'public' => false, 'description' => 'نگهداری خلاصه‌های دقیقه‌ای (روز)'],
+        'activity.default_height_cm' => ['value' => 170, 'group' => 'activity', 'public' => false, 'description' => 'قد پیش‌فرض برای تخمین طول گام'],
+        'activity.default_weight_kg' => ['value' => 70, 'group' => 'activity', 'public' => false, 'description' => 'وزن پیش‌فرض برای تخمین کالری'],
+        'analytics.retention_days' => ['value' => 180, 'group' => 'activity', 'public' => false, 'description' => 'نگهداری رویدادهای تحلیلی (روز)'],
 
         // Health
         'health.default_water_goal_ml' => ['value' => 2000, 'group' => 'health', 'public' => true, 'description' => 'هدف آب پیش‌فرض (میلی‌لیتر)'],

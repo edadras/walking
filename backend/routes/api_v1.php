@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ActivityController;
+use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ConfigController;
 use App\Http\Controllers\Api\V1\ContentController;
 use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\ProfileController;
+use App\Http\Controllers\Api\V1\WalkingSessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +46,17 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::patch('me/notification-preferences', [ProfileController::class, 'updateNotificationPreferences']);
     Route::post('me/deletion-request', [ProfileController::class, 'requestDeletion'])->middleware('signed.device');
     Route::delete('me/deletion-request', [ProfileController::class, 'cancelDeletion']);
+
+    Route::get('home', [ActivityController::class, 'home']);
+    Route::get('activity/day', [ActivityController::class, 'day']);
+    Route::get('activity/daily', [ActivityController::class, 'daily']);
+
+    Route::get('walking-sessions', [WalkingSessionController::class, 'index']);
+    Route::get('walking-sessions/{session}', [WalkingSessionController::class, 'show']);
+    Route::middleware(['signed.device', 'throttle:sessions'])->group(function () {
+        Route::post('walking-sessions', [WalkingSessionController::class, 'store']);
+        Route::post('walking-sessions/batch', [WalkingSessionController::class, 'batch']);
+    });
+
+    Route::post('analytics/events', [AnalyticsController::class, 'store'])->middleware('throttle:analytics');
 });

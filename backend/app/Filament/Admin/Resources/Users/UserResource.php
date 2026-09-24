@@ -125,7 +125,7 @@ class UserResource extends Resource
 
     public static function getRelations(): array
     {
-        return [RelationManagers\DevicesRelationManager::class];
+        return [RelationManagers\DevicesRelationManager::class, RelationManagers\DailyActivitiesRelationManager::class];
     }
 
     public static function getPages(): array

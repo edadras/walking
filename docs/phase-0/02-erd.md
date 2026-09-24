@@ -145,6 +145,7 @@ erDiagram
 | duration_s, active_duration_s | INT | |
 | calories_kcal | DECIMAL(7,1) | تخمینی سرور |
 | activity_type | VARCHAR(16) | `walking, running, mixed, vehicle, unknown` |
+| overlap_s | INT | همپوشانی زمانی با Sessionهای دیگر همین کاربر |
 | gps_summary | JSON NULL | تعداد نقطه، دقت میانگین، max speed، jumps — فقط Session فعال |
 | motion_summary | JSON | cadence mean/p95، accel std، نسبت detector/counter |
 | confidence_score | TINYINT NULL | ۰..۱۰۰ |
@@ -157,8 +158,9 @@ erDiagram
 
 IX: `(user_id, local_date)`, `(user_id, started_at)`, `(status, created_at)`.
 
-#### `activity_samples` (Minute Buckets، Retention = ۳۰ روز)
-`id` · `walking_session_id` FK cascade · `minute_at DATETIME` · `steps SMALLINT` · `detector_steps SMALLINT` · `cadence SMALLINT` · `accel_std DECIMAL(6,3)` · `accel_peak_hz DECIMAL(4,2)` · `activity_type` · `activity_confidence TINYINT` · `speed_mps DECIMAL(5,2) NULL` · `gps_accuracy_m SMALLINT NULL` — **UQ(walking_session_id, minute_at)**
+#### `activity_samples` (Buckets، Retention = ۳۰ روز)
+یک Bucket یک دقیقه در Session فعال، یا یک پنجره پس‌زمینه (حداکثر ۶۰ دقیقه) در Session Passive است.
+`id` · `walking_session_id` FK cascade · `started_at DATETIME` · `duration_s SMALLINT` · `steps SMALLINT` · `detector_steps SMALLINT NULL` · `accel_std DECIMAL(6,3) NULL` · `accel_peak_hz DECIMAL(4,2) NULL` · `activity_type NULL` · `activity_confidence TINYINT NULL` · `speed_mps DECIMAL(5,2) NULL` · `gps_accuracy_m SMALLINT NULL` — **UQ(walking_session_id, started_at)**، **IX(started_at)** برای Prune
 
 #### `daily_activities`
 `id` · `user_id` FK · `local_date` · `raw_steps` · `verified_steps` · `distance_m` · `calories_kcal` · `active_minutes` · `goal_steps` (Snapshot هدف آن روز) · `goal_reached_at NULL` · `points_earned` · `rewarded_steps` · `sessions_count` · timestamps — **UQ(user_id, local_date)**، **IX(local_date, verified_steps)**
