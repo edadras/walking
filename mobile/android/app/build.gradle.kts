@@ -18,6 +18,8 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        // flutter_local_notifications uses java.time on API < 26 paths.
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -59,6 +61,7 @@ kotlin {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation("com.google.android.play:integrity:1.4.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("androidx.work:work-runtime:2.10.0")

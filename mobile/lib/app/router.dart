@@ -7,6 +7,13 @@ import '../features/activity/presentation/activity_page.dart';
 import '../features/activity/presentation/session_detail_page.dart';
 import '../features/activity/presentation/walk_page.dart';
 import '../features/auth/application/session_controller.dart';
+import '../features/challenges/presentation/challenges_page.dart';
+import '../features/gamification/presentation/achievements_page.dart';
+import '../features/gamification/presentation/leaderboard_page.dart';
+import '../features/gamification/presentation/referral_page.dart';
+import '../features/health/presentation/health_page.dart';
+import '../features/health/presentation/water_page.dart';
+import '../features/notifications/presentation/inbox_page.dart';
 import '../features/auth/presentation/otp_page.dart';
 import '../features/auth/presentation/phone_page.dart';
 import '../features/content/presentation/content_page.dart';
@@ -64,6 +71,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/faq', builder: (_, _) => const FaqPage()),
       GoRoute(path: '/walk', builder: (_, _) => const WalkPage()),
       GoRoute(path: '/wallet', builder: (_, _) => const WalletPage()),
+      GoRoute(path: '/health', builder: (_, _) => const HealthPage()),
+      GoRoute(path: '/weekly-report', builder: (_, _) => const WeeklyReportPage()),
+      GoRoute(path: '/water', builder: (_, _) => const WaterPage()),
+      GoRoute(path: '/leaderboard', builder: (_, _) => const LeaderboardPage()),
+      GoRoute(path: '/achievements', builder: (_, _) => const AchievementsPage()),
+      GoRoute(path: '/referral', builder: (_, _) => const ReferralPage()),
+      GoRoute(path: '/notifications', builder: (_, _) => const InboxPage()),
+      GoRoute(
+        path: '/challenges',
+        builder: (_, _) => const ChallengesPage(),
+        routes: [GoRoute(path: ':id', builder: (_, s) => ChallengeDetailPage(id: s.pathParameters['id']!))],
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(shell: shell),
         branches: [

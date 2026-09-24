@@ -408,5 +408,235 @@
   "rewardDenied": "سقف روزانه",
   "rewardReversed": "لغوشده",
   "sessionConfidence": "اطمینان",
-  "sessionReward": "امتیاز این فعالیت"
+  "sessionReward": "امتیاز این فعالیت",
+  "healthTitle": "سلامت و آمار",
+  "healthWeek": "۷ روز اخیر",
+  "healthMonth": "۳۰ روز اخیر",
+  "healthDisclaimer": "این آمار برای انگیزه و پیگیری فعالیت است و جنبه تشخیص یا توصیه پزشکی ندارد.",
+  "healthAvgDaily": "میانگین روزانه",
+  "healthAvgWeekly": "میانگین هفتگی",
+  "healthAvgMonthly": "میانگین ماهانه",
+  "healthTotal": "مجموع",
+  "healthGoalDays": "{n} روز هدف کامل",
+  "@healthGoalDays": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "healthRecords": "رکوردهای شخصی",
+  "recordBestDay": "بهترین روز",
+  "recordBestWeek": "بهترین هفته",
+  "recordBestSession": "بهترین پیاده‌روی",
+  "healthStreak": "زنجیره روزها",
+  "healthStreakValue": "{current} روز · بهترین: {longest}",
+  "@healthStreakValue": {
+    "placeholders": {
+      "current": {
+        "type": "String"
+      },
+      "longest": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyTitle": "گزارش هفتگی",
+  "weeklyThisWeek": "این هفته",
+  "weeklyGoalDays": "{done} از {total} روز هدف تکمیل شده",
+  "@weeklyGoalDays": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyChangeUp": "{percent} بیشتر از هفته قبل",
+  "@weeklyChangeUp": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyChangeDown": "{percent} کمتر از هفته قبل",
+  "@weeklyChangeDown": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyNoCompare": "برای مقایسه، داده هفته قبل وجود ندارد.",
+  "waterTitle": "مصرف آب",
+  "waterGlassesOf": "{n} از {goal} لیوان",
+  "@waterGlassesOf": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "waterAddMl": "+{ml} میلی‌لیتر",
+  "@waterAddMl": {
+    "placeholders": {
+      "ml": {
+        "type": "String"
+      }
+    }
+  },
+  "waterSuggested": "پیشنهاد تقریبی برای تو: {ml} میلی‌لیتر در روز",
+  "@waterSuggested": {
+    "placeholders": {
+      "ml": {
+        "type": "String"
+      }
+    }
+  },
+  "waterUseSuggestion": "تنظیم به‌عنوان هدف",
+  "waterReminder": "یادآوری آب",
+  "waterReminderEvery": "هر {minutes} دقیقه، از ۹ صبح تا ۹ شب",
+  "@waterReminderEvery": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "waterTodayLogs": "ثبت‌های امروز",
+  "waterEmpty": "امروز هنوز آبی ثبت نکرده‌ای.",
+  "homeStreak7": "{days} روز متوالی",
+  "@homeStreak7": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "homeWater": "آب امروز",
+  "homeChallenge": "چالش فعال",
+  "homeNotifications": "اعلان‌ها",
+  "levelLabel": "سطح {level} · {title}",
+  "@levelLabel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "levelXp": "{xp} از {next} XP",
+  "@levelXp": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      },
+      "next": {
+        "type": "String"
+      }
+    }
+  },
+  "levelMax": "بالاترین سطح",
+  "achievementsTitle": "دستاوردها",
+  "achievementsCount": "{n} از {total} دستاورد",
+  "@achievementsCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "leaderboardTitle": "رتبه‌بندی",
+  "lbToday": "امروز",
+  "lbWeek": "این هفته",
+  "lbMonth": "این ماه",
+  "lbYou": "شما",
+  "lbHidden": "نمایش شما در رتبه‌بندی خاموش است. دیگران نام و رتبه تو را نمی‌بینند.",
+  "lbEmpty": "هنوز کسی در این دوره رتبه ندارد.",
+  "lbPrivacy": "فقط نام نمایشی، تصویر و سطح نشان داده می‌شود. رتبه‌بندی بر اساس قدم تأییدشده است.",
+  "referralTitle": "دعوت از دوستان",
+  "referralBody": "کد دعوتت را برای دوستانت بفرست. وقتی دوستت {steps} قدم تأییدشده بردارد، تو {mine} و او {theirs} امتیاز می‌گیرید.",
+  "@referralBody": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      },
+      "mine": {
+        "type": "String"
+      },
+      "theirs": {
+        "type": "String"
+      }
+    }
+  },
+  "referralShare": "اشتراک‌گذاری",
+  "referralCopied": "کد دعوت کپی شد.",
+  "referralInvited": "دعوت‌شده",
+  "referralActive": "فعال‌شده",
+  "referralPoints": "امتیاز دعوت",
+  "referralShareText": "با گام‌یار راه برو و جایزه بگیر! هنگام ثبت‌نام کد دعوت من را وارد کن: {code}",
+  "@referralShareText": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "challengesTitle": "چالش‌ها",
+  "challengesRunning": "در جریان",
+  "challengesUpcoming": "به‌زودی",
+  "challengesEnded": "پایان‌یافته",
+  "challengeJoin": "شرکت در چالش",
+  "challengeJoined": "در حال انجام",
+  "challengeCompleted": "تکمیل شد",
+  "challengeReward": "جایزه",
+  "challengeParticipants": "{n} شرکت‌کننده",
+  "@challengeParticipants": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "challengeEnds": "پایان: {time}",
+  "@challengeEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "challengeTop": "پیشتازها",
+  "challengeSponsored": "اسپانسری",
+  "challengesEmpty": "فعلاً چالشی فعال نیست.",
+  "challengeTarget": "هدف: {target}",
+  "@challengeTarget": {
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "challengeProgressOnlyAfterJoin": "فقط فعالیت‌های تأییدشده پس از پیوستن شمرده می‌شوند.",
+  "inboxTitle": "اعلان‌ها",
+  "inboxEmpty": "اعلانی نداری.",
+  "inboxMarkRead": "خواندن همه",
+  "profileAchievements": "دستاوردها",
+  "profileReferral": "دعوت از دوستان",
+  "profileHealth": "سلامت و آمار",
+  "profileLeaderboard": "رتبه‌بندی",
+  "profileWater": "مصرف آب",
+  "unitSteps": "قدم",
+  "unitKm": "کیلومتر"
 }

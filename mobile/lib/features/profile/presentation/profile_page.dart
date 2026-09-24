@@ -12,6 +12,8 @@ import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../auth/application/session_controller.dart';
+import '../../gamification/data/gamification_repository.dart';
+import '../../gamification/presentation/achievements_page.dart';
 import '../data/profile_repository.dart';
 import 'goal_sheet.dart';
 
@@ -89,7 +91,19 @@ class ProfilePage extends ConsumerWidget {
               ]),
             ),
           ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(AppSpacing.gutter, AppSpacing.md, AppSpacing.gutter, 0),
+            child: switch (ref.watch(progressProvider).value) {
+              final progress? => LevelBar(level: progress.$1, onTap: () => context.push('/achievements')),
+              null => const SizedBox.shrink(),
+            },
+          ),
           section(l.profileSectionActivity),
+          tile(Icons.emoji_events_outlined, l.profileAchievements, onTap: () => context.push('/achievements')),
+          tile(Icons.leaderboard_outlined, l.profileLeaderboard, onTap: () => context.push('/leaderboard')),
+          tile(Icons.insights_rounded, l.profileHealth, onTap: () => context.push('/health')),
+          tile(Icons.local_drink_outlined, l.profileWater, onTap: () => context.push('/water')),
+          tile(Icons.group_add_outlined, l.profileReferral, onTap: () => context.push('/referral')),
           tile(Icons.flag_outlined, l.profileDailyGoal,
               trailing: l.goalSteps(Fa.number(me.dailyStepGoal)), onTap: () => showDailyGoalSheet(context, ref)),
           tile(Icons.water_drop_outlined, l.profileWaterGoal,

@@ -23,7 +23,13 @@ class RewardsPage extends ConsumerWidget {
     final l = context.l10n;
     final center = ref.watch(rewardCenterProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(l.rewardsTitle)),
+      appBar: AppBar(
+        title: Text(l.rewardsTitle),
+        actions: [
+          IconButton(tooltip: l.challengesTitle, icon: const Icon(Icons.flag_outlined), onPressed: () => context.push('/challenges')),
+          IconButton(tooltip: l.leaderboardTitle, icon: const Icon(Icons.leaderboard_outlined), onPressed: () => context.push('/leaderboard')),
+        ],
+      ),
       body: RefreshIndicator(
         color: context.palette.green,
         onRefresh: () async => ref.invalidate(rewardCenterProvider),
@@ -106,6 +112,14 @@ class _Body extends StatelessWidget {
               _Way(icon: Icons.linear_scale_rounded, title: l.rewardsStreak(Fa.digits(e.key)), points: '+${Fa.number(e.value)}'),
           ]),
         ),
+        const SizedBox(height: AppSpacing.md),
+        Row(children: [
+          Expanded(child: _Shortcut(icon: Icons.flag_rounded, label: l.challengesTitle, route: '/challenges')),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(child: _Shortcut(icon: Icons.group_add_rounded, label: l.referralTitle, route: '/referral')),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(child: _Shortcut(icon: Icons.emoji_events_rounded, label: l.achievementsTitle, route: '/achievements')),
+        ]),
         if (c.multiplierNow > 1) ...[
           const SizedBox(height: AppSpacing.md),
           AppCard(
@@ -131,6 +145,28 @@ class _Body extends StatelessWidget {
           for (final r in c.recent) _RecentRow(item: r),
         ],
       ],
+    );
+  }
+}
+
+class _Shortcut extends StatelessWidget {
+  const _Shortcut({required this.icon, required this.label, required this.route});
+
+  final IconData icon;
+  final String label;
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return AppCard(
+      padding: const EdgeInsetsDirectional.symmetric(vertical: AppSpacing.md, horizontal: AppSpacing.sm),
+      onTap: () => context.push(route),
+      child: Column(children: [
+        Icon(icon, color: p.green),
+        const SizedBox(height: AppSpacing.xs),
+        Text(label, style: context.text.labelMedium, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis),
+      ]),
     );
   }
 }

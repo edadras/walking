@@ -1,3 +1,4 @@
+import '../../gamification/data/gamification_models.dart';
 import '../../wallet/data/wallet_models.dart';
 
 int _i(Object? v) => (v as num?)?.toInt() ?? 0;
@@ -90,7 +91,7 @@ class WeekDay {
 }
 
 class HomeData {
-  const HomeData({required this.today, required this.week, this.wallet});
+  const HomeData({required this.today, required this.week, this.wallet, this.streak, this.level, this.water, this.challenge, this.unread = 0});
 
   factory HomeData.fromJson(Map<String, dynamic> j) => HomeData(
         today: HomeToday.fromJson(j['today'] as Map<String, dynamic>),
@@ -99,11 +100,21 @@ class HomeData {
             .map((e) => WeekDay(date: DateTime.parse(e['date'] as String), steps: _i(e['steps']), goal: _i(e['goal'])))
             .toList(),
         wallet: j['wallet'] == null ? null : WalletBalance.fromJson(j['wallet'] as Map<String, dynamic>),
+        streak: j['streak'] == null ? null : StreakWeek.fromJson(j['streak'] as Map<String, dynamic>),
+        level: j['level'] == null ? null : LevelProgress.fromJson(j['level'] as Map<String, dynamic>),
+        water: (j['water'] as Map?)?.cast<String, dynamic>(),
+        challenge: (j['challenge'] as Map?)?.cast<String, dynamic>(),
+        unread: _i(j['unread_notifications']),
       );
 
   final HomeToday today;
   final List<WeekDay> week;
   final WalletBalance? wallet;
+  final StreakWeek? streak;
+  final LevelProgress? level;
+  final Map<String, dynamic>? water;
+  final Map<String, dynamic>? challenge;
+  final int unread;
 }
 
 class WalkSession {

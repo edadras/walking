@@ -41,7 +41,10 @@ class _ActivityPageState extends ConsumerState<ActivityPage> {
     final day = ref.watch(dayActivityProvider(_date));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.activityTitle)),
+      appBar: AppBar(
+        title: Text(l.activityTitle),
+        actions: [IconButton(tooltip: l.healthTitle, icon: const Icon(Icons.insights_rounded), onPressed: () => context.push('/health'))],
+      ),
       body: RefreshIndicator(
         color: context.palette.green,
         onRefresh: () async {

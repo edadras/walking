@@ -726,4 +726,284 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get sessionReward => 'امتیاز این فعالیت';
+
+  @override
+  String get healthTitle => 'سلامت و آمار';
+
+  @override
+  String get healthWeek => '۷ روز اخیر';
+
+  @override
+  String get healthMonth => '۳۰ روز اخیر';
+
+  @override
+  String get healthDisclaimer =>
+      'این آمار برای انگیزه و پیگیری فعالیت است و جنبه تشخیص یا توصیه پزشکی ندارد.';
+
+  @override
+  String get healthAvgDaily => 'میانگین روزانه';
+
+  @override
+  String get healthAvgWeekly => 'میانگین هفتگی';
+
+  @override
+  String get healthAvgMonthly => 'میانگین ماهانه';
+
+  @override
+  String get healthTotal => 'مجموع';
+
+  @override
+  String healthGoalDays(String n) {
+    return '$n روز هدف کامل';
+  }
+
+  @override
+  String get healthRecords => 'رکوردهای شخصی';
+
+  @override
+  String get recordBestDay => 'بهترین روز';
+
+  @override
+  String get recordBestWeek => 'بهترین هفته';
+
+  @override
+  String get recordBestSession => 'بهترین پیاده‌روی';
+
+  @override
+  String get healthStreak => 'زنجیره روزها';
+
+  @override
+  String healthStreakValue(String current, String longest) {
+    return '$current روز · بهترین: $longest';
+  }
+
+  @override
+  String get weeklyTitle => 'گزارش هفتگی';
+
+  @override
+  String get weeklyThisWeek => 'این هفته';
+
+  @override
+  String weeklyGoalDays(String done, String total) {
+    return '$done از $total روز هدف تکمیل شده';
+  }
+
+  @override
+  String weeklyChangeUp(String percent) {
+    return '$percent بیشتر از هفته قبل';
+  }
+
+  @override
+  String weeklyChangeDown(String percent) {
+    return '$percent کمتر از هفته قبل';
+  }
+
+  @override
+  String get weeklyNoCompare => 'برای مقایسه، داده هفته قبل وجود ندارد.';
+
+  @override
+  String get waterTitle => 'مصرف آب';
+
+  @override
+  String waterGlassesOf(String n, String goal) {
+    return '$n از $goal لیوان';
+  }
+
+  @override
+  String waterAddMl(String ml) {
+    return '+$ml میلی‌لیتر';
+  }
+
+  @override
+  String waterSuggested(String ml) {
+    return 'پیشنهاد تقریبی برای تو: $ml میلی‌لیتر در روز';
+  }
+
+  @override
+  String get waterUseSuggestion => 'تنظیم به‌عنوان هدف';
+
+  @override
+  String get waterReminder => 'یادآوری آب';
+
+  @override
+  String waterReminderEvery(String minutes) {
+    return 'هر $minutes دقیقه، از ۹ صبح تا ۹ شب';
+  }
+
+  @override
+  String get waterTodayLogs => 'ثبت‌های امروز';
+
+  @override
+  String get waterEmpty => 'امروز هنوز آبی ثبت نکرده‌ای.';
+
+  @override
+  String homeStreak7(String days) {
+    return '$days روز متوالی';
+  }
+
+  @override
+  String get homeWater => 'آب امروز';
+
+  @override
+  String get homeChallenge => 'چالش فعال';
+
+  @override
+  String get homeNotifications => 'اعلان‌ها';
+
+  @override
+  String levelLabel(String level, String title) {
+    return 'سطح $level · $title';
+  }
+
+  @override
+  String levelXp(String xp, String next) {
+    return '$xp از $next XP';
+  }
+
+  @override
+  String get levelMax => 'بالاترین سطح';
+
+  @override
+  String get achievementsTitle => 'دستاوردها';
+
+  @override
+  String achievementsCount(String n, String total) {
+    return '$n از $total دستاورد';
+  }
+
+  @override
+  String get leaderboardTitle => 'رتبه‌بندی';
+
+  @override
+  String get lbToday => 'امروز';
+
+  @override
+  String get lbWeek => 'این هفته';
+
+  @override
+  String get lbMonth => 'این ماه';
+
+  @override
+  String get lbYou => 'شما';
+
+  @override
+  String get lbHidden =>
+      'نمایش شما در رتبه‌بندی خاموش است. دیگران نام و رتبه تو را نمی‌بینند.';
+
+  @override
+  String get lbEmpty => 'هنوز کسی در این دوره رتبه ندارد.';
+
+  @override
+  String get lbPrivacy =>
+      'فقط نام نمایشی، تصویر و سطح نشان داده می‌شود. رتبه‌بندی بر اساس قدم تأییدشده است.';
+
+  @override
+  String get referralTitle => 'دعوت از دوستان';
+
+  @override
+  String referralBody(String steps, String mine, String theirs) {
+    return 'کد دعوتت را برای دوستانت بفرست. وقتی دوستت $steps قدم تأییدشده بردارد، تو $mine و او $theirs امتیاز می‌گیرید.';
+  }
+
+  @override
+  String get referralShare => 'اشتراک‌گذاری';
+
+  @override
+  String get referralCopied => 'کد دعوت کپی شد.';
+
+  @override
+  String get referralInvited => 'دعوت‌شده';
+
+  @override
+  String get referralActive => 'فعال‌شده';
+
+  @override
+  String get referralPoints => 'امتیاز دعوت';
+
+  @override
+  String referralShareText(String code) {
+    return 'با گام‌یار راه برو و جایزه بگیر! هنگام ثبت‌نام کد دعوت من را وارد کن: $code';
+  }
+
+  @override
+  String get challengesTitle => 'چالش‌ها';
+
+  @override
+  String get challengesRunning => 'در جریان';
+
+  @override
+  String get challengesUpcoming => 'به‌زودی';
+
+  @override
+  String get challengesEnded => 'پایان‌یافته';
+
+  @override
+  String get challengeJoin => 'شرکت در چالش';
+
+  @override
+  String get challengeJoined => 'در حال انجام';
+
+  @override
+  String get challengeCompleted => 'تکمیل شد';
+
+  @override
+  String get challengeReward => 'جایزه';
+
+  @override
+  String challengeParticipants(String n) {
+    return '$n شرکت‌کننده';
+  }
+
+  @override
+  String challengeEnds(String time) {
+    return 'پایان: $time';
+  }
+
+  @override
+  String get challengeTop => 'پیشتازها';
+
+  @override
+  String get challengeSponsored => 'اسپانسری';
+
+  @override
+  String get challengesEmpty => 'فعلاً چالشی فعال نیست.';
+
+  @override
+  String challengeTarget(String target) {
+    return 'هدف: $target';
+  }
+
+  @override
+  String get challengeProgressOnlyAfterJoin =>
+      'فقط فعالیت‌های تأییدشده پس از پیوستن شمرده می‌شوند.';
+
+  @override
+  String get inboxTitle => 'اعلان‌ها';
+
+  @override
+  String get inboxEmpty => 'اعلانی نداری.';
+
+  @override
+  String get inboxMarkRead => 'خواندن همه';
+
+  @override
+  String get profileAchievements => 'دستاوردها';
+
+  @override
+  String get profileReferral => 'دعوت از دوستان';
+
+  @override
+  String get profileHealth => 'سلامت و آمار';
+
+  @override
+  String get profileLeaderboard => 'رتبه‌بندی';
+
+  @override
+  String get profileWater => 'مصرف آب';
+
+  @override
+  String get unitSteps => 'قدم';
+
+  @override
+  String get unitKm => 'کیلومتر';
 }

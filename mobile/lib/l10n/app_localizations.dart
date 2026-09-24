@@ -1377,6 +1377,486 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'امتیاز این فعالیت'**
   String get sessionReward;
+
+  /// No description provided for @healthTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'سلامت و آمار'**
+  String get healthTitle;
+
+  /// No description provided for @healthWeek.
+  ///
+  /// In fa, this message translates to:
+  /// **'۷ روز اخیر'**
+  String get healthWeek;
+
+  /// No description provided for @healthMonth.
+  ///
+  /// In fa, this message translates to:
+  /// **'۳۰ روز اخیر'**
+  String get healthMonth;
+
+  /// No description provided for @healthDisclaimer.
+  ///
+  /// In fa, this message translates to:
+  /// **'این آمار برای انگیزه و پیگیری فعالیت است و جنبه تشخیص یا توصیه پزشکی ندارد.'**
+  String get healthDisclaimer;
+
+  /// No description provided for @healthAvgDaily.
+  ///
+  /// In fa, this message translates to:
+  /// **'میانگین روزانه'**
+  String get healthAvgDaily;
+
+  /// No description provided for @healthAvgWeekly.
+  ///
+  /// In fa, this message translates to:
+  /// **'میانگین هفتگی'**
+  String get healthAvgWeekly;
+
+  /// No description provided for @healthAvgMonthly.
+  ///
+  /// In fa, this message translates to:
+  /// **'میانگین ماهانه'**
+  String get healthAvgMonthly;
+
+  /// No description provided for @healthTotal.
+  ///
+  /// In fa, this message translates to:
+  /// **'مجموع'**
+  String get healthTotal;
+
+  /// No description provided for @healthGoalDays.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} روز هدف کامل'**
+  String healthGoalDays(String n);
+
+  /// No description provided for @healthRecords.
+  ///
+  /// In fa, this message translates to:
+  /// **'رکوردهای شخصی'**
+  String get healthRecords;
+
+  /// No description provided for @recordBestDay.
+  ///
+  /// In fa, this message translates to:
+  /// **'بهترین روز'**
+  String get recordBestDay;
+
+  /// No description provided for @recordBestWeek.
+  ///
+  /// In fa, this message translates to:
+  /// **'بهترین هفته'**
+  String get recordBestWeek;
+
+  /// No description provided for @recordBestSession.
+  ///
+  /// In fa, this message translates to:
+  /// **'بهترین پیاده‌روی'**
+  String get recordBestSession;
+
+  /// No description provided for @healthStreak.
+  ///
+  /// In fa, this message translates to:
+  /// **'زنجیره روزها'**
+  String get healthStreak;
+
+  /// No description provided for @healthStreakValue.
+  ///
+  /// In fa, this message translates to:
+  /// **'{current} روز · بهترین: {longest}'**
+  String healthStreakValue(String current, String longest);
+
+  /// No description provided for @weeklyTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'گزارش هفتگی'**
+  String get weeklyTitle;
+
+  /// No description provided for @weeklyThisWeek.
+  ///
+  /// In fa, this message translates to:
+  /// **'این هفته'**
+  String get weeklyThisWeek;
+
+  /// No description provided for @weeklyGoalDays.
+  ///
+  /// In fa, this message translates to:
+  /// **'{done} از {total} روز هدف تکمیل شده'**
+  String weeklyGoalDays(String done, String total);
+
+  /// No description provided for @weeklyChangeUp.
+  ///
+  /// In fa, this message translates to:
+  /// **'{percent} بیشتر از هفته قبل'**
+  String weeklyChangeUp(String percent);
+
+  /// No description provided for @weeklyChangeDown.
+  ///
+  /// In fa, this message translates to:
+  /// **'{percent} کمتر از هفته قبل'**
+  String weeklyChangeDown(String percent);
+
+  /// No description provided for @weeklyNoCompare.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای مقایسه، داده هفته قبل وجود ندارد.'**
+  String get weeklyNoCompare;
+
+  /// No description provided for @waterTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'مصرف آب'**
+  String get waterTitle;
+
+  /// No description provided for @waterGlassesOf.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} از {goal} لیوان'**
+  String waterGlassesOf(String n, String goal);
+
+  /// No description provided for @waterAddMl.
+  ///
+  /// In fa, this message translates to:
+  /// **'+{ml} میلی‌لیتر'**
+  String waterAddMl(String ml);
+
+  /// No description provided for @waterSuggested.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیشنهاد تقریبی برای تو: {ml} میلی‌لیتر در روز'**
+  String waterSuggested(String ml);
+
+  /// No description provided for @waterUseSuggestion.
+  ///
+  /// In fa, this message translates to:
+  /// **'تنظیم به‌عنوان هدف'**
+  String get waterUseSuggestion;
+
+  /// No description provided for @waterReminder.
+  ///
+  /// In fa, this message translates to:
+  /// **'یادآوری آب'**
+  String get waterReminder;
+
+  /// No description provided for @waterReminderEvery.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر {minutes} دقیقه، از ۹ صبح تا ۹ شب'**
+  String waterReminderEvery(String minutes);
+
+  /// No description provided for @waterTodayLogs.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت‌های امروز'**
+  String get waterTodayLogs;
+
+  /// No description provided for @waterEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز هنوز آبی ثبت نکرده‌ای.'**
+  String get waterEmpty;
+
+  /// No description provided for @homeStreak7.
+  ///
+  /// In fa, this message translates to:
+  /// **'{days} روز متوالی'**
+  String homeStreak7(String days);
+
+  /// No description provided for @homeWater.
+  ///
+  /// In fa, this message translates to:
+  /// **'آب امروز'**
+  String get homeWater;
+
+  /// No description provided for @homeChallenge.
+  ///
+  /// In fa, this message translates to:
+  /// **'چالش فعال'**
+  String get homeChallenge;
+
+  /// No description provided for @homeNotifications.
+  ///
+  /// In fa, this message translates to:
+  /// **'اعلان‌ها'**
+  String get homeNotifications;
+
+  /// No description provided for @levelLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'سطح {level} · {title}'**
+  String levelLabel(String level, String title);
+
+  /// No description provided for @levelXp.
+  ///
+  /// In fa, this message translates to:
+  /// **'{xp} از {next} XP'**
+  String levelXp(String xp, String next);
+
+  /// No description provided for @levelMax.
+  ///
+  /// In fa, this message translates to:
+  /// **'بالاترین سطح'**
+  String get levelMax;
+
+  /// No description provided for @achievementsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'دستاوردها'**
+  String get achievementsTitle;
+
+  /// No description provided for @achievementsCount.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} از {total} دستاورد'**
+  String achievementsCount(String n, String total);
+
+  /// No description provided for @leaderboardTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'رتبه‌بندی'**
+  String get leaderboardTitle;
+
+  /// No description provided for @lbToday.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز'**
+  String get lbToday;
+
+  /// No description provided for @lbWeek.
+  ///
+  /// In fa, this message translates to:
+  /// **'این هفته'**
+  String get lbWeek;
+
+  /// No description provided for @lbMonth.
+  ///
+  /// In fa, this message translates to:
+  /// **'این ماه'**
+  String get lbMonth;
+
+  /// No description provided for @lbYou.
+  ///
+  /// In fa, this message translates to:
+  /// **'شما'**
+  String get lbYou;
+
+  /// No description provided for @lbHidden.
+  ///
+  /// In fa, this message translates to:
+  /// **'نمایش شما در رتبه‌بندی خاموش است. دیگران نام و رتبه تو را نمی‌بینند.'**
+  String get lbHidden;
+
+  /// No description provided for @lbEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز کسی در این دوره رتبه ندارد.'**
+  String get lbEmpty;
+
+  /// No description provided for @lbPrivacy.
+  ///
+  /// In fa, this message translates to:
+  /// **'فقط نام نمایشی، تصویر و سطح نشان داده می‌شود. رتبه‌بندی بر اساس قدم تأییدشده است.'**
+  String get lbPrivacy;
+
+  /// No description provided for @referralTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'دعوت از دوستان'**
+  String get referralTitle;
+
+  /// No description provided for @referralBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد دعوتت را برای دوستانت بفرست. وقتی دوستت {steps} قدم تأییدشده بردارد، تو {mine} و او {theirs} امتیاز می‌گیرید.'**
+  String referralBody(String steps, String mine, String theirs);
+
+  /// No description provided for @referralShare.
+  ///
+  /// In fa, this message translates to:
+  /// **'اشتراک‌گذاری'**
+  String get referralShare;
+
+  /// No description provided for @referralCopied.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد دعوت کپی شد.'**
+  String get referralCopied;
+
+  /// No description provided for @referralInvited.
+  ///
+  /// In fa, this message translates to:
+  /// **'دعوت‌شده'**
+  String get referralInvited;
+
+  /// No description provided for @referralActive.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعال‌شده'**
+  String get referralActive;
+
+  /// No description provided for @referralPoints.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز دعوت'**
+  String get referralPoints;
+
+  /// No description provided for @referralShareText.
+  ///
+  /// In fa, this message translates to:
+  /// **'با گام‌یار راه برو و جایزه بگیر! هنگام ثبت‌نام کد دعوت من را وارد کن: {code}'**
+  String referralShareText(String code);
+
+  /// No description provided for @challengesTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'چالش‌ها'**
+  String get challengesTitle;
+
+  /// No description provided for @challengesRunning.
+  ///
+  /// In fa, this message translates to:
+  /// **'در جریان'**
+  String get challengesRunning;
+
+  /// No description provided for @challengesUpcoming.
+  ///
+  /// In fa, this message translates to:
+  /// **'به‌زودی'**
+  String get challengesUpcoming;
+
+  /// No description provided for @challengesEnded.
+  ///
+  /// In fa, this message translates to:
+  /// **'پایان‌یافته'**
+  String get challengesEnded;
+
+  /// No description provided for @challengeJoin.
+  ///
+  /// In fa, this message translates to:
+  /// **'شرکت در چالش'**
+  String get challengeJoin;
+
+  /// No description provided for @challengeJoined.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال انجام'**
+  String get challengeJoined;
+
+  /// No description provided for @challengeCompleted.
+  ///
+  /// In fa, this message translates to:
+  /// **'تکمیل شد'**
+  String get challengeCompleted;
+
+  /// No description provided for @challengeReward.
+  ///
+  /// In fa, this message translates to:
+  /// **'جایزه'**
+  String get challengeReward;
+
+  /// No description provided for @challengeParticipants.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} شرکت‌کننده'**
+  String challengeParticipants(String n);
+
+  /// No description provided for @challengeEnds.
+  ///
+  /// In fa, this message translates to:
+  /// **'پایان: {time}'**
+  String challengeEnds(String time);
+
+  /// No description provided for @challengeTop.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیشتازها'**
+  String get challengeTop;
+
+  /// No description provided for @challengeSponsored.
+  ///
+  /// In fa, this message translates to:
+  /// **'اسپانسری'**
+  String get challengeSponsored;
+
+  /// No description provided for @challengesEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعلاً چالشی فعال نیست.'**
+  String get challengesEmpty;
+
+  /// No description provided for @challengeTarget.
+  ///
+  /// In fa, this message translates to:
+  /// **'هدف: {target}'**
+  String challengeTarget(String target);
+
+  /// No description provided for @challengeProgressOnlyAfterJoin.
+  ///
+  /// In fa, this message translates to:
+  /// **'فقط فعالیت‌های تأییدشده پس از پیوستن شمرده می‌شوند.'**
+  String get challengeProgressOnlyAfterJoin;
+
+  /// No description provided for @inboxTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'اعلان‌ها'**
+  String get inboxTitle;
+
+  /// No description provided for @inboxEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'اعلانی نداری.'**
+  String get inboxEmpty;
+
+  /// No description provided for @inboxMarkRead.
+  ///
+  /// In fa, this message translates to:
+  /// **'خواندن همه'**
+  String get inboxMarkRead;
+
+  /// No description provided for @profileAchievements.
+  ///
+  /// In fa, this message translates to:
+  /// **'دستاوردها'**
+  String get profileAchievements;
+
+  /// No description provided for @profileReferral.
+  ///
+  /// In fa, this message translates to:
+  /// **'دعوت از دوستان'**
+  String get profileReferral;
+
+  /// No description provided for @profileHealth.
+  ///
+  /// In fa, this message translates to:
+  /// **'سلامت و آمار'**
+  String get profileHealth;
+
+  /// No description provided for @profileLeaderboard.
+  ///
+  /// In fa, this message translates to:
+  /// **'رتبه‌بندی'**
+  String get profileLeaderboard;
+
+  /// No description provided for @profileWater.
+  ///
+  /// In fa, this message translates to:
+  /// **'مصرف آب'**
+  String get profileWater;
+
+  /// No description provided for @unitSteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم'**
+  String get unitSteps;
+
+  /// No description provided for @unitKm.
+  ///
+  /// In fa, this message translates to:
+  /// **'کیلومتر'**
+  String get unitKm;
 }
 
 class _AppLocalizationsDelegate
