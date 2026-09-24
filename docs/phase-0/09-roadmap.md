@@ -10,7 +10,7 @@
 | 3 | Fraud Engine + Rules، Verified steps، Reward Engine، Point Ledger، Wallet، Pending release scheduler، Fraud cases پایه | [phase-3.md](../phase-3.md) | ✅ |
 | 4 | Health dashboard، Water tracker، XP/Level، Achievements، Streak، Leaderboard (Redis)، Challenges، Weekly report، Referral، Notifications | [phase-4.md](../phase-4.md) | ✅ |
 | 5 | Sponsors، Locations، Campaigns، Visits (Geofence + Stay + Rotating QR)، Coupons، Sponsor Panel | [phase-5.md](../phase-5.md) | ✅ |
-| 6 | Advertising: Placement، Internal ads، Provider adapters (Yektanet/AdSell پس از بررسی مستندات رسمی)، Rewarded S2S | | ⏳ |
+| 6 | Advertising: Placement، Internal ads، Provider adapters (Yektanet/AdSell پس از بررسی مستندات رسمی)، Rewarded S2S | [phase-6.md](../phase-6.md) | ✅ |
 | 7 | Store، Products، Orders، Point purchase (Atomic)، Addresses، Payment adapter (Flag) | | ⏳ |
 | 8 | Admin analytics، Sponsor analytics، Fraud dashboard کامل، Reports، Support tickets، CMS | | ⏳ |
 | 9 | Security hardening (Cert pinning، Admin 2FA، Key rotation)، Performance (Partitioning، Horizon)، Load test، Deployment (Docker، CI) | | ⏳ |

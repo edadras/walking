@@ -817,5 +817,43 @@
         "type": "String"
       }
     }
-  }
+  },
+  "adLabel": "تبلیغ",
+  "rewardedCardTitle": "تبلیغ ببین، امتیاز بگیر",
+  "rewardedCardBody": "امروز {n} بار دیگر",
+  "@rewardedCardBody": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardedTitle": "تبلیغ جایزه‌دار",
+  "rewardedWait": "{s} ثانیه تا دریافت امتیاز",
+  "@rewardedWait": {
+    "placeholders": {
+      "s": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardedClaim": "دریافت {n} امتیاز",
+  "@rewardedClaim": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardedDone": "امتیاز ثبت شد",
+  "rewardedDoneBody": "{n} امتیاز پس از دوره بررسی به کیف پولت اضافه می‌شود.",
+  "@rewardedDoneBody": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardedFailed": "این بار امتیازی ثبت نشد.",
+  "rewardedLeaveHint": "اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود."
 }

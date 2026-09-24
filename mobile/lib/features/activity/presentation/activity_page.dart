@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/format/dates.dart';
+import '../../ads/presentation/ad_slot.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/theme/app_palette.dart';
@@ -63,6 +64,8 @@ class _ActivityPageState extends ConsumerState<ActivityPage> {
               skeleton: const _DaySkeleton(),
               data: (d) => _DayBody(day: d),
             ),
+            const AdSlot(placement: 'activity_banner'),
+            const SizedBox(height: AppSpacing.lg),
           ],
         ),
       ),

@@ -2265,6 +2265,66 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'از {total}'**
   String visitOfTotal(String total);
+
+  /// No description provided for @adLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'تبلیغ'**
+  String get adLabel;
+
+  /// No description provided for @rewardedCardTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'تبلیغ ببین، امتیاز بگیر'**
+  String get rewardedCardTitle;
+
+  /// No description provided for @rewardedCardBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز {n} بار دیگر'**
+  String rewardedCardBody(String n);
+
+  /// No description provided for @rewardedTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'تبلیغ جایزه‌دار'**
+  String get rewardedTitle;
+
+  /// No description provided for @rewardedWait.
+  ///
+  /// In fa, this message translates to:
+  /// **'{s} ثانیه تا دریافت امتیاز'**
+  String rewardedWait(String s);
+
+  /// No description provided for @rewardedClaim.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت {n} امتیاز'**
+  String rewardedClaim(String n);
+
+  /// No description provided for @rewardedDone.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز ثبت شد'**
+  String get rewardedDone;
+
+  /// No description provided for @rewardedDoneBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} امتیاز پس از دوره بررسی به کیف پولت اضافه می‌شود.'**
+  String rewardedDoneBody(String n);
+
+  /// No description provided for @rewardedFailed.
+  ///
+  /// In fa, this message translates to:
+  /// **'این بار امتیازی ثبت نشد.'**
+  String get rewardedFailed;
+
+  /// No description provided for @rewardedLeaveHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود.'**
+  String get rewardedLeaveHint;
 }
 
 class _AppLocalizationsDelegate

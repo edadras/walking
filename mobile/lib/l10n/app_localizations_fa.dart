@@ -1247,4 +1247,43 @@ class AppLocalizationsFa extends AppLocalizations {
   String visitOfTotal(String total) {
     return 'از $total';
   }
+
+  @override
+  String get adLabel => 'تبلیغ';
+
+  @override
+  String get rewardedCardTitle => 'تبلیغ ببین، امتیاز بگیر';
+
+  @override
+  String rewardedCardBody(String n) {
+    return 'امروز $n بار دیگر';
+  }
+
+  @override
+  String get rewardedTitle => 'تبلیغ جایزه‌دار';
+
+  @override
+  String rewardedWait(String s) {
+    return '$s ثانیه تا دریافت امتیاز';
+  }
+
+  @override
+  String rewardedClaim(String n) {
+    return 'دریافت $n امتیاز';
+  }
+
+  @override
+  String get rewardedDone => 'امتیاز ثبت شد';
+
+  @override
+  String rewardedDoneBody(String n) {
+    return '$n امتیاز پس از دوره بررسی به کیف پولت اضافه می‌شود.';
+  }
+
+  @override
+  String get rewardedFailed => 'این بار امتیازی ثبت نشد.';
+
+  @override
+  String get rewardedLeaveHint =>
+      'اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود.';
 }

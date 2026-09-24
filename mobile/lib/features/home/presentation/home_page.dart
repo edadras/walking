@@ -16,6 +16,7 @@ import '../../../core/widgets/state_views.dart';
 import '../../../core/widgets/stat_tile.dart';
 import '../../../core/widgets/step_ring.dart';
 import '../../activity/application/active_walk_controller.dart';
+import '../../ads/presentation/ad_slot.dart';
 import '../../activity/application/activity_providers.dart';
 import '../../activity/application/tracking_service.dart';
 import '../../auth/application/session_controller.dart';
@@ -141,6 +142,7 @@ class _HomeBody extends ConsumerWidget {
             semanticLabel: l.homeThisWeek,
           ),
         ),
+        const AdSlot(placement: 'home_banner'),
         if (t.lastSyncedAt != null) ...[
           const SizedBox(height: AppSpacing.md),
           Center(child: Text(l.homeSyncedAt(FaDate.relative(t.lastSyncedAt!)), style: context.text.labelSmall)),

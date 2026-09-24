@@ -11,6 +11,8 @@ import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/skeleton.dart';
 import '../../../core/widgets/stat_tile.dart';
 import '../../../core/widgets/state_views.dart';
+import '../../ads/presentation/ad_slot.dart';
+import '../../ads/presentation/rewarded_ad_page.dart';
 import '../data/rewards_models.dart';
 import '../data/rewards_repository.dart';
 
@@ -89,6 +91,7 @@ class _Body extends StatelessWidget {
             ]),
           ]),
         ),
+        const RewardedAdCard(),
         SectionHeader(title: l.rewardsHowTitle),
         AppCard(
           padding: EdgeInsets.zero,
@@ -146,6 +149,7 @@ class _Body extends StatelessWidget {
               ]),
             ),
         ],
+        const AdSlot(placement: 'rewards_native'),
         if (c.recent.isNotEmpty) ...[
           SectionHeader(title: l.rewardsRecent),
           for (final r in c.recent) _RecentRow(item: r),

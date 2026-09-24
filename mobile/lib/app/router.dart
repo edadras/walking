@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../core/localization/l10n.dart';
 import '../features/activity/presentation/activity_page.dart';
+import '../features/ads/presentation/rewarded_ad_page.dart';
 import '../features/activity/presentation/session_detail_page.dart';
 import '../features/activity/presentation/walk_page.dart';
 import '../features/auth/application/session_controller.dart';
@@ -88,6 +89,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/visits/:id', builder: (_, s) => VisitPage(id: s.pathParameters['id']!)),
       GoRoute(path: '/scan-qr', builder: (_, _) => const QrScanPage()),
       GoRoute(path: '/coupons', builder: (_, _) => const CouponsPage()),
+      GoRoute(path: '/rewarded-ad', builder: (_, _) => const RewardedAdPage()),
       GoRoute(
         path: '/challenges',
         builder: (_, _) => const ChallengesPage(),
