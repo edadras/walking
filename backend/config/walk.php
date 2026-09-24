@@ -80,6 +80,12 @@ return [
         'visits.qr_window_s' => ['value' => 30, 'group' => 'visits', 'public' => false, 'description' => 'طول هر پنجره QR چرخشی (ثانیه)'],
         'visits.nearby_max_km' => ['value' => 20, 'group' => 'visits', 'public' => false, 'description' => 'حداکثر شعاع جستجوی مکان‌های اطراف (کیلومتر)'],
 
+        // Advertising
+        'ads.default_frequency_cap' => ['value' => 6, 'group' => 'ads', 'public' => false, 'description' => 'حداکثر نمایش هر کمپین تبلیغ به یک کاربر در روز (پیش‌فرض)'],
+        'ads.rewarded_daily_cap' => ['value' => 3, 'group' => 'ads', 'public' => true, 'description' => 'حداکثر تبلیغ جایزه‌دار برای هر کاربر در روز'],
+        'ads.rewarded_max_age_minutes' => ['value' => 10, 'group' => 'ads', 'public' => false, 'description' => 'مهلت تکمیل تبلیغ جایزه‌دار پس از شروع (دقیقه)'],
+        'ads.rewarded_max_points' => ['value' => 20, 'group' => 'ads', 'public' => false, 'description' => 'سقف امتیاز هر تبلیغ جایزه‌دار'],
+
         // Account
         'account.deletion_grace_days' => ['value' => 14, 'group' => 'account', 'public' => true, 'description' => 'مهلت انصراف از حذف حساب'],
     ],

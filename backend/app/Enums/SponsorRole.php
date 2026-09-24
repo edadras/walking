@@ -24,7 +24,7 @@ enum SponsorRole: string
     {
         return match ($this) {
             self::Owner => ['*'],
-            self::Manager => ['locations.manage', 'campaigns.manage', 'coupons.manage', 'visits.view', 'analytics.view', 'qr.display', 'coupons.redeem'],
+            self::Manager => ['locations.manage', 'campaigns.manage', 'coupons.manage', 'visits.view', 'analytics.view', 'qr.display', 'coupons.redeem', 'ads.manage'],
             self::Analyst => ['visits.view', 'analytics.view'],
             self::Cashier => ['qr.display', 'coupons.redeem'],
         };

@@ -38,6 +38,7 @@ class ManageSettings extends Page
         'gamification' => 'سطح و XP',
         'referral' => 'دعوت از دوستان',
         'visits' => 'بازدید مکان‌های اسپانسری',
+        'ads' => 'تبلیغات',
     ];
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;

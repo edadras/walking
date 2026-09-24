@@ -13,7 +13,9 @@ use App\Domain\Notification\LogPushSender;
 use App\Domain\Notification\PushSender;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
+use App\Models\AdCampaign;
 use App\Models\Admin;
+use App\Models\AdView;
 use App\Models\Campaign;
 use App\Models\Coupon;
 use App\Models\DailyActivity;
@@ -97,6 +99,8 @@ class AppServiceProvider extends ServiceProvider
             'visit' => Visit::class,
             'coupon' => Coupon::class,
             'user_coupon' => UserCoupon::class,
+            'ad_campaign' => AdCampaign::class,
+            'ad_view' => AdView::class,
         ]);
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
@@ -111,6 +115,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('api', fn (Request $r) => Limit::perMinute(120)->by('u:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('sessions', fn (Request $r) => Limit::perMinute(30)->by('sess:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('visits', fn (Request $r) => Limit::perMinute(60)->by('visit:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('ads', fn (Request $r) => Limit::perMinute(60)->by('ads:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }
 }

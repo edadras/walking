@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ActivityController;
+use App\Http\Controllers\Api\V1\AdController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ChallengeController;
@@ -30,6 +31,9 @@ Route::get('config', ConfigController::class)->middleware('throttle:public');
 Route::get('time', [DeviceController::class, 'time'])->middleware('throttle:public');
 Route::get('pages/{slug}', [ContentController::class, 'page'])->middleware('throttle:public');
 Route::get('faqs', [ContentController::class, 'faqs'])->middleware('throttle:public');
+
+// Ad network server-to-server reward callbacks (HMAC per provider)
+Route::post('webhooks/ads/{provider}', [AdController::class, 'webhook'])->middleware('throttle:public');
 
 // Device registration (self-signed with the submitted key)
 Route::post('devices/register', [DeviceController::class, 'register'])->middleware('throttle:device-register');
@@ -100,6 +104,14 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::get('coupons', [CouponController::class, 'index']);
     Route::get('coupons/{userCoupon}', [CouponController::class, 'show']);
     Route::post('coupons/{coupon}/claim', [CouponController::class, 'claim'])->middleware('signed.device');
+
+    Route::get('ads/placements/{key}', [AdController::class, 'placement'])->middleware('throttle:ads');
+    Route::post('ads/events', [AdController::class, 'events'])->middleware('throttle:ads');
+    Route::get('ads/rewarded', [AdController::class, 'rewardedStatus']);
+    Route::middleware(['signed.device', 'throttle:ads'])->group(function () {
+        Route::post('ads/rewarded/start', [AdController::class, 'startRewarded']);
+        Route::post('ads/rewarded/{view}/complete', [AdController::class, 'completeRewarded']);
+    });
 
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::post('notifications/read', [NotificationController::class, 'read']);

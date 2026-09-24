@@ -6,10 +6,13 @@ use App\Domain\Fraud\RuleRegistry;
 use App\Domain\Gamification\XpService;
 use App\Domain\Reward\RewardRules;
 use App\Domain\Wallet\ConversionRate;
+use App\Enums\AdFormat;
 use App\Enums\AdminRole;
 use App\Enums\RewardRuleType;
 use App\Models\Achievement;
 use App\Models\Admin;
+use App\Models\AdPlacement;
+use App\Models\AdProvider;
 use App\Models\CmsPage;
 use App\Models\Faq;
 use App\Models\FeatureFlag;
@@ -48,6 +51,8 @@ class PlatformSeeder extends Seeder
             Level::query()->insert(XpService::curve());
         }
 
+        $this->seedAdInventory();
+
         foreach ($this->achievements() as $i => [$key, $name, $description, $icon, $metric, $threshold, $xp, $points]) {
             Achievement::query()->firstOrCreate(['key' => $key], compact('name', 'description', 'icon', 'metric', 'threshold') + ['xp_reward' => $xp, 'point_reward' => $points, 'sort' => $i]);
         }
@@ -72,6 +77,26 @@ class PlatformSeeder extends Seeder
     }
 
     /** @return list<array{0:string,1:string,2:string,3:string,4:string,5:int,6:int,7:int}> */
+    /** Internal network on; external adapters stay off until their official S2S docs are verified. */
+    private function seedAdInventory(): void
+    {
+        $internal = AdProvider::query()->firstOrCreate(['key' => AdProvider::INTERNAL], ['name' => 'تبلیغات داخلی', 'is_enabled' => true]);
+        foreach ([['yektanet', 'یکتانت'], ['adsell', 'ادسل']] as [$key, $name]) {
+            AdProvider::query()->firstOrCreate(['key' => $key], [
+                'name' => $name, 'is_enabled' => false,
+                'notes' => 'غیرفعال: پیش از فعال‌سازی باید مستندات رسمی S2S بررسی و با قرارداد /webhooks/ads/'.$key.' تطبیق داده شود.',
+            ]);
+        }
+        foreach ([
+            ['home_banner', 'خانه — پایین صفحه', AdFormat::Banner],
+            ['activity_banner', 'فعالیت — بالای تاریخچه', AdFormat::Banner],
+            ['rewards_native', 'مرکز جایزه — کارت', AdFormat::Native],
+            ['rewarded_default', 'تبلیغ جایزه‌دار', AdFormat::Rewarded],
+        ] as [$key, $name, $format]) {
+            AdPlacement::query()->firstOrCreate(['key' => $key], ['name' => $name, 'format' => $format, 'ad_provider_id' => $internal->id]);
+        }
+    }
+
     private function achievements(): array
     {
         return [

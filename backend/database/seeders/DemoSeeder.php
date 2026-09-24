@@ -6,7 +6,9 @@ use App\Domain\Activity\ActivityEstimator;
 use App\Domain\Activity\DailyActivityAggregator;
 use App\Domain\Gamification\ProgressService;
 use App\Domain\Reward\RewardEngine;
+use App\Domain\Settings\FeatureFlags;
 use App\Domain\Wallet\WalletService;
+use App\Enums\AdFormat;
 use App\Enums\AdminRole;
 use App\Enums\CampaignStatus;
 use App\Enums\ChallengeStatus;
@@ -21,11 +23,15 @@ use App\Enums\SponsorRole;
 use App\Enums\SponsorStatus;
 use App\Enums\TransactionStatus;
 use App\Enums\VerificationMethod;
+use App\Models\Ad;
+use App\Models\AdCampaign;
 use App\Models\Admin;
+use App\Models\AdPlacement;
 use App\Models\Campaign;
 use App\Models\Challenge;
 use App\Models\Coupon;
 use App\Models\Device;
+use App\Models\FeatureFlag;
 use App\Models\Location;
 use App\Models\PointTransaction;
 use App\Models\Sponsor;
@@ -59,6 +65,7 @@ class DemoSeeder extends Seeder
         }
 
         $this->seedSponsor();
+        $this->seedAds();
 
         // Deterministic "randomness" so every seed produces the same demo world.
         mt_srand(1405);
@@ -108,6 +115,28 @@ class DemoSeeder extends Seeder
             'status' => CampaignStatus::Active, 'approved_at' => now(),
         ]);
         $campaign->locations()->attach($branches->pluck('id'));
+    }
+
+    /** In-house ads (and the flags that show them) so ad slots aren't empty in the demo. */
+    private function seedAds(): void
+    {
+        foreach (['ads', 'rewarded_ads'] as $flag) {
+            FeatureFlag::query()->where('key', $flag)->update(['is_enabled' => true, 'rollout_percent' => 100]);
+        }
+        if (AdCampaign::query()->exists()) {
+            return;
+        }
+        $placements = AdPlacement::query()->pluck('id', 'key');
+        foreach ([
+            ['چالش هفته', ['home_banner', 'activity_banner'], 0, 0, ['format' => AdFormat::Banner, 'title' => 'چالش ۵۰ هزار قدمی این هفته', 'body' => 'همین حالا شرکت کن و ۵۰۰ امتیاز بگیر', 'cta_label' => 'شرکت', 'action_url' => '/challenges']],
+            ['معرفی کافه قدم', ['rewards_native'], 0, 0, ['format' => AdFormat::Native, 'title' => 'کافه قدم', 'body' => 'به شعبه‌های کافه قدم سر بزن و قهوه هدیه بگیر', 'cta_label' => 'جایزه‌های اطراف', 'action_url' => '/nearby']],
+            ['تماشا و امتیاز', ['rewarded_default'], 10, 20_000, ['format' => AdFormat::Rewarded, 'title' => 'کفش مخصوص پیاده‌روی', 'body' => 'سبک، نرم و مناسب قدم‌های روزانه', 'cta_label' => 'مشاهده', 'action_url' => '/store', 'min_view_seconds' => 15]],
+        ] as [$name, $keys, $points, $budget, $ad]) {
+            $campaign = AdCampaign::query()->create(['name' => $name, 'status' => CampaignStatus::Active, 'starts_at' => now()->subDay(), 'ends_at' => now()->addMonths(2), 'reward_points' => $points, 'point_budget' => $budget]);
+            $campaign->placements()->attach(collect($keys)->map(fn ($k) => $placements[$k]));
+            Ad::query()->create(['ad_campaign_id' => $campaign->id, ...$ad]);
+        }
+        app(FeatureFlags::class)->flush();
     }
 
     /**
