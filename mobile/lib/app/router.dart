@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/localization/l10n.dart';
 import '../features/activity/presentation/activity_page.dart';
 import '../features/ads/presentation/rewarded_ad_page.dart';
 import '../features/activity/presentation/session_detail_page.dart';
@@ -32,6 +31,11 @@ import '../features/sponsors/presentation/coupons_page.dart';
 import '../features/sponsors/presentation/nearby_page.dart';
 import '../features/sponsors/presentation/qr_scan_page.dart';
 import '../features/sponsors/presentation/visit_page.dart';
+import '../features/store/data/store_models.dart';
+import '../features/store/presentation/addresses_page.dart';
+import '../features/store/presentation/orders_page.dart';
+import '../features/store/presentation/product_page.dart';
+import '../features/store/presentation/store_page.dart';
 import '../features/wallet/presentation/wallet_page.dart';
 import '../features/shell/presentation/splash_page.dart';
 
@@ -90,6 +94,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/scan-qr', builder: (_, _) => const QrScanPage()),
       GoRoute(path: '/coupons', builder: (_, _) => const CouponsPage()),
       GoRoute(path: '/rewarded-ad', builder: (_, _) => const RewardedAdPage()),
+      GoRoute(path: '/orders', builder: (_, _) => const OrdersPage()),
+      GoRoute(path: '/orders/:id', builder: (_, s) => OrderDetailPage(id: s.pathParameters['id']!)),
+      GoRoute(path: '/addresses', builder: (_, _) => const AddressesPage()),
+      GoRoute(path: '/addresses/new', builder: (_, _) => const AddressFormPage()),
+      GoRoute(path: '/addresses/edit', builder: (_, s) => AddressFormPage(address: s.extra as Address?)),
       GoRoute(
         path: '/challenges',
         builder: (_, _) => const ChallengesPage(),
@@ -107,7 +116,13 @@ final routerProvider = Provider<GoRouter>((ref) {
             ),
           ]),
           StatefulShellBranch(routes: [GoRoute(path: '/rewards', builder: (_, _) => const RewardsPage())]),
-          StatefulShellBranch(routes: [GoRoute(path: '/store', builder: (c, _) => ComingNextPage(title: c.l10n.navStore))]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/store',
+              builder: (_, _) => const StorePage(),
+              routes: [GoRoute(path: ':slug', builder: (_, s) => ProductPage(slug: s.pathParameters['slug']!))],
+            ),
+          ]),
           StatefulShellBranch(routes: [
             GoRoute(
               path: '/profile',

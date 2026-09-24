@@ -105,6 +105,8 @@ class ProfilePage extends ConsumerWidget {
           tile(Icons.local_drink_outlined, l.profileWater, onTap: () => context.push('/water')),
           tile(Icons.group_add_outlined, l.profileReferral, onTap: () => context.push('/referral')),
           tile(Icons.confirmation_number_outlined, l.profileCoupons, onTap: () => context.push('/coupons')),
+          tile(Icons.receipt_long_outlined, l.profileOrders, onTap: () => context.push('/orders')),
+          tile(Icons.home_work_outlined, l.profileAddresses, onTap: () => context.push('/addresses')),
           tile(Icons.flag_outlined, l.profileDailyGoal,
               trailing: l.goalSteps(Fa.number(me.dailyStepGoal)), onTap: () => showDailyGoalSheet(context, ref)),
           tile(Icons.water_drop_outlined, l.profileWaterGoal,

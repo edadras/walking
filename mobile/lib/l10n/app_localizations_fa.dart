@@ -1286,4 +1286,189 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get rewardedLeaveHint =>
       'اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود.';
+
+  @override
+  String get storeTitle => 'فروشگاه';
+
+  @override
+  String get storeAll => 'همه';
+
+  @override
+  String get storeSearch => 'جستجو در فروشگاه';
+
+  @override
+  String get storeEmpty => 'کالایی پیدا نشد.';
+
+  @override
+  String get storeDisabled => 'فروشگاه به‌زودی باز می‌شود.';
+
+  @override
+  String get storeOutOfStock => 'ناموجود';
+
+  @override
+  String storeFewLeft(String n) {
+    return 'فقط $n عدد باقی مانده';
+  }
+
+  @override
+  String storeMinLevel(String n) {
+    return 'از سطح $n';
+  }
+
+  @override
+  String storeMaxPerUser(String n) {
+    return 'حداکثر $n عدد برای هر نفر';
+  }
+
+  @override
+  String get storeBuy => 'خرید';
+
+  @override
+  String storeYourBalance(String n) {
+    return 'موجودی تو: $n امتیاز';
+  }
+
+  @override
+  String storeNeedMore(String n) {
+    return '$n امتیاز دیگر لازم داری';
+  }
+
+  @override
+  String get storeSortFeatured => 'پیشنهادی';
+
+  @override
+  String get storeSortCheap => 'ارزان‌ترین';
+
+  @override
+  String get storeSortExpensive => 'گران‌ترین';
+
+  @override
+  String get storeSortNew => 'جدیدترین';
+
+  @override
+  String get checkoutTitle => 'تکمیل خرید';
+
+  @override
+  String get checkoutQuantity => 'تعداد';
+
+  @override
+  String get checkoutAddress => 'نشانی ارسال';
+
+  @override
+  String get checkoutAddAddress => 'افزودن نشانی';
+
+  @override
+  String get checkoutTotal => 'جمع';
+
+  @override
+  String checkoutAfter(String n) {
+    return 'موجودی پس از خرید: $n';
+  }
+
+  @override
+  String checkoutConfirm(String n) {
+    return 'پرداخت با $n امتیاز';
+  }
+
+  @override
+  String get checkoutInstant =>
+      'بلافاصله پس از خرید در «سفارش‌های من» تحویل داده می‌شود.';
+
+  @override
+  String get checkoutNote => 'توضیح (اختیاری)';
+
+  @override
+  String get ordersTitle => 'سفارش‌های من';
+
+  @override
+  String get ordersEmpty => 'هنوز سفارشی نداری.';
+
+  @override
+  String orderItems(String n) {
+    return '$n قلم';
+  }
+
+  @override
+  String orderTracking(String code) {
+    return 'کد رهگیری: $code';
+  }
+
+  @override
+  String get orderCodes => 'کدهای تو';
+
+  @override
+  String get orderCodeCopied => 'کد کپی شد.';
+
+  @override
+  String get orderCouponLink => 'مشاهده در کوپن‌ها';
+
+  @override
+  String get orderCancel => 'لغو سفارش و بازگشت امتیاز';
+
+  @override
+  String get orderCancelConfirm =>
+      'سفارش لغو و امتیاز به کیف پولت برمی‌گردد. ادامه می‌دهی؟';
+
+  @override
+  String get orderCancelled => 'سفارش لغو شد و امتیاز برگشت.';
+
+  @override
+  String get orderShipTo => 'ارسال به';
+
+  @override
+  String get orderTimeline => 'وضعیت سفارش';
+
+  @override
+  String get addressesTitle => 'نشانی‌ها';
+
+  @override
+  String get addressesEmpty => 'هنوز نشانی ثبت نکرده‌ای.';
+
+  @override
+  String get addressNew => 'نشانی جدید';
+
+  @override
+  String get addressEdit => 'ویرایش نشانی';
+
+  @override
+  String get addressTitleField => 'عنوان (مثلاً خانه)';
+
+  @override
+  String get addressRecipient => 'نام گیرنده';
+
+  @override
+  String get addressPhone => 'شماره تماس';
+
+  @override
+  String get addressProvince => 'استان';
+
+  @override
+  String get addressCity => 'شهر';
+
+  @override
+  String get addressLine => 'نشانی کامل';
+
+  @override
+  String get addressPostalCode => 'کد پستی ۱۰ رقمی';
+
+  @override
+  String get addressDefault => 'نشانی پیش‌فرض';
+
+  @override
+  String get addressDelete => 'حذف نشانی';
+
+  @override
+  String get addressInvalidPhone => 'شماره تماس معتبر نیست.';
+
+  @override
+  String get addressInvalidPostal => 'کد پستی باید ۱۰ رقم باشد.';
+
+  @override
+  String get fieldRequired => 'این فیلد لازم است.';
+
+  @override
+  String get profileOrders => 'سفارش‌های من';
+
+  @override
+  String get profileAddresses => 'نشانی‌ها';
 }

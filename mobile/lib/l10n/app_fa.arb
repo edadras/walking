@@ -855,5 +855,123 @@
     }
   },
   "rewardedFailed": "این بار امتیازی ثبت نشد.",
-  "rewardedLeaveHint": "اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود."
+  "rewardedLeaveHint": "اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود.",
+  "storeTitle": "فروشگاه",
+  "storeAll": "همه",
+  "storeSearch": "جستجو در فروشگاه",
+  "storeEmpty": "کالایی پیدا نشد.",
+  "storeDisabled": "فروشگاه به‌زودی باز می‌شود.",
+  "storeOutOfStock": "ناموجود",
+  "storeFewLeft": "فقط {n} عدد باقی مانده",
+  "@storeFewLeft": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "storeMinLevel": "از سطح {n}",
+  "@storeMinLevel": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "storeMaxPerUser": "حداکثر {n} عدد برای هر نفر",
+  "@storeMaxPerUser": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "storeBuy": "خرید",
+  "storeYourBalance": "موجودی تو: {n} امتیاز",
+  "@storeYourBalance": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "storeNeedMore": "{n} امتیاز دیگر لازم داری",
+  "@storeNeedMore": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "storeSortFeatured": "پیشنهادی",
+  "storeSortCheap": "ارزان‌ترین",
+  "storeSortExpensive": "گران‌ترین",
+  "storeSortNew": "جدیدترین",
+  "checkoutTitle": "تکمیل خرید",
+  "checkoutQuantity": "تعداد",
+  "checkoutAddress": "نشانی ارسال",
+  "checkoutAddAddress": "افزودن نشانی",
+  "checkoutTotal": "جمع",
+  "checkoutAfter": "موجودی پس از خرید: {n}",
+  "@checkoutAfter": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "checkoutConfirm": "پرداخت با {n} امتیاز",
+  "@checkoutConfirm": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "checkoutInstant": "بلافاصله پس از خرید در «سفارش‌های من» تحویل داده می‌شود.",
+  "checkoutNote": "توضیح (اختیاری)",
+  "ordersTitle": "سفارش‌های من",
+  "ordersEmpty": "هنوز سفارشی نداری.",
+  "orderItems": "{n} قلم",
+  "@orderItems": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "orderTracking": "کد رهگیری: {code}",
+  "@orderTracking": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "orderCodes": "کدهای تو",
+  "orderCodeCopied": "کد کپی شد.",
+  "orderCouponLink": "مشاهده در کوپن‌ها",
+  "orderCancel": "لغو سفارش و بازگشت امتیاز",
+  "orderCancelConfirm": "سفارش لغو و امتیاز به کیف پولت برمی‌گردد. ادامه می‌دهی؟",
+  "orderCancelled": "سفارش لغو شد و امتیاز برگشت.",
+  "orderShipTo": "ارسال به",
+  "orderTimeline": "وضعیت سفارش",
+  "addressesTitle": "نشانی‌ها",
+  "addressesEmpty": "هنوز نشانی ثبت نکرده‌ای.",
+  "addressNew": "نشانی جدید",
+  "addressEdit": "ویرایش نشانی",
+  "addressTitleField": "عنوان (مثلاً خانه)",
+  "addressRecipient": "نام گیرنده",
+  "addressPhone": "شماره تماس",
+  "addressProvince": "استان",
+  "addressCity": "شهر",
+  "addressLine": "نشانی کامل",
+  "addressPostalCode": "کد پستی ۱۰ رقمی",
+  "addressDefault": "نشانی پیش‌فرض",
+  "addressDelete": "حذف نشانی",
+  "addressInvalidPhone": "شماره تماس معتبر نیست.",
+  "addressInvalidPostal": "کد پستی باید ۱۰ رقم باشد.",
+  "fieldRequired": "این فیلد لازم است.",
+  "profileOrders": "سفارش‌های من",
+  "profileAddresses": "نشانی‌ها"
 }

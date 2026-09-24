@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gamyar/core/network/api_client.dart';
 import 'package:gamyar/core/storage/secure_store.dart';
-import 'package:gamyar/features/ads/application/ad_providers.dart';
 import 'package:gamyar/features/ads/data/ads_repository.dart';
 import 'package:gamyar/features/ads/presentation/ad_slot.dart';
 import 'package:gamyar/features/ads/presentation/rewarded_ad_page.dart';

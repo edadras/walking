@@ -2325,6 +2325,336 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'اگر قبل از پایان زمان خارج شوی، امتیازی ثبت نمی‌شود.'**
   String get rewardedLeaveHint;
+
+  /// No description provided for @storeTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'فروشگاه'**
+  String get storeTitle;
+
+  /// No description provided for @storeAll.
+  ///
+  /// In fa, this message translates to:
+  /// **'همه'**
+  String get storeAll;
+
+  /// No description provided for @storeSearch.
+  ///
+  /// In fa, this message translates to:
+  /// **'جستجو در فروشگاه'**
+  String get storeSearch;
+
+  /// No description provided for @storeEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'کالایی پیدا نشد.'**
+  String get storeEmpty;
+
+  /// No description provided for @storeDisabled.
+  ///
+  /// In fa, this message translates to:
+  /// **'فروشگاه به‌زودی باز می‌شود.'**
+  String get storeDisabled;
+
+  /// No description provided for @storeOutOfStock.
+  ///
+  /// In fa, this message translates to:
+  /// **'ناموجود'**
+  String get storeOutOfStock;
+
+  /// No description provided for @storeFewLeft.
+  ///
+  /// In fa, this message translates to:
+  /// **'فقط {n} عدد باقی مانده'**
+  String storeFewLeft(String n);
+
+  /// No description provided for @storeMinLevel.
+  ///
+  /// In fa, this message translates to:
+  /// **'از سطح {n}'**
+  String storeMinLevel(String n);
+
+  /// No description provided for @storeMaxPerUser.
+  ///
+  /// In fa, this message translates to:
+  /// **'حداکثر {n} عدد برای هر نفر'**
+  String storeMaxPerUser(String n);
+
+  /// No description provided for @storeBuy.
+  ///
+  /// In fa, this message translates to:
+  /// **'خرید'**
+  String get storeBuy;
+
+  /// No description provided for @storeYourBalance.
+  ///
+  /// In fa, this message translates to:
+  /// **'موجودی تو: {n} امتیاز'**
+  String storeYourBalance(String n);
+
+  /// No description provided for @storeNeedMore.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} امتیاز دیگر لازم داری'**
+  String storeNeedMore(String n);
+
+  /// No description provided for @storeSortFeatured.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیشنهادی'**
+  String get storeSortFeatured;
+
+  /// No description provided for @storeSortCheap.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارزان‌ترین'**
+  String get storeSortCheap;
+
+  /// No description provided for @storeSortExpensive.
+  ///
+  /// In fa, this message translates to:
+  /// **'گران‌ترین'**
+  String get storeSortExpensive;
+
+  /// No description provided for @storeSortNew.
+  ///
+  /// In fa, this message translates to:
+  /// **'جدیدترین'**
+  String get storeSortNew;
+
+  /// No description provided for @checkoutTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'تکمیل خرید'**
+  String get checkoutTitle;
+
+  /// No description provided for @checkoutQuantity.
+  ///
+  /// In fa, this message translates to:
+  /// **'تعداد'**
+  String get checkoutQuantity;
+
+  /// No description provided for @checkoutAddress.
+  ///
+  /// In fa, this message translates to:
+  /// **'نشانی ارسال'**
+  String get checkoutAddress;
+
+  /// No description provided for @checkoutAddAddress.
+  ///
+  /// In fa, this message translates to:
+  /// **'افزودن نشانی'**
+  String get checkoutAddAddress;
+
+  /// No description provided for @checkoutTotal.
+  ///
+  /// In fa, this message translates to:
+  /// **'جمع'**
+  String get checkoutTotal;
+
+  /// No description provided for @checkoutAfter.
+  ///
+  /// In fa, this message translates to:
+  /// **'موجودی پس از خرید: {n}'**
+  String checkoutAfter(String n);
+
+  /// No description provided for @checkoutConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'پرداخت با {n} امتیاز'**
+  String checkoutConfirm(String n);
+
+  /// No description provided for @checkoutInstant.
+  ///
+  /// In fa, this message translates to:
+  /// **'بلافاصله پس از خرید در «سفارش‌های من» تحویل داده می‌شود.'**
+  String get checkoutInstant;
+
+  /// No description provided for @checkoutNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'توضیح (اختیاری)'**
+  String get checkoutNote;
+
+  /// No description provided for @ordersTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'سفارش‌های من'**
+  String get ordersTitle;
+
+  /// No description provided for @ordersEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز سفارشی نداری.'**
+  String get ordersEmpty;
+
+  /// No description provided for @orderItems.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} قلم'**
+  String orderItems(String n);
+
+  /// No description provided for @orderTracking.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد رهگیری: {code}'**
+  String orderTracking(String code);
+
+  /// No description provided for @orderCodes.
+  ///
+  /// In fa, this message translates to:
+  /// **'کدهای تو'**
+  String get orderCodes;
+
+  /// No description provided for @orderCodeCopied.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد کپی شد.'**
+  String get orderCodeCopied;
+
+  /// No description provided for @orderCouponLink.
+  ///
+  /// In fa, this message translates to:
+  /// **'مشاهده در کوپن‌ها'**
+  String get orderCouponLink;
+
+  /// No description provided for @orderCancel.
+  ///
+  /// In fa, this message translates to:
+  /// **'لغو سفارش و بازگشت امتیاز'**
+  String get orderCancel;
+
+  /// No description provided for @orderCancelConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'سفارش لغو و امتیاز به کیف پولت برمی‌گردد. ادامه می‌دهی؟'**
+  String get orderCancelConfirm;
+
+  /// No description provided for @orderCancelled.
+  ///
+  /// In fa, this message translates to:
+  /// **'سفارش لغو شد و امتیاز برگشت.'**
+  String get orderCancelled;
+
+  /// No description provided for @orderShipTo.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارسال به'**
+  String get orderShipTo;
+
+  /// No description provided for @orderTimeline.
+  ///
+  /// In fa, this message translates to:
+  /// **'وضعیت سفارش'**
+  String get orderTimeline;
+
+  /// No description provided for @addressesTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'نشانی‌ها'**
+  String get addressesTitle;
+
+  /// No description provided for @addressesEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز نشانی ثبت نکرده‌ای.'**
+  String get addressesEmpty;
+
+  /// No description provided for @addressNew.
+  ///
+  /// In fa, this message translates to:
+  /// **'نشانی جدید'**
+  String get addressNew;
+
+  /// No description provided for @addressEdit.
+  ///
+  /// In fa, this message translates to:
+  /// **'ویرایش نشانی'**
+  String get addressEdit;
+
+  /// No description provided for @addressTitleField.
+  ///
+  /// In fa, this message translates to:
+  /// **'عنوان (مثلاً خانه)'**
+  String get addressTitleField;
+
+  /// No description provided for @addressRecipient.
+  ///
+  /// In fa, this message translates to:
+  /// **'نام گیرنده'**
+  String get addressRecipient;
+
+  /// No description provided for @addressPhone.
+  ///
+  /// In fa, this message translates to:
+  /// **'شماره تماس'**
+  String get addressPhone;
+
+  /// No description provided for @addressProvince.
+  ///
+  /// In fa, this message translates to:
+  /// **'استان'**
+  String get addressProvince;
+
+  /// No description provided for @addressCity.
+  ///
+  /// In fa, this message translates to:
+  /// **'شهر'**
+  String get addressCity;
+
+  /// No description provided for @addressLine.
+  ///
+  /// In fa, this message translates to:
+  /// **'نشانی کامل'**
+  String get addressLine;
+
+  /// No description provided for @addressPostalCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد پستی ۱۰ رقمی'**
+  String get addressPostalCode;
+
+  /// No description provided for @addressDefault.
+  ///
+  /// In fa, this message translates to:
+  /// **'نشانی پیش‌فرض'**
+  String get addressDefault;
+
+  /// No description provided for @addressDelete.
+  ///
+  /// In fa, this message translates to:
+  /// **'حذف نشانی'**
+  String get addressDelete;
+
+  /// No description provided for @addressInvalidPhone.
+  ///
+  /// In fa, this message translates to:
+  /// **'شماره تماس معتبر نیست.'**
+  String get addressInvalidPhone;
+
+  /// No description provided for @addressInvalidPostal.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد پستی باید ۱۰ رقم باشد.'**
+  String get addressInvalidPostal;
+
+  /// No description provided for @fieldRequired.
+  ///
+  /// In fa, this message translates to:
+  /// **'این فیلد لازم است.'**
+  String get fieldRequired;
+
+  /// No description provided for @profileOrders.
+  ///
+  /// In fa, this message translates to:
+  /// **'سفارش‌های من'**
+  String get profileOrders;
+
+  /// No description provided for @profileAddresses.
+  ///
+  /// In fa, this message translates to:
+  /// **'نشانی‌ها'**
+  String get profileAddresses;
 }
 
 class _AppLocalizationsDelegate
