@@ -3867,7 +3867,10 @@
       "created_at": "2026-08-30T15:00:00Z",
       "paid_at": null
      }
-    ]
+    ],
+    "withdrawable_points": 9800,
+    "immature_points": 1900,
+    "maturity_days": 14
    }
   }
  },

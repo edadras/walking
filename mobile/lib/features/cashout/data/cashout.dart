@@ -86,6 +86,7 @@ class CashoutRequest {
     this.bankReference,
     this.rejectionReason,
     this.paidAt,
+    this.queuePosition,
   });
 
   factory CashoutRequest.fromJson(Map<String, dynamic> j) => CashoutRequest(
@@ -100,6 +101,7 @@ class CashoutRequest {
         rejectionReason: j['rejection_reason'] as String?,
         createdAt: DateTime.parse(j['created_at'] as String),
         paidAt: j['paid_at'] == null ? null : DateTime.parse(j['paid_at'] as String),
+        queuePosition: (j['queue_position'] as num?)?.toInt(),
       );
 
   final String id;
@@ -113,6 +115,9 @@ class CashoutRequest {
   final String? rejectionReason;
   final DateTime createdAt;
   final DateTime? paidAt;
+
+  /// Place in the review queue while pending (1 = next).
+  final int? queuePosition;
 }
 
 class CashoutOverview {
@@ -121,6 +126,9 @@ class CashoutOverview {
     required this.phone,
     required this.rialPerPoint,
     required this.availablePoints,
+    required this.withdrawablePoints,
+    required this.immaturePoints,
+    required this.maturityDays,
     required this.limits,
     required this.blockers,
     required this.identity,
@@ -133,6 +141,9 @@ class CashoutOverview {
         phone: j['phone'] as String? ?? '',
         rialPerPoint: _i(j['rial_per_point']),
         availablePoints: _i(j['available_points']),
+        withdrawablePoints: _i(j['withdrawable_points'] ?? j['available_points']),
+        immaturePoints: _i(j['immature_points']),
+        maturityDays: _i(j['maturity_days']),
         limits: CashoutLimits.fromJson(j['limits'] as Map<String, dynamic>),
         blockers: [
           for (final b in (j['blockers'] as List? ?? const [])) (code: (b as Map)['code'] as String, message: b['message'] as String),
@@ -146,6 +157,13 @@ class CashoutOverview {
   final String phone;
   final int rialPerPoint;
   final int availablePoints;
+
+  /// Matured points from walking/activity/sponsors: the only part that can become money.
+  final int withdrawablePoints;
+
+  /// Eligible points still inside the maturity window.
+  final int immaturePoints;
+  final int maturityDays;
   final CashoutLimits limits;
   final List<CashoutBlocker> blockers;
   final CashoutIdentity? identity;
@@ -159,7 +177,7 @@ class CashoutOverview {
 
   /// The most the user can ask for right now (0 when below the minimum).
   int get maxRequestable {
-    final m = [limits.max, limits.windowLeft, availablePoints].reduce((a, b) => a < b ? a : b);
+    final m = [limits.max, limits.windowLeft, withdrawablePoints].reduce((a, b) => a < b ? a : b);
     return m < limits.min ? 0 : m;
   }
 }

@@ -2045,4 +2045,23 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get walletFilterCashout => 'برداشت';
+
+  @override
+  String cashoutTotalBalance(String value) {
+    return 'موجودی کل کیف پول: $value امتیاز';
+  }
+
+  @override
+  String cashoutImmature(String points, String days) {
+    return '$points امتیاز پیاده‌روی اخیر، $days روز پس از قطعی شدن قابل برداشت می‌شود.';
+  }
+
+  @override
+  String get cashoutStoreOnly =>
+      'امتیاز دعوت، تبلیغ و امتیازهای هدیه فقط در فروشگاه قابل استفاده‌اند.';
+
+  @override
+  String cashoutQueue(String n) {
+    return 'نوبت بررسی: $n';
+  }
 }

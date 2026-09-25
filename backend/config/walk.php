@@ -44,6 +44,10 @@ return [
         'cashout.max_points_per_request' => ['value' => 50000, 'group' => 'cashout', 'public' => true, 'description' => 'حداکثر امتیاز هر درخواست برداشت'],
         'cashout.max_points_per_30_days' => ['value' => 150000, 'group' => 'cashout', 'public' => true, 'description' => 'سقف برداشت در ۳۰ روز'],
         'cashout.min_account_age_days' => ['value' => 30, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل عمر حساب برای برداشت (روز)'],
+        'cashout.maturity_days' => ['value' => 14, 'group' => 'cashout', 'public' => true, 'description' => 'امتیاز پس از چند روز قابل برداشت می‌شود'],
+        'cashout.eligible_types' => ['value' => 'walking_reward,goal_bonus,streak_bonus,challenge_reward,quest_reward,achievement_reward,sponsor_reward,coupon_reward', 'group' => 'cashout', 'public' => false, 'description' => 'منابع امتیاز قابل برداشت (با کاما؛ دعوت، تبلیغ و اصلاح دستی عمداً نیستند)'],
+        'cashout.daily_budget_rial' => ['value' => 0, 'group' => 'cashout', 'public' => false, 'description' => 'سقف کل تأیید برداشت در روز (ریال؛ ۰ = بدون سقف)'],
+        'cashout.monthly_budget_rial' => ['value' => 0, 'group' => 'cashout', 'public' => false, 'description' => 'سقف کل تأیید برداشت در ماه شمسی (ریال؛ ۰ = بدون سقف)'],
         'cashout.kyc_retention_days' => ['value' => 1825, 'group' => 'cashout', 'public' => false, 'description' => 'نگهداری مدارک هویت برداشت پس از حذف حساب (روز؛ طبق نظر حقوقی تنظیم شود)'],
         'cashout.min_age_years' => ['value' => 18, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل سن برای برداشت'],
 

@@ -3651,6 +3651,30 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'برداشت'**
   String get walletFilterCashout;
+
+  /// No description provided for @cashoutTotalBalance.
+  ///
+  /// In fa, this message translates to:
+  /// **'موجودی کل کیف پول: {value} امتیاز'**
+  String cashoutTotalBalance(String value);
+
+  /// No description provided for @cashoutImmature.
+  ///
+  /// In fa, this message translates to:
+  /// **'{points} امتیاز پیاده‌روی اخیر، {days} روز پس از قطعی شدن قابل برداشت می‌شود.'**
+  String cashoutImmature(String points, String days);
+
+  /// No description provided for @cashoutStoreOnly.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیاز دعوت، تبلیغ و امتیازهای هدیه فقط در فروشگاه قابل استفاده‌اند.'**
+  String get cashoutStoreOnly;
+
+  /// No description provided for @cashoutQueue.
+  ///
+  /// In fa, this message translates to:
+  /// **'نوبت بررسی: {n}'**
+  String cashoutQueue(String n);
 }
 
 class _AppLocalizationsDelegate

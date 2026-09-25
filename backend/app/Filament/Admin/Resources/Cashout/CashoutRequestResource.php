@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Cashout;
 
 use App\Domain\Audit\AuditLogger;
+use App\Domain\Cashout\CashoutRisk;
 use App\Domain\Cashout\CashoutService;
 use App\Exceptions\ApiException;
 use App\Filament\Admin\Concerns\RequiresAbility;
@@ -69,13 +70,25 @@ class CashoutRequestResource extends Resource
                 TextColumn::make('holder')->label('صاحب حساب')->state(fn (CashoutRequest $r) => $r->bankAccount?->holder_name),
                 TextColumn::make('points')->label('امتیاز')->numeric(),
                 TextColumn::make('amount_rial')->label('مبلغ (ریال)')->numeric(),
+                TextColumn::make('risk_score')->label('ریسک')->badge()->sortable()->placeholder('—')
+                    ->color(fn (?int $state) => ['high' => 'danger', 'medium' => 'warning', 'low' => 'success'][CashoutRisk::level($state)] ?? 'gray')
+                    ->tooltip(fn (CashoutRequest $r) => collect($r->risk_signals ?? [])->pluck('label')->join('، ') ?: 'بدون نشانه'),
                 TextColumn::make('bankAccount.bank_name')->label('بانک'),
                 TextColumn::make('status')->label('وضعیت')->badge()
                     ->formatStateUsing(fn (string $state) => CashoutRequest::LABELS[$state] ?? $state)->color(fn (string $state) => StatusBadge::color($state)),
                 TextColumn::make('approver.name')->label('تأییدکننده')->placeholder('—')->toggleable(),
                 TextColumn::make('created_at')->label('ثبت')->dateTime(),
             ])
-            ->filters([SelectFilter::make('status')->label('وضعیت')->options(CashoutRequest::LABELS)])
+            ->filters([
+                SelectFilter::make('status')->label('وضعیت')->options(CashoutRequest::LABELS),
+                SelectFilter::make('risk')->label('ریسک')->options(['high' => 'بالا', 'medium' => 'متوسط', 'low' => 'پایین'])
+                    ->query(fn (Builder $query, array $data) => match ($data['value'] ?? null) {
+                        'high' => $query->where('risk_score', '>=', CashoutRisk::HIGH),
+                        'medium' => $query->whereBetween('risk_score', [CashoutRisk::MEDIUM, CashoutRisk::HIGH - 1]),
+                        'low' => $query->where('risk_score', '<', CashoutRisk::MEDIUM),
+                        default => $query,
+                    }),
+            ])
             ->recordActions([ViewAction::make(), ...static::workflowActions()]);
     }
 
@@ -91,6 +104,12 @@ class CashoutRequestResource extends Resource
                 TextEntry::make('rial_per_point')->label('نرخ هر امتیاز (ریال)')->numeric(),
                 TextEntry::make('created_at')->label('ثبت')->dateTime(),
                 TextEntry::make('rejection_reason')->label('دلیل رد/لغو')->placeholder('—'),
+            ]),
+            Section::make('ارزیابی ریسک')->columns(1)->schema([
+                TextEntry::make('risk_score')->label('امتیاز ریسک (۰ تا ۱۰۰)')->badge()->placeholder('—')
+                    ->color(fn (?int $state) => ['high' => 'danger', 'medium' => 'warning', 'low' => 'success'][CashoutRisk::level($state)] ?? 'gray'),
+                TextEntry::make('risk_list')->label('نشانه‌ها')->listWithLineBreaks()->bulleted()
+                    ->state(fn (CashoutRequest $r) => collect($r->risk_signals ?? [])->map(fn (array $s) => $s['label'].' (+'.$s['points'].')')->all() ?: ['بدون نشانه']),
             ]),
             Section::make('مقصد واریز')->columns(3)->schema([
                 TextEntry::make('user.phone')->label('موبایل'),
@@ -131,12 +150,16 @@ class CashoutRequestResource extends Resource
             Action::make('approve')->label('تأیید برداشت')->icon(Heroicon::OutlinedCheck)->color('warning')
                 ->visible(fn (CashoutRequest $r) => $can() && $r->status === CashoutRequest::PENDING)
                 ->requiresConfirmation()
-                ->modalDescription(fn (CashoutRequest $r) => 'واریز '.number_format($r->amount_rial).' ریال به «'.$r->bankAccount?->holder_name.'» تأیید شود؟ ثبت واریز باید توسط مدیر دیگری انجام شود.')
+                ->modalDescription(fn (CashoutRequest $r) => (CashoutRisk::level($r->risk_score) === 'high' ? '⚠️ ریسک بالا: '.collect($r->risk_signals)->pluck('label')->join('، ').".\n" : '')
+                    .'واریز '.number_format($r->amount_rial).' ریال به «'.$r->bankAccount?->holder_name.'» تأیید شود؟ ثبت واریز باید توسط مدیر دیگری انجام شود.')
                 ->action(fn (CashoutRequest $record) => $run(fn () => app(CashoutService::class)->approve($record, static::admin()), 'تأیید شد؛ آماده واریز')),
             Action::make('paid')->label('ثبت واریز')->icon(Heroicon::OutlinedBanknotes)->color('success')
                 ->visible(fn (CashoutRequest $r) => $can() && $r->status === CashoutRequest::APPROVED && $r->approved_by !== static::admin()?->id)
                 ->schema([TextInput::make('bank_reference')->label('کد پیگیری/شماره مرجع انتقال')->required()->maxLength(64)])
                 ->action(fn (CashoutRequest $record, array $data) => $run(fn () => app(CashoutService::class)->markPaid($record, static::admin(), trim($data['bank_reference'])), 'واریز ثبت شد')),
+            Action::make('reassess')->label('ارزیابی مجدد ریسک')->icon(Heroicon::OutlinedArrowPath)->color('gray')
+                ->visible(fn (CashoutRequest $r) => $can() && in_array($r->status, CashoutRequest::OPEN, true))
+                ->action(fn (CashoutRequest $record) => $run(fn () => app(CashoutService::class)->reassess($record), 'ریسک به‌روز شد')),
             Action::make('reject')->label('رد و بازگشت امتیاز')->icon(Heroicon::OutlinedXMark)->color('danger')
                 ->visible(fn (CashoutRequest $r) => $can() && in_array($r->status, CashoutRequest::OPEN, true))
                 ->schema([Textarea::make('reason')->label('دلیل (به کاربر اعلام می‌شود)')->required()->maxLength(200)])

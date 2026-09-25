@@ -19,6 +19,7 @@ use App\Models\FraudCase;
 use App\Models\User;
 use App\Models\UserIdentity;
 use App\Notifications\UserNotification;
+use App\Support\Jalali;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,8 @@ class CashoutService
         private readonly Settings $settings,
         private readonly FeatureFlags $flags,
         private readonly AuditLogger $audit,
+        private readonly WithdrawableBalance $withdrawable,
+        private readonly CashoutRisk $risk,
     ) {}
 
     public function enabled(User $user): bool
@@ -163,12 +166,17 @@ class CashoutService
         $identity = UserIdentity::query()->find($user->id);
         $accounts = BankAccount::query()->where('user_id', $user->id)->orderBy('id')->get();
         $limits = $this->limits($user);
+        $balance = $this->withdrawable->of($user);
+        $queue = CashoutRequest::query()->where('status', CashoutRequest::PENDING)->orderBy('id')->pluck('id')->flip();
 
         return [
             'enabled' => $this->enabled($user),
             'phone' => $user->phone, // where the confirmation codes go
             'rial_per_point' => $this->rate->current(),
-            'available_points' => $user->wallet?->available_balance ?? 0,
+            'available_points' => $balance['available'],
+            'withdrawable_points' => $balance['withdrawable'],
+            'immature_points' => $balance['immature'],
+            'maturity_days' => $this->settings->int('cashout.maturity_days'),
             'limits' => $limits,
             'blockers' => $this->blockers($user, $identity, $accounts),
             'identity' => $identity === null ? null : [
@@ -182,7 +190,7 @@ class CashoutService
                 'status' => $a->status, 'rejection_reason' => $a->rejection_reason,
             ])->values()->all(),
             'requests' => CashoutRequest::query()->where('user_id', $user->id)->with('bankAccount')->latest('id')->limit(20)->get()
-                ->map(fn (CashoutRequest $r) => $this->present($r))->all(),
+                ->map(fn (CashoutRequest $r) => [...$this->present($r), 'queue_position' => isset($queue[$r->id]) ? $queue[$r->id] + 1 : null])->all(),
         ];
     }
 
@@ -240,8 +248,9 @@ class CashoutService
             $add('bank_account_unverified', 'یک حساب بانکی تأییدشده لازم است.');
         }
         $min = $this->settings->int('cashout.min_points');
-        if (($user->wallet?->available_balance ?? 0) < $min) {
-            $add('insufficient_points', 'برای برداشت دست‌کم '.number_format($min).' امتیاز قابل استفاده لازم است.');
+        if ($this->withdrawable->of($user)['withdrawable'] < $min) {
+            $add('insufficient_points', 'برای برداشت دست‌کم '.number_format($min).' امتیاز قابل برداشت لازم است؛ امتیاز پیاده‌روی و فعالیت '
+                .$this->settings->int('cashout.maturity_days').' روز پس از قطعی شدن قابل برداشت می‌شود (امتیاز دعوت و تبلیغ فقط در فروشگاه).');
         }
         if (FraudCase::query()->where('user_id', $user->id)->whereIn('status', [FraudCaseStatus::Open, FraudCaseStatus::Flagged])->exists()) {
             $add('under_review', 'حساب تو در حال بررسی است؛ پس از پایان بررسی می‌توانی برداشت کنی.');
@@ -272,6 +281,10 @@ class CashoutService
         if ($points < $limits['min'] || $points > $limits['max']) {
             throw ApiException::unprocessable('amount_out_of_range', 'مقدار برداشت باید بین '.number_format($limits['min']).' و '.number_format($limits['max']).' امتیاز باشد.');
         }
+        $withdrawable = $this->withdrawable->of($user)['withdrawable'];
+        if ($points > $withdrawable) {
+            throw ApiException::unprocessable('not_withdrawable', 'فقط '.number_format($withdrawable).' امتیاز از موجودی‌ات قابل برداشت است.');
+        }
         if ($points > $limits['window_left']) {
             throw ApiException::unprocessable('window_limit', 'در ۳۰ روز اخیر حداکثر '.number_format($limits['window_left']).' امتیاز دیگر می‌توانی برداشت کنی.');
         }
@@ -284,7 +297,9 @@ class CashoutService
                     throw ApiException::conflict('request_open', 'یک درخواست برداشت در حال بررسی داری.');
                 }
                 $rate = $this->rate->current();
+                $risk = $this->risk->assess($user);
                 $request = CashoutRequest::query()->create([
+                    'risk_score' => $risk['score'], 'risk_signals' => $risk['signals'],
                     'user_id' => $user->id, 'bank_account_id' => $account->id, 'points' => $points,
                     'rial_per_point' => $rate, 'amount_rial' => $points * $rate, 'status' => CashoutRequest::PENDING, 'idempotency_key' => $key,
                 ]);
@@ -336,11 +351,44 @@ class CashoutService
             if ($locked->status !== CashoutRequest::PENDING) {
                 throw ApiException::conflict('invalid_transition', 'این درخواست دیگر قابل تأیید نیست.');
             }
+            foreach ($this->budget() as $period => $b) {
+                if ($b['limit'] > 0 && $b['limit'] < $b['used'] + $locked->amount_rial) {
+                    throw ApiException::conflict('budget_exceeded', 'سقف '.($period === 'daily' ? 'روزانه' : 'ماهانه').' پرداخت پر است (باقی‌مانده '
+                        .number_format(max(0, $b['limit'] - $b['used'])).' ریال). درخواست در صف می‌ماند.');
+                }
+            }
             $locked->forceFill(['status' => CashoutRequest::APPROVED, 'approved_by' => $admin->id, 'approved_at' => now()])->save();
             $this->audit->log('cashout.approved', $locked, actor: $admin);
 
             return $locked;
         });
+    }
+
+    /**
+     * Platform-wide payout budget, counted on approval (Tehran day and Jalali month).
+     *
+     * @return array{daily: array{limit: int, used: int}, monthly: array{limit: int, used: int}}
+     */
+    public function budget(): array
+    {
+        $tz = config('walk.panel_timezone');
+        $now = now($tz);
+        [$monthStart] = Jalali::monthRange($now);
+        $used = fn ($from) => (int) CashoutRequest::query()->whereIn('status', [CashoutRequest::APPROVED, CashoutRequest::PAID])
+            ->where('approved_at', '>=', $from)->sum('amount_rial');
+
+        return [
+            'daily' => ['limit' => $this->settings->int('cashout.daily_budget_rial'), 'used' => $used($now->copy()->startOfDay()->utc())],
+            'monthly' => ['limit' => $this->settings->int('cashout.monthly_budget_rial'), 'used' => $used(CarbonImmutable::parse($monthStart, $tz)->startOfDay()->utc())],
+        ];
+    }
+
+    public function reassess(CashoutRequest $request): CashoutRequest
+    {
+        $risk = $this->risk->assess($request->user);
+        $request->forceFill(['risk_score' => $risk['score'], 'risk_signals' => $risk['signals']])->save();
+
+        return $request;
     }
 
     /** Four eyes: whoever approved can't also confirm the money left the bank. */

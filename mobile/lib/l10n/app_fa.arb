@@ -1343,5 +1343,33 @@
   },
   "cashoutOtpResend": "ارسال دوباره کد",
   "cashoutDisabled": "برداشت نقدی فعلاً فعال نیست.",
-  "walletFilterCashout": "برداشت"
+  "walletFilterCashout": "برداشت",
+  "cashoutTotalBalance": "موجودی کل کیف پول: {value} امتیاز",
+  "@cashoutTotalBalance": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutImmature": "{points} امتیاز پیاده‌روی اخیر، {days} روز پس از قطعی شدن قابل برداشت می‌شود.",
+  "@cashoutImmature": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutStoreOnly": "امتیاز دعوت، تبلیغ و امتیازهای هدیه فقط در فروشگاه قابل استفاده‌اند.",
+  "cashoutQueue": "نوبت بررسی: {n}",
+  "@cashoutQueue": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  }
 }

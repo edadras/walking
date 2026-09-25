@@ -36,7 +36,7 @@ class CashoutRequest extends Model
 
     protected function casts(): array
     {
-        return ['points' => 'integer', 'amount_rial' => 'integer', 'rial_per_point' => 'integer', 'approved_at' => 'datetime', 'paid_at' => 'datetime'];
+        return ['points' => 'integer', 'amount_rial' => 'integer', 'rial_per_point' => 'integer', 'risk_score' => 'integer', 'risk_signals' => 'array', 'approved_at' => 'datetime', 'paid_at' => 'datetime'];
     }
 
     public function user(): BelongsTo

@@ -50,7 +50,10 @@ class CashoutApiTest extends TestCase
         app(ConversionRate::class)->set(10);
         $this->user = $this->loginAs();
         $this->user->forceFill(['created_at' => now()->subDays(40)])->save();
+        // Earned long enough ago to be withdrawable.
+        $this->travel(-20)->days();
         app(WalletService::class)->credit($this->user, 100000, TransactionType::WalkingReward, 'seed', 'x');
+        $this->travelBack();
     }
 
     /** Requests a cash-out SMS code the way the app does and returns it. */

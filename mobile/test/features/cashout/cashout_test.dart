@@ -80,7 +80,7 @@ class _Api extends ApiClient {
         _checkCode(data);
         final points = (data! as Map)['points'] as int;
         available -= points;
-        final r = {'id': '01HZZZZZZZZZZZZZZZZZZZZZZR', 'points': points, 'amount_rial': points * 10, 'status': 'pending', 'status_label': 'در انتظار بررسی', 'bank': 'ملت', 'iban': '•••', 'bank_reference': null, 'rejection_reason': null, 'created_at': '2026-09-25T08:00:00Z', 'paid_at': null};
+        final r = {'id': '01HZZZZZZZZZZZZZZZZZZZZZZR', 'points': points, 'amount_rial': points * 10, 'status': 'pending', 'status_label': 'در انتظار بررسی', 'bank': 'ملت', 'iban': '•••', 'bank_reference': null, 'rejection_reason': null, 'created_at': '2026-09-25T08:00:00Z', 'paid_at': null, 'queue_position': 1};
         requests.insert(0, r);
         return {'data': r};
       case '/cashout/requests/01HZZZZZZZZZZZZZZZZZZZZZZR/cancel':
@@ -223,6 +223,7 @@ void main() {
     expect(api.bodies['/cashout/requests'], {'bank_account_id': '01HZZZZZZZZZZZZZZZZZZZZZZB', 'points': 30000, 'code': '12345'});
     expect(find.text('درخواست ثبت شد؛ نتیجه را اطلاع می‌دهیم.'), findsOneWidget);
     expect(find.text('یک درخواست برداشت در حال بررسی داری.'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('نوبت بررسی: ۱'), 200, scrollable: find.byType(Scrollable).first);
 
     ScaffoldMessenger.of(tester.element(find.byType(CashoutPage))).hideCurrentSnackBar();
     await tester.pumpAndSettle();
