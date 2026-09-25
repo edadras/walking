@@ -1214,5 +1214,134 @@
     }
   },
   "raceFairPlay": "فقط قدم‌های تأییدشده توسط سیستم ضد تقلب شمرده می‌شوند.",
-  "friendAddHint": "کد دعوت دوستت"
+  "friendAddHint": "کد دعوت دوستت",
+  "cashoutTitle": "برداشت نقدی",
+  "cashoutEntry": "برداشت نقدی به حساب بانکی",
+  "cashoutAvailable": "قابل برداشت",
+  "cashoutLimits": "هر درخواست بین {min} تا {max} امتیاز",
+  "@cashoutLimits": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutWindow": "سقف ۳۰ روز: {max} امتیاز · باقی‌مانده {left}",
+  "@cashoutWindow": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      },
+      "left": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutStepPhone": "تأیید پیامکی",
+  "cashoutStepPhoneBody": "هر مرحله با کدی که به {phone} پیامک می‌شود تأیید می‌شود.",
+  "@cashoutStepPhoneBody": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutStepIdentity": "مشخصات هویتی",
+  "cashoutStepIdentityEmpty": "نام، نام خانوادگی، کد ملی و تاریخ تولد مطابق کارت ملی",
+  "cashoutStepBank": "حساب بانکی",
+  "cashoutStepBankEmpty": "شماره شبای حسابی که به نام خودت است",
+  "cashoutStepRequest": "درخواست واریز",
+  "cashoutStatusPending": "در انتظار بررسی",
+  "cashoutStatusVerified": "تأیید شده",
+  "cashoutStatusRejected": "رد شده",
+  "cashoutIdentitySubmit": "ثبت مشخصات",
+  "cashoutIdentityFix": "اصلاح مشخصات",
+  "cashoutFirstName": "نام",
+  "cashoutLastName": "نام خانوادگی",
+  "cashoutNationalCode": "کد ملی",
+  "cashoutBirthDate": "تاریخ تولد",
+  "cashoutDay": "روز",
+  "cashoutMonth": "ماه",
+  "cashoutYear": "سال",
+  "cashoutNameHint": "با حروف فارسی و دقیقاً مطابق کارت ملی",
+  "cashoutNationalCodeInvalid": "کد ملی معتبر نیست.",
+  "cashoutRequired": "این قسمت را کامل کن.",
+  "cashoutIdentityNote": "پس از تأیید، مشخصات قابل تغییر نیست و حساب بانکی باید به همین نام باشد.",
+  "cashoutAddBank": "افزودن حساب",
+  "cashoutSheba": "شماره شبا",
+  "cashoutShebaHint": "۲۴ رقم بعد از IR",
+  "cashoutShebaInvalid": "شماره شبا معتبر نیست.",
+  "cashoutShebaNote": "حساب باید به نام «{name}» باشد؛ در غیر این صورت رد می‌شود.",
+  "@cashoutShebaNote": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutRemoveBank": "حذف حساب",
+  "cashoutRemoveBankConfirm": "این حساب حذف شود؟",
+  "cashoutAmount": "مقدار برداشت (امتیاز)",
+  "cashoutAmountRial": "مبلغ واریزی: {value}",
+  "@cashoutAmountRial": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutAmountRange": "مقدار باید بین {min} و {max} امتیاز باشد.",
+  "@cashoutAmountRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutAll": "حداکثر",
+  "cashoutDestination": "واریز به",
+  "cashoutSubmit": "ثبت درخواست واریز",
+  "cashoutSubmitNote": "امتیازها همین حالا از کیف پولت کم می‌شوند و در صورت رد یا لغو برمی‌گردند. واریز پس از بررسی و تأیید مالی انجام می‌شود.",
+  "cashoutSubmitted": "درخواست ثبت شد؛ نتیجه را اطلاع می‌دهیم.",
+  "cashoutNotYet": "هنوز امکان درخواست نیست",
+  "cashoutHistory": "درخواست‌های من",
+  "cashoutHistoryEmpty": "هنوز درخواستی ثبت نکرده‌ای.",
+  "cashoutCancel": "لغو درخواست",
+  "cashoutCancelConfirm": "درخواست لغو شود؟ امتیازها به کیف پولت برمی‌گردند.",
+  "cashoutCancelled": "لغو شد و امتیازها برگشت.",
+  "cashoutReference": "کد پیگیری: {ref}",
+  "@cashoutReference": {
+    "placeholders": {
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutOtpTitle": "کد تأیید",
+  "cashoutOtpBody": "کد ارسال‌شده به {phone} را وارد کن.",
+  "@cashoutOtpBody": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutOtpConfirm": "تأیید",
+  "cashoutOtpResendIn": "ارسال دوباره تا {seconds} ثانیه",
+  "@cashoutOtpResendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "cashoutOtpResend": "ارسال دوباره کد",
+  "cashoutDisabled": "برداشت نقدی فعلاً فعال نیست.",
+  "walletFilterCashout": "برداشت"
 }

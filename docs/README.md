@@ -33,6 +33,7 @@
 | 9 — امنیت، کارایی، استقرار | [phase-9.md](phase-9.md) · [deployment.md](deployment.md) |
 | تکمیل — تصویر کالا، آواتار، Push، تحلیل و گزارش خطا | [completion.md](completion.md) |
 | پیشنهادها — دسترسی‌ها، فروشگاه‌ها، Pushe، نقشه، زرین‌پال، ماندگاری و داشبوردها | [suggestions.md](suggestions.md) |
+| برداشت نقدی — احراز هویت پیامکی، شبا، سقف‌ها و تأیید/واریز ادمین | [cashout.md](cashout.md) |
 
 ## اجرای پروژه
 

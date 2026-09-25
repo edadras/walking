@@ -3309,6 +3309,348 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'کد دعوت دوستت'**
   String get friendAddHint;
+
+  /// No description provided for @cashoutTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'برداشت نقدی'**
+  String get cashoutTitle;
+
+  /// No description provided for @cashoutEntry.
+  ///
+  /// In fa, this message translates to:
+  /// **'برداشت نقدی به حساب بانکی'**
+  String get cashoutEntry;
+
+  /// No description provided for @cashoutAvailable.
+  ///
+  /// In fa, this message translates to:
+  /// **'قابل برداشت'**
+  String get cashoutAvailable;
+
+  /// No description provided for @cashoutLimits.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر درخواست بین {min} تا {max} امتیاز'**
+  String cashoutLimits(String min, String max);
+
+  /// No description provided for @cashoutWindow.
+  ///
+  /// In fa, this message translates to:
+  /// **'سقف ۳۰ روز: {max} امتیاز · باقی‌مانده {left}'**
+  String cashoutWindow(String max, String left);
+
+  /// No description provided for @cashoutStepPhone.
+  ///
+  /// In fa, this message translates to:
+  /// **'تأیید پیامکی'**
+  String get cashoutStepPhone;
+
+  /// No description provided for @cashoutStepPhoneBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر مرحله با کدی که به {phone} پیامک می‌شود تأیید می‌شود.'**
+  String cashoutStepPhoneBody(String phone);
+
+  /// No description provided for @cashoutStepIdentity.
+  ///
+  /// In fa, this message translates to:
+  /// **'مشخصات هویتی'**
+  String get cashoutStepIdentity;
+
+  /// No description provided for @cashoutStepIdentityEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'نام، نام خانوادگی، کد ملی و تاریخ تولد مطابق کارت ملی'**
+  String get cashoutStepIdentityEmpty;
+
+  /// No description provided for @cashoutStepBank.
+  ///
+  /// In fa, this message translates to:
+  /// **'حساب بانکی'**
+  String get cashoutStepBank;
+
+  /// No description provided for @cashoutStepBankEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'شماره شبای حسابی که به نام خودت است'**
+  String get cashoutStepBankEmpty;
+
+  /// No description provided for @cashoutStepRequest.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست واریز'**
+  String get cashoutStepRequest;
+
+  /// No description provided for @cashoutStatusPending.
+  ///
+  /// In fa, this message translates to:
+  /// **'در انتظار بررسی'**
+  String get cashoutStatusPending;
+
+  /// No description provided for @cashoutStatusVerified.
+  ///
+  /// In fa, this message translates to:
+  /// **'تأیید شده'**
+  String get cashoutStatusVerified;
+
+  /// No description provided for @cashoutStatusRejected.
+  ///
+  /// In fa, this message translates to:
+  /// **'رد شده'**
+  String get cashoutStatusRejected;
+
+  /// No description provided for @cashoutIdentitySubmit.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت مشخصات'**
+  String get cashoutIdentitySubmit;
+
+  /// No description provided for @cashoutIdentityFix.
+  ///
+  /// In fa, this message translates to:
+  /// **'اصلاح مشخصات'**
+  String get cashoutIdentityFix;
+
+  /// No description provided for @cashoutFirstName.
+  ///
+  /// In fa, this message translates to:
+  /// **'نام'**
+  String get cashoutFirstName;
+
+  /// No description provided for @cashoutLastName.
+  ///
+  /// In fa, this message translates to:
+  /// **'نام خانوادگی'**
+  String get cashoutLastName;
+
+  /// No description provided for @cashoutNationalCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد ملی'**
+  String get cashoutNationalCode;
+
+  /// No description provided for @cashoutBirthDate.
+  ///
+  /// In fa, this message translates to:
+  /// **'تاریخ تولد'**
+  String get cashoutBirthDate;
+
+  /// No description provided for @cashoutDay.
+  ///
+  /// In fa, this message translates to:
+  /// **'روز'**
+  String get cashoutDay;
+
+  /// No description provided for @cashoutMonth.
+  ///
+  /// In fa, this message translates to:
+  /// **'ماه'**
+  String get cashoutMonth;
+
+  /// No description provided for @cashoutYear.
+  ///
+  /// In fa, this message translates to:
+  /// **'سال'**
+  String get cashoutYear;
+
+  /// No description provided for @cashoutNameHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'با حروف فارسی و دقیقاً مطابق کارت ملی'**
+  String get cashoutNameHint;
+
+  /// No description provided for @cashoutNationalCodeInvalid.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد ملی معتبر نیست.'**
+  String get cashoutNationalCodeInvalid;
+
+  /// No description provided for @cashoutRequired.
+  ///
+  /// In fa, this message translates to:
+  /// **'این قسمت را کامل کن.'**
+  String get cashoutRequired;
+
+  /// No description provided for @cashoutIdentityNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'پس از تأیید، مشخصات قابل تغییر نیست و حساب بانکی باید به همین نام باشد.'**
+  String get cashoutIdentityNote;
+
+  /// No description provided for @cashoutAddBank.
+  ///
+  /// In fa, this message translates to:
+  /// **'افزودن حساب'**
+  String get cashoutAddBank;
+
+  /// No description provided for @cashoutSheba.
+  ///
+  /// In fa, this message translates to:
+  /// **'شماره شبا'**
+  String get cashoutSheba;
+
+  /// No description provided for @cashoutShebaHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'۲۴ رقم بعد از IR'**
+  String get cashoutShebaHint;
+
+  /// No description provided for @cashoutShebaInvalid.
+  ///
+  /// In fa, this message translates to:
+  /// **'شماره شبا معتبر نیست.'**
+  String get cashoutShebaInvalid;
+
+  /// No description provided for @cashoutShebaNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'حساب باید به نام «{name}» باشد؛ در غیر این صورت رد می‌شود.'**
+  String cashoutShebaNote(String name);
+
+  /// No description provided for @cashoutRemoveBank.
+  ///
+  /// In fa, this message translates to:
+  /// **'حذف حساب'**
+  String get cashoutRemoveBank;
+
+  /// No description provided for @cashoutRemoveBankConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'این حساب حذف شود؟'**
+  String get cashoutRemoveBankConfirm;
+
+  /// No description provided for @cashoutAmount.
+  ///
+  /// In fa, this message translates to:
+  /// **'مقدار برداشت (امتیاز)'**
+  String get cashoutAmount;
+
+  /// No description provided for @cashoutAmountRial.
+  ///
+  /// In fa, this message translates to:
+  /// **'مبلغ واریزی: {value}'**
+  String cashoutAmountRial(String value);
+
+  /// No description provided for @cashoutAmountRange.
+  ///
+  /// In fa, this message translates to:
+  /// **'مقدار باید بین {min} و {max} امتیاز باشد.'**
+  String cashoutAmountRange(String min, String max);
+
+  /// No description provided for @cashoutAll.
+  ///
+  /// In fa, this message translates to:
+  /// **'حداکثر'**
+  String get cashoutAll;
+
+  /// No description provided for @cashoutDestination.
+  ///
+  /// In fa, this message translates to:
+  /// **'واریز به'**
+  String get cashoutDestination;
+
+  /// No description provided for @cashoutSubmit.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت درخواست واریز'**
+  String get cashoutSubmit;
+
+  /// No description provided for @cashoutSubmitNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'امتیازها همین حالا از کیف پولت کم می‌شوند و در صورت رد یا لغو برمی‌گردند. واریز پس از بررسی و تأیید مالی انجام می‌شود.'**
+  String get cashoutSubmitNote;
+
+  /// No description provided for @cashoutSubmitted.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست ثبت شد؛ نتیجه را اطلاع می‌دهیم.'**
+  String get cashoutSubmitted;
+
+  /// No description provided for @cashoutNotYet.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز امکان درخواست نیست'**
+  String get cashoutNotYet;
+
+  /// No description provided for @cashoutHistory.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست‌های من'**
+  String get cashoutHistory;
+
+  /// No description provided for @cashoutHistoryEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز درخواستی ثبت نکرده‌ای.'**
+  String get cashoutHistoryEmpty;
+
+  /// No description provided for @cashoutCancel.
+  ///
+  /// In fa, this message translates to:
+  /// **'لغو درخواست'**
+  String get cashoutCancel;
+
+  /// No description provided for @cashoutCancelConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست لغو شود؟ امتیازها به کیف پولت برمی‌گردند.'**
+  String get cashoutCancelConfirm;
+
+  /// No description provided for @cashoutCancelled.
+  ///
+  /// In fa, this message translates to:
+  /// **'لغو شد و امتیازها برگشت.'**
+  String get cashoutCancelled;
+
+  /// No description provided for @cashoutReference.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد پیگیری: {ref}'**
+  String cashoutReference(String ref);
+
+  /// No description provided for @cashoutOtpTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد تأیید'**
+  String get cashoutOtpTitle;
+
+  /// No description provided for @cashoutOtpBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد ارسال‌شده به {phone} را وارد کن.'**
+  String cashoutOtpBody(String phone);
+
+  /// No description provided for @cashoutOtpConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'تأیید'**
+  String get cashoutOtpConfirm;
+
+  /// No description provided for @cashoutOtpResendIn.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارسال دوباره تا {seconds} ثانیه'**
+  String cashoutOtpResendIn(String seconds);
+
+  /// No description provided for @cashoutOtpResend.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارسال دوباره کد'**
+  String get cashoutOtpResend;
+
+  /// No description provided for @cashoutDisabled.
+  ///
+  /// In fa, this message translates to:
+  /// **'برداشت نقدی فعلاً فعال نیست.'**
+  String get cashoutDisabled;
+
+  /// No description provided for @walletFilterCashout.
+  ///
+  /// In fa, this message translates to:
+  /// **'برداشت'**
+  String get walletFilterCashout;
 }
 
 class _AppLocalizationsDelegate

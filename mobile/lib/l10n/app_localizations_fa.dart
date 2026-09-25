@@ -1852,4 +1852,197 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get friendAddHint => 'کد دعوت دوستت';
+
+  @override
+  String get cashoutTitle => 'برداشت نقدی';
+
+  @override
+  String get cashoutEntry => 'برداشت نقدی به حساب بانکی';
+
+  @override
+  String get cashoutAvailable => 'قابل برداشت';
+
+  @override
+  String cashoutLimits(String min, String max) {
+    return 'هر درخواست بین $min تا $max امتیاز';
+  }
+
+  @override
+  String cashoutWindow(String max, String left) {
+    return 'سقف ۳۰ روز: $max امتیاز · باقی‌مانده $left';
+  }
+
+  @override
+  String get cashoutStepPhone => 'تأیید پیامکی';
+
+  @override
+  String cashoutStepPhoneBody(String phone) {
+    return 'هر مرحله با کدی که به $phone پیامک می‌شود تأیید می‌شود.';
+  }
+
+  @override
+  String get cashoutStepIdentity => 'مشخصات هویتی';
+
+  @override
+  String get cashoutStepIdentityEmpty =>
+      'نام، نام خانوادگی، کد ملی و تاریخ تولد مطابق کارت ملی';
+
+  @override
+  String get cashoutStepBank => 'حساب بانکی';
+
+  @override
+  String get cashoutStepBankEmpty => 'شماره شبای حسابی که به نام خودت است';
+
+  @override
+  String get cashoutStepRequest => 'درخواست واریز';
+
+  @override
+  String get cashoutStatusPending => 'در انتظار بررسی';
+
+  @override
+  String get cashoutStatusVerified => 'تأیید شده';
+
+  @override
+  String get cashoutStatusRejected => 'رد شده';
+
+  @override
+  String get cashoutIdentitySubmit => 'ثبت مشخصات';
+
+  @override
+  String get cashoutIdentityFix => 'اصلاح مشخصات';
+
+  @override
+  String get cashoutFirstName => 'نام';
+
+  @override
+  String get cashoutLastName => 'نام خانوادگی';
+
+  @override
+  String get cashoutNationalCode => 'کد ملی';
+
+  @override
+  String get cashoutBirthDate => 'تاریخ تولد';
+
+  @override
+  String get cashoutDay => 'روز';
+
+  @override
+  String get cashoutMonth => 'ماه';
+
+  @override
+  String get cashoutYear => 'سال';
+
+  @override
+  String get cashoutNameHint => 'با حروف فارسی و دقیقاً مطابق کارت ملی';
+
+  @override
+  String get cashoutNationalCodeInvalid => 'کد ملی معتبر نیست.';
+
+  @override
+  String get cashoutRequired => 'این قسمت را کامل کن.';
+
+  @override
+  String get cashoutIdentityNote =>
+      'پس از تأیید، مشخصات قابل تغییر نیست و حساب بانکی باید به همین نام باشد.';
+
+  @override
+  String get cashoutAddBank => 'افزودن حساب';
+
+  @override
+  String get cashoutSheba => 'شماره شبا';
+
+  @override
+  String get cashoutShebaHint => '۲۴ رقم بعد از IR';
+
+  @override
+  String get cashoutShebaInvalid => 'شماره شبا معتبر نیست.';
+
+  @override
+  String cashoutShebaNote(String name) {
+    return 'حساب باید به نام «$name» باشد؛ در غیر این صورت رد می‌شود.';
+  }
+
+  @override
+  String get cashoutRemoveBank => 'حذف حساب';
+
+  @override
+  String get cashoutRemoveBankConfirm => 'این حساب حذف شود؟';
+
+  @override
+  String get cashoutAmount => 'مقدار برداشت (امتیاز)';
+
+  @override
+  String cashoutAmountRial(String value) {
+    return 'مبلغ واریزی: $value';
+  }
+
+  @override
+  String cashoutAmountRange(String min, String max) {
+    return 'مقدار باید بین $min و $max امتیاز باشد.';
+  }
+
+  @override
+  String get cashoutAll => 'حداکثر';
+
+  @override
+  String get cashoutDestination => 'واریز به';
+
+  @override
+  String get cashoutSubmit => 'ثبت درخواست واریز';
+
+  @override
+  String get cashoutSubmitNote =>
+      'امتیازها همین حالا از کیف پولت کم می‌شوند و در صورت رد یا لغو برمی‌گردند. واریز پس از بررسی و تأیید مالی انجام می‌شود.';
+
+  @override
+  String get cashoutSubmitted => 'درخواست ثبت شد؛ نتیجه را اطلاع می‌دهیم.';
+
+  @override
+  String get cashoutNotYet => 'هنوز امکان درخواست نیست';
+
+  @override
+  String get cashoutHistory => 'درخواست‌های من';
+
+  @override
+  String get cashoutHistoryEmpty => 'هنوز درخواستی ثبت نکرده‌ای.';
+
+  @override
+  String get cashoutCancel => 'لغو درخواست';
+
+  @override
+  String get cashoutCancelConfirm =>
+      'درخواست لغو شود؟ امتیازها به کیف پولت برمی‌گردند.';
+
+  @override
+  String get cashoutCancelled => 'لغو شد و امتیازها برگشت.';
+
+  @override
+  String cashoutReference(String ref) {
+    return 'کد پیگیری: $ref';
+  }
+
+  @override
+  String get cashoutOtpTitle => 'کد تأیید';
+
+  @override
+  String cashoutOtpBody(String phone) {
+    return 'کد ارسال‌شده به $phone را وارد کن.';
+  }
+
+  @override
+  String get cashoutOtpConfirm => 'تأیید';
+
+  @override
+  String cashoutOtpResendIn(String seconds) {
+    return 'ارسال دوباره تا $seconds ثانیه';
+  }
+
+  @override
+  String get cashoutOtpResend => 'ارسال دوباره کد';
+
+  @override
+  String get cashoutDisabled => 'برداشت نقدی فعلاً فعال نیست.';
+
+  @override
+  String get walletFilterCashout => 'برداشت';
 }

@@ -7,6 +7,9 @@ import '../features/ads/presentation/rewarded_ad_page.dart';
 import '../features/activity/presentation/session_detail_page.dart';
 import '../features/activity/presentation/walk_page.dart';
 import '../features/auth/application/session_controller.dart';
+import '../features/cashout/data/cashout.dart';
+import '../features/cashout/presentation/cashout_page.dart';
+import '../features/cashout/presentation/identity_page.dart';
 import '../features/challenges/presentation/challenges_page.dart';
 import '../features/gamification/presentation/achievements_page.dart';
 import '../features/gamification/presentation/leaderboard_page.dart';
@@ -100,6 +103,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/faq', builder: (_, _) => const FaqPage()),
       GoRoute(path: '/walk', builder: (_, _) => const WalkPage()),
       GoRoute(path: '/wallet', builder: (_, _) => const WalletPage()),
+      GoRoute(path: '/cashout', builder: (_, _) => const CashoutPage()),
+      GoRoute(path: '/cashout/identity', builder: (_, s) => CashoutIdentityPage(overview: s.extra! as CashoutOverview)),
       GoRoute(path: '/health', builder: (_, _) => const HealthPage()),
       GoRoute(path: '/weekly-report', builder: (_, _) => const WeeklyReportPage()),
       GoRoute(path: '/water', builder: (_, _) => const WaterPage()),

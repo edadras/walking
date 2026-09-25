@@ -19,7 +19,8 @@
      "quests": true,
      "friends": true,
      "health_connect": false,
-     "ios": false
+     "ios": false,
+     "cashout": true
     },
     "settings": {
      "auth.otp_length": 5,
@@ -56,7 +57,12 @@
      "visits.ping_interval_s": 30,
      "ads.rewarded_daily_cap": 3,
      "security.device_key_max_age_days": 180,
-     "account.deletion_grace_days": 14
+     "account.deletion_grace_days": 14,
+     "cashout.min_points": 5000,
+     "cashout.max_points_per_request": 50000,
+     "cashout.max_points_per_30_days": 150000,
+     "cashout.min_account_age_days": 30,
+     "cashout.min_age_years": 18
     },
     "map": {
      "tile_url": null,
@@ -151,11 +157,11 @@
      }
     ],
     "wallet": {
-     "available": 1521,
+     "available": 12480,
      "pending": 37,
      "total": 1558,
      "rial_per_point": 500,
-     "rial_value": 760500,
+     "rial_value": 6240000,
      "pending_rial_value": 18500,
      "lifetime_earned": 5221,
      "lifetime_spent": 3700,
@@ -609,11 +615,11 @@
   },
   "/wallet": {
    "data": {
-    "available": 1521,
+    "available": 12480,
     "pending": 37,
-    "total": 1558,
+    "total": 12517,
     "rial_per_point": 500,
-    "rial_value": 760500,
+    "rial_value": 6240000,
     "pending_rial_value": 18500,
     "lifetime_earned": 5221,
     "lifetime_spent": 3700,
@@ -634,11 +640,11 @@
      "goal_reached": false
     },
     "wallet": {
-     "available": 1521,
+     "available": 12480,
      "pending": 37,
      "total": 1558,
      "rial_per_point": 500,
-     "rial_value": 760500,
+     "rial_value": 6240000,
      "pending_rial_value": 18500,
      "lifetime_earned": 5221,
      "lifetime_spent": 3700,
@@ -3791,6 +3797,76 @@
     ],
     "invited": [
      "مریم"
+    ]
+   }
+  },
+  "/cashout": {
+   "data": {
+    "enabled": true,
+    "phone": "09120000001",
+    "rial_per_point": 500,
+    "available_points": 12480,
+    "limits": {
+     "min": 5000,
+     "max": 50000,
+     "window_max": 150000,
+     "window_used": 8000,
+     "window_left": 142000
+    },
+    "blockers": [],
+    "identity": {
+     "first_name": "علی",
+     "last_name": "رضایی",
+     "national_code": "•••••••152",
+     "birth_date": "1994-06-12",
+     "status": "verified",
+     "rejection_reason": null
+    },
+    "bank_accounts": [
+     {
+      "id": "01m3cashoutacct0000000001",
+      "iban": "IR•• •••• •••• •••• •••• 4821",
+      "bank_name": "ملت",
+      "holder_name": "علی رضایی",
+      "status": "verified",
+      "rejection_reason": null
+     },
+     {
+      "id": "01m3cashoutacct0000000002",
+      "iban": "IR•• •••• •••• •••• •••• 0937",
+      "bank_name": "سامان",
+      "holder_name": "علی رضایی",
+      "status": "pending",
+      "rejection_reason": null
+     }
+    ],
+    "requests": [
+     {
+      "id": "01m3cashoutreq00000000001",
+      "points": 8000,
+      "amount_rial": 4000000,
+      "status": "paid",
+      "status_label": "واریز شد",
+      "bank": "ملت",
+      "iban": "IR•• •••• •••• •••• •••• 4821",
+      "bank_reference": "PAYA-140407-58213",
+      "rejection_reason": null,
+      "created_at": "2026-09-12T07:10:00Z",
+      "paid_at": "2026-09-13T09:30:00Z"
+     },
+     {
+      "id": "01m3cashoutreq00000000002",
+      "points": 6000,
+      "amount_rial": 3000000,
+      "status": "rejected",
+      "status_label": "رد شد",
+      "bank": "سامان",
+      "iban": "IR•• •••• •••• •••• •••• 0937",
+      "bank_reference": null,
+      "rejection_reason": "صاحب حساب با مشخصات هویتی مطابقت ندارد؛ امتیازها برگشت داده شد.",
+      "created_at": "2026-08-30T15:00:00Z",
+      "paid_at": null
+     }
     ]
    }
   }

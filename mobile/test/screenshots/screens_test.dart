@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gamyar/features/cashout/data/cashout.dart';
 import 'package:gamyar/app/app.dart';
 import 'package:gamyar/app/router.dart';
 import 'package:gamyar/core/network/api_client.dart';
@@ -61,6 +62,7 @@ class FixtureApi extends ApiClient {
   @override
   Future<Map<String, dynamic>> post(String path, {Object? data, Options? options}) async {
     if (path.startsWith('/visits/')) return _lookup('/visits/${ids['visit']}', null);
+    if (path == '/cashout/otp') return {'data': {'expires_in': 120, 'resend_in': 60}};
     if (path == '/ads/rewarded/start') {
       final ad = _lookup('/ads/placements/rewarded_default', null)['data'];
       return {'data': {'id': 'v1', 'status': 'started', 'ad': ad, 'reward_points': 10, 'points_awarded': 0, 'started_at': DateTime.now().toUtc().toIso8601String()}};
@@ -208,6 +210,34 @@ void main() {
       router.go(route);
       await shoot(tester, key, name);
     }
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+  }, skip: !enabled);
+
+  testWidgets('cash-out screens', (tester) async {
+    final (key, c) = await boot(tester, signedIn: true);
+    final router = c.read(routerProvider);
+    // Let the startup redirect (real async session restore) land before navigating.
+    await shoot(tester, key, '_warmup');
+    File('${outDir.path}/_warmup.png').deleteSync();
+    router.go('/wallet');
+    await shoot(tester, key, '49-wallet-cashout-entry');
+    router.go('/cashout');
+    await shoot(tester, key, '50-cashout');
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -900));
+    await shoot(tester, key, '51-cashout-request-history');
+    await tester.enterText(find.byType(TextField).first, '10000');
+    await tester.pump();
+    await shoot(tester, key, '52-cashout-amount');
+    await tester.tap(find.text('ثبت درخواست واریز'));
+    await shoot(tester, key, '53-cashout-sms-confirm');
+    Navigator.of(tester.element(find.byType(TextField).last)).pop();
+    await tester.pump(const Duration(milliseconds: 500));
+
+    // A new user's identity form (same overview, no identity yet).
+    final data = (await c.read(apiClientProvider).get('/cashout'))['data'] as Map<String, dynamic>;
+    router.push('/cashout/identity', extra: CashoutOverview.fromJson({...data, 'identity': null}));
+    await shoot(tester, key, '54-cashout-identity-form');
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(seconds: 1));
   }, skip: !enabled);

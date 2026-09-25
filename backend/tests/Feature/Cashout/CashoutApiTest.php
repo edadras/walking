@@ -278,7 +278,8 @@ class CashoutApiTest extends TestCase
     {
         $account = $this->verifiedSetup();
         app(WalletService::class)->debit($this->user, 96000, TransactionType::Purchase, 'p', 'x');
-        $this->requestCashout($account, 5000)->assertStatus(409);
+        $this->app['auth']->forgetGuards();
+        $this->requestCashout($account, 5000)->assertConflict()->assertJsonPath('error.code', 'insufficient_points');
         $this->assertSame(0, CashoutRequest::query()->count());
     }
 

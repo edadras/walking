@@ -123,6 +123,13 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | GET/POST | `/friend-challenges`، `/friend-challenges/{id}(/join,/leave)` | ✓ | – | پیشنهادها | رقابت دوستانه (بدون امتیاز) |
 | – | `POST /orders` با `payment_mode: money` | ✓ | ✓ | پیشنهادها | سفارش ریالی؛ پاسخ شامل `payment.pay_url` (زرین‌پال) |
 | GET | `/payments/zarinpal/callback` (وب) | – | – | پیشنهادها | بازگشت از بانک؛ تأیید سرور با مبلغ ذخیره‌شده |
+| **Cash-out** (پرچم `cashout`) |||||
+| GET | `/cashout` | ✓ | – | برداشت | وضعیت کامل: سقف‌ها، موانع (`blockers`)، هویت (کد ملی ماسک‌شده)، حساب‌ها، درخواست‌ها |
+| POST | `/cashout/otp` | ✓ | ✓ | برداشت | کد پیامکی با هدف `cashout` به شماره خود حساب (کد ورود قبول نمی‌شود) |
+| POST | `/cashout/identity` | ✓ | ✓ + `code` | برداشت | نام، نام خانوادگی (فارسی)، کد ملی (کنترل رقم)، تاریخ تولد (≥۱۸ سال) |
+| POST/DELETE | `/cashout/bank-accounts`، `/cashout/bank-accounts/{id}` | ✓ | ✓ + `code` | برداشت | شبا (کنترل mod-97)، حداکثر ۳ حساب، یکتا بین کاربران |
+| POST | `/cashout/requests` | ✓ | ✓ + `code` + Idempotency-Key | برداشت | کسر فوری امتیاز از دفتر کل؛ یک درخواست باز در هر زمان |
+| POST | `/cashout/requests/{id}/cancel` | ✓ | ✓ | برداشت | فقط در وضعیت «در انتظار بررسی»؛ بازگشت امتیاز |
 
 ## ۴.۳ Rate Limitها (Redis)
 
@@ -134,3 +141,4 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | `sessions` | ۳۰ در دقیقه per device |
 | `purchase` | ۱۰ در دقیقه per user |
 | `visits` | ۶۰ در دقیقه per user |
+| `cashout` | ۱۰ در دقیقه و ۶۰ در روز per user؛ OTP برداشت جدا از ورود: ۵ در ساعت per phone |

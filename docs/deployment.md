@@ -53,7 +53,7 @@ TLS را روی Load Balancer یا یک Reverse Proxy جلوی nginx خاتمه 
 | `APP_KEY` | کلید رمزنگاری (کدهای دیجیتال، Secret شعبه‌ها، TOTP و Payload صف OTP با آن رمز می‌شوند). **از دست رفتن = از دست رفتن کدهای فروشگاه**؛ در Vault نگه دارید. |
 | `ADMIN_MFA_REQUIRED` | `true` در همه محیط‌ها به‌جز توسعه محلی. |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | اولین مدیر ارشد (Seeder). پس از اولین ورود TOTP فعال کنید. |
-| `SMS_DRIVER=kavenegar` + `KAVENEGAR_*` | ارسال OTP. |
+| `SMS_DRIVER=kavenegar` + `KAVENEGAR_*` | ارسال OTP. `KAVENEGAR_CASHOUT_TEMPLATE` (اختیاری) قالب جدا برای کد تأیید برداشت، مثلاً «کد تأیید برداشت وجه: %token — آن را به کسی ندهید»؛ اگر خالی باشد قالب ورود استفاده می‌شود. |
 | `INTEGRITY_DRIVER=google` + `PLAY_INTEGRITY_CREDENTIALS` | مسیر فایل JSON حساب سرویس Google Cloud برای رمزگشایی Play Integrity. |
 | `FCM_CREDENTIALS` | ارسال Push به نسخه Google Play (فایل JSON حساب سرویس Firebase). |
 | `PUSHE_API_TOKEN` + `PUSHE_APP_ID` | ارسال Push به نسخه بازار/مایکت از طریق Pushe (توکن «وب‌سرویس» کنسول Pushe). |

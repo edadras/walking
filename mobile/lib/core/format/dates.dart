@@ -4,7 +4,7 @@ import 'numbers.dart';
 
 /// Jalali presentation of dates. Storage and APIs always use UTC ISO-8601.
 abstract final class FaDate {
-  static const _months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+  static const months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
 
   /// Saturday-first, matching the Iranian week.
   static const weekdaysShort = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
@@ -15,13 +15,13 @@ abstract final class FaDate {
   /// ۳ مهر ۱۴۰۵
   static String long(DateTime d) {
     final j = _j(d);
-    return '${Fa.digits(j.day)} ${_months[j.month - 1]} ${Fa.digits(j.year)}';
+    return '${Fa.digits(j.day)} ${months[j.month - 1]} ${Fa.digits(j.year)}';
   }
 
   /// ۳ مهر
   static String dayMonth(DateTime d) {
     final j = _j(d);
-    return '${Fa.digits(j.day)} ${_months[j.month - 1]}';
+    return '${Fa.digits(j.day)} ${months[j.month - 1]}';
   }
 
   /// ۱۴۰۵/۰۷/۰۳
@@ -61,7 +61,7 @@ abstract final class FaDate {
 
   static String monthYear(DateTime d) {
     final j = _j(d);
-    return '${_months[j.month - 1]} ${Fa.digits(j.year)}';
+    return '${months[j.month - 1]} ${Fa.digits(j.year)}';
   }
 
   /// «۳ ساعت دیگر», «فردا», else the date.

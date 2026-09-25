@@ -11,6 +11,7 @@ String? notificationRoute(Map<String, Object?> data) {
     'order' when id is String && id.isNotEmpty => '/orders/$id',
     'support' when id is String && id.isNotEmpty => '/support/$id',
     'friend' => '/friends',
+    'cashout' => '/cashout',
     'friend_challenge' when id is String && id.isNotEmpty => '/friend-challenges/$id',
     _ => null,
   };

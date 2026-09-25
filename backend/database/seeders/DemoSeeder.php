@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Domain\Activity\ActivityEstimator;
 use App\Domain\Activity\DailyActivityAggregator;
+use App\Domain\Cashout\IranianId;
 use App\Domain\Gamification\ProgressService;
 use App\Domain\Reward\RewardEngine;
 use App\Domain\Settings\FeatureFlags;
@@ -23,12 +24,15 @@ use App\Enums\SessionStatus;
 use App\Enums\SponsorRole;
 use App\Enums\SponsorStatus;
 use App\Enums\TransactionStatus;
+use App\Enums\TransactionType;
 use App\Enums\VerificationMethod;
 use App\Models\Ad;
 use App\Models\AdCampaign;
 use App\Models\Admin;
 use App\Models\AdPlacement;
+use App\Models\BankAccount;
 use App\Models\Campaign;
+use App\Models\CashoutRequest;
 use App\Models\Category;
 use App\Models\Challenge;
 use App\Models\Coupon;
@@ -41,6 +45,7 @@ use App\Models\ProductCode;
 use App\Models\Sponsor;
 use App\Models\SponsorUser;
 use App\Models\User;
+use App\Models\UserIdentity;
 use App\Models\WalkingSession;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Seeder;
@@ -88,6 +93,82 @@ class DemoSeeder extends Seeder
 
             if ($user->walkingSessions()->doesntExist()) {
                 $this->seedWalkingHistory($user, fitness: 0.6 + ($i % 5) * 0.2);
+            }
+        }
+
+        $this->seedCashout();
+    }
+
+    /**
+     * A payout queue in every state, reviewed by two finance admins
+     * (finance@ approves, finance2@ records transfers; password: password).
+     */
+    private function seedCashout(): void
+    {
+        if (UserIdentity::query()->exists()) {
+            return;
+        }
+        $wallet = app(WalletService::class);
+        $approver = Admin::query()->firstOrCreate(['email' => 'finance@gamyar.test'], ['name' => 'کارشناس مالی', 'password' => 'password', 'role' => AdminRole::Finance]);
+        $payer = Admin::query()->firstOrCreate(['email' => 'finance2@gamyar.test'], ['name' => 'مسئول واریز', 'password' => 'password', 'role' => AdminRole::Finance]);
+        $nationalCode = function (string $first9): string {
+            $sum = 0;
+            for ($i = 0; $i < 9; $i++) {
+                $sum += (int) $first9[$i] * (10 - $i);
+            }
+
+            return $first9.(($r = $sum % 11) < 2 ? $r : 11 - $r);
+        };
+        $sheba = function (string $bank, string $account): string {
+            $mod = 0;
+            foreach (str_split($bank.$account.'182700', 7) as $chunk) {
+                $mod = (int) (($mod.$chunk) % 97);
+            }
+
+            return 'IR'.str_pad((string) (98 - $mod), 2, '0', STR_PAD_LEFT).$bank.$account;
+        };
+
+        // [phone suffix, last name, identity status, bank code, account status, requests: [points, status, days ago]]
+        $people = [
+            [1, 'رضایی', 'verified', '012', 'verified', [[8000, CashoutRequest::PAID, 12], [10000, CashoutRequest::APPROVED, 1]]],
+            [2, 'کریمی', 'verified', '056', 'verified', [[6000, CashoutRequest::PENDING, 0]]],
+            [4, 'احمدی', 'verified', '017', 'verified', [[5000, CashoutRequest::REJECTED, 20], [12000, CashoutRequest::PENDING, 0]]],
+            [6, 'موسوی', 'verified', '054', 'pending', []],
+            [8, 'حسینی', 'pending', '019', 'pending', []],
+            [10, 'نوری', 'pending', '057', 'pending', []],
+        ];
+        foreach ($people as $n => [$suffix, $last, $idStatus, $bank, $accStatus, $requests]) {
+            $user = User::query()->where('phone', sprintf('+98912000%04d', $suffix))->first();
+            if ($user === null) {
+                continue;
+            }
+            $code = $nationalCode(sprintf('00%07d', 1234567 + $n * 7919));
+            $reviewed = $idStatus === 'verified' ? ['reviewed_by' => $approver->id, 'reviewed_at' => now()->subDays(25)] : [];
+            $identity = UserIdentity::query()->create(['user_id' => $user->id, 'first_name' => strtok((string) $user->display_name, ' '), 'last_name' => $last,
+                'national_code' => $code, 'national_code_hash' => UserIdentity::hashNationalCode($code), 'birth_date' => now()->subYears(24 + $n * 3)->subDays($n * 40)->toDateString(),
+                'status' => $idStatus, 'submitted_at' => now()->subDays(26 - $n), ...$reviewed]);
+            $iban = $sheba($bank, sprintf('%019d', 4821000000 + $n * 104729));
+            $account = BankAccount::query()->create(['user_id' => $user->id, 'iban' => $iban, 'iban_hash' => BankAccount::hashIban($iban), 'iban_last4' => substr($iban, -4),
+                'bank_name' => IranianId::bankName($iban), 'holder_name' => $identity->fullName(), 'status' => $accStatus]
+                + ($accStatus === 'verified' ? ['reviewed_by' => $approver->id, 'reviewed_at' => now()->subDays(24)] : []));
+
+            foreach ($requests as $k => [$points, $status, $ago]) {
+                $wallet->credit($user, $points, TransactionType::Adjustment, "demo:cashout-topup:{$user->id}:$k", 'شارژ نمایشی');
+                $r = CashoutRequest::query()->create(['user_id' => $user->id, 'bank_account_id' => $account->id, 'points' => $points, 'rial_per_point' => 500,
+                    'amount_rial' => $points * 500, 'status' => CashoutRequest::PENDING, 'idempotency_key' => "demo-$user->id-$k"]);
+                $r->forceFill(['created_at' => now()->subDays($ago)->subHours(3)])->save();
+                $tx = $wallet->debit($user, $points, TransactionType::Cashout, 'cashout:'.$r->public_id, 'برداشت نقدی به حساب '.$account->bank_name, $r);
+                $r->forceFill(['debit_transaction_id' => $tx->id])->save();
+                if ($status === CashoutRequest::REJECTED) {
+                    $refund = $wallet->credit($user, $points, TransactionType::Refund, 'refund:cashout:'.$r->public_id, 'بازگشت امتیاز برداشت', $r);
+                    $r->forceFill(['status' => $status, 'rejected_by' => $approver->id, 'rejection_reason' => 'شماره شبای قبلی به نام شخص دیگری بود.', 'refund_transaction_id' => $refund->id])->save();
+                }
+                if (in_array($status, [CashoutRequest::APPROVED, CashoutRequest::PAID], true)) {
+                    $r->forceFill(['status' => CashoutRequest::APPROVED, 'approved_by' => $approver->id, 'approved_at' => now()->subDays($ago)->subHours(1)])->save();
+                }
+                if ($status === CashoutRequest::PAID) {
+                    $r->forceFill(['status' => $status, 'paid_by' => $payer->id, 'paid_at' => now()->subDays($ago - 1), 'bank_reference' => 'PAYA-'.(58213 + $k)])->save();
+                }
             }
         }
     }

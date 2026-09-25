@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/format/dates.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/skeleton.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../../core/widgets/trail.dart';
+import '../../config/data/app_config.dart';
 import '../data/wallet_models.dart';
 import '../data/wallet_repository.dart';
 
@@ -28,6 +31,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
     final l = context.l10n;
     final balance = ref.watch(walletBalanceProvider);
     final txs = ref.watch(txListProvider(_filter));
+    final cashout = ref.watch(configProvider).feature('cashout');
 
     final filters = {
       'all': l.walletFilterAll,
@@ -37,6 +41,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
       'purchase': l.walletFilterPurchase,
       'sponsor': l.walletFilterSponsor,
       'adjustment': l.walletFilterAdjustment,
+      if (cashout) 'cashout': l.walletFilterCashout,
     };
 
     return Scaffold(
@@ -61,6 +66,10 @@ class _WalletPageState extends ConsumerState<WalletPage> {
                 skeleton: const Shimmer(child: SkeletonBox(height: 176, radius: AppRadius.md)),
                 data: (b) => _BalanceCard(balance: b),
               ),
+              if (cashout) ...[
+                const SizedBox(height: AppSpacing.md),
+                AppButton.secondary(label: l.cashoutEntry, icon: Icons.account_balance_outlined, onPressed: () => context.push('/cashout')),
+              ],
               SectionHeader(title: l.walletHistory),
               SizedBox(
                 height: 40,

@@ -166,6 +166,7 @@ class CashoutService
 
         return [
             'enabled' => $this->enabled($user),
+            'phone' => $user->phone, // where the confirmation codes go
             'rial_per_point' => $this->rate->current(),
             'available_points' => $user->wallet?->available_balance ?? 0,
             'limits' => $limits,
@@ -234,6 +235,10 @@ class CashoutService
         }
         if (! $accounts->contains(fn (BankAccount $a) => $a->status === BankAccount::VERIFIED)) {
             $add('bank_account_unverified', 'یک حساب بانکی تأییدشده لازم است.');
+        }
+        $min = $this->settings->int('cashout.min_points');
+        if (($user->wallet?->available_balance ?? 0) < $min) {
+            $add('insufficient_points', 'برای برداشت دست‌کم '.number_format($min).' امتیاز قابل استفاده لازم است.');
         }
         if (FraudCase::query()->where('user_id', $user->id)->whereIn('status', [FraudCaseStatus::Open, FraudCaseStatus::Flagged])->exists()) {
             $add('under_review', 'حساب تو در حال بررسی است؛ پس از پایان بررسی می‌توانی برداشت کنی.');
