@@ -37,6 +37,20 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   final l = lookupAppLocalizations(const Locale('fa'));
 
+  late ProviderContainer container;
+
+  /// What was on screen when a wait timed out: the route and every visible text.
+  String screenDump() {
+    String route;
+    try {
+      route = container.read(routerProvider).routerDelegate.currentConfiguration.uri.toString();
+    } catch (e) {
+      route = '? ($e)';
+    }
+    final texts = find.byType(Text).evaluate().map((e) => (e.widget as Text).data ?? (e.widget as Text).textSpan?.toPlainText()).whereType<String>();
+    return 'route: $route\ntexts: ${texts.join(' | ')}';
+  }
+
   /// Waits for real network I/O (pumpAndSettle can't see pending HTTP).
   Future<void> waitFor(WidgetTester tester, Finder finder, {Duration timeout = const Duration(seconds: 30)}) async {
     final end = DateTime.now().add(timeout);
@@ -44,7 +58,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 250));
       if (finder.evaluate().isNotEmpty) return;
     }
-    throw TestFailure('Timed out waiting for $finder');
+    throw TestFailure('Timed out waiting for $finder\n${screenDump()}');
   }
 
   Future<Finder> waitForAny(WidgetTester tester, List<Finder> finders) async {
@@ -55,7 +69,7 @@ void main() {
         if (f.evaluate().isNotEmpty) return f;
       }
     }
-    throw TestFailure('Timed out waiting for any of $finders');
+    throw TestFailure('Timed out waiting for any of $finders\n${screenDump()}');
   }
 
   Future<void> tapText(WidgetTester tester, String text) async {
@@ -68,7 +82,7 @@ void main() {
 
   testWidgets('sign in, see balance, buy with points, request a cash-out', (tester) async {
     tz_data.initializeTimeZones();
-    final container = ProviderContainer(overrides: [
+    container = ProviderContainer(overrides: [
       appVersionProvider.overrideWithValue('1.0.0'),
       devicePermissionsProvider.overrideWithValue(_Granted()),
     ]);
