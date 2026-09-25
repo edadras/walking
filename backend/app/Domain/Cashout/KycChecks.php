@@ -42,7 +42,7 @@ class KycChecks
     public function identity(UserIdentity $identity): string
     {
         $birth = self::jalali($identity->birth_date);
-        $mobile = $this->provider->mobileMatches($identity->national_code, self::localMobile($identity->user->phone));
+        $mobile = $this->provider->mobileMatches($identity->national_code, self::localMobile($identity->loadMissing('user')->user->phone));
         $names = $this->provider->nameSimilarity($identity->national_code, $birth, $identity->first_name, $identity->last_name);
         $min = $this->settings->int('cashout.kyc_name_similarity_min');
 

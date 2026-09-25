@@ -337,6 +337,7 @@ class CashoutService
     {
         $identity->forceFill(['status' => $ok ? UserIdentity::VERIFIED : UserIdentity::REJECTED, 'rejection_reason' => $ok ? null : $reason,
             'reviewed_by' => $admin?->id, 'reviewed_at' => now()])->save();
+        $identity->loadMissing('user');
         $this->audit->log($ok ? 'cashout.identity_verified' : 'cashout.identity_rejected', $identity->user, meta: ['reason' => $reason], actor: $admin);
         $identity->user->notify(new UserNotification('order_update', $ok ? 'هویت تأیید شد' : 'هویت تأیید نشد',
             $ok ? 'مشخصات هویتی‌ات تأیید شد.' : 'مشخصات هویتی تأیید نشد: '.$reason, ['type' => 'cashout']));
@@ -347,7 +348,7 @@ class CashoutService
         $account->forceFill(['status' => $ok ? BankAccount::VERIFIED : BankAccount::REJECTED, 'rejection_reason' => $ok ? null : $reason,
             'reviewed_by' => $admin?->id, 'reviewed_at' => now()])->save();
         $this->audit->log($ok ? 'cashout.bank_account_verified' : 'cashout.bank_account_rejected', $account, meta: ['reason' => $reason], actor: $admin);
-        $account->user->notify(new UserNotification('order_update', $ok ? 'حساب بانکی تأیید شد' : 'حساب بانکی تأیید نشد',
+        $account->loadMissing('user')->user->notify(new UserNotification('order_update', $ok ? 'حساب بانکی تأیید شد' : 'حساب بانکی تأیید نشد',
             $ok ? 'حساب '.$account->bank_name.' برای برداشت تأیید شد.' : 'حساب بانکی تأیید نشد: '.$reason, ['type' => 'cashout']));
     }
 
@@ -392,7 +393,7 @@ class CashoutService
 
     public function reassess(CashoutRequest $request): CashoutRequest
     {
-        $risk = $this->risk->assess($request->user);
+        $risk = $this->risk->assess($request->loadMissing('user')->user);
         $request->forceFill(['risk_score' => $risk['score'], 'risk_signals' => $risk['signals']])->save();
 
         return $request;
@@ -465,7 +466,7 @@ class CashoutService
     private function applyPayoutResult(CashoutRequest $request, array $result): CashoutRequest
     {
         if ($result['state'] === 'transferred') {
-            return $this->finalizePaid($request, $request->sender ?? Admin::query()->findOrFail($request->sent_by), (string) ($result['reference'] ?: $request->payout_track_id), CashoutRequest::PROCESSING);
+            return $this->finalizePaid($request, $request->loadMissing('sender')->sender ?? Admin::query()->findOrFail($request->sent_by), (string) ($result['reference'] ?: $request->payout_track_id), CashoutRequest::PROCESSING);
         }
         if ($result['state'] === 'failed') {
             $request->forceFill(['status' => CashoutRequest::APPROVED, 'payout_state' => 'failed', 'payout_error' => mb_substr((string) $result['error'], 0, 120),
@@ -503,7 +504,7 @@ class CashoutService
 
             return $locked;
         });
-        $request->user->notify(new UserNotification('order_update', 'واریز انجام شد',
+        $request->loadMissing('user')->user->notify(new UserNotification('order_update', 'واریز انجام شد',
             number_format($request->amount_rial).' ریال به حسابت واریز شد. کد پیگیری: '.$bankReference, ['type' => 'cashout']));
 
         return $request;
@@ -531,7 +532,7 @@ class CashoutService
             return $locked;
         });
         if ($admin !== null) {
-            $closed->user->notify(new UserNotification('order_update', 'درخواست برداشت رد شد',
+            $closed->loadMissing('user')->user->notify(new UserNotification('order_update', 'درخواست برداشت رد شد',
                 'امتیازها به کیف پولت برگشت. دلیل: '.$reason, ['type' => 'cashout']));
         }
 

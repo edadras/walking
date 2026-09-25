@@ -3872,6 +3872,138 @@
     "immature_points": 1900,
     "maturity_days": 14
    }
+  },
+  "/organization": {
+   "data": {
+    "id": "01m3c62tdwhxwe100544naj0md",
+    "name": "شرکت فناوری نمونه",
+    "active": true,
+    "department": "فنی",
+    "departments_list": [
+     "فروش",
+     "فنی",
+     "مالی",
+     "پشتیبانی"
+    ],
+    "members": 10,
+    "week": {
+     "from": "2026-09-19",
+     "to": "2026-09-25"
+    },
+    "my_rank": 9,
+    "my_steps": 25189,
+    "ranking": [
+     {
+      "rank": 1,
+      "user_id": "01m3afkyh7h4v7n7dn0zs00f8b",
+      "name": "فاطمه",
+      "department": "مالی",
+      "steps": 58226,
+      "is_me": false
+     },
+     {
+      "rank": 2,
+      "user_id": "01m3afjseav5hte0rgweyr71y3",
+      "name": "رضا",
+      "department": "فنی",
+      "steps": 56537,
+      "is_me": false
+     },
+     {
+      "rank": 3,
+      "user_id": "01m3afkpjc85c54tbgj3w58ybx",
+      "name": "امیر",
+      "department": "فنی",
+      "steps": 46997,
+      "is_me": false
+     },
+     {
+      "rank": 4,
+      "user_id": "01m3afjhwakgys70d8f2sfncqe",
+      "name": "مریم",
+      "department": "فروش",
+      "steps": 39830,
+      "is_me": false
+     },
+     {
+      "rank": 5,
+      "user_id": "01m3afkfe5rvcmw4sa9ymn88dh",
+      "name": "نگار",
+      "department": "فروش",
+      "steps": 37250,
+      "is_me": false
+     },
+     {
+      "rank": 6,
+      "user_id": "01m3afjadmxdnq728mfw076vrk",
+      "name": "محمد",
+      "department": "پشتیبانی",
+      "steps": 35003,
+      "is_me": false
+     },
+     {
+      "rank": 7,
+      "user_id": "01m3afj31pmxed9bs0dbxzxj2z",
+      "name": "سارا",
+      "department": "مالی",
+      "steps": 31892,
+      "is_me": false
+     },
+     {
+      "rank": 8,
+      "user_id": "01m3afk8chpzfn0w1attfh717b",
+      "name": "حسین",
+      "department": "پشتیبانی",
+      "steps": 29336,
+      "is_me": false
+     },
+     {
+      "rank": 9,
+      "user_id": "01m3afhvm5w1mk74816me482qz",
+      "name": "علی رضایی",
+      "department": "فنی",
+      "steps": 25189,
+      "is_me": true
+     },
+     {
+      "rank": 10,
+      "user_id": "01m3afk1hwhcx5pg0q2yhkrd6y",
+      "name": "زهرا",
+      "department": "مالی",
+      "steps": 24544,
+      "is_me": false
+     }
+    ],
+    "departments": [
+     {
+      "department": "فنی",
+      "members": 3,
+      "avg_steps": 42908
+     },
+     {
+      "department": "مالی",
+      "members": 3,
+      "avg_steps": 38221
+     },
+     {
+      "department": "پشتیبانی",
+      "members": 2,
+      "avg_steps": null
+     },
+     {
+      "department": "فروش",
+      "members": 2,
+      "avg_steps": null
+     }
+    ],
+    "challenges": [
+     {
+      "id": "01m3c62tpcfnw4y1mbem578qy1",
+      "title": "ماه سلامت شرکت",
+      "ends_at": "2026-10-20T11:44:18+00:00"
+     }
+    ]
+   }
   }
  },
  "ids": {

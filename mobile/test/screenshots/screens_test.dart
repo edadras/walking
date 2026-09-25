@@ -205,6 +205,7 @@ void main() {
       '39-quests': '/quests',
       '40-friends': '/friends',
       '41-friend-race': '/friend-challenges/${ids['race']}',
+      '55-organization': '/organization',
     };
     for (final MapEntry(key: name, value: route) in screens.entries) {
       router.go(route);
@@ -226,7 +227,7 @@ void main() {
     await shoot(tester, key, '50-cashout');
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -900));
     await shoot(tester, key, '51-cashout-request-history');
-    await tester.enterText(find.byType(TextField).first, '10000');
+    await tester.enterText(find.byType(TextField).first, '8000');
     await tester.pump();
     await shoot(tester, key, '52-cashout-amount');
     await tester.tap(find.text('ثبت درخواست واریز'));
