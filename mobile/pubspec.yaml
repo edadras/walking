@@ -61,6 +61,7 @@ dependencies:
   firebase_core: ^4.15.0
   firebase_messaging: ^16.7.0
   image_picker: ^1.2.3
+  path_provider: ^2.1.5
   cached_network_image: ^4.0.2
 
 dev_dependencies:

@@ -1514,5 +1514,84 @@
         "type": "String"
       }
     }
+  },
+  "postsTitle": "عکس‌های مسیر",
+  "postsAll": "همه",
+  "postsMine": "عکس‌های من",
+  "postsEmpty": "هنوز عکسی منتشر نشده.",
+  "postsEmptyHint": "در پیاده‌روی بعدی با دکمه دوربین از مسیرتان عکس بگیرید.",
+  "postsMineEmpty": "هنوز عکسی نگرفته‌اید.",
+  "postPending": "در انتظار تأیید پیاده‌روی",
+  "postHidden": "پنهان تا بررسی",
+  "postPoints": "{points} امتیاز از این عکس",
+  "postReport": "گزارش",
+  "postReportTitle": "چرا این عکس را گزارش می‌دهید؟",
+  "postReasonInappropriate": "نامناسب است",
+  "postReasonPrivacy": "حریم خصوصی (چهره، پلاک، خانه)",
+  "postReasonSpam": "تبلیغ یا هرزنامه",
+  "postReasonNotWalk": "ربطی به پیاده‌روی ندارد",
+  "postReasonOther": "دلیل دیگر",
+  "postReported": "ممنون؛ بررسی می‌کنیم.",
+  "postDelete": "حذف عکس",
+  "postDeleteConfirm": "این عکس برای همیشه حذف شود؟",
+  "postWalkSteps": "در پیاده‌روی {steps} قدمی",
+  "postWalkBike": "در {km} کیلومتر دوچرخه‌سواری",
+  "postsRule": "هر لایک {like} امتیاز و هر {views} بازدید ۱ امتیاز؛ تا {cap} امتیاز برای هر عکس.",
+  "walkTakePhoto": "عکس",
+  "walkPhotoCaption": "توضیح کوتاه (اختیاری)",
+  "walkPhotoSend": "ثبت عکس",
+  "walkPhotosCount": "{count} عکس در این پیاده‌روی",
+  "walkPhotoHint": "عکس پس از تأیید همین پیاده‌روی برای همه نمایش داده می‌شود. از چهره و پلاک دیگران عکس نگیرید.",
+  "walkPhotoWaiting": "{count} عکس منتظر اینترنت",
+  "homePosts": "از مسیر دیگران",
+  "commonSeeAll": "همه",
+  "commonDelete": "حذف",
+  "@postPoints": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "@postWalkSteps": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      }
+    }
+  },
+  "@postWalkBike": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "@postsRule": {
+    "placeholders": {
+      "like": {
+        "type": "String"
+      },
+      "views": {
+        "type": "String"
+      },
+      "cap": {
+        "type": "String"
+      }
+    }
+  },
+  "@walkPhotosCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@walkPhotoWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   }
 }

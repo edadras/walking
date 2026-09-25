@@ -10,6 +10,7 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/trail.dart';
+import '../../posts/presentation/walk_photo_button.dart';
 import '../../weather/presentation/weather_card.dart';
 import '../../../core/sensors/step_platform.dart';
 import '../../config/data/app_config.dart';
@@ -160,6 +161,7 @@ class _Live extends ConsumerWidget {
           ),
         ],
         const Spacer(),
+        if (!saving) ...[const WalkPhotoButton(), const SizedBox(height: AppSpacing.md)],
         AppButton(
           label: saving ? l.walkSaving : l.walkStop,
           icon: Icons.stop_rounded,

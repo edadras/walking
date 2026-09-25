@@ -4095,6 +4095,192 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'دوچرخه'**
   String get homeCycling;
+
+  /// No description provided for @postsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'عکس‌های مسیر'**
+  String get postsTitle;
+
+  /// No description provided for @postsAll.
+  ///
+  /// In fa, this message translates to:
+  /// **'همه'**
+  String get postsAll;
+
+  /// No description provided for @postsMine.
+  ///
+  /// In fa, this message translates to:
+  /// **'عکس‌های من'**
+  String get postsMine;
+
+  /// No description provided for @postsEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز عکسی منتشر نشده.'**
+  String get postsEmpty;
+
+  /// No description provided for @postsEmptyHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'در پیاده‌روی بعدی با دکمه دوربین از مسیرتان عکس بگیرید.'**
+  String get postsEmptyHint;
+
+  /// No description provided for @postsMineEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز عکسی نگرفته‌اید.'**
+  String get postsMineEmpty;
+
+  /// No description provided for @postPending.
+  ///
+  /// In fa, this message translates to:
+  /// **'در انتظار تأیید پیاده‌روی'**
+  String get postPending;
+
+  /// No description provided for @postHidden.
+  ///
+  /// In fa, this message translates to:
+  /// **'پنهان تا بررسی'**
+  String get postHidden;
+
+  /// No description provided for @postPoints.
+  ///
+  /// In fa, this message translates to:
+  /// **'{points} امتیاز از این عکس'**
+  String postPoints(String points);
+
+  /// No description provided for @postReport.
+  ///
+  /// In fa, this message translates to:
+  /// **'گزارش'**
+  String get postReport;
+
+  /// No description provided for @postReportTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'چرا این عکس را گزارش می‌دهید؟'**
+  String get postReportTitle;
+
+  /// No description provided for @postReasonInappropriate.
+  ///
+  /// In fa, this message translates to:
+  /// **'نامناسب است'**
+  String get postReasonInappropriate;
+
+  /// No description provided for @postReasonPrivacy.
+  ///
+  /// In fa, this message translates to:
+  /// **'حریم خصوصی (چهره، پلاک، خانه)'**
+  String get postReasonPrivacy;
+
+  /// No description provided for @postReasonSpam.
+  ///
+  /// In fa, this message translates to:
+  /// **'تبلیغ یا هرزنامه'**
+  String get postReasonSpam;
+
+  /// No description provided for @postReasonNotWalk.
+  ///
+  /// In fa, this message translates to:
+  /// **'ربطی به پیاده‌روی ندارد'**
+  String get postReasonNotWalk;
+
+  /// No description provided for @postReasonOther.
+  ///
+  /// In fa, this message translates to:
+  /// **'دلیل دیگر'**
+  String get postReasonOther;
+
+  /// No description provided for @postReported.
+  ///
+  /// In fa, this message translates to:
+  /// **'ممنون؛ بررسی می‌کنیم.'**
+  String get postReported;
+
+  /// No description provided for @postDelete.
+  ///
+  /// In fa, this message translates to:
+  /// **'حذف عکس'**
+  String get postDelete;
+
+  /// No description provided for @postDeleteConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'این عکس برای همیشه حذف شود؟'**
+  String get postDeleteConfirm;
+
+  /// No description provided for @postWalkSteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'در پیاده‌روی {steps} قدمی'**
+  String postWalkSteps(String steps);
+
+  /// No description provided for @postWalkBike.
+  ///
+  /// In fa, this message translates to:
+  /// **'در {km} کیلومتر دوچرخه‌سواری'**
+  String postWalkBike(String km);
+
+  /// No description provided for @postsRule.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر لایک {like} امتیاز و هر {views} بازدید ۱ امتیاز؛ تا {cap} امتیاز برای هر عکس.'**
+  String postsRule(String like, String views, String cap);
+
+  /// No description provided for @walkTakePhoto.
+  ///
+  /// In fa, this message translates to:
+  /// **'عکس'**
+  String get walkTakePhoto;
+
+  /// No description provided for @walkPhotoCaption.
+  ///
+  /// In fa, this message translates to:
+  /// **'توضیح کوتاه (اختیاری)'**
+  String get walkPhotoCaption;
+
+  /// No description provided for @walkPhotoSend.
+  ///
+  /// In fa, this message translates to:
+  /// **'ثبت عکس'**
+  String get walkPhotoSend;
+
+  /// No description provided for @walkPhotosCount.
+  ///
+  /// In fa, this message translates to:
+  /// **'{count} عکس در این پیاده‌روی'**
+  String walkPhotosCount(String count);
+
+  /// No description provided for @walkPhotoHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'عکس پس از تأیید همین پیاده‌روی برای همه نمایش داده می‌شود. از چهره و پلاک دیگران عکس نگیرید.'**
+  String get walkPhotoHint;
+
+  /// No description provided for @walkPhotoWaiting.
+  ///
+  /// In fa, this message translates to:
+  /// **'{count} عکس منتظر اینترنت'**
+  String walkPhotoWaiting(String count);
+
+  /// No description provided for @homePosts.
+  ///
+  /// In fa, this message translates to:
+  /// **'از مسیر دیگران'**
+  String get homePosts;
+
+  /// No description provided for @commonSeeAll.
+  ///
+  /// In fa, this message translates to:
+  /// **'همه'**
+  String get commonSeeAll;
+
+  /// No description provided for @commonDelete.
+  ///
+  /// In fa, this message translates to:
+  /// **'حذف'**
+  String get commonDelete;
 }
 
 class _AppLocalizationsDelegate

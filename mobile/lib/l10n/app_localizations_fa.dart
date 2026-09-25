@@ -2300,4 +2300,111 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get homeCycling => 'دوچرخه';
+
+  @override
+  String get postsTitle => 'عکس‌های مسیر';
+
+  @override
+  String get postsAll => 'همه';
+
+  @override
+  String get postsMine => 'عکس‌های من';
+
+  @override
+  String get postsEmpty => 'هنوز عکسی منتشر نشده.';
+
+  @override
+  String get postsEmptyHint =>
+      'در پیاده‌روی بعدی با دکمه دوربین از مسیرتان عکس بگیرید.';
+
+  @override
+  String get postsMineEmpty => 'هنوز عکسی نگرفته‌اید.';
+
+  @override
+  String get postPending => 'در انتظار تأیید پیاده‌روی';
+
+  @override
+  String get postHidden => 'پنهان تا بررسی';
+
+  @override
+  String postPoints(String points) {
+    return '$points امتیاز از این عکس';
+  }
+
+  @override
+  String get postReport => 'گزارش';
+
+  @override
+  String get postReportTitle => 'چرا این عکس را گزارش می‌دهید؟';
+
+  @override
+  String get postReasonInappropriate => 'نامناسب است';
+
+  @override
+  String get postReasonPrivacy => 'حریم خصوصی (چهره، پلاک، خانه)';
+
+  @override
+  String get postReasonSpam => 'تبلیغ یا هرزنامه';
+
+  @override
+  String get postReasonNotWalk => 'ربطی به پیاده‌روی ندارد';
+
+  @override
+  String get postReasonOther => 'دلیل دیگر';
+
+  @override
+  String get postReported => 'ممنون؛ بررسی می‌کنیم.';
+
+  @override
+  String get postDelete => 'حذف عکس';
+
+  @override
+  String get postDeleteConfirm => 'این عکس برای همیشه حذف شود؟';
+
+  @override
+  String postWalkSteps(String steps) {
+    return 'در پیاده‌روی $steps قدمی';
+  }
+
+  @override
+  String postWalkBike(String km) {
+    return 'در $km کیلومتر دوچرخه‌سواری';
+  }
+
+  @override
+  String postsRule(String like, String views, String cap) {
+    return 'هر لایک $like امتیاز و هر $views بازدید ۱ امتیاز؛ تا $cap امتیاز برای هر عکس.';
+  }
+
+  @override
+  String get walkTakePhoto => 'عکس';
+
+  @override
+  String get walkPhotoCaption => 'توضیح کوتاه (اختیاری)';
+
+  @override
+  String get walkPhotoSend => 'ثبت عکس';
+
+  @override
+  String walkPhotosCount(String count) {
+    return '$count عکس در این پیاده‌روی';
+  }
+
+  @override
+  String get walkPhotoHint =>
+      'عکس پس از تأیید همین پیاده‌روی برای همه نمایش داده می‌شود. از چهره و پلاک دیگران عکس نگیرید.';
+
+  @override
+  String walkPhotoWaiting(String count) {
+    return '$count عکس منتظر اینترنت';
+  }
+
+  @override
+  String get homePosts => 'از مسیر دیگران';
+
+  @override
+  String get commonSeeAll => 'همه';
+
+  @override
+  String get commonDelete => 'حذف';
 }

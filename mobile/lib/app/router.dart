@@ -35,6 +35,7 @@ import '../features/sponsors/presentation/campaign_page.dart';
 import '../features/sponsors/presentation/coupons_page.dart';
 import '../features/sponsors/presentation/nearby_page.dart';
 import '../features/weather/presentation/weather_page.dart';
+import '../features/posts/presentation/feed_page.dart';
 import '../features/sponsors/presentation/qr_scan_page.dart';
 import '../features/sponsors/presentation/visit_page.dart';
 import '../features/store/data/store_models.dart';
@@ -128,6 +129,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/notifications', builder: (_, _) => const InboxPage()),
       GoRoute(path: '/nearby', builder: (_, _) => const NearbyPage()),
       GoRoute(path: '/weather', builder: (_, _) => const WeatherPage()),
+      GoRoute(path: '/posts', builder: (_, _) => const FeedPage()),
       GoRoute(path: '/campaigns/:id', builder: (_, s) => CampaignPage(id: s.pathParameters['id']!)),
       GoRoute(path: '/visits/:id', builder: (_, s) => VisitPage(id: s.pathParameters['id']!)),
       GoRoute(path: '/scan-qr', builder: (_, _) => const QrScanPage()),

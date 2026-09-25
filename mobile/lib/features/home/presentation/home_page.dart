@@ -24,6 +24,7 @@ import '../../activity/application/tracking_service.dart';
 import '../../auth/application/session_controller.dart';
 import '../../gamification/data/gamification_models.dart';
 import '../../wallet/data/wallet_models.dart';
+import '../../posts/presentation/recent_posts_strip.dart';
 import '../../weather/presentation/weather_card.dart';
 
 class HomePage extends ConsumerWidget {
@@ -150,6 +151,7 @@ class _HomeBody extends ConsumerWidget {
             semanticLabel: l.homeThisWeek,
           ),
         ),
+        const RecentPostsStrip(),
         const AdSlot(placement: 'home_banner'),
         if (t.lastSyncedAt != null) ...[
           const SizedBox(height: AppSpacing.md),

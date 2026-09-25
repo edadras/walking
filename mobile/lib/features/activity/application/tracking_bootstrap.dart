@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/permissions/permission_primer.dart';
+import '../../posts/application/photo_outbox.dart';
 import 'activity_providers.dart';
 import 'tracking_service.dart';
 
@@ -61,6 +62,8 @@ class _TrackingBootstrapState extends ConsumerState<TrackingBootstrap> with Widg
         ref.invalidate(homeProvider);
         ref.invalidate(dayActivityProvider);
       }
+      // Walk photos taken offline go up with the next sync.
+      await ref.read(photoOutboxProvider.notifier).flush();
     } catch (_) {
       // Tracking is best-effort in the foreground; data stays queued for next time.
     }
