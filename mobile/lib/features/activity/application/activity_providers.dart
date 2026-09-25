@@ -28,7 +28,13 @@ class HomeController extends AsyncNotifier<HomeView> {
     final data = await ref.watch(activityRepositoryProvider).home();
     final unsynced = await ref.read(trackingServiceProvider).pendingStepsToday();
     final view = HomeView(data: data, unsyncedSteps: unsynced);
-    unawaited(ref.read(homeWidgetProvider).update(steps: view.steps, goal: view.goal, streak: data.streak?.current ?? 0));
+    unawaited(ref.read(homeWidgetProvider).update(
+      steps: view.steps,
+      goal: view.goal,
+      streak: data.streak?.current ?? 0,
+      distanceM: data.today.distanceM + data.today.cyclingDistanceM,
+      kcal: data.today.caloriesKcal.round(),
+    ));
     return view;
   }
 

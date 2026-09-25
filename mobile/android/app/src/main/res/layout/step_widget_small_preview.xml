@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Widget picker preview (Android 12+). -->
+<!-- Picker preview.  Compact 2×1: goal ring, today's verified steps, temperature. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_bg"
+    android:background="@drawable/widget_bg_brand"
     android:gravity="center_vertical"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp">
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="12dp">
+
+    <FrameLayout
+        android:layout_width="46dp"
+        android:layout_height="46dp">
+
+        <ImageView
+            android:id="@+id/widget_ring"
+            android:src="@drawable/widget_ring_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/widget_percent"
+            android:text="۸۶٪"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#FFFFFFFF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/widget_steps"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="1"
             android:text="۶٬۴۲۰"
-            android:textColor="#FF1C2B23"
-            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/widget_sub"
+            android:text="قدم امروز، ۳۳°"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="قدم"
-            android:textColor="#FF55675D"
-            android:textSize="12sp" />
+            android:maxLines="1"
+            android:textColor="#CCFFFFFF"
+            android:textSize="11sp" />
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/widget_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_marginTop="4dp"
-        android:max="100"
-        android:progress="86"
-        android:progressDrawable="@android:drawable/progress_horizontal"
-        android:progressTint="#FF1A7F4B"
-        android:progressBackgroundTint="#FFE6F2EB" />
 </LinearLayout>

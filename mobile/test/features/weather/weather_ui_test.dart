@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gamyar/core/network/api_client.dart';
 import 'package:gamyar/features/sponsors/data/sponsor_models.dart';
 import 'package:gamyar/features/sponsors/data/sponsor_repository.dart';
+import 'package:gamyar/features/weather/application/weather_providers.dart';
 import 'package:gamyar/features/weather/data/weather.dart';
 import 'package:gamyar/features/weather/presentation/weather_card.dart';
 import 'package:gamyar/features/weather/presentation/weather_page.dart';
@@ -96,6 +97,17 @@ void main() {
     expect(find.text('کافه راه'), findsOneWidget);
     expect(find.text('شعبه ونک · ۴۲۰ متر'), findsOneWidget);
     verify(() => sponsors.nearby(35.7, 51.4, radiusKm: 2)).called(1);
+  });
+
+  test('the widgets get only what they draw: now, next five hours, advice; no place', () {
+    final summary = widgetSummary(WeatherReport.fromJson(_json));
+    expect(summary['t'], 33.2);
+    expect(summary['hi'], 34.1);
+    expect(summary['aqi'], 93);
+    expect(summary['index'], 100);
+    expect((summary['hours'] as List), hasLength(5));
+    expect((summary['hours'] as List).first, {'h': DateTime.parse('2026-09-25T17:00:00+03:30').toLocal().hour, 'icon': 'clear', 't': 31.8});
+    expect(summary.keys, isNot(contains('lat')));
   });
 
   test('coordinates leave the phone rounded to ~1 km', () async {

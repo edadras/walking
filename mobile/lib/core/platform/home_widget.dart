@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +10,7 @@ import '../format/numbers.dart';
 class HomeWidgetBridge {
   static const _channel = MethodChannel('ir.gamyar.app/widget');
 
-  Future<void> update({required int steps, required int goal, required int streak, DateTime? now}) async {
+  Future<void> update({required int steps, required int goal, required int streak, int distanceM = 0, int kcal = 0, DateTime? now}) async {
     final d = now ?? DateTime.now();
     try {
       await _channel.invokeMethod<bool>('update', {
@@ -16,6 +18,8 @@ class HomeWidgetBridge {
         'goal': goal,
         'streak': streak > 0 ? '🔥 ${Fa.digits(streak)} روز' : '',
         'percent': goal <= 0 ? 0 : (steps * 100 ~/ goal).clamp(0, 100),
+        'distance_m': distanceM,
+        'kcal': kcal,
         // The device's local day the numbers belong to; after midnight the widget asks for a sync.
         'date': '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}',
       });
@@ -23,6 +27,18 @@ class HomeWidgetBridge {
       // Tests / non-Android.
     } on PlatformException {
       // A widget failure must never break the home screen.
+    }
+  }
+
+  /// The latest weather report for the walking-weather widget (and the temperature on the step widgets).
+  /// Only what the widgets show is stored; the place itself never is.
+  Future<void> updateWeather(Map<String, Object?> summary) async {
+    try {
+      await _channel.invokeMethod<bool>('weather', {'json': jsonEncode(summary)});
+    } on MissingPluginException {
+      // Tests / non-Android.
+    } on PlatformException {
+      // Ignore.
     }
   }
 

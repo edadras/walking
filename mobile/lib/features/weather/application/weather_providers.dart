@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../../core/platform/home_widget.dart';
 import '../../sponsors/application/location_source.dart';
 import '../data/weather.dart';
 
@@ -35,8 +36,33 @@ class GeolocatorCoarseLocation implements CoarseLocation {
 
 final coarseLocationProvider = Provider<CoarseLocation>((ref) => GeolocatorCoarseLocation());
 
-/// Called with every fresh report (the home-screen widget listens to keep its copy current).
-final weatherSinkProvider = Provider<void Function(WeatherReport)>((ref) => (_) {});
+/// Called with every fresh report: the home-screen widgets keep a copy of what they show.
+final weatherSinkProvider = Provider<void Function(WeatherReport)>((ref) => (r) => ref.read(homeWidgetProvider).updateWeather(widgetSummary(r)));
+
+/// The few numbers the widgets draw (no coordinates).
+Map<String, Object?> widgetSummary(WeatherReport r) {
+  final today = r.daily.isEmpty ? null : r.daily.first;
+  final top = r.advice.isEmpty ? null : r.advice.first;
+  return {
+    't': r.now.tempC,
+    'feels': r.now.feelsLikeC,
+    'hi': today?.maxC ?? r.now.tempC,
+    'lo': today?.minC ?? r.now.tempC,
+    'cond': r.now.condition,
+    'icon': r.now.icon,
+    'day': r.now.isDay,
+    'hum': r.now.humidity,
+    'wind': r.now.windKmh,
+    'uv': r.now.uv,
+    if (r.air != null) 'aqi': r.air!.aqi,
+    'index': r.walkScore,
+    'advice': top?.text ?? '',
+    'at': (r.stale ? r.observedAt : DateTime.now()).millisecondsSinceEpoch,
+    'hours': [
+      for (final h in r.hourly.skip(1).take(5)) {'h': h.time.toLocal().hour, 'icon': h.icon, 't': h.tempC},
+    ],
+  };
+}
 
 /// Weather where the user is. Kept for 10 minutes so switching tabs doesn't refetch.
 final weatherProvider = FutureProvider.autoDispose<WeatherReport>((ref) async {

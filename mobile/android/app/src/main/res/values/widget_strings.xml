@@ -11,4 +11,18 @@
     <string name="widget_notification_title">%1$s قدم امروز</string>
     <string name="widget_channel_name">قدم‌های امروز روی صفحه قفل</string>
     <string name="widget_channel_description">اعلان آرام و ثابت با قدم‌های امروز و پیشرفت هدف</string>
+    <string name="weather_widget_title">گام‌یار · آب‌وهوای پیاده‌روی</string>
+    <string name="weather_widget_description">دما، رطوبت، باد، فرابنفش و آلودگی هوا، پیش‌بینی ساعت‌های آینده و قدم‌های امروز</string>
+    <string name="weather_walk_index">شاخص پیاده‌روی</string>
+    <string name="weather_open_app">برای آب‌وهوای محل، گام‌یار را باز کن</string>
+    <string name="weather_updated">به‌روز: %1$s</string>
+    <string name="weather_stale">%1$s (قدیمی)</string>
+    <string name="weather_feels">احساس %1$s، بیشینه %2$s، کمینه %3$s</string>
+    <string name="weather_steps_line">%1$s قدم امروز، %2$s از هدف</string>
+    <string name="widget_stats">%1$s کیلومتر، %2$s کالری</string>
+    <string name="widget_steps_unit">قدم امروز</string>
+    <string name="weather_chip_humidity">رطوبت %1$s٪</string>
+    <string name="weather_chip_wind">باد %1$s</string>
+    <string name="weather_chip_uv">UV %1$s</string>
+    <string name="weather_chip_air">هوا %1$s</string>
 </resources>

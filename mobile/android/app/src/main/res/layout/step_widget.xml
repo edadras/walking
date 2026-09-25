@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Today's verified steps as the app last showed them (RemoteViews: plain widgets only). -->
+<!-- 3×2: goal ring with today's verified steps, goal, distance/kcal, streak, pending; weather at a glance. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_bg"
+    android:background="@drawable/widget_bg_brand"
     android:layoutDirection="rtl"
     android:orientation="vertical"
     android:padding="14dp">
@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -19,54 +20,111 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/widget_title"
-            android:textColor="#FF55675D"
-            android:textSize="13sp" />
+            android:textColor="#CCFFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/w_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:importantForAccessibility="no" />
 
         <TextView
-            android:id="@+id/widget_streak"
+            android:id="@+id/w_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFB07A00"
-            android:textSize="13sp" />
+            android:layout_marginStart="4dp"
+            android:textColor="#FFFFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/widget_steps"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="—"
-        android:textColor="#FF1C2B23"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <ProgressBar
-        android:id="@+id/widget_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
+        android:layout_height="0dp"
         android:layout_marginTop="6dp"
-        android:max="100"
-        android:progressDrawable="@android:drawable/progress_horizontal"
-        android:progressTint="#FF1A7F4B"
-        android:progressBackgroundTint="#FFE6F2EB" />
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/widget_goal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textColor="#FF55675D"
-        android:textSize="12sp" />
+        <FrameLayout
+            android:layout_width="92dp"
+            android:layout_height="92dp">
 
-    <!-- Counted on the phone since the last sync; verified by the server later. -->
-    <TextView
-        android:id="@+id/widget_pending"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="#FF1A7F4B"
-        android:textSize="11sp" />
+            <ImageView
+                android:id="@+id/widget_ring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/widget_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="—"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/widget_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/widget_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="#FFFFFFFF"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/widget_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxLines="1"
+                android:textColor="#CCFFFFFF"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/widget_streak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#FFFFD66B"
+                android:textSize="12sp" />
+
+            <!-- Counted on the phone since the last sync; verified by the server later. -->
+            <TextView
+                android:id="@+id/widget_pending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="#FFB4F0CF"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

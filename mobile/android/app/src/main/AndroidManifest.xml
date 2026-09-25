@@ -93,6 +93,12 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/step_widget_small_info" />
         </receiver>
+        <receiver android:name=".WeatherWidget" android:exported="false" android:label="@string/weather_widget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/weather_widget_info" />
+        </receiver>
         <!-- Background FCM notifications: brand status-bar icon and the channel the app creates. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
