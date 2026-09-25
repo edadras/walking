@@ -6,6 +6,7 @@ import '../features/activity/presentation/activity_page.dart';
 import '../features/ads/presentation/rewarded_ad_page.dart';
 import '../features/activity/presentation/session_detail_page.dart';
 import '../features/activity/presentation/walk_page.dart';
+import '../features/auth/application/pending_referral.dart';
 import '../features/auth/application/session_controller.dart';
 import '../features/cashout/data/cashout.dart';
 import '../features/cashout/presentation/cashout_page.dart';
@@ -75,6 +76,14 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final session = ref.read(sessionProvider);
       final loc = state.matchedLocation;
+
+      // Invite link (App Link / gamyar://app/r/CODE): remember the code, then continue as a normal start.
+      final invite = referralCodeFromPath(state.uri.path);
+      if (invite != null) {
+        final signedIn = session.value is SessionAuthenticated;
+        if (!signedIn) ref.read(pendingReferralProvider.notifier).set(invite);
+        return !session.hasValue ? '/splash' : (signedIn ? '/home' : '/auth/phone');
+      }
       final public = loc.startsWith('/page/');
 
       if (!session.hasValue) return loc == '/splash' ? null : '/splash';
@@ -88,6 +97,8 @@ final routerProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(path: '/splash', builder: (_, _) => const SplashPage()),
+      // Only reached through the redirect above; kept so the invite path always matches a route.
+      GoRoute(path: '/r/:code', builder: (_, _) => const SplashPage()),
       GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingPage()),
       GoRoute(path: '/blocked', builder: (_, _) => const BlockedPage()),
       GoRoute(path: '/permissions', builder: (_, _) => const PermissionsPage()),

@@ -26,6 +26,7 @@ android {
 
     defaultConfig {
         // Pushe manifest token (console → app → manifest token), from PUSHE_TOKEN or -PpusheToken.
+        manifestPlaceholders["appLinkHost"] = System.getenv("APP_LINK_HOST") ?: (project.findProperty("appLinkHost") as String? ?: "gamyar.ir")
         manifestPlaceholders["pusheToken"] = System.getenv("PUSHE_TOKEN") ?: (project.findProperty("pusheToken") as String? ?: "")
         applicationId = "ir.gamyar.app"
         // Android 8.0+: hardware-backed EC keys and a sane step-counter/background model.
@@ -86,6 +87,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("androidx.work:work-runtime:2.10.0")
     implementation("androidx.core:core-ktx:1.15.0")
+    // Play install referrer: carries the invite code through a Play Store install.
+    implementation("com.android.installreferrer:installreferrer:2.2")
     "bazaarImplementation"("co.pushe.plus:base:2.6.4")
     "myketImplementation"("co.pushe.plus:base:2.6.4")
 }

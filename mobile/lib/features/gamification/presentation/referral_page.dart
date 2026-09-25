@@ -54,7 +54,7 @@ class ReferralPage extends ConsumerWidget {
             AppButton(
               label: l.referralShare,
               icon: Icons.share_rounded,
-              onPressed: () => SharePlus.instance.share(ShareParams(text: l.referralShareText(r.code))),
+              onPressed: () => SharePlus.instance.share(ShareParams(text: r.shareUrl == null ? l.referralShareText(r.code) : l.referralShareTextLink(r.code, r.shareUrl!))),
             ),
             const SizedBox(height: AppSpacing.xl),
             AppCard(

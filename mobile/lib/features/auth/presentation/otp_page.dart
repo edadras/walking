@@ -12,6 +12,7 @@ import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../config/data/app_config.dart';
+import '../application/pending_referral.dart';
 import '../application/session_controller.dart';
 import '../data/auth_repository.dart';
 import 'phone_page.dart';
@@ -38,6 +39,11 @@ class _OtpPageState extends ConsumerState<OtpPage> {
   void initState() {
     super.initState();
     _startTimer();
+    final invite = ref.read(pendingReferralProvider);
+    if (invite != null) {
+      _referral.text = invite;
+      _showReferral = true;
+    }
   }
 
   void _startTimer() {
@@ -66,6 +72,7 @@ class _OtpPageState extends ConsumerState<OtpPage> {
     });
     try {
       await ref.read(sessionProvider.notifier).signIn(phone: widget.args.phone, code: code, referralCode: _referral.text.trim());
+      ref.read(pendingReferralProvider.notifier).clear();
       // The router redirects to the shell once the session is authenticated.
     } on ApiException catch (e) {
       if (!mounted) return;
@@ -94,6 +101,10 @@ class _OtpPageState extends ConsumerState<OtpPage> {
     final l = context.l10n;
     final p = context.palette;
     final length = ref.watch(configProvider).otpLength;
+    // The stored invite (or Play install referrer) may arrive after the page opened.
+    ref.listen(pendingReferralProvider, (_, next) {
+      if (next != null && _referral.text.isEmpty) setState(() => (_referral.text = next, _showReferral = true));
+    });
 
     return Scaffold(
       appBar: AppBar(),

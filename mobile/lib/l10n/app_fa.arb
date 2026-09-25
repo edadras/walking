@@ -1421,5 +1421,17 @@
       }
     }
   },
-  "profileOrganization": "سازمان من"
+  "profileOrganization": "سازمان من",
+  "referralShareTextLink": "با گام‌یار راه برو و جایزه بگیر! از این لینک نصب کن: {url}\nکد دعوت من: {code}",
+  "@referralShareTextLink": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "authReferralPrefilled": "کد دعوت از لینک دریافتی وارد شد."
 }

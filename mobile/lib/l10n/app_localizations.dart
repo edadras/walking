@@ -3807,6 +3807,18 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'سازمان من'**
   String get profileOrganization;
+
+  /// No description provided for @referralShareTextLink.
+  ///
+  /// In fa, this message translates to:
+  /// **'با گام‌یار راه برو و جایزه بگیر! از این لینک نصب کن: {url}\nکد دعوت من: {code}'**
+  String referralShareTextLink(String code, String url);
+
+  /// No description provided for @authReferralPrefilled.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد دعوت از لینک دریافتی وارد شد.'**
+  String get authReferralPrefilled;
 }
 
 class _AppLocalizationsDelegate

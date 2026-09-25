@@ -2140,4 +2140,12 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get profileOrganization => 'سازمان من';
+
+  @override
+  String referralShareTextLink(String code, String url) {
+    return 'با گام‌یار راه برو و جایزه بگیر! از این لینک نصب کن: $url\nکد دعوت من: $code';
+  }
+
+  @override
+  String get authReferralPrefilled => 'کد دعوت از لینک دریافتی وارد شد.';
 }

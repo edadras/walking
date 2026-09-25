@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/localization/l10n.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/theme_mode.dart';
+import '../features/auth/application/pending_referral.dart';
 import '../features/notifications/application/push_service.dart';
 import 'router.dart';
 import 'session_effects.dart';
@@ -16,6 +17,8 @@ class GamyarApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Push registration and notification-tap routing follow the session.
     ref.watch(pushControllerProvider);
+    // Restores a saved invite code and reads the Play install referrer once.
+    ref.listen(pendingReferralProvider, (_, _) {});
     ref.watch(sessionEffectsProvider);
     return MaterialApp.router(
       onGenerateTitle: (c) => c.l10n.appName,

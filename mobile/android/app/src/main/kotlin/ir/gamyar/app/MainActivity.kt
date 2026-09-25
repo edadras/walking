@@ -15,6 +15,9 @@ class MainActivity : FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, OemSettingsChannel.NAME)
             .setMethodCallHandler(OemSettingsChannel(applicationContext))
 
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, InstallReferrerChannel.NAME)
+            .setMethodCallHandler(InstallReferrerChannel(applicationContext))
+
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, StepWidget.CHANNEL)
             .setMethodCallHandler(StepWidget.Channel(applicationContext))
 

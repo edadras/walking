@@ -121,10 +121,11 @@ class Leaderboard {
 }
 
 class ReferralSummary {
-  const ReferralSummary({required this.code, required this.qualifySteps, required this.referrerPoints, required this.refereePoints, required this.invited, required this.rewarded, required this.pointsEarned});
+  const ReferralSummary({required this.code, this.shareUrl, required this.qualifySteps, required this.referrerPoints, required this.refereePoints, required this.invited, required this.rewarded, required this.pointsEarned});
 
   factory ReferralSummary.fromJson(Map<String, dynamic> j) => ReferralSummary(
         code: j['code'] as String,
+        shareUrl: j['share_url'] as String?,
         qualifySteps: _i(j['qualify_steps']),
         referrerPoints: _i(j['referrer_points']),
         refereePoints: _i(j['referee_points']),
@@ -134,6 +135,9 @@ class ReferralSummary {
       );
 
   final String code;
+
+  /// https invite link (opens the app via App Links, or the store page).
+  final String? shareUrl;
   final int qualifySteps;
   final int referrerPoints;
   final int refereePoints;

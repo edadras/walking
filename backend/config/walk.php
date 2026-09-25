@@ -218,6 +218,20 @@ return [
         ],
     ],
 
+    // Public links: referral landing (/r/{code}), store listings and Android App Links verification.
+    'links' => [
+        'android_package' => env('ANDROID_PACKAGE', 'ir.gamyar.app'),
+        // SHA-256 fingerprints of every signing key users may have installed (Play app-signing key AND your
+        // upload/Bazaar/Myket key), comma-separated: AA:BB:…
+        'android_cert_sha256' => array_values(array_filter(array_map('trim', explode(',', (string) env('ANDROID_CERT_SHA256', ''))))),
+        'stores' => [
+            'bazaar' => env('STORE_URL_BAZAAR', 'https://cafebazaar.ir/app/ir.gamyar.app'),
+            'myket' => env('STORE_URL_MYKET', 'https://myket.ir/app/ir.gamyar.app'),
+            'play' => env('STORE_URL_PLAY', 'https://play.google.com/store/apps/details?id=ir.gamyar.app'),
+            'apk' => env('DIRECT_APK_URL'),
+        ],
+    ],
+
     'sms' => [
         'driver' => env('SMS_DRIVER', 'log'),
         'kavenegar' => [

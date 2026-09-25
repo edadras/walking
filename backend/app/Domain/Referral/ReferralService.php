@@ -79,6 +79,7 @@ class ReferralService
 
         return [
             'code' => $user->referral_code,
+            'share_url' => url('/r/'.$user->referral_code),
             'qualify_steps' => $this->settings->int('referral.qualify_steps'),
             'referrer_points' => $this->settings->int('referral.referrer_points'),
             'referee_points' => $this->settings->int('referral.referee_points'),

@@ -60,6 +60,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="gamyar" android:host="app" android:pathPrefix="/orders/" />
+                <data android:scheme="gamyar" android:host="app" android:pathPrefix="/r/" />
+            </intent-filter>
+            <!-- Invite links https://<host>/r/CODE open the app directly (verified via /.well-known/assetlinks.json). -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="${appLinkHost}" android:pathPrefix="/r/" />
             </intent-filter>
         </activity>
         <service
