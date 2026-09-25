@@ -74,7 +74,11 @@ void main() {
 
   Future<void> tapText(WidgetTester tester, String text) async {
     final f = find.text(text).last;
-    await tester.ensureVisible(f);
+    // Close the keyboard, then bring the target to the middle of the screen: aligned to the
+    // top it can sit under a pinned (blurred) header and the tap lands on the header.
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump(const Duration(milliseconds: 400));
+    await Scrollable.ensureVisible(tester.element(f), alignment: 0.5);
     await tester.pump(const Duration(milliseconds: 300));
     await tester.tap(f);
     await tester.pump(const Duration(milliseconds: 300));
