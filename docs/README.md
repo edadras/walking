@@ -32,6 +32,7 @@
 | 8 — تحلیل، پشتیبانی، گزارش | [phase-8.md](phase-8.md) |
 | 9 — امنیت، کارایی، استقرار | [phase-9.md](phase-9.md) · [deployment.md](deployment.md) |
 | تکمیل — تصویر کالا، آواتار، Push، تحلیل و گزارش خطا | [completion.md](completion.md) |
+| پیشنهادها — دسترسی‌ها، فروشگاه‌ها، Pushe، نقشه، زرین‌پال، ماندگاری و داشبوردها | [suggestions.md](suggestions.md) |
 
 ## اجرای پروژه
 

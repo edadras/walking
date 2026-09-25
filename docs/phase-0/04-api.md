@@ -114,6 +114,15 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | GET | `/pages/{slug}` · `/faqs` | – | – | 1 | CMS |
 | POST | `/analytics/events` | ✓ | – | 2 | Batch، بدون PII |
 | POST | `/client-errors` | – | – | تکمیل | گزارش کرش؛ عمومی، Throttle ۱۰/دقیقه، گروه‌بندی و پاک‌سازی PII |
+| GET | `/map/tiles/{z}/{x}/{y}` | ✓ | – | پیشنهادها | Proxy و Cache برای Tile سرویس کلیددار؛ خارج از Throttle عمومی (۶۰۰ در دقیقه) |
+| POST | `/streak/freezes` | ✓ | ✓ | پیشنهادها | خرید محافظ زنجیره؛ `Idempotency-Key` |
+| GET | `/quests` | ✓ | – | پیشنهادها | مأموریت‌های روزانه/هفتگی با پیشرفت محاسبه‌شده در سرور |
+| POST | `/quests/{key}/claim` | ✓ | ✓ | پیشنهادها | دریافت پاداش؛ یک‌بار در هر دوره |
+| GET/POST | `/friends` | ✓ | – | پیشنهادها | فهرست و رتبه‌بندی هفتگی / درخواست دوستی با کد (Throttle `social`) |
+| POST/DELETE | `/friends/{id}/accept`، `/friends/{id}` | ✓ | – | پیشنهادها | پذیرفتن / رد یا حذف |
+| GET/POST | `/friend-challenges`، `/friend-challenges/{id}(/join,/leave)` | ✓ | – | پیشنهادها | رقابت دوستانه (بدون امتیاز) |
+| – | `POST /orders` با `payment_mode: money` | ✓ | ✓ | پیشنهادها | سفارش ریالی؛ پاسخ شامل `payment.pay_url` (زرین‌پال) |
+| GET | `/payments/zarinpal/callback` (وب) | – | – | پیشنهادها | بازگشت از بانک؛ تأیید سرور با مبلغ ذخیره‌شده |
 
 ## ۴.۳ Rate Limitها (Redis)
 

@@ -50,6 +50,16 @@ abstract final class AppTheme {
       extensions: [p],
       splashFactory: InkSparkle.splashFactory,
       dividerTheme: DividerThemeData(color: p.border, thickness: 1, space: 1),
+      // Flat, brand-coloured like the rest of the surfaces (cards are elevation 0 too).
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: p.green,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        focusElevation: 0,
+        hoverElevation: 0,
+        highlightElevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.mdAll),
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: p.bg,
         surfaceTintColor: Colors.transparent,

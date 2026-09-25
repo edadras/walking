@@ -157,4 +157,53 @@ class Metrics
 
         return $out;
     }
+
+    /**
+     * Point economy over the last $days: what was issued (by source), what was
+     * spent, and who paid for it. Sponsor/advertiser-funded sources are points
+     * someone outside the platform bought; the rest is the platform's cost.
+     *
+     * @return array{issued: array<string, int>, spent: array<string, int>, issued_total: int, spent_total: int, funded_total: int, expired_total: int}
+     */
+    public function economy(int $days): array
+    {
+        $since = now()->subDays($days);
+        $rows = DB::table('point_transactions')->where('created_at', '>=', $since)->where('status', '!=', 'reversed')
+            ->groupBy('type')->selectRaw('type, SUM(CASE WHEN amount > 0 THEN amount ELSE 0 END) inflow, SUM(CASE WHEN amount < 0 THEN -amount ELSE 0 END) outflow')
+            ->get();
+
+        $issued = [];
+        $spent = [];
+        foreach ($rows as $r) {
+            if ($r->type !== 'refund' && (int) $r->inflow > 0) {
+                $issued[$r->type] = (int) $r->inflow;
+            }
+            if ((int) $r->outflow > 0) {
+                $spent[$r->type] = (int) $r->outflow;
+            }
+        }
+        arsort($issued);
+        arsort($spent);
+        $funded = array_sum(array_intersect_key($issued, array_flip(self::FUNDED_TYPES)));
+
+        return [
+            'issued' => $issued,
+            'spent' => $spent,
+            'issued_total' => array_sum($issued),
+            'spent_total' => array_sum(array_diff_key($spent, ['expiration' => 0])),
+            'expired_total' => $spent['expiration'] ?? 0,
+            'funded_total' => $funded,
+        ];
+    }
+
+    /** Sources paid for by sponsors or advertisers rather than the platform. */
+    public const FUNDED_TYPES = ['sponsor_reward', 'coupon_reward', 'ad_reward'];
+
+    /** Points users hold right now (available + held), i.e. the platform's outstanding liability. */
+    public function liability(): array
+    {
+        $row = DB::table('wallets')->selectRaw('COALESCE(SUM(available_balance),0) a, COALESCE(SUM(pending_balance),0) p')->first();
+
+        return ['available' => (int) $row->a, 'pending' => (int) $row->p];
+    }
 }

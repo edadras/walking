@@ -14,7 +14,7 @@ import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gamyar/app/app.dart';
@@ -23,6 +23,8 @@ import 'package:gamyar/core/network/api_client.dart';
 import 'package:gamyar/core/network/api_exception.dart';
 import 'package:gamyar/core/providers.dart';
 import 'package:gamyar/core/storage/secure_store.dart';
+import 'package:gamyar/core/permissions/required_permissions.dart';
+import 'package:gamyar/core/theme/theme_mode.dart';
 import 'package:gamyar/core/widgets/net_image.dart';
 import 'package:gamyar/features/activity/application/tracking_service.dart';
 import 'package:gamyar/features/activity/data/session_queue.dart';
@@ -124,7 +126,7 @@ void main() {
     });
   }
 
-  Future<(GlobalKey, ProviderContainer)> boot(WidgetTester tester, {required bool signedIn, bool onboarded = true}) async {
+  Future<(GlobalKey, ProviderContainer)> boot(WidgetTester tester, {required bool signedIn, bool onboarded = true, List extra = const []}) async {
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;
     final store = MemorySecureStore();
@@ -143,6 +145,7 @@ void main() {
         locationPermissionProvider.overrideWith((_) async => true),
         locationSourceProvider.overrideWithValue(_Here()),
         imageResolverProvider.overrideWithValue(_localImage),
+        ...extra,
       ],
       child: RepaintBoundary(key: key, child: const GamyarApp()),
     ));
@@ -197,11 +200,37 @@ void main() {
       '36-support-ticket': '/support/${ids['ticket']}',
       '37-faq': '/faq',
       '38-page-terms': '/page/terms',
+      '39-quests': '/quests',
+      '40-friends': '/friends',
+      '41-friend-race': '/friend-challenges/${ids['race']}',
     };
     for (final MapEntry(key: name, value: route) in screens.entries) {
       router.go(route);
       await shoot(tester, key, name);
     }
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+  }, skip: !enabled);
+
+  testWidgets('permissions gate and dark mode', (tester) async {
+    final (key, c) = await boot(tester, signedIn: true, extra: [
+      devicePermissionsProvider.overrideWithValue(_DeniedDevice()),
+    ]);
+    await shoot(tester, key, '42-permissions-gate');
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+
+    final (key2, c2) = await boot(tester, signedIn: true, extra: [themeModeProvider.overrideWith(_Dark.new)]);
+    final router = c2.read(routerProvider);
+    for (final (name, route) in [('43-dark-home', '/home'), ('44-dark-rewards', '/rewards'), ('45-dark-store', '/store'), ('46-dark-profile', '/profile')]) {
+      router.go(route);
+      await shoot(tester, key2, name);
+    }
+    // Streak sheet (home card tap).
+    router.go('/home');
+    await shoot(tester, key2, '47-dark-home-again');
+    await tester.tap(find.textContaining('روز متوالی').first);
+    await shoot(tester, key2, '48-streak-sheet');
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(seconds: 1));
   }, skip: !enabled);
@@ -227,6 +256,24 @@ ImageProvider _localImage(String url) => _imageCache.putIfAbsent(url, () {
       final file = File('../backend/database/seeders/assets/products/${Uri.parse(url).pathSegments.last}');
       return MemoryImage(file.existsSync() ? file.readAsBytesSync() : Uint8List(0));
     });
+
+class _DeniedDevice implements DevicePermissions {
+  @override
+  Future<GateStatus> status(RequiredPermission p) async => p == RequiredPermission.activity ? GateStatus.granted : GateStatus.denied;
+  @override
+  Future<GateStatus> request(RequiredPermission p) async => GateStatus.granted;
+  @override
+  Future<void> openSettings() async {}
+  @override
+  Future<OemInfo> oem() async => (manufacturer: 'Xiaomi', family: 'xiaomi');
+  @override
+  Future<bool> openAutostart() async => true;
+}
+
+class _Dark extends ThemeModeController {
+  @override
+  ThemeMode build() => ThemeMode.dark;
+}
 
 class _Here implements LocationSource {
   @override
