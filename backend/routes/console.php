@@ -7,4 +7,5 @@ Schedule::command('wallet:release-pending')->everyTenMinutes()->withoutOverlappi
 Schedule::command('challenges:close')->hourly()->onOneServer();
 Schedule::command('leaderboard:snapshot')->dailyAt('00:10')->timezone('Asia/Tehran')->onOneServer();
 Schedule::command('notifications:streak-warnings')->dailyAt('20:00')->timezone('Asia/Tehran')->onOneServer();
+Schedule::command('payments:sweep')->everyFiveMinutes()->withoutOverlapping()->onOneServer();
 Schedule::command('sponsors:housekeeping')->everyFiveMinutes()->withoutOverlapping()->onOneServer();

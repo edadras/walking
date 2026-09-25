@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gamyar/core/network/api_client.dart';
 import 'package:gamyar/core/network/api_exception.dart';
+import 'package:gamyar/core/platform/external_url.dart';
 import 'package:gamyar/core/storage/secure_store.dart';
 import 'package:gamyar/core/widgets/net_image.dart';
 import 'package:gamyar/features/auth/application/session_controller.dart';
@@ -64,8 +65,15 @@ class FakeStoreRepository extends StoreRepository {
       ];
 
   @override
-  Future<Order> placeOrder({required String productId, required int quantity, required String idempotencyKey, String? addressId, String? note}) async {
-    keys.add('$idempotencyKey|$quantity|$addressId');
+  Future<Order> placeOrder({required String productId, required int quantity, required String idempotencyKey, String? addressId, String? note, bool money = false}) async {
+    keys.add('$idempotencyKey|$quantity|$addressId${money ? '|money' : ''}');
+    if (money) {
+      return Order.fromJson({
+        ...orderJson(status: 'awaiting_payment', codes: const []),
+        'payment_mode': 'money', 'total_rial': 1000000, 'total_points': 0,
+        'payment': {'status': 'pending', 'amount_rial': 1000000, 'ref_id': null, 'pay_url': 'https://www.zarinpal.com/pg/StartPay/A1'},
+      });
+    }
     if (failFirst-- > 0) throw const ApiException(code: 'network', message: 'اتصال برقرار نشد.');
     return Order.fromJson(orderJson());
   }
@@ -82,15 +90,20 @@ class FakeStoreRepository extends StoreRepository {
 
 WalletBalance balance(int n) => WalletBalance.fromJson({'available': n, 'pending': 0, 'rial_per_point': 500, 'rial_value': n * 500, 'pending_rial_value': 0, 'lifetime_earned': n, 'lifetime_spent': 0, 'next_release_at': null});
 
-List overrides(FakeStoreRepository repo, {int points = 600}) => [
+List overrides(FakeStoreRepository repo, {int points = 600, Map<String, bool> features = const {'store': true}}) => [
       storeRepositoryProvider.overrideWithValue(repo),
-      configProvider.overrideWithValue(const AppConfig(features: {'store': true}, settings: {}, updateRequired: false, serverTime: null)),
+      configProvider.overrideWithValue(AppConfig(features: features, settings: const {}, updateRequired: false, serverTime: null)),
       walletBalanceProvider.overrideWith((_) async => balance(points)),
       meProvider.overrideWithValue(me),
     ];
 
 /// 1×1 transparent PNG so image widgets resolve without network.
 final _pixel = Uint8List.fromList(base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
+
+class _RialRepo extends FakeStoreRepository {
+  @override
+  Future<Product> product(String slug) async => Product.fromJson({...productJson(slug: 'card', type: 'digital_code', price: 1200), 'rial_price': 500000});
+}
 
 class _GalleryRepo extends FakeStoreRepository {
   @override
@@ -99,6 +112,35 @@ class _GalleryRepo extends FakeStoreRepository {
 }
 
 void main() {
+  testWidgets('rial checkout opens the bank page in the browser and needs no points', (tester) async {
+    tester.view
+      ..physicalSize = const Size(1080, 2340)
+      ..devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    final repo = _RialRepo();
+    final opened = <String>[];
+    await tester.pumpWidget(testApp(const ProductPage(slug: 'card'), overrides: [
+      ...overrides(repo, points: 0, features: const {'store': true, 'money_payment': true}),
+      externalUrlOpenerProvider.overrideWithValue((url) async {
+        opened.add(url);
+        return true;
+      }),
+    ]));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('خرید'));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('امتیاز دیگر لازم'), findsOneWidget, reason: 'points path: not enough points');
+    await tester.tap(find.text('پرداخت ریالی'));
+    await tester.pumpAndSettle();
+    expect(find.text('۵۰۰٬۰۰۰ ریال'), findsWidgets);
+    await tester.tap(find.textContaining('پرداخت ۵۰۰٬۰۰۰ ریال'));
+    await tester.pumpAndSettle();
+
+    expect(repo.keys.single, endsWith('|money'));
+    expect(opened, ['https://www.zarinpal.com/pg/StartPay/A1']);
+  });
+
   testWidgets('product gallery pages through every image', (tester) async {
     final semantics = tester.ensureSemantics();
     final requested = <String>[];

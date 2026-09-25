@@ -28,7 +28,7 @@ class OrderController extends Controller
     {
         abort_unless($order->user_id === $request->user()->id, 404);
 
-        return response()->json(['data' => $this->present->order($order->load(['items.codes', 'items.userCoupon', 'items.product.images', 'history']), full: true)]);
+        return response()->json(['data' => $this->present->order($order->load(['items.codes', 'items.userCoupon', 'items.product.images', 'history', 'latestPayment']), full: true)]);
     }
 
     public function store(Request $request, OrderService $orders): JsonResponse
@@ -49,7 +49,7 @@ class OrderController extends Controller
         // Prices come from the database; the client only says what and how many.
         [$order, $created] = $orders->place($request->user(), $data['items'], $key, $data['address_id'] ?? null, $data['payment_mode'] ?? 'points', $data['note'] ?? null);
 
-        return response()->json(['data' => $this->present->order($order->load(['items.codes', 'items.userCoupon', 'items.product.images', 'history']), full: true)], $created ? 201 : 200);
+        return response()->json(['data' => $this->present->order($order->load(['items.codes', 'items.userCoupon', 'items.product.images', 'history', 'latestPayment']), full: true)], $created ? 201 : 200);
     }
 
     public function cancel(Request $request, Order $order, OrderService $orders): JsonResponse
@@ -57,6 +57,6 @@ class OrderController extends Controller
         abort_unless($order->user_id === $request->user()->id, 404);
         $order = $orders->cancelByUser($request->user(), $order);
 
-        return response()->json(['data' => $this->present->order($order->load(['items.codes', 'items.userCoupon', 'items.product.images', 'history']), full: true)]);
+        return response()->json(['data' => $this->present->order($order->load(['items.codes', 'items.userCoupon', 'items.product.images', 'history', 'latestPayment']), full: true)]);
     }
 }

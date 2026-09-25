@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../config/env.dart';
 import '../network/api_client.dart';
 import '../providers.dart';
 
@@ -32,6 +33,8 @@ class CrashReporter {
         'stack': _clip(lines.join('\n'), 8000),
         'fatal': fatal,
         'app_version': appVersion,
+        // Release builds are obfuscated per flavor: version + store pick the symbols file.
+        'store': Env.store,
       });
     } catch (_) {
       // Never let reporting itself crash or recurse.

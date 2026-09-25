@@ -32,6 +32,13 @@ class ConfigController extends Controller
             ],
             'features' => $flags->forClient($userId, $appVersion, $request->header('X-Platform', 'android')),
             'settings' => $settings->public(),
+            'map' => [
+                // A keyed provider is always reached through our proxy; otherwise the admin-set URL (or the app default).
+                'tile_url' => config('walk.map.upstream') ? url('/api/v1/map/tiles').'/{z}/{x}/{y}' : $settings->get('map.tile_url'),
+                'proxied' => (bool) config('walk.map.upstream'),
+                'attribution' => $settings->get('map.attribution'),
+                'max_zoom' => (int) $settings->get('map.max_zoom'),
+            ],
         ]]);
     }
 }

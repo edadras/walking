@@ -2,18 +2,32 @@
 
 namespace App\Domain\Store;
 
-use App\Models\Order;
+use App\Domain\Store\Exceptions\GatewayUnavailable;
 
 /**
- * Rial payment adapter (Spec: behind the `money_payment` flag). No gateway is
- * bound yet: a concrete adapter (e.g. an IPG) must be implemented against the
- * gateway's official docs and bound in AppServiceProvider before enabling it.
+ * Rial payment gateway (Spec: behind the `money_payment` flag). Amounts are in
+ * Rial. Implementations talk to the gateway only; order state lives in
+ * PaymentService.
  */
 interface PaymentGateway
 {
-    /** Starts a payment and returns the URL the app opens. */
-    public function start(Order $order): string;
+    public function name(): string;
 
-    /** Verifies the gateway callback server-side; returns the gateway reference on success. */
-    public function verify(Order $order, array $callback): ?string;
+    /**
+     * Opens a payment and returns the gateway's reference and the page the user pays on.
+     *
+     * @return array{authority: string, url: string}
+     *
+     * @throws GatewayUnavailable
+     */
+    public function request(int $amountRial, string $callbackUrl, string $description, ?string $mobile = null): array;
+
+    /**
+     * Server-side confirmation for `$amountRial` (from our records). Null means not paid.
+     *
+     * @return array{ref_id: string, card_pan: ?string}|null
+     *
+     * @throws GatewayUnavailable
+     */
+    public function verify(int $amountRial, string $authority): ?array;
 }

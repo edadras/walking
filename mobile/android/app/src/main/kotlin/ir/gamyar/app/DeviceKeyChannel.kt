@@ -149,13 +149,26 @@ class DeviceKeyChannel(private val context: Context) : MethodChannel.MethodCallH
      * Cheap local hints. They are trivially spoofable on a rooted device, so the
      * server gives them low weight and relies on Play Integrity for real verdicts.
      */
-    private fun signals(): Map<String, Boolean> {
+    private fun signals(): Map<String, Any?> {
         ensureKey()
         return mapOf(
             "emulator" to isProbablyEmulator(),
             "rooted" to isProbablyRooted(),
             "hardwareBacked" to isHardwareBacked(),
+            "installer" to installer(),
         )
+    }
+
+    /** Package that installed us (Play, Bazaar, Myket…); null for sideloads and debug installs. */
+    private fun installer(): String? = try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            context.packageManager.getInstallSourceInfo(context.packageName).installingPackageName
+        } else {
+            @Suppress("DEPRECATION")
+            context.packageManager.getInstallerPackageName(context.packageName)
+        }
+    } catch (e: Exception) {
+        null
     }
 
     private fun isHardwareBacked(): Boolean = try {

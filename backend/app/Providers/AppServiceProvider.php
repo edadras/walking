@@ -10,9 +10,13 @@ use App\Domain\Device\Integrity\NullIntegrityVerifier;
 use App\Domain\Device\Integrity\PlayIntegrityVerifier;
 use App\Domain\Notification\FcmPushSender;
 use App\Domain\Notification\LogPushSender;
+use App\Domain\Notification\PushePushSender;
 use App\Domain\Notification\PushSender;
+use App\Domain\Notification\RoutingPushSender;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
+use App\Domain\Store\PaymentGateway;
+use App\Domain\Store\ZarinpalGateway;
 use App\Models\AdCampaign;
 use App\Models\Admin;
 use App\Models\AdView;
@@ -61,14 +65,24 @@ class AppServiceProvider extends ServiceProvider
             };
         });
 
-        $this->app->singleton(PushSender::class, function ($app) {
+        $this->app->singleton(PushSender::class, function () {
+            $senders = [];
             $credentials = config('walk.push.fcm_credentials');
-            if (config('walk.push.driver') === 'fcm' && $credentials) {
-                return new FcmPushSender(json_decode((string) file_get_contents($credentials), true));
+            if ($credentials) {
+                $senders['fcm'] = new FcmPushSender(json_decode((string) file_get_contents($credentials), true));
+            }
+            if (config('walk.push.pushe_token') && config('walk.push.pushe_app_id')) {
+                $senders['pushe'] = new PushePushSender(config('walk.push.pushe_token'), config('walk.push.pushe_app_id'));
             }
 
-            return new LogPushSender;
+            // Unconfigured providers are logged, so nothing is silently lost in development.
+            return new RoutingPushSender($senders, new LogPushSender);
         });
+
+        // No gateway configured → PaymentGateway stays unbound and rial checkout is refused.
+        if (config('walk.payments.zarinpal.merchant_id')) {
+            $this->app->singleton(PaymentGateway::class, fn () => new ZarinpalGateway(config('walk.payments.zarinpal.merchant_id'), config('walk.payments.zarinpal.sandbox')));
+        }
 
         $this->app->singleton(IntegrityVerifier::class, function () {
             if (config('walk.integrity.driver') === 'google' && config('walk.integrity.credentials')) {
@@ -124,6 +138,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('purchase', fn (Request $r) => Limit::perMinute(10)->by('buy:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('support', fn (Request $r) => Limit::perHour(30)->by('sup:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('ads', fn (Request $r) => Limit::perMinute(60)->by('ads:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('map-tiles', fn (Request $r) => Limit::perMinute(600)->by('tile:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('client-errors', fn (Request $r) => [Limit::perMinute(10)->by('ce:'.$r->ip()), Limit::perDay(300)->by('ced:'.$r->ip())]);
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }

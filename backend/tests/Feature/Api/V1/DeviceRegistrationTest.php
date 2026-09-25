@@ -2,8 +2,14 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Domain\Device\Actions\RegisterDevice;
+use App\Domain\Device\Integrity\IntegrityResult;
+use App\Domain\Device\Integrity\IntegrityVerifier;
+use App\Domain\Settings\Settings;
+use App\Enums\IntegrityVerdict;
 use App\Models\AuditLog;
 use App\Models\Device;
+use Database\Seeders\PlatformSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\Concerns\SignsDeviceRequests;
@@ -21,6 +27,47 @@ class DeviceRegistrationTest extends TestCase
         $this->assertSame('android', $device->platform);
         $this->assertSame('unavailable', $device->integrity_verdict->value);
         $this->assertTrue(AuditLog::query()->where('action', 'device.registered')->exists());
+    }
+
+    public function test_store_decides_which_integrity_signal_is_required(): void
+    {
+        $this->seed(PlatformSeeder::class);
+        app(Settings::class)->set('security.require_integrity', true);
+
+        // Bazaar / Myket / sideloaded installs usually lack Play services: allowed, and recorded.
+        $this->registerDevice(['store' => 'bazaar', 'installer' => 'com.farsitel.bazaar'])->assertCreated();
+        $this->assertSame(['bazaar', 'com.farsitel.bazaar'], [$this->device->store, $this->device->installer]);
+
+        // A Play build (or a Play installer) must bring a passing verdict.
+        $this->deviceKey = null;
+        $this->registerDevice(['store' => 'play'])->assertForbidden()->assertJsonPath('error.code', 'integrity_required');
+        $this->deviceKey = null;
+        $this->registerDevice(['store' => 'direct', 'installer' => 'com.android.vending'])->assertForbidden();
+
+        // An explicitly failing Play verdict is refused whatever store is claimed.
+        $this->app->instance(IntegrityVerifier::class, new class implements IntegrityVerifier
+        {
+            public function verify(?string $token, string $expectedRequestHash): IntegrityResult
+            {
+                return new IntegrityResult(IntegrityVerdict::None);
+            }
+        });
+        $this->deviceKey = null;
+        $this->registerDevice(['store' => 'myket'])->assertForbidden();
+
+        $this->deviceKey = null;
+        $this->registerDevice(['store' => 'appstore'])->assertStatus(422);
+    }
+
+    public function test_integrity_acceptance_matrix(): void
+    {
+        $ok = fn (IntegrityVerdict $v, ?string $store, ?string $installer = null) => RegisterDevice::integrityAcceptable($v, $store, $installer);
+        $this->assertTrue($ok(IntegrityVerdict::Device, 'play'));
+        $this->assertFalse($ok(IntegrityVerdict::Basic, 'play'));
+        $this->assertFalse($ok(IntegrityVerdict::Unavailable, null, 'com.android.vending'));
+        $this->assertTrue($ok(IntegrityVerdict::Unavailable, 'bazaar'));
+        $this->assertTrue($ok(IntegrityVerdict::Unavailable, null));
+        $this->assertFalse($ok(IntegrityVerdict::None, 'bazaar'));
     }
 
     public function test_re_registering_the_same_install_and_key_is_idempotent(): void

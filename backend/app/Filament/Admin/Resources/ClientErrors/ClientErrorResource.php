@@ -64,7 +64,8 @@ class ClientErrorResource extends Resource
                 TextColumn::make('error_type')->label('نوع')->fontFamily('mono')->searchable(),
                 TextColumn::make('message')->label('پیام')->limit(70)->searchable()->wrap(),
                 TextColumn::make('occurrences')->label('تعداد')->numeric()->sortable(),
-                TextColumn::make('app_version')->label('نسخه')->placeholder('—'),
+                TextColumn::make('app_version')->label('نسخه')->placeholder('—')
+                    ->description(fn (ClientError $r) => $r->store),
                 TextColumn::make('last_seen_at')->label('آخرین بار')->since()->sortable(),
                 TextColumn::make('resolved_at')->label('وضعیت')->badge()
                     ->state(fn (ClientError $r) => $r->resolved_at ? 'رفع‌شده' : 'باز')
@@ -77,6 +78,13 @@ class ClientErrorResource extends Resource
             ])
             ->recordActions([
                 ViewAction::make(),
+                // Raw trace for tool/symbolize.sh (release builds are obfuscated).
+                Action::make('download')->label('دانلود Stack')->icon(Heroicon::OutlinedArrowDownTray)->color('gray')
+                    ->action(fn (ClientError $r) => response()->streamDownload(
+                        fn () => print ("{$r->error_type}: {$r->message}\n{$r->stack}\n"),
+                        "crash-{$r->app_version}-{$r->store}-{$r->id}.txt",
+                        ['Content-Type' => 'text/plain; charset=UTF-8'],
+                    )),
                 Action::make('resolve')->label('رفع شد')->icon(Heroicon::OutlinedCheck)->color('success')
                     ->visible(fn (ClientError $r) => $r->resolved_at === null)
                     ->action(fn (ClientError $r) => $r->forceFill(['resolved_at' => now()])->save()),
@@ -91,6 +99,7 @@ class ClientErrorResource extends Resource
             TextEntry::make('first_seen_at')->label('اولین بار')->dateTime(),
             TextEntry::make('last_seen_at')->label('آخرین بار')->dateTime(),
             TextEntry::make('app_version')->label('نسخه اپ')->placeholder('—'),
+            TextEntry::make('store')->label('فروشگاه / Flavor')->placeholder('—'),
             TextEntry::make('lastUser.phone')->label('آخرین کاربر')->placeholder('—')
                 ->formatStateUsing(fn (?string $state) => $state ? substr($state, 0, 5).'•••'.substr($state, -2) : null),
             TextEntry::make('message')->label('پیام')->columnSpanFull(),

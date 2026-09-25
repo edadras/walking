@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\CouponController;
 use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\GamificationController;
 use App\Http\Controllers\Api\V1\HealthController;
+use App\Http\Controllers\Api\V1\MapTileController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProfileController;
@@ -52,6 +53,10 @@ Route::middleware(['signed.device', 'throttle:public'])->prefix('auth/otp')->gro
     Route::post('request', [AuthController::class, 'requestOtp']);
     Route::post('verify', [AuthController::class, 'verifyOtp']);
 });
+
+// Map tiles through the keyed-provider proxy: signed in, but outside the general API
+// limit (one map screen loads dozens of tiles) and without per-request last-seen writes.
+Route::get('map/tiles/{z}/{x}/{y}', MapTileController::class)->whereNumber(['z', 'x', 'y'])->middleware(['auth:sanctum', 'throttle:map-tiles']);
 
 // Authenticated
 Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {

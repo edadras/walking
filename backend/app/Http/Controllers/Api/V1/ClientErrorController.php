@@ -24,6 +24,7 @@ class ClientErrorController extends Controller
             'stack' => ['nullable', 'string', 'max:8000'],
             'fatal' => ['boolean'],
             'app_version' => ['nullable', 'string', 'max:20', 'regex:/^[0-9A-Za-z.+-]+$/'],
+            'store' => ['nullable', 'in:play,bazaar,myket,direct'],
         ]);
 
         $type = self::scrub($data['type']);
@@ -42,6 +43,7 @@ class ClientErrorController extends Controller
                     'last_seen_at' => $now,
                     'message' => $message,
                     'app_version' => $data['app_version'] ?? $row->app_version,
+                    'store' => $data['store'] ?? $row->store,
                     'last_user_id' => $user?->id ?? $row->last_user_id,
                     // A crash seen again after being marked fixed reopens it.
                     'resolved_at' => null,
@@ -51,7 +53,7 @@ class ClientErrorController extends Controller
             }
             ClientError::query()->create([
                 'fingerprint' => $fingerprint, 'error_type' => $type, 'message' => $message, 'stack' => $stack,
-                'fatal' => $data['fatal'] ?? false, 'app_version' => $data['app_version'] ?? null, 'platform' => mb_substr((string) request()->header('X-Platform', ''), 0, 20) ?: null,
+                'fatal' => $data['fatal'] ?? false, 'app_version' => $data['app_version'] ?? null, 'store' => $data['store'] ?? null, 'platform' => mb_substr((string) request()->header('X-Platform', ''), 0, 20) ?: null,
                 'last_user_id' => $user?->id, 'first_seen_at' => $now, 'last_seen_at' => $now,
             ]);
         });

@@ -24,6 +24,8 @@ class Device extends Model
         'app_version',
         'model',
         'manufacturer',
+        'store',
+        'installer',
         'public_key',
         'public_key_fingerprint',
         'key_attested',

@@ -1541,4 +1541,100 @@ class AppLocalizationsFa extends AppLocalizations {
   String productGalleryLabel(String index, String count) {
     return 'تصویر $index از $count';
   }
+
+  @override
+  String get gateTitle => 'چند دسترسی ضروری';
+
+  @override
+  String get gateBody =>
+      'گام‌یار قدم‌هایت را در پس‌زمینه می‌شمارد و بابت آن امتیاز می‌دهد. بدون این دسترسی‌ها هیچ قدمی ثبت نمی‌شود و امتیازی هم به تو نمی‌رسد.';
+
+  @override
+  String get gateActivityWhy =>
+      'برای شمردن قدم‌ها با حسگر گوشی. هیچ داده‌ای از مکان تو خوانده نمی‌شود.';
+
+  @override
+  String get gateNotificationsWhy =>
+      'برای اعلان پیاده‌روی در حال ثبت، یادآور آب و خبر پاداش‌ها. بدون آن اندروید ثبت پس‌زمینه را متوقف می‌کند.';
+
+  @override
+  String get gateBatteryTitle => 'اجرای بدون محدودیت باتری';
+
+  @override
+  String get gateBatteryWhy =>
+      'اندروید برای صرفه‌جویی، برنامه‌های پس‌زمینه را می‌بندد و قدم‌ها گم می‌شوند. مصرف باتری گام‌یار بسیار کم است.';
+
+  @override
+  String gateAutostartTitle(String brand) {
+    return 'اجازه اجرای خودکار در گوشی $brand';
+  }
+
+  @override
+  String get gateAutostartOpen => 'باز کردن تنظیمات';
+
+  @override
+  String get gateAutostartDone => 'فعال کردم';
+
+  @override
+  String get gateRequiredHint => 'برای ادامه، همه موارد بالا باید فعال شوند.';
+
+  @override
+  String get gateContinue => 'ورود به گام‌یار';
+
+  @override
+  String get oemXiaomi =>
+      'در صفحه‌ای که باز می‌شود «Autostart» را برای گام‌یار روشن کن. سپس در تنظیمات باتری برنامه، «No restrictions» را انتخاب کن.';
+
+  @override
+  String get oemHuawei =>
+      'در «App launch»، گام‌یار را روی «Manage manually» بگذار و هر سه گزینه (Auto-launch، Secondary launch، Run in background) را روشن کن.';
+
+  @override
+  String get oemOppo =>
+      'در «Auto launch» / «Startup manager» گام‌یار را روشن کن و در تنظیمات باتری، «Allow background activity» را فعال کن.';
+
+  @override
+  String get oemVivo =>
+      'در «Background power consumption» یا «Autostart»، گام‌یار را مجاز کن تا در پس‌زمینه بسته نشود.';
+
+  @override
+  String get oemOnePlus =>
+      'در «Battery optimization» گام‌یار را روی «Don\'t optimize» بگذار و «Auto launch» را روشن کن.';
+
+  @override
+  String get oemSamsung =>
+      'در «Battery» مطمئن شو گام‌یار در فهرست «Sleeping apps» و «Deep sleeping apps» نیست و آن را به «Never sleeping apps» اضافه کن.';
+
+  @override
+  String get checkoutWithPoints => 'با امتیاز';
+
+  @override
+  String get checkoutWithMoney => 'پرداخت ریالی';
+
+  @override
+  String get checkoutMoneyHint =>
+      'پرداخت در درگاه امن زرین‌پال و در مرورگر گوشی انجام می‌شود. کالا تا ۲۰ دقیقه برایت نگه داشته می‌شود.';
+
+  @override
+  String checkoutPayMoney(String amount) {
+    return 'پرداخت $amount';
+  }
+
+  @override
+  String get orderAwaitingPayment => 'در انتظار پرداخت';
+
+  @override
+  String get orderPayNow => 'ادامه پرداخت';
+
+  @override
+  String get orderPaymentExpired =>
+      'مهلت پرداخت تمام شده است. اگر مبلغی کسر شده، تا چند دقیقه دیگر وضعیت سفارش به‌روز می‌شود.';
+
+  @override
+  String orderPaidRef(String ref) {
+    return 'پرداخت شد — کد پیگیری $ref';
+  }
+
+  @override
+  String get orderPaymentFailed => 'پرداخت انجام نشد و سفارش لغو شد.';
 }

@@ -81,4 +81,4 @@ jobs:
       - name: Tests
         run: flutter test
       - name: Build (debug APK)
-        run: flutter build apk --debug
+        run: flutter build apk --debug --flavor bazaar

@@ -9,12 +9,14 @@ import '../../../core/localization/l10n.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/platform/external_url.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/net_image.dart';
 import '../../../core/widgets/stat_tile.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../auth/application/session_controller.dart';
 import '../../wallet/data/wallet_repository.dart';
+import '../../config/data/app_config.dart';
 import '../data/store_models.dart';
 import '../data/store_repository.dart';
 import 'store_page.dart' show ProductImagePlaceholder;
@@ -101,18 +103,22 @@ class _CheckoutSheetState extends ConsumerState<CheckoutSheet> {
   int _qty = 1;
   String? _addressId;
   bool _busy = false;
+  bool _money = false;
 
   Future<void> _pay() async {
     setState(() => _busy = true);
     try {
-      final order = await ref.read(storeRepositoryProvider).placeOrder(productId: widget.product.id, quantity: _qty, idempotencyKey: _key, addressId: _addressId);
-      ref.read(analyticsProvider).track('purchase', {'product_type': widget.product.type, 'quantity': _qty, 'points': order.totalPoints});
+      final order = await ref.read(storeRepositoryProvider).placeOrder(productId: widget.product.id, quantity: _qty, idempotencyKey: _key, addressId: _addressId, money: _money);
+      ref.read(analyticsProvider).track('purchase', {'product_type': widget.product.type, 'quantity': _qty, 'points': order.totalPoints, 'money': _money});
       ref.invalidate(walletBalanceProvider);
       ref.invalidate(ordersProvider);
       if (!mounted) return;
       final router = GoRouter.maybeOf(context);
       Navigator.of(context).pop();
       router?.push('/orders/${order.id}');
+      // The bank page opens in the browser; the order page refreshes when the user comes back.
+      final url = order.payment?.payUrl;
+      if (url != null) await ref.read(externalUrlOpenerProvider)(url);
     } on ApiException catch (e) {
       if (mounted) showAppSnack(context, e.message);
     } finally {
@@ -127,7 +133,10 @@ class _CheckoutSheetState extends ConsumerState<CheckoutSheet> {
     final pr = widget.product;
     final balance = ref.watch(walletBalanceProvider).value?.available;
     final total = pr.pointPrice * _qty;
-    final short = balance != null && balance < total;
+    final rialTotal = (pr.rialPrice ?? 0) * _qty;
+    final canPayMoney = pr.rialPrice != null && ref.watch(configProvider).feature('money_payment');
+    final money = _money && canPayMoney;
+    final short = !money && balance != null && balance < total;
 
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(AppSpacing.gutter, 0, AppSpacing.gutter, AppSpacing.xl + MediaQuery.viewInsetsOf(context).bottom),
@@ -182,20 +191,35 @@ class _CheckoutSheetState extends ConsumerState<CheckoutSheet> {
                 error: (e, _) => ErrorView(error: e, compact: true, onRetry: () => ref.invalidate(addressesProvider)),
               ),
         ],
+        if (canPayMoney) ...[
+          const SizedBox(height: AppSpacing.md),
+          SegmentedButton<bool>(
+            showSelectedIcon: false,
+            segments: [
+              ButtonSegment(value: false, icon: const Icon(Icons.toll_rounded), label: Text(l.checkoutWithPoints)),
+              ButtonSegment(value: true, icon: const Icon(Icons.credit_card_rounded), label: Text(l.checkoutWithMoney)),
+            ],
+            selected: {money},
+            onSelectionChanged: (v) => setState(() => _money = v.first),
+          ),
+        ],
         const Divider(height: AppSpacing.xxl),
         Row(children: [
           Text(l.checkoutTotal, style: context.text.titleMedium),
           const Spacer(),
-          PointsChip(label: Fa.number(total), large: true),
+          if (money) Text(Fa.rial(rialTotal), style: context.text.titleMedium) else PointsChip(label: Fa.number(total), large: true),
         ]),
-        if (balance != null) ...[
+        if (money) ...[
+          const SizedBox(height: AppSpacing.xs),
+          Text(l.checkoutMoneyHint, style: context.text.bodySmall),
+        ] else if (balance != null) ...[
           const SizedBox(height: AppSpacing.xs),
           Text(short ? l.storeNeedMore(Fa.number(total - balance)) : l.checkoutAfter(Fa.number(balance - total)),
               style: context.text.bodySmall?.copyWith(color: short ? p.danger : null)),
         ],
         const SizedBox(height: AppSpacing.lg),
         AppButton(
-          label: l.checkoutConfirm(Fa.number(total)),
+          label: money ? l.checkoutPayMoney(Fa.rial(rialTotal)) : l.checkoutConfirm(Fa.number(total)),
           loading: _busy,
           onPressed: short || (pr.needsAddress && _addressId == null) ? null : _pay,
         ),

@@ -6,6 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../core/config/env.dart';
+import '../../../core/providers.dart';
+import '../../../core/storage/secure_store.dart';
+import '../../config/data/app_config.dart';
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/permissions/permission_primer.dart';
@@ -175,19 +178,33 @@ class PlaceCard extends StatelessWidget {
   }
 }
 
-class _PlacesMap extends StatelessWidget {
+/// Proxied tiles are fetched with the session token (the provider's key stays on our server).
+final _tileHeadersProvider = FutureProvider.autoDispose<Map<String, String>>((ref) async {
+  if (!ref.watch(configProvider).mapProxied) return const {};
+  final token = await ref.watch(secureStoreProvider).read(SecureStore.kToken);
+  return token == null ? const {} : {'Authorization': 'Bearer $token'};
+});
+
+class _PlacesMap extends ConsumerWidget {
   const _PlacesMap({required this.center, required this.places});
 
   final LatLng center;
   final List<NearbyPlace> places;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final p = context.palette;
+    final config = ref.watch(configProvider);
+    final headers = ref.watch(_tileHeadersProvider).value ?? const {};
     return FlutterMap(
-      options: MapOptions(initialCenter: center, initialZoom: 14),
+      options: MapOptions(initialCenter: center, initialZoom: 14, maxZoom: config.mapMaxZoom),
       children: [
-        TileLayer(urlTemplate: Env.mapTileUrl, userAgentPackageName: 'ir.gamyar.app'),
+        TileLayer(
+          urlTemplate: config.mapTileUrl ?? Env.mapTileUrl,
+          maxZoom: config.mapMaxZoom,
+          userAgentPackageName: 'ir.gamyar.app',
+          tileProvider: NetworkTileProvider(headers: headers),
+        ),
         MarkerLayer(markers: [
           Marker(point: center, width: 18, height: 18, child: Container(decoration: BoxDecoration(color: p.info, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 3)))),
           for (final place in places)
@@ -209,7 +226,7 @@ class _PlacesMap extends StatelessWidget {
               ),
             ),
         ]),
-        const RichAttributionWidget(attributions: [TextSourceAttribution('OpenStreetMap')]),
+        RichAttributionWidget(attributions: [TextSourceAttribution(config.mapAttribution)]),
       ],
     );
   }

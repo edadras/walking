@@ -25,12 +25,32 @@ android {
     }
 
     defaultConfig {
+        // Pushe manifest token (console → app → manifest token), from PUSHE_TOKEN or -PpusheToken.
+        manifestPlaceholders["pusheToken"] = System.getenv("PUSHE_TOKEN") ?: (project.findProperty("pusheToken") as String? ?: "")
         applicationId = "ir.gamyar.app"
         // Android 8.0+: hardware-backed EC keys and a sane step-counter/background model.
         minSdk = 26
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    // One build per store. Same application id everywhere; the flavor only tells
+    // the app (via Flutter's appFlavor) where it is distributed, which decides
+    // Play Integrity vs. hardware key attestation and FCM vs. Pushe.
+    flavorDimensions += "store"
+    productFlavors {
+        create("play") { dimension = "store" }
+        create("bazaar") { dimension = "store" }
+        create("myket") { dimension = "store" }
+    }
+    // Pushe (Iranian push service) ships only in the Bazaar/Myket builds; Play uses FCM.
+    sourceSets {
+        getByName("bazaar").java.srcDir("src/pushe/kotlin")
+        getByName("myket").java.srcDir("src/pushe/kotlin")
+        getByName("play").java.srcDir("src/nopushe/kotlin")
+        getByName("bazaar").manifest.srcFile("src/pushe/AndroidManifest.xml")
+        getByName("myket").manifest.srcFile("src/pushe/AndroidManifest.xml")
     }
 
     signingConfigs {
@@ -66,6 +86,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("androidx.work:work-runtime:2.10.0")
     implementation("androidx.core:core-ktx:1.15.0")
+    "bazaarImplementation"("co.pushe.plus:base:2.6.4")
+    "myketImplementation"("co.pushe.plus:base:2.6.4")
 }
 
 flutter {

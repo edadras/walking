@@ -38,10 +38,13 @@ abstract class DeviceKey {
 }
 
 class DeviceSignals {
-  const DeviceSignals({required this.emulator, required this.rooted, required this.hardwareBacked});
+  const DeviceSignals({required this.emulator, required this.rooted, required this.hardwareBacked, this.installer});
 
   final bool emulator;
   final bool rooted;
+
+  /// Installing store package (e.g. com.farsitel.bazaar); null when sideloaded.
+  final String? installer;
   final bool hardwareBacked;
 }
 
@@ -61,6 +64,7 @@ class KeystoreDeviceKey implements DeviceKey {
       emulator: m['emulator'] == true,
       rooted: m['rooted'] == true,
       hardwareBacked: m['hardwareBacked'] == true,
+      installer: m['installer'] as String?,
     );
   }
 

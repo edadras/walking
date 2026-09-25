@@ -7,6 +7,7 @@ use App\Domain\Device\Integrity\IntegrityVerifier;
 use App\Domain\Device\TrustScore;
 use App\Domain\Settings\Settings;
 use App\Enums\DeviceStatus;
+use App\Enums\IntegrityVerdict;
 use App\Exceptions\ApiException;
 use App\Models\Device;
 use App\Support\Ip;
@@ -50,7 +51,7 @@ class RegisterDevice
             self::integrityRequestHash($data['install_id'], $fingerprint),
         );
 
-        if ($this->settings->bool('security.require_integrity') && ! in_array($integrity->verdict->value, ['strong', 'device'], true)) {
+        if ($this->settings->bool('security.require_integrity') && ! self::integrityAcceptable($integrity->verdict, $data['store'] ?? null, $data['installer'] ?? null)) {
             throw ApiException::forbidden('integrity_required', 'امکان استفاده از برنامه روی این دستگاه وجود ندارد.');
         }
 
@@ -62,6 +63,8 @@ class RegisterDevice
                 'app_version' => $data['app_version'] ?? null,
                 'model' => $data['model'] ?? null,
                 'manufacturer' => $data['manufacturer'] ?? null,
+                'store' => $data['store'] ?? null,
+                'installer' => $data['installer'] ?? null,
                 'public_key' => $publicKeyPem,
                 'public_key_fingerprint' => $fingerprint,
                 'integrity_verdict' => $integrity->verdict,
@@ -84,6 +87,22 @@ class RegisterDevice
 
             return $device;
         });
+    }
+
+    /**
+     * With `security.require_integrity` on, Play installs must pass Play Integrity.
+     * Bazaar, Myket and sideloaded installs often have no Play services at all, so
+     * they are only refused on an explicit failing verdict. Claiming a non-Play
+     * store doesn't buy trust: those devices stay "unavailable" and the Fraud
+     * Engine caps their daily rewarded steps (DeviceIntegrityRule).
+     */
+    public static function integrityAcceptable(IntegrityVerdict $verdict, ?string $store, ?string $installer): bool
+    {
+        $fromPlay = $store === 'play' || $installer === 'com.android.vending';
+
+        return $fromPlay
+            ? in_array($verdict, [IntegrityVerdict::Strong, IntegrityVerdict::Device], true)
+            : $verdict !== IntegrityVerdict::None;
     }
 
     /** The nonce the client must pass to Play Integrity: binds the token to this install and key. */

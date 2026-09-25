@@ -6,7 +6,7 @@
 
 ```bash
 flutter pub get
-flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000/api/v1
+flutter run --flavor bazaar --dart-define=API_BASE_URL=http://10.0.2.2:8000/api/v1
 ```
 
 | dart-define | توضیح |
@@ -21,7 +21,7 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000/api/v1
 ```bash
 flutter analyze
 flutter test
-flutter build apk --debug
+flutter build apk --debug --flavor bazaar
 ```
 
 ## نکات معماری

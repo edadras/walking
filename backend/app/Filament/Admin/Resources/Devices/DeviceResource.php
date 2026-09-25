@@ -55,6 +55,10 @@ class DeviceResource extends Resource
                 TextColumn::make('public_id')->label('شناسه')->limit(10)->copyable()->searchable(),
                 TextColumn::make('model')->label('مدل')->formatStateUsing(fn (Device $record) => trim($record->manufacturer.' '.$record->model)),
                 TextColumn::make('app_version')->label('نسخه اپ'),
+                TextColumn::make('store')->label('فروشگاه')->badge()->placeholder('—')
+                    ->formatStateUsing(fn (?string $state) => match ($state) {
+                        'play' => 'Google Play', 'bazaar' => 'بازار', 'myket' => 'مایکت', 'direct' => 'مستقیم', default => $state,
+                    }),
                 TextColumn::make('integrity_verdict')->label('Integrity')->badge()
                     ->formatStateUsing(fn (?IntegrityVerdict $state) => $state?->label())
                     ->color(fn (?IntegrityVerdict $state) => match ($state) {
@@ -73,6 +77,7 @@ class DeviceResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('status')->label('وضعیت')->options(collect(DeviceStatus::cases())->mapWithKeys(fn ($s) => [$s->value => $s->label()])),
+                SelectFilter::make('store')->label('فروشگاه')->options(['play' => 'Google Play', 'bazaar' => 'بازار', 'myket' => 'مایکت', 'direct' => 'مستقیم']),
                 SelectFilter::make('integrity_verdict')->label('Integrity')->options(collect(IntegrityVerdict::cases())->mapWithKeys(fn ($s) => [$s->value => $s->label()])),
                 TernaryFilter::make('root_suspected')->label('روت'),
             ])

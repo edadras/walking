@@ -2787,6 +2787,162 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'تصویر {index} از {count}'**
   String productGalleryLabel(String index, String count);
+
+  /// No description provided for @gateTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'چند دسترسی ضروری'**
+  String get gateTitle;
+
+  /// No description provided for @gateBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'گام‌یار قدم‌هایت را در پس‌زمینه می‌شمارد و بابت آن امتیاز می‌دهد. بدون این دسترسی‌ها هیچ قدمی ثبت نمی‌شود و امتیازی هم به تو نمی‌رسد.'**
+  String get gateBody;
+
+  /// No description provided for @gateActivityWhy.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای شمردن قدم‌ها با حسگر گوشی. هیچ داده‌ای از مکان تو خوانده نمی‌شود.'**
+  String get gateActivityWhy;
+
+  /// No description provided for @gateNotificationsWhy.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای اعلان پیاده‌روی در حال ثبت، یادآور آب و خبر پاداش‌ها. بدون آن اندروید ثبت پس‌زمینه را متوقف می‌کند.'**
+  String get gateNotificationsWhy;
+
+  /// No description provided for @gateBatteryTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'اجرای بدون محدودیت باتری'**
+  String get gateBatteryTitle;
+
+  /// No description provided for @gateBatteryWhy.
+  ///
+  /// In fa, this message translates to:
+  /// **'اندروید برای صرفه‌جویی، برنامه‌های پس‌زمینه را می‌بندد و قدم‌ها گم می‌شوند. مصرف باتری گام‌یار بسیار کم است.'**
+  String get gateBatteryWhy;
+
+  /// No description provided for @gateAutostartTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'اجازه اجرای خودکار در گوشی {brand}'**
+  String gateAutostartTitle(String brand);
+
+  /// No description provided for @gateAutostartOpen.
+  ///
+  /// In fa, this message translates to:
+  /// **'باز کردن تنظیمات'**
+  String get gateAutostartOpen;
+
+  /// No description provided for @gateAutostartDone.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعال کردم'**
+  String get gateAutostartDone;
+
+  /// No description provided for @gateRequiredHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای ادامه، همه موارد بالا باید فعال شوند.'**
+  String get gateRequiredHint;
+
+  /// No description provided for @gateContinue.
+  ///
+  /// In fa, this message translates to:
+  /// **'ورود به گام‌یار'**
+  String get gateContinue;
+
+  /// No description provided for @oemXiaomi.
+  ///
+  /// In fa, this message translates to:
+  /// **'در صفحه‌ای که باز می‌شود «Autostart» را برای گام‌یار روشن کن. سپس در تنظیمات باتری برنامه، «No restrictions» را انتخاب کن.'**
+  String get oemXiaomi;
+
+  /// No description provided for @oemHuawei.
+  ///
+  /// In fa, this message translates to:
+  /// **'در «App launch»، گام‌یار را روی «Manage manually» بگذار و هر سه گزینه (Auto-launch، Secondary launch، Run in background) را روشن کن.'**
+  String get oemHuawei;
+
+  /// No description provided for @oemOppo.
+  ///
+  /// In fa, this message translates to:
+  /// **'در «Auto launch» / «Startup manager» گام‌یار را روشن کن و در تنظیمات باتری، «Allow background activity» را فعال کن.'**
+  String get oemOppo;
+
+  /// No description provided for @oemVivo.
+  ///
+  /// In fa, this message translates to:
+  /// **'در «Background power consumption» یا «Autostart»، گام‌یار را مجاز کن تا در پس‌زمینه بسته نشود.'**
+  String get oemVivo;
+
+  /// No description provided for @oemOnePlus.
+  ///
+  /// In fa, this message translates to:
+  /// **'در «Battery optimization» گام‌یار را روی «Don\'t optimize» بگذار و «Auto launch» را روشن کن.'**
+  String get oemOnePlus;
+
+  /// No description provided for @oemSamsung.
+  ///
+  /// In fa, this message translates to:
+  /// **'در «Battery» مطمئن شو گام‌یار در فهرست «Sleeping apps» و «Deep sleeping apps» نیست و آن را به «Never sleeping apps» اضافه کن.'**
+  String get oemSamsung;
+
+  /// No description provided for @checkoutWithPoints.
+  ///
+  /// In fa, this message translates to:
+  /// **'با امتیاز'**
+  String get checkoutWithPoints;
+
+  /// No description provided for @checkoutWithMoney.
+  ///
+  /// In fa, this message translates to:
+  /// **'پرداخت ریالی'**
+  String get checkoutWithMoney;
+
+  /// No description provided for @checkoutMoneyHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'پرداخت در درگاه امن زرین‌پال و در مرورگر گوشی انجام می‌شود. کالا تا ۲۰ دقیقه برایت نگه داشته می‌شود.'**
+  String get checkoutMoneyHint;
+
+  /// No description provided for @checkoutPayMoney.
+  ///
+  /// In fa, this message translates to:
+  /// **'پرداخت {amount}'**
+  String checkoutPayMoney(String amount);
+
+  /// No description provided for @orderAwaitingPayment.
+  ///
+  /// In fa, this message translates to:
+  /// **'در انتظار پرداخت'**
+  String get orderAwaitingPayment;
+
+  /// No description provided for @orderPayNow.
+  ///
+  /// In fa, this message translates to:
+  /// **'ادامه پرداخت'**
+  String get orderPayNow;
+
+  /// No description provided for @orderPaymentExpired.
+  ///
+  /// In fa, this message translates to:
+  /// **'مهلت پرداخت تمام شده است. اگر مبلغی کسر شده، تا چند دقیقه دیگر وضعیت سفارش به‌روز می‌شود.'**
+  String get orderPaymentExpired;
+
+  /// No description provided for @orderPaidRef.
+  ///
+  /// In fa, this message translates to:
+  /// **'پرداخت شد — کد پیگیری {ref}'**
+  String orderPaidRef(String ref);
+
+  /// No description provided for @orderPaymentFailed.
+  ///
+  /// In fa, this message translates to:
+  /// **'پرداخت انجام نشد و سفارش لغو شد.'**
+  String get orderPaymentFailed;
 }
 
 class _AppLocalizationsDelegate

@@ -9,12 +9,14 @@ import '../../../core/localization/l10n.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/platform/external_url.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/net_image.dart';
 import '../../../core/widgets/stat_tile.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../wallet/data/wallet_repository.dart';
+import '../data/store_models.dart';
 import '../data/store_repository.dart';
 import 'store_page.dart' show ProductImagePlaceholder;
 
@@ -63,7 +65,7 @@ class OrdersPage extends ConsumerWidget {
                             Text(o.statusLabel, style: context.text.labelMedium?.copyWith(color: _statusColor(context, o.status))),
                           ]),
                         ),
-                        PointsChip(label: Fa.number(o.totalPoints)),
+                        if (o.isMoney) Text(Fa.rial(o.totalRial), style: context.text.labelLarge) else PointsChip(label: Fa.number(o.totalPoints)),
                       ]),
                     );
                   },
@@ -85,6 +87,21 @@ class OrderDetailPage extends ConsumerStatefulWidget {
 
 class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
   bool _cancelling = false;
+
+  // Back from the bank's page: show the verified result straight away.
+  late final _lifecycle = AppLifecycleListener(onResume: () => ref.invalidate(orderProvider(widget.id)));
+
+  @override
+  void initState() {
+    super.initState();
+    _lifecycle;
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
+  }
 
   Future<void> _cancel() async {
     final l = context.l10n;
@@ -130,6 +147,10 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
               Text(o.statusLabel, style: context.text.titleSmall?.copyWith(color: _statusColor(context, o.status))),
             ]),
             Text(FaDate.long(o.placedAt), style: context.text.bodySmall),
+            if (o.isMoney && o.payment != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              _PaymentCard(order: o, payment: o.payment!),
+            ],
             if (o.trackingCode != null) ...[
               const SizedBox(height: AppSpacing.xs),
               SelectableText(l.orderTracking(o.trackingCode!), style: context.text.bodyMedium),
@@ -178,7 +199,7 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
               child: Row(children: [
                 Text(l.checkoutTotal, style: context.text.titleSmall),
                 const Spacer(),
-                PointsChip(label: Fa.number(o.totalPoints)),
+                if (o.isMoney) Text(Fa.rial(o.totalRial), style: context.text.titleSmall) else PointsChip(label: Fa.number(o.totalPoints)),
               ]),
             ),
             if (o.shippingAddress != null) ...[
@@ -226,4 +247,40 @@ class _Thumb extends StatelessWidget {
           child: NetImage(url, fallback: FittedBox(child: SizedBox.square(dimension: 96, child: ProductImagePlaceholder(type: type)))),
         ),
       );
+}
+
+class _PaymentCard extends ConsumerWidget {
+  const _PaymentCard({required this.order, required this.payment});
+
+  final Order order;
+  final OrderPayment payment;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l10n;
+    final p = context.palette;
+    final (icon, color, text) = switch (payment.status) {
+      'paid' => (Icons.verified_rounded, p.green, l.orderPaidRef(payment.refId ?? '—')),
+      'pending' => (Icons.schedule_rounded, p.goldInk, payment.payUrl != null ? l.orderAwaitingPayment : l.orderPaymentExpired),
+      _ => (Icons.cancel_outlined, p.danger, l.orderPaymentFailed),
+    };
+    return AppCard(
+      borderColor: color,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Icon(icon, color: color),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(child: SelectableText(text, style: context.text.bodyMedium)),
+        ]),
+        if (order.awaitingPayment && payment.payUrl != null) ...[
+          const SizedBox(height: AppSpacing.md),
+          AppButton(
+            label: l.orderPayNow,
+            icon: Icons.credit_card_rounded,
+            onPressed: () => ref.read(externalUrlOpenerProvider)(payment.payUrl!),
+          ),
+        ],
+      ]),
+    );
+  }
 }

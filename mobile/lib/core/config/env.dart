@@ -1,7 +1,18 @@
+import 'package:flutter/services.dart';
+
 /// Build-time configuration via --dart-define.
 ///
 ///   flutter run --dart-define=API_BASE_URL=https://api.gamyar.ir/api/v1
 abstract final class Env {
+  /// Distribution channel from `flutter build --flavor` (play | bazaar | myket); `direct` otherwise.
+  static String get store => switch (appFlavor) {
+        'play' || 'bazaar' || 'myket' => appFlavor!,
+        _ => 'direct',
+      };
+
+  /// Play Integrity only makes sense where Google Play installed the app.
+  static bool get usesPlayIntegrity => store == 'play' && integrityCloudProjectNumber != 0;
+
   static const apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'http://10.0.2.2:8000/api/v1');
 
   /// Google Cloud project number used for Play Integrity standard requests (0 = disabled).

@@ -38,13 +38,25 @@ import '../features/store/presentation/orders_page.dart';
 import '../features/store/presentation/product_page.dart';
 import '../features/store/presentation/store_page.dart';
 import '../features/wallet/presentation/wallet_page.dart';
+import '../features/permissions/presentation/permissions_page.dart';
+import '../core/permissions/required_permissions.dart';
 import '../features/shell/presentation/splash_page.dart';
 
 /// Bridges Riverpod session changes to GoRouter's refreshListenable.
 class _SessionListenable extends ChangeNotifier {
   _SessionListenable(Ref ref) {
     ref.listen(sessionProvider, (_, _) => notifyListeners());
+    ref.listen(permissionGateProvider, (_, _) => notifyListeners());
   }
+}
+
+/// Signed in: the required-permissions gate comes before anything else.
+@visibleForTesting
+String? signedInRedirect(String loc, AsyncValue<PermissionGate> gate) {
+  if (!gate.hasValue && !gate.hasError) return loc == '/splash' ? null : '/splash';
+  if (gate.value?.satisfied != true) return loc == '/permissions' ? null : '/permissions';
+  final entry = loc == '/splash' || loc == '/onboarding' || loc.startsWith('/auth') || loc == '/blocked' || loc == '/permissions';
+  return entry ? '/home' : null;
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -65,13 +77,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         SessionUnauthenticated(onboardingDone: false) => loc == '/onboarding' ? null : '/onboarding',
         SessionUnauthenticated() => loc.startsWith('/auth') || public ? null : '/auth/phone',
         SessionBlocked() => loc == '/blocked' || public ? null : '/blocked',
-        SessionAuthenticated() => (loc == '/splash' || loc == '/onboarding' || loc.startsWith('/auth') || loc == '/blocked') ? '/home' : null,
+        SessionAuthenticated() => signedInRedirect(loc, ref.read(permissionGateProvider)),
       };
     },
     routes: [
       GoRoute(path: '/splash', builder: (_, _) => const SplashPage()),
       GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingPage()),
       GoRoute(path: '/blocked', builder: (_, _) => const BlockedPage()),
+      GoRoute(path: '/permissions', builder: (_, _) => const PermissionsPage()),
       GoRoute(path: '/auth/phone', builder: (_, _) => const PhonePage()),
       GoRoute(
         path: '/auth/otp',

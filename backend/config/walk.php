@@ -26,13 +26,18 @@ return [
         // Security
         'security.signature_max_skew_seconds' => ['value' => 300, 'group' => 'security', 'public' => false, 'description' => 'حداکثر اختلاف ساعت درخواست امضاشده'],
         'security.nonce_ttl_seconds' => ['value' => 600, 'group' => 'security', 'public' => false, 'description' => 'مدت نگهداری Nonce'],
-        'security.require_integrity' => ['value' => false, 'group' => 'security', 'public' => false, 'description' => 'رد ثبت دستگاه بدون Play Integrity'],
+        'security.require_integrity' => ['value' => false, 'group' => 'security', 'public' => false, 'description' => 'نصب از Google Play باید Play Integrity معتبر داشته باشد؛ نصب از بازار/مایکت/مستقیم فقط با نتیجه صریحاً ناموفق رد می‌شود'],
         'security.timezone_change_cooldown_days' => ['value' => 7, 'group' => 'security', 'public' => false, 'description' => 'حداقل فاصله تغییر منطقه زمانی'],
 
         // App
         'app.min_supported_version' => ['value' => '1.0.0', 'group' => 'app', 'public' => true, 'description' => 'حداقل نسخه قابل استفاده'],
         'app.latest_version' => ['value' => '1.0.0', 'group' => 'app', 'public' => true, 'description' => 'آخرین نسخه منتشرشده'],
         'app.support_phone' => ['value' => null, 'group' => 'app', 'public' => true, 'description' => 'شماره پشتیبانی'],
+
+        // Map (nearby rewards). Direct tile URL for keyless providers; keyed providers go through MAP_TILE_UPSTREAM.
+        'map.tile_url' => ['value' => null, 'group' => 'app', 'public' => true, 'description' => 'آدرس Tile نقشه با {z}/{x}/{y} (خالی = پیش‌فرض اپ)'],
+        'map.attribution' => ['value' => 'OpenStreetMap', 'group' => 'app', 'public' => true, 'description' => 'منبع نقشه (نمایش روی نقشه)'],
+        'map.max_zoom' => ['value' => 18, 'group' => 'app', 'public' => true, 'description' => 'حداکثر بزرگ‌نمایی نقشه'],
 
         // Activity
         'activity.daily_goal_options' => ['value' => [5000, 7500, 10000, 12500, 15000], 'group' => 'activity', 'public' => true, 'description' => 'گزینه‌های هدف روزانه'],
@@ -129,9 +134,27 @@ return [
         'credentials' => env('PLAY_INTEGRITY_CREDENTIALS'),
     ],
 
+    // Each provider is on when configured; devices say which one they registered with.
     'push' => [
-        'driver' => env('PUSH_DRIVER', 'log'),
         'fcm_credentials' => env('FCM_CREDENTIALS'),
+        'pushe_token' => env('PUSHE_API_TOKEN'),
+        'pushe_app_id' => env('PUSHE_APP_ID'),
+    ],
+
+    // Rial payments (store, behind the money_payment flag). Bound only when a merchant id is set.
+    'payments' => [
+        'zarinpal' => [
+            'merchant_id' => env('ZARINPAL_MERCHANT_ID'),
+            'sandbox' => (bool) env('ZARINPAL_SANDBOX', false),
+        ],
+    ],
+
+    // Server-side tile proxy for providers that need a secret key (Map.ir, Neshan…):
+    // the key stays on the server and tiles are cached. Template uses {z}/{x}/{y}.
+    'map' => [
+        'upstream' => env('MAP_TILE_UPSTREAM'),
+        'upstream_headers' => env('MAP_TILE_UPSTREAM_HEADERS'), // "Header: value; Other: value"
+        'cache_days' => (int) env('MAP_TILE_CACHE_DAYS', 14),
     ],
 
     'leaderboard' => [

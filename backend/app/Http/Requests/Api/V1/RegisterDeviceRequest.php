@@ -19,6 +19,8 @@ class RegisterDeviceRequest extends FormRequest
             'integrity_token' => ['nullable', 'string', 'max:8192'],
             'emulator_suspected' => ['sometimes', 'boolean'],
             'root_suspected' => ['sometimes', 'boolean'],
+            'store' => ['nullable', 'in:play,bazaar,myket,direct'],
+            'installer' => ['nullable', 'string', 'max:128', 'regex:/^[A-Za-z0-9_.]+$/'],
         ];
     }
 }

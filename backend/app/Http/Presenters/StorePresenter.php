@@ -2,6 +2,8 @@
 
 namespace App\Http\Presenters;
 
+use App\Domain\Store\PaymentGateway;
+use App\Domain\Store\PaymentService;
 use App\Enums\OrderStatus;
 use App\Models\Address;
 use App\Models\Category;
@@ -31,6 +33,8 @@ class StorePresenter
             'type' => $p->type->value,
             'type_label' => $p->type->label(),
             'point_price' => $p->point_price,
+            // Offered only while a gateway is configured; the money_payment flag is enforced at checkout.
+            'rial_price' => $p->rial_price && app()->bound(PaymentGateway::class) ? $p->rial_price : null,
             'in_stock' => $p->inStock(),
             'stock' => $p->stock !== null && $p->stock <= 10 ? $p->stock : null,
             'max_per_user' => $p->max_per_user,
@@ -56,12 +60,21 @@ class StorePresenter
             'status' => $o->status->value,
             'status_label' => $o->status->label(),
             'total_points' => $o->total_points,
+            'payment_mode' => $o->payment_mode,
+            'total_rial' => $o->total_rial,
             'placed_at' => $o->placed_at->toIso8601String(),
             'item_count' => $o->items->sum('quantity'),
             'title' => $o->items->first()?->name,
             'image_url' => $this->imageUrl($o->items->first()),
-            'cancellable' => $o->status === OrderStatus::Paid,
+            // Paid rial orders are refunded to the card by support, not cancelled in-app.
+            'cancellable' => $o->status === OrderStatus::AwaitingPayment || ($o->status === OrderStatus::Paid && $o->payment_mode !== 'money'),
             ...($full ? [
+                'payment' => $o->payment_mode === 'money' && ($pay = $o->latestPayment) ? [
+                    'status' => $pay->status,
+                    'ref_id' => $pay->ref_id,
+                    'amount_rial' => $pay->amount_rial,
+                    'pay_url' => app()->bound(PaymentGateway::class) ? app(PaymentService::class)->resumeUrl($pay) : null,
+                ] : null,
                 'items' => $o->items->map(fn (OrderItem $i) => $this->item($i))->values(),
                 'shipping_address' => $o->shipping_address,
                 'tracking_code' => $o->tracking_code,

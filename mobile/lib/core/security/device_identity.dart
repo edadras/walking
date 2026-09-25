@@ -86,7 +86,7 @@ class DeviceIdentity {
     final signals = await key.signals();
     final fingerprint = sha256.convert(base64Decode(publicKey)).toString();
     final requestHash = sha256.convert(utf8.encode('$installId|$fingerprint')).toString();
-    final integrity = await key.integrityToken(requestHash, Env.integrityCloudProjectNumber);
+    final integrity = Env.usesPlayIntegrity ? await key.integrityToken(requestHash, Env.integrityCloudProjectNumber) : null;
 
     final meta = await _deviceMeta();
     final response = await api.post('/devices/register', options: Req.anonymous(Req.signed()), data: {
@@ -97,6 +97,8 @@ class DeviceIdentity {
       'integrity_token': ?integrity,
       'emulator_suspected': signals.emulator,
       'root_suspected': signals.rooted,
+      'store': Env.store,
+      'installer': ?signals.installer,
       ...meta,
     });
 

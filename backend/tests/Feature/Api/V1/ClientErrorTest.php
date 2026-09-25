@@ -26,6 +26,7 @@ class ClientErrorTest extends TestCase
             'stack' => "#0 ListBase.first (dart:collection/list.dart:12:5)\n#1 _ChallengeDetailPageState.build (package:gamyar/features/challenges/presentation/challenges_page.dart:161:9)",
             'fatal' => true,
             'app_version' => '1.2.0',
+            'store' => 'bazaar',
             ...$overrides,
         ], $headers);
     }
@@ -81,6 +82,8 @@ class ClientErrorTest extends TestCase
         $this->actingAs(Admin::factory()->role(AdminRole::Operations)->create(), 'admin');
         $this->get('/admin/client-errors')->assertOk()->assertSee('StateError');
         $row = ClientError::query()->sole();
+        $this->assertSame('bazaar', $row->store);
+        Livewire::test(ListClientErrors::class)->callTableAction('download', $row)->assertFileDownloaded('crash-1.2.0-bazaar-'.$row->id.'.txt');
         Livewire::test(ListClientErrors::class)->callTableAction('resolve', $row);
         $this->assertNotNull($row->fresh()->resolved_at);
     }

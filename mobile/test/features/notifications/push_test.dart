@@ -39,8 +39,10 @@ class _Api extends ApiClient {
 }
 
 class _Messaging implements PushMessaging {
-  _Messaging({this.enabled = true});
+  _Messaging({this.enabled = true, this.provider = 'fcm'});
   final bool enabled;
+  @override
+  final String provider;
   final refresh = StreamController<String>.broadcast();
   final fg = StreamController<PushMessage>.broadcast();
   final openedCtl = StreamController<PushMessage>.broadcast();
@@ -121,6 +123,11 @@ void main() {
     m.fg.add((title: 'چالش', body: 'شروع شد', data: {'type': 'goal'}));
     await tester.pumpAndSettle();
     expect(shown.single.title, 'چالش');
+  });
+
+  testWidgets('Bazaar/Myket builds register their Pushe device id', (tester) async {
+    final (_, api, _, _, _) = await pump(tester, _Messaging(provider: 'pushe'));
+    expect(api.puts, ['/devices/push-token {"provider":"pushe","token":"tok-1"}']);
   });
 
   testWidgets('a build without push config registers nothing', (tester) async {

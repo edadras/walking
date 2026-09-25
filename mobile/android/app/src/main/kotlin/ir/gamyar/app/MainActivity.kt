@@ -12,6 +12,13 @@ class MainActivity : FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, DeviceKeyChannel.NAME)
             .setMethodCallHandler(DeviceKeyChannel(applicationContext))
 
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, OemSettingsChannel.NAME)
+            .setMethodCallHandler(OemSettingsChannel(applicationContext))
+
+        PusheChannel.attach()
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, PusheChannel.METHODS).setMethodCallHandler(PusheChannel)
+        EventChannel(flutterEngine.dartExecutor.binaryMessenger, PusheChannel.EVENTS).setStreamHandler(PusheChannel)
+
         val steps = StepsChannel(applicationContext)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, StepsChannel.METHODS).setMethodCallHandler(steps)
         EventChannel(flutterEngine.dartExecutor.binaryMessenger, StepsChannel.EVENTS).setStreamHandler(steps)

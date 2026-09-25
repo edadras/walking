@@ -4,7 +4,7 @@ import '../../../core/providers.dart';
 
 /// Server-driven configuration: feature flags and public business settings.
 class AppConfig {
-  const AppConfig({required this.features, required this.settings, required this.updateRequired, required this.serverTime});
+  const AppConfig({required this.features, required this.settings, required this.updateRequired, required this.serverTime, this.map = const {}});
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
     final update = json['update'] as Map<String, dynamic>? ?? const {};
@@ -13,6 +13,7 @@ class AppConfig {
       settings: Map<String, dynamic>.from(json['settings'] as Map? ?? const {}),
       updateRequired: update['required'] == true,
       serverTime: json['server_time'] as int?,
+      map: Map<String, dynamic>.from(json['map'] as Map? ?? const {}),
     );
   }
 
@@ -23,6 +24,16 @@ class AppConfig {
   final Map<String, dynamic> settings;
   final bool updateRequired;
   final int? serverTime;
+
+  /// Map tiles chosen by the server (provider can change without an app release).
+  final Map<String, dynamic> map;
+
+  String? get mapTileUrl => map['tile_url'] as String?;
+
+  /// Tiles come through our proxy and need the session token.
+  bool get mapProxied => map['proxied'] == true;
+  String get mapAttribution => map['attribution'] as String? ?? 'OpenStreetMap';
+  double get mapMaxZoom => (map['max_zoom'] as num?)?.toDouble() ?? 18;
 
   bool feature(String key) => features[key] ?? false;
 

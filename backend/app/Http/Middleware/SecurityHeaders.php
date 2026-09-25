@@ -28,8 +28,11 @@ class SecurityHeaders
         if ($request->is('api/*')) {
             $h->set('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
             $h->set('X-Frame-Options', 'DENY');
-            // Personal data: never cached by proxies or the device HTTP cache.
-            $h->set('Cache-Control', 'no-store, private');
+            // Personal data: never cached by proxies or the device HTTP cache. Map tiles are
+            // the one public, shared resource and keep the cache policy they set.
+            if (! $request->is('api/v1/map/tiles/*')) {
+                $h->set('Cache-Control', 'no-store, private');
+            }
         } else {
             $h->set('X-Frame-Options', 'SAMEORIGIN');
             $h->set('Content-Security-Policy', "frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'");

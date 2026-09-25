@@ -28,6 +28,7 @@ class Product {
     this.sponsor,
     this.description,
     this.images = const [],
+    this.rialPrice,
   });
 
   factory Product.fromJson(Map<String, dynamic> j) => Product(
@@ -47,6 +48,7 @@ class Product {
         sponsor: j['sponsor'] as String?,
         description: j['description'] as String?,
         images: ((j['images'] as List?) ?? const []).cast<String>(),
+        rialPrice: (j['rial_price'] as num?)?.toInt(),
       );
 
   final String id;
@@ -65,6 +67,9 @@ class Product {
   final String? sponsor;
   final String? description;
   final List<String> images;
+
+  /// Set only while rial checkout is offered for this product.
+  final int? rialPrice;
 
   bool get instant => type == 'digital_code' || type == 'coupon';
   int get maxQuantity => [10, ?maxPerUser, ?stock, if (type == 'coupon') 1].reduce((a, b) => a < b ? a : b);
@@ -153,6 +158,9 @@ class Order {
     required this.cancellable,
     this.title,
     this.imageUrl,
+    this.paymentMode = 'points',
+    this.totalRial = 0,
+    this.payment,
     this.items = const [],
     this.shippingAddress,
     this.trackingCode,
@@ -169,6 +177,9 @@ class Order {
         itemCount: _i(j['item_count']),
         title: j['title'] as String?,
         imageUrl: j['image_url'] as String?,
+        paymentMode: j['payment_mode'] as String? ?? 'points',
+        totalRial: _i(j['total_rial']),
+        payment: j['payment'] == null ? null : OrderPayment.fromJson(j['payment'] as Map<String, dynamic>),
         cancellable: j['cancellable'] == true,
         items: ((j['items'] as List?) ?? const []).map((e) => OrderItem.fromJson(e as Map<String, dynamic>)).toList(),
         shippingAddress: j['shipping_address'] == null ? null : Address.fromJson(j['shipping_address'] as Map<String, dynamic>),
@@ -188,9 +199,34 @@ class Order {
   final int itemCount;
   final String? title;
   final String? imageUrl;
+  final String paymentMode;
+  final int totalRial;
+  final OrderPayment? payment;
   final bool cancellable;
+
+  bool get isMoney => paymentMode == 'money';
+  bool get awaitingPayment => status == 'awaiting_payment';
   final List<OrderItem> items;
   final Address? shippingAddress;
   final String? trackingCode;
   final List<({String status, String label, String? note, DateTime at})> history;
+}
+
+/// Rial payment state of an order (gateway reference, resumable page).
+class OrderPayment {
+  const OrderPayment({required this.status, required this.amountRial, this.refId, this.payUrl});
+
+  factory OrderPayment.fromJson(Map<String, dynamic> j) => OrderPayment(
+        status: j['status'] as String,
+        amountRial: _i(j['amount_rial']),
+        refId: j['ref_id'] as String?,
+        payUrl: j['pay_url'] as String?,
+      );
+
+  final String status; // pending | paid | failed | cancelled
+  final int amountRial;
+  final String? refId;
+
+  /// Gateway page, while the payment can still be completed.
+  final String? payUrl;
 }

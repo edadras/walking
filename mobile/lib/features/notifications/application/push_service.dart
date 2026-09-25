@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,6 +22,9 @@ typedef PushMessage = ({String? title, String? body, Map<String, String> data});
 /// The platform push SDK, behind an interface so the controller is testable
 /// and the app runs unchanged in builds without Firebase config.
 abstract class PushMessaging {
+  /// Server-side provider key: `fcm` or `pushe`.
+  String get provider;
+
   /// False when push isn't configured for this build or the SDK failed to start.
   Future<bool> start();
   Future<bool> requestPermission();
@@ -32,6 +36,9 @@ abstract class PushMessaging {
 }
 
 class FirebasePushMessaging implements PushMessaging {
+  @override
+  String get provider => 'fcm';
+
   PushMessage _map(RemoteMessage m) => (title: m.notification?.title, body: m.notification?.body, data: m.data.map((k, v) => MapEntry(k, '$v')));
 
   @override
@@ -77,7 +84,51 @@ class FirebasePushMessaging implements PushMessaging {
   }
 }
 
-final pushMessagingProvider = Provider<PushMessaging>((ref) => FirebasePushMessaging());
+/// Pushe (Bazaar/Myket builds): the SDK displays notifications itself and hands
+/// taps to us through a native channel; the push token is the Pushe device id.
+class PushePushMessaging implements PushMessaging {
+  static const _methods = MethodChannel('ir.gamyar.app/pushe');
+  static const _clicks = EventChannel('ir.gamyar.app/pushe/clicks');
+
+  PushMessage _map(Object? data) => (title: null, body: null, data: Map<String, String>.from((data as Map?) ?? const {}));
+
+  @override
+  String get provider => 'pushe';
+
+  @override
+  Future<bool> start() async {
+    try {
+      return await _methods.invokeMethod<bool>('available') ?? false;
+    } on MissingPluginException {
+      return false;
+    }
+  }
+
+  /// Notification permission is already enforced by the permissions gate.
+  @override
+  Future<bool> requestPermission() async => true;
+
+  @override
+  Future<String?> token() => _methods.invokeMethod<String>('deviceId');
+
+  /// The Pushe device id is the Android id: it doesn't rotate.
+  @override
+  Stream<String> get tokenRefresh => const Stream.empty();
+
+  @override
+  Stream<PushMessage> get foreground => const Stream.empty();
+
+  @override
+  Stream<PushMessage> get opened => _clicks.receiveBroadcastStream().map(_map);
+
+  @override
+  Future<PushMessage?> launchMessage() async {
+    final data = await _methods.invokeMethod<Object?>('launchClick');
+    return data == null ? null : _map(data);
+  }
+}
+
+final pushMessagingProvider = Provider<PushMessaging>((ref) => Env.store == 'play' || Env.store == 'direct' ? FirebasePushMessaging() : PushePushMessaging());
 
 /// Shows a push that arrived while the app is open (FCM only displays in the background).
 typedef ForegroundPresenter = Future<void> Function(PushMessage message);
@@ -134,7 +185,7 @@ class PushController {
   Future<void> _register(String token) async {
     if (await _store.read(_kSentToken) == token) return;
     try {
-      await _ref.read(apiClientProvider).put('/devices/push-token', data: {'provider': 'fcm', 'token': token});
+      await _ref.read(apiClientProvider).put('/devices/push-token', data: {'provider': _messaging.provider, 'token': token});
       await _store.write(_kSentToken, token);
     } catch (_) {
       // Retried on the next start or token refresh.

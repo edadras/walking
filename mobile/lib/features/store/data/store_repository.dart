@@ -27,7 +27,7 @@ class StoreRepository {
   Future<Product> product(String slug) async => Product.fromJson((await _api.get('/store/products/$slug'))['data'] as Map<String, dynamic>);
 
   /// The key is created once per checkout so retries never buy twice.
-  Future<Order> placeOrder({required String productId, required int quantity, required String idempotencyKey, String? addressId, String? note}) async {
+  Future<Order> placeOrder({required String productId, required int quantity, required String idempotencyKey, String? addressId, String? note, bool money = false}) async {
     final r = await _api.post(
       '/orders',
       data: {
@@ -35,6 +35,7 @@ class StoreRepository {
           {'product_id': productId, 'quantity': quantity},
         ],
         'address_id': ?addressId,
+        if (money) 'payment_mode': 'money',
         if (note != null && note.isNotEmpty) 'note': note,
       },
       options: Req.signed(Options(headers: {'Idempotency-Key': idempotencyKey})),
