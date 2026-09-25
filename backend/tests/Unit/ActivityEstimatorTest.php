@@ -6,10 +6,14 @@ use App\Domain\Activity\ActivityEstimator;
 use App\Domain\Settings\Settings;
 use App\Enums\ActivityType;
 use App\Models\UserProfile;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ActivityEstimatorTest extends TestCase
 {
+    // Settings are read from the database; don't depend on what an earlier test left there.
+    use RefreshDatabase;
+
     private function estimator(): ActivityEstimator
     {
         return new ActivityEstimator(app(Settings::class));
