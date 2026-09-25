@@ -41,6 +41,8 @@ class MeResource extends JsonResource
                 'quiet_hours_start' => $profile?->quiet_hours_start ? substr($profile->quiet_hours_start, 0, 5) : null,
                 'quiet_hours_end' => $profile?->quiet_hours_end ? substr($profile->quiet_hours_end, 0, 5) : null,
                 'leaderboard_visible' => $this->leaderboard_visible,
+                'share_route' => (bool) $this->share_route,
+                'route_color' => $this->routeColor(),
             ],
             'profile_completed' => $this->display_name !== null && $profile?->weight_kg !== null,
         ];

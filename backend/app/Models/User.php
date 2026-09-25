@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Map\RouteMap;
 use App\Enums\UserStatus;
 use App\Support\Phone;
 use Database\Factories\UserFactory;
@@ -37,6 +38,8 @@ class User extends Authenticatable
         'timezone_changed_at',
         'locale',
         'leaderboard_visible',
+        'share_route',
+        'route_color',
         'last_active_at',
     ];
 
@@ -62,6 +65,7 @@ class User extends Authenticatable
             'last_active_at' => 'datetime',
             'deletion_requested_at' => 'datetime',
             'leaderboard_visible' => 'boolean',
+            'share_route' => 'boolean',
             'level' => 'integer',
             'xp' => 'integer',
         ];
@@ -127,6 +131,12 @@ class User extends Authenticatable
     public function maskedPhone(): string
     {
         return Phone::mask($this->phone);
+    }
+
+    /** The colour of this user's lines on the public map: chosen, or stable from the id. */
+    public function routeColor(): string
+    {
+        return $this->route_color ?? RouteMap::COLORS[$this->id % count(RouteMap::COLORS)];
     }
 
     public function publicName(): string

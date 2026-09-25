@@ -9,6 +9,7 @@ use App\Enums\NotificationCategory;
 use App\Exceptions\ApiException;
 use App\Models\AccountDeletionRequest;
 use App\Models\NotificationPreference;
+use App\Models\RouteTrack;
 use App\Models\User;
 use App\Support\ImageSanitizer;
 use Illuminate\Http\UploadedFile;
@@ -37,6 +38,14 @@ class ProfileService
             }
             $user->save();
 
+            if (array_key_exists('share_route', $data) || array_key_exists('route_color', $data)) {
+                $user->forceFill(array_intersect_key($data, array_flip(['share_route', 'route_color'])))->save();
+                if (array_key_exists('share_route', $data) && ! $data['share_route']) {
+                    // Turning sharing off takes the user's lines off the map right away.
+                    RouteTrack::query()->where('user_id', $user->id)->delete();
+                }
+            }
+
             $profileFields = array_intersect_key($data, array_flip(['birth_year', 'gender', 'height_cm', 'weight_kg']));
             if ($profileFields !== []) {
                 $user->profile->fill($profileFields)->save();
@@ -56,6 +65,14 @@ class ProfileService
                 $data['leaderboard_visible']
                     ? $boards->sync($user, now($user->timezone)->toDateString())
                     : $boards->forget($user);
+            }
+
+            if (array_key_exists('share_route', $data) || array_key_exists('route_color', $data)) {
+                $user->forceFill(array_intersect_key($data, array_flip(['share_route', 'route_color'])))->save();
+                if (array_key_exists('share_route', $data) && ! $data['share_route']) {
+                    // Turning sharing off takes the user's lines off the map right away.
+                    RouteTrack::query()->where('user_id', $user->id)->delete();
+                }
             }
 
             $profileFields = array_intersect_key($data, array_flip([

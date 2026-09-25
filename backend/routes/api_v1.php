@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\V1\PostController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestController;
 use App\Http\Controllers\Api\V1\RewardController;
+use App\Http\Controllers\Api\V1\RouteController;
 use App\Http\Controllers\Api\V1\SocialController;
 use App\Http\Controllers\Api\V1\SponsorOfferController;
 use App\Http\Controllers\Api\V1\StoreController;
@@ -43,6 +44,8 @@ Route::get('config', ConfigController::class)->middleware('throttle:public');
 Route::get('time', [DeviceController::class, 'time'])->middleware('throttle:public');
 Route::get('pages/{slug}', [ContentController::class, 'page'])->middleware('throttle:public');
 Route::get('faqs', [ContentController::class, 'faqs'])->middleware('throttle:public');
+// Public walk map: anonymous lines (colour + points) visible for 24 h. Used by the app and the website.
+Route::get('public/map/tracks', [RouteController::class, 'tracks'])->middleware('throttle:public');
 Route::post('client-errors', [ClientErrorController::class, 'store'])->middleware('throttle:client-errors');
 
 // Ad network server-to-server reward callbacks (HMAC per provider)
@@ -129,6 +132,8 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::post('challenges/{challenge}/join', [ChallengeController::class, 'join'])->middleware('signed.device');
 
     Route::get('weather', WeatherController::class);
+
+    Route::post('routes', [RouteController::class, 'store'])->middleware('throttle:sessions');
 
     // Walk photos (published once the walk they were taken on is verified).
     Route::get('posts', [PostController::class, 'index']);

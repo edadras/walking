@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Domain\Settings\Settings;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -12,6 +13,16 @@ class LandingController extends Controller
     public function home(): View
     {
         return view('landing.home', ['stores' => config('walk.links.stores')]);
+    }
+
+    /** Public map of the last 24 hours of shared walks (anonymous coloured lines). */
+    public function map(Settings $settings): View
+    {
+        return view('landing.map', [
+            'tileUrl' => $settings->get('map.tile_url') ?: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            'attribution' => (string) $settings->get('map.attribution', 'OpenStreetMap'),
+            'maxZoom' => $settings->int('map.max_zoom'),
+        ]);
     }
 
     /**

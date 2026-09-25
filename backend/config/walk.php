@@ -103,6 +103,9 @@ return [
         'social.max_posts_per_day' => ['value' => 5, 'group' => 'social', 'public' => true, 'description' => 'حداکثر پست در روز'],
         'social.auto_hide_reports' => ['value' => 3, 'group' => 'social', 'public' => false, 'description' => 'با این تعداد گزارش، پست تا بررسی پنهان می‌شود'],
         'social.qualified_days' => ['value' => 30, 'group' => 'social', 'public' => false, 'description' => 'بازدید/لایک فقط از کسی امتیاز می‌دهد که در این چند روز پیاده‌روی تأییدشده داشته'],
+        // Public route map (opt-in per user).
+        'map.privacy_trim_m' => ['value' => 150, 'group' => 'map', 'public' => true, 'description' => 'چند متر از ابتدا و انتهای هر مسیر روی نقشه عمومی نمایش داده نمی‌شود'],
+        'map.visible_hours' => ['value' => 24, 'group' => 'map', 'public' => true, 'description' => 'مسیر تا چند ساعت پس از آخرین نقطه روی نقشه عمومی می‌ماند (سپس حذف می‌شود)'],
         'reward.hold_hours' => ['value' => 24, 'group' => 'reward', 'public' => true, 'description' => 'مدت بررسی امتیاز قبل از قابل استفاده شدن (ساعت)'],
         'reward.max_multiplier' => ['value' => 3, 'group' => 'reward', 'public' => false, 'description' => 'حداکثر ضریب ترکیبی'],
 

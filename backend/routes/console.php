@@ -13,3 +13,4 @@ Schedule::command('ops:health-check')->everyFiveMinutes()->withoutOverlapping()-
 Schedule::command('cashout:sync-payouts')->everyFiveMinutes()->withoutOverlapping()->onOneServer();
 Schedule::command('payments:sweep')->everyFiveMinutes()->withoutOverlapping()->onOneServer();
 Schedule::command('sponsors:housekeeping')->everyFiveMinutes()->withoutOverlapping()->onOneServer();
+Schedule::command('routes:prune')->everyFifteenMinutes()->withoutOverlapping()->onOneServer();

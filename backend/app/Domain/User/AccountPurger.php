@@ -110,6 +110,7 @@ class AccountPurger
                 $post->delete();
             });
             DB::table('post_likes')->where('user_id', $user->id)->delete();
+            DB::table('route_tracks')->where('user_id', $user->id)->delete();
             DB::table('post_reports')->where('user_id', $user->id)->delete();
             $user->forceFill([
                 'phone' => 'del-'.$user->id,

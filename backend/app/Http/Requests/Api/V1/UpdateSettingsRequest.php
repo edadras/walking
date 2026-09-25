@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use App\Domain\Map\RouteMap;
 use App\Domain\Settings\Settings;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,6 +20,8 @@ class UpdateSettingsRequest extends FormRequest
             'quiet_hours_start' => ['sometimes', 'nullable', 'date_format:H:i'],
             'quiet_hours_end' => ['sometimes', 'nullable', 'date_format:H:i'],
             'leaderboard_visible' => ['sometimes', 'boolean'],
+            'share_route' => ['sometimes', 'boolean'],
+            'route_color' => ['sometimes', 'in:'.implode(',', RouteMap::COLORS)],
         ];
     }
 }
