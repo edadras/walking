@@ -153,6 +153,7 @@ jobs:
           api-level: 34
           arch: x86_64
           target: google_apis
+          profile: pixel_6
           disable-animations: true
           working-directory: mobile
           # 10.0.2.2 is the runner (host) as seen from the emulator.

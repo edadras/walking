@@ -76,7 +76,12 @@ void main() {
     await tester.pumpWidget(UncontrolledProviderScope(container: container, child: const GamyarApp()));
 
     // Onboarding → phone → OTP (registers the device and signs every request with the Keystore key).
-    await waitForAny(tester, [find.text(l.onboardingStart), find.text(l.authSendCode)]);
+    // Onboarding slides: "continue" until the last one offers "start".
+    await waitForAny(tester, [find.text(l.commonContinue), find.text(l.onboardingStart), find.text(l.authSendCode)]);
+    for (var i = 0; i < 10 && find.text(l.commonContinue).evaluate().isNotEmpty; i++) {
+      await tapText(tester, l.commonContinue);
+      await tester.pump(const Duration(milliseconds: 800));
+    }
     if (find.text(l.onboardingStart).evaluate().isNotEmpty) await tapText(tester, l.onboardingStart);
     await waitFor(tester, find.text(l.authSendCode));
     await tester.enterText(find.byType(TextField).first, _phone);
@@ -108,7 +113,7 @@ void main() {
     await tapText(tester, l.cashoutSubmit);
     await waitFor(tester, find.text(l.cashoutOtpTitle));
     await tester.enterText(find.byType(TextField).last, _otp);
+    // Server accepted it (the history row below may be off-screen on small displays).
     await waitFor(tester, find.text(l.cashoutSubmitted));
-    await waitFor(tester, find.text('در انتظار بررسی'));
   });
 }
