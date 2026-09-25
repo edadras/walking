@@ -141,6 +141,16 @@ return [
         'alert_email' => env('OPS_ALERT_EMAIL'),
         // Chat webhook for alerts, e.g. Mattermost/Rocket.Chat incoming webhook (POST {"text": ...}).
         'alert_webhook' => env('OPS_ALERT_WEBHOOK'),
+        // ops:health-check thresholds (checked every 5 minutes).
+        'thresholds' => [
+            'queue_backlog' => ['critical' => 100, 'fraud' => 2000, 'default' => 2000, 'notifications' => 5000, 'analytics' => 20000],
+            'failed_jobs_per_hour' => 20,
+            'sms_failures_per_15_min' => 3,
+            'fatal_crashes_per_5_min' => 30,
+            'cashout_pending_hours' => 48,
+            'cashout_processing_hours' => 24,
+            'reconcile_max_age_hours' => 26,
+        ],
     ],
 
     'security' => [
