@@ -2148,4 +2148,11 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get authReferralPrefilled => 'کد دعوت از لینک دریافتی وارد شد.';
+
+  @override
+  String get lockScreenSteps => 'قدم‌های امروز روی صفحه قفل';
+
+  @override
+  String get lockScreenStepsHint =>
+      'یک اعلان آرام و ثابت با قدم‌ها و پیشرفت هدف؛ برای ابزارک صفحه اصلی، صفحه اصلی گوشی را نگه دار و «ابزارک‌ها» را بزن.';
 }

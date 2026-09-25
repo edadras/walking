@@ -3819,6 +3819,18 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'کد دعوت از لینک دریافتی وارد شد.'**
   String get authReferralPrefilled;
+
+  /// No description provided for @lockScreenSteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم‌های امروز روی صفحه قفل'**
+  String get lockScreenSteps;
+
+  /// No description provided for @lockScreenStepsHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'یک اعلان آرام و ثابت با قدم‌ها و پیشرفت هدف؛ برای ابزارک صفحه اصلی، صفحه اصلی گوشی را نگه دار و «ابزارک‌ها» را بزن.'**
+  String get lockScreenStepsHint;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/platform/home_widget.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/theme/app_palette.dart';
@@ -61,6 +62,22 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
                   value: values[entry.key] ?? true,
                   onChanged: entry.key == 'order_update' ? null : (v) => _toggle(entry.key, v),
                 ),
+              const Divider(),
+              // Device-only setting: today's steps on the lock screen (phones have no lock-screen widgets).
+              Consumer(builder: (context, ref, _) {
+                final lock = ref.watch(lockScreenStepsProvider).value;
+                return SwitchListTile(
+                  title: Text(l.lockScreenSteps),
+                  subtitle: Text(l.lockScreenStepsHint),
+                  value: lock ?? true,
+                  onChanged: lock == null
+                      ? null
+                      : (v) async {
+                          await ref.read(homeWidgetProvider).setLockScreen(v);
+                          ref.invalidate(lockScreenStepsProvider);
+                        },
+                );
+              }),
               Padding(
                 padding: const EdgeInsetsDirectional.all(AppSpacing.gutter),
                 child: Text(l.notificationsMandatory, style: context.text.bodySmall?.copyWith(color: context.palette.inkSubtle)),

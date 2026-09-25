@@ -79,12 +79,18 @@
             android:name=".steps.ActivityTransitions$TransitionReceiver"
             android:exported="false" />
 
-        <!-- Home-screen widget: today's steps, goal and streak. -->
+        <!-- Home-screen widgets (3×2 and 2×1): today's steps, goal and streak. -->
         <receiver android:name=".StepWidget" android:exported="false" android:label="@string/widget_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/step_widget_info" />
+        </receiver>
+        <receiver android:name=".StepWidgetSmall" android:exported="false" android:label="@string/widget_small_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/step_widget_small_info" />
         </receiver>
         <!-- Background FCM notifications land in the same channel the app creates. -->
         <meta-data

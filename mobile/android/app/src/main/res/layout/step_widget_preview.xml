@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Today's verified steps as the app last showed them (RemoteViews: plain widgets only). -->
+<!-- Widget picker preview (Android 12+). -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
@@ -26,6 +26,7 @@
             android:id="@+id/widget_streak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="🔥 ۵ روز"
             android:textColor="#FFB07A00"
             android:textSize="13sp" />
     </LinearLayout>
@@ -35,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="—"
+        android:text="۶٬۴۲۰"
         android:textColor="#FF1C2B23"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -47,6 +48,7 @@
         android:layout_height="8dp"
         android:layout_marginTop="6dp"
         android:max="100"
+        android:progress="86"
         android:progressDrawable="@android:drawable/progress_horizontal"
         android:progressTint="#FF1A7F4B"
         android:progressBackgroundTint="#FFE6F2EB" />
@@ -55,6 +57,7 @@
         android:id="@+id/widget_goal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="هدف: ۷٬۵۰۰ قدم"
         android:layout_marginTop="6dp"
         android:textColor="#FF55675D"
         android:textSize="12sp" />

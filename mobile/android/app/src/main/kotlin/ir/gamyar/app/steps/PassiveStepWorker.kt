@@ -32,6 +32,8 @@ class PassiveStepWorker(context: Context, params: WorkerParameters) : Worker(con
         // An active walk records its own data; a background read in the middle is harmless
         // (Dart skips intervals between active_start/active_end marks).
         StepCounterReader.readAndStore(applicationContext)
+        // Keep the widgets and the lock-screen line fresh without opening the app.
+        ir.gamyar.app.StepWidget.render(applicationContext)
         return Result.success()
     }
 }

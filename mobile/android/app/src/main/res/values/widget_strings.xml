@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="widget_title">قدم‌های امروز</string>
+    <string name="widget_small_title">گام‌یار (کوچک)</string>
     <string name="widget_description">قدم‌های امروز، هدف و زنجیره روزها</string>
+    <string name="widget_small_description">قدم‌های امروز و پیشرفت هدف</string>
+    <string name="widget_goal">هدف: %1$s قدم</string>
+    <string name="widget_pending">+%1$s قدم تازه، پس از همگام‌سازی تأیید می‌شود</string>
+    <string name="widget_sign_in">برای دیدن قدم‌ها وارد گام‌یار شو</string>
+    <string name="widget_open_to_sync">روز جدید؛ اپ را باز کن تا همگام شود</string>
+    <string name="widget_notification_title">%1$s قدم امروز</string>
+    <string name="widget_channel_name">قدم‌های امروز روی صفحه قفل</string>
+    <string name="widget_channel_description">اعلان آرام و ثابت با قدم‌های امروز و پیشرفت هدف</string>
 </resources>
