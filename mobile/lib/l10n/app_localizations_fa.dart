@@ -2407,4 +2407,29 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get commonDelete => 'حذف';
+
+  @override
+  String get routeMapTitle => 'نقشه مسیرها';
+
+  @override
+  String routeMapCount(String count) {
+    return '$count مسیر در ۲۴ ساعت گذشته در این محدوده';
+  }
+
+  @override
+  String get routeMapZoomIn => 'برای دیدن مسیرها نزدیک‌تر شوید';
+
+  @override
+  String get routeMapShare => 'مسیر من روی نقشه عمومی';
+
+  @override
+  String routeMapShareHint(String hours, String trim) {
+    return 'پس از پایان و تأیید هر پیاده‌روی با GPS، مسیرتان بدون نام و فقط با یک رنگ تا $hours ساعت نمایش داده و بعد حذف می‌شود. $trim متر اول و آخر مسیر (نزدیک خانه یا محل کار) نشان داده نمی‌شود.';
+  }
+
+  @override
+  String get routeMapColor => 'رنگ خط من';
+
+  @override
+  String get homeRouteMap => 'نقشه مسیرها';
 }

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/sensors/step_platform.dart';
+import '../../auth/application/session_controller.dart';
+import '../../routemap/application/route_outbox.dart';
 import 'activity_providers.dart';
 import 'tracking_service.dart';
 
@@ -84,6 +86,7 @@ class ActiveWalkController extends Notifier<ActiveWalkState> {
     final drafts = await tracking.queueActiveWalk(payload);
     final report = await tracking.flush();
     refreshActivityViews(ref);
+    await _shareRoute(payload['route']);
 
     state = WalkFinished(
       steps: drafts.fold(0, (s, d) => s + d.steps),
@@ -93,6 +96,17 @@ class ActiveWalkController extends Notifier<ActiveWalkState> {
   }
 
   void reset() => state = const WalkIdle();
+
+  /// Only with the user's consent: the line goes to the public map once the walk is verified.
+  Future<void> _shareRoute(Object? route) async {
+    try {
+      final session = ref.read(sessionProvider).value;
+      if (session is! SessionAuthenticated || !session.me.shareRoute || route is! List || route.length < 2) return;
+      await ref.read(routeOutboxProvider).add([for (final p in route) (p as List).cast<num>()]);
+    } catch (_) {
+      // Best effort: the walk itself is already safe.
+    }
+  }
 
   void _attach(LiveWalk initial) {
     state = WalkRunning(initial);

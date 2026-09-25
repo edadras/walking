@@ -116,6 +116,12 @@ class _HomeBody extends ConsumerWidget {
         ],
         const WeatherCard(),
         const SizedBox(height: AppSpacing.md),
+        Row(children: [
+          Expanded(child: _QuickLink(icon: Icons.map_outlined, label: l.homeRouteMap, onTap: () => context.push('/map'))),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(child: _QuickLink(icon: Icons.photo_library_outlined, label: l.postsTitle, onTap: () => context.push('/posts'))),
+        ]),
+        const SizedBox(height: AppSpacing.md),
         const QuestsSummaryCard(),
         if (view.data.wallet != null) ...[
           _PointsCard(points: t.points, wallet: view.data.wallet!),
@@ -160,6 +166,25 @@ class _HomeBody extends ConsumerWidget {
       ],
     );
   }
+}
+
+class _QuickLink extends StatelessWidget {
+  const _QuickLink({required this.icon, required this.label, required this.onTap});
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => AppCard(
+        onTap: onTap,
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.md),
+        child: Row(children: [
+          Icon(icon, color: context.palette.green, size: 22),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(child: Text(label, style: context.text.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis)),
+        ]),
+      );
 }
 
 class _Bell extends StatelessWidget {

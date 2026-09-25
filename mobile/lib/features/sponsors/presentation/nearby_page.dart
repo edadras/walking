@@ -179,7 +179,7 @@ class PlaceCard extends StatelessWidget {
 }
 
 /// Proxied tiles are fetched with the session token (the provider's key stays on our server).
-final _tileHeadersProvider = FutureProvider.autoDispose<Map<String, String>>((ref) async {
+final tileHeadersProvider = FutureProvider.autoDispose<Map<String, String>>((ref) async {
   if (!ref.watch(configProvider).mapProxied) return const {};
   final token = await ref.watch(secureStoreProvider).read(SecureStore.kToken);
   return token == null ? const {} : {'Authorization': 'Bearer $token'};
@@ -195,7 +195,7 @@ class _PlacesMap extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final p = context.palette;
     final config = ref.watch(configProvider);
-    final headers = ref.watch(_tileHeadersProvider).value ?? const {};
+    final headers = ref.watch(tileHeadersProvider).value ?? const {};
     return FlutterMap(
       options: MapOptions(initialCenter: center, initialZoom: 14, maxZoom: config.mapMaxZoom),
       children: [

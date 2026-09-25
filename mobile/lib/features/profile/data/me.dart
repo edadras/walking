@@ -22,6 +22,8 @@ class Me {
     required this.waterReminderEnabled,
     required this.leaderboardVisible,
     required this.profileCompleted,
+    this.shareRoute = false,
+    this.routeColor,
   });
 
   factory Me.fromJson(Map<String, dynamic> j) {
@@ -48,6 +50,8 @@ class Me {
       waterGoalMl: (settings['water_goal_ml'] as num?)?.toInt() ?? 2000,
       waterReminderEnabled: settings['water_reminder_enabled'] == true,
       leaderboardVisible: settings['leaderboard_visible'] != false,
+      shareRoute: settings['share_route'] == true,
+      routeColor: settings['route_color'] as String?,
       profileCompleted: j['profile_completed'] == true,
     );
   }
@@ -73,4 +77,8 @@ class Me {
   final bool waterReminderEnabled;
   final bool leaderboardVisible;
   final bool profileCompleted;
+
+  /// Opt-in: finished walks appear (anonymously, 24 h) on the public map in this colour.
+  final bool shareRoute;
+  final String? routeColor;
 }

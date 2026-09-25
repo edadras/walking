@@ -1593,5 +1593,29 @@
         "type": "String"
       }
     }
+  },
+  "routeMapTitle": "نقشه مسیرها",
+  "routeMapCount": "{count} مسیر در ۲۴ ساعت گذشته در این محدوده",
+  "routeMapZoomIn": "برای دیدن مسیرها نزدیک‌تر شوید",
+  "routeMapShare": "مسیر من روی نقشه عمومی",
+  "routeMapShareHint": "پس از پایان و تأیید هر پیاده‌روی با GPS، مسیرتان بدون نام و فقط با یک رنگ تا {hours} ساعت نمایش داده و بعد حذف می‌شود. {trim} متر اول و آخر مسیر (نزدیک خانه یا محل کار) نشان داده نمی‌شود.",
+  "routeMapColor": "رنگ خط من",
+  "homeRouteMap": "نقشه مسیرها",
+  "@routeMapCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@routeMapShareHint": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      },
+      "trim": {
+        "type": "String"
+      }
+    }
   }
 }

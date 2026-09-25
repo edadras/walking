@@ -4281,6 +4281,48 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'حذف'**
   String get commonDelete;
+
+  /// No description provided for @routeMapTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه مسیرها'**
+  String get routeMapTitle;
+
+  /// No description provided for @routeMapCount.
+  ///
+  /// In fa, this message translates to:
+  /// **'{count} مسیر در ۲۴ ساعت گذشته در این محدوده'**
+  String routeMapCount(String count);
+
+  /// No description provided for @routeMapZoomIn.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای دیدن مسیرها نزدیک‌تر شوید'**
+  String get routeMapZoomIn;
+
+  /// No description provided for @routeMapShare.
+  ///
+  /// In fa, this message translates to:
+  /// **'مسیر من روی نقشه عمومی'**
+  String get routeMapShare;
+
+  /// No description provided for @routeMapShareHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'پس از پایان و تأیید هر پیاده‌روی با GPS، مسیرتان بدون نام و فقط با یک رنگ تا {hours} ساعت نمایش داده و بعد حذف می‌شود. {trim} متر اول و آخر مسیر (نزدیک خانه یا محل کار) نشان داده نمی‌شود.'**
+  String routeMapShareHint(String hours, String trim);
+
+  /// No description provided for @routeMapColor.
+  ///
+  /// In fa, this message translates to:
+  /// **'رنگ خط من'**
+  String get routeMapColor;
+
+  /// No description provided for @homeRouteMap.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه مسیرها'**
+  String get homeRouteMap;
 }
 
 class _AppLocalizationsDelegate
