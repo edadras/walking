@@ -45,9 +45,13 @@ class _Body extends StatelessWidget {
     return ListView(
       padding: const EdgeInsetsDirectional.all(AppSpacing.gutter),
       children: [
-        Text(s.isActive ? l.activityActive : l.activityPassive, style: context.text.labelMedium),
+        Row(children: [
+          if (s.isRide) ...[Icon(Icons.pedal_bike_rounded, color: p.info, size: 20), const SizedBox(width: AppSpacing.xs)],
+          Text(s.isRide ? l.activityCycling : (s.isActive ? l.activityActive : l.activityPassive), style: context.text.labelMedium),
+        ]),
         const SizedBox(height: AppSpacing.xs),
-        Text('${Fa.number(s.steps)} ${l.activitySteps}', style: context.text.displaySmall),
+        Text(s.isRide ? l.activityCyclingKm(Fa.decimal(s.cyclingDistanceM / 1000)) : '${Fa.number(s.steps)} ${l.activitySteps}', style: context.text.displaySmall),
+        if (s.isRide && s.steps > 0) Text('${Fa.number(s.steps)} ${l.activitySteps}', style: context.text.bodySmall),
         Text('${FaDate.long(s.startedAt)} · ${FaDate.time(s.startedAt)} تا ${FaDate.time(s.endedAt)}', style: context.text.bodySmall),
         const SizedBox(height: AppSpacing.xl),
         AppCard(

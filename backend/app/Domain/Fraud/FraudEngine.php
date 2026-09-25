@@ -6,6 +6,7 @@ use App\Domain\Activity\DailyActivityAggregator;
 use App\Domain\Fraud\Data\RuleResult;
 use App\Domain\Fraud\Data\SessionContext;
 use App\Domain\Settings\Settings;
+use App\Enums\ActivityType;
 use App\Enums\FraudCaseStatus;
 use App\Enums\SessionKind;
 use App\Enums\SessionStatus;
@@ -60,10 +61,16 @@ class FraudEngine
         if ($status === SessionStatus::Rejected) {
             $verified = 0;
         }
+        // Only a clean session earns cycling distance; review decides for the rest.
+        $cycling = in_array($status, [SessionStatus::Verified, SessionStatus::PartiallyVerified], true) ? $context->cycling : ['distance_m' => 0, 'duration_s' => 0];
+        $activityType = $cycling['duration_s'] > 0 && $session->duration_s <= $cycling['duration_s'] * 2 ? ActivityType::Bicycle : $session->activity_type;
 
-        DB::transaction(function () use ($session, $results, $risk, $verified, $confidence, $status) {
+        DB::transaction(function () use ($session, $results, $risk, $verified, $confidence, $status, $cycling, $activityType) {
             $session->forceFill([
                 'verified_steps' => $verified,
+                'cycling_distance_m' => $cycling['distance_m'],
+                'cycling_duration_s' => $cycling['duration_s'],
+                'activity_type' => $activityType,
                 'fraud_score' => $risk,
                 'confidence_score' => $confidence,
                 'status' => $status,

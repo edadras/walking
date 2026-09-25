@@ -11,6 +11,8 @@ import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/trail.dart';
 import '../../weather/presentation/weather_card.dart';
+import '../../../core/sensors/step_platform.dart';
+import '../../config/data/app_config.dart';
 import '../application/active_walk_controller.dart';
 
 /// Start / follow / finish a user-initiated walk.
@@ -52,11 +54,11 @@ class _WalkPageState extends ConsumerState<WalkPage> {
             duration: AppMotion.base,
             child: switch (state) {
               WalkIdle() => _Idle(key: const ValueKey('idle'), gps: _gps, onGps: _toggleGps, onStart: _start),
-              WalkRunning(:final live) => _Live(key: const ValueKey('run'), steps: live.steps, elapsed: live.elapsed, distance: live.gps ? live.distanceM : null, onStop: () {
+              WalkRunning(:final live) => _Live(key: const ValueKey('run'), live: live, onStop: () {
                 ref.read(analyticsProvider).track('walking_completed', {'steps': live.steps, 'minutes': live.elapsed.inMinutes, 'gps': live.gps});
                 ref.read(activeWalkProvider.notifier).stop();
               }),
-              WalkSaving(:final live) => _Live(key: const ValueKey('save'), steps: live.steps, elapsed: live.elapsed, distance: live.gps ? live.distanceM : null, saving: true),
+              WalkSaving(:final live) => _Live(key: const ValueKey('save'), live: live, saving: true),
               WalkFinished() => _Finished(key: const ValueKey('done'), state: state, onDone: () {
                   ref.read(activeWalkProvider.notifier).reset();
                   Navigator.of(context).maybePop();
@@ -105,42 +107,58 @@ class _Idle extends StatelessWidget {
   }
 }
 
-class _Live extends StatelessWidget {
-  const _Live({super.key, required this.steps, required this.elapsed, required this.distance, this.onStop, this.saving = false});
+class _Live extends ConsumerWidget {
+  const _Live({super.key, required this.live, this.onStop, this.saving = false});
 
-  final int steps;
-  final Duration elapsed;
-  final double? distance;
+  final LiveWalk live;
   final VoidCallback? onStop;
   final bool saving;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     final p = context.palette;
+    final cycling = live.mode == MoveMode.cycling;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const WeatherStrip(),
         const Spacer(),
+        Center(child: MoveModeBadge(mode: live.mode)),
+        const SizedBox(height: AppSpacing.lg),
         Semantics(
           liveRegion: true,
-          label: '${Fa.number(steps)} ${l.activitySteps}',
+          label: cycling ? '${Fa.decimal(live.cyclingDistanceM / 1000, decimals: 2)} ${l.homeUnitKm}' : '${Fa.number(live.steps)} ${l.activitySteps}',
           excludeSemantics: true,
           child: Column(children: [
-            TweenAnimationBuilder<double>(
-              tween: Tween(end: steps.toDouble()),
-              duration: AppMotion.base,
-              builder: (_, v, _) => Text(Fa.number(v.round()), style: context.text.displayLarge?.copyWith(fontSize: 64)),
-            ),
-            Text(l.activitySteps, style: context.text.bodyMedium?.copyWith(color: p.inkMuted)),
+            if (cycling)
+              Text(Fa.decimal(live.cyclingDistanceM / 1000, decimals: 2), style: context.text.displayLarge?.copyWith(fontSize: 64))
+            else
+              TweenAnimationBuilder<double>(
+                tween: Tween(end: live.steps.toDouble()),
+                duration: AppMotion.base,
+                builder: (_, v, _) => Text(Fa.number(v.round()), style: context.text.displayLarge?.copyWith(fontSize: 64)),
+              ),
+            Text(cycling ? l.walkCyclingDistance : l.activitySteps, style: context.text.bodyMedium?.copyWith(color: p.inkMuted)),
           ]),
         ),
-        const SizedBox(height: AppSpacing.x4),
+        const SizedBox(height: AppSpacing.x3),
         Row(children: [
-          Expanded(child: _Metric(label: l.walkElapsed, value: FaDate.clock(elapsed))),
-          if (distance != null) Expanded(child: _Metric(label: l.walkDistance, value: '${Fa.decimal(distance! / 1000, decimals: 2)} ${l.homeUnitKm}')),
+          Expanded(child: _Metric(label: l.walkElapsed, value: FaDate.clock(live.elapsed))),
+          if (live.gps) Expanded(child: _Metric(label: l.walkDistance, value: '${Fa.decimal(live.distanceM / 1000, decimals: 2)} ${l.homeUnitKm}')),
+          if (live.gps && live.speedKmh > 0) Expanded(child: _Metric(label: l.walkSpeed, value: '${Fa.number(live.speedKmh.round())} km/h')),
+          if (cycling) Expanded(child: _Metric(label: l.activitySteps, value: Fa.number(live.steps))),
         ]),
+        if (cycling || live.mode == MoveMode.vehicle) ...[
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            live.mode == MoveMode.vehicle
+                ? l.walkVehicleHint
+                : (live.gps ? l.walkCyclingHint(Fa.number(ref.watch(configProvider).cyclingPointsPerKm)) : l.walkCyclingNeedsGps),
+            style: context.text.bodySmall?.copyWith(color: live.mode == MoveMode.vehicle ? p.danger : p.inkMuted),
+            textAlign: TextAlign.center,
+          ),
+        ],
         const Spacer(),
         AppButton(
           label: saving ? l.walkSaving : l.walkStop,
@@ -151,6 +169,51 @@ class _Live extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+/// Big round picture of how the user is moving: a bicycle when riding, a walker on foot.
+class MoveModeBadge extends StatelessWidget {
+  const MoveModeBadge({super.key, required this.mode});
+
+  final MoveMode mode;
+
+  static IconData iconOf(MoveMode mode) => switch (mode) {
+        MoveMode.cycling => Icons.pedal_bike_rounded,
+        MoveMode.running => Icons.directions_run_rounded,
+        MoveMode.vehicle => Icons.directions_car_rounded,
+        MoveMode.walking => Icons.directions_walk_rounded,
+        MoveMode.still => Icons.accessibility_new_rounded,
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final p = context.palette;
+    final (color, bg) = switch (mode) {
+      MoveMode.cycling => (p.info, p.info.withValues(alpha: 0.12)),
+      MoveMode.vehicle => (p.danger, p.dangerSoft),
+      MoveMode.still => (p.inkSubtle, p.surfaceSunken),
+      _ => (p.green, p.greenSoft),
+    };
+    final label = switch (mode) {
+      MoveMode.cycling => l.walkModeCycling,
+      MoveMode.running => l.walkModeRunning,
+      MoveMode.vehicle => l.walkModeVehicle,
+      MoveMode.walking => l.walkModeWalking,
+      MoveMode.still => l.walkModeStill,
+    };
+    return Column(children: [
+      AnimatedContainer(
+        duration: AppMotion.base,
+        width: 92,
+        height: 92,
+        decoration: BoxDecoration(color: bg, shape: BoxShape.circle, border: Border.all(color: color.withValues(alpha: 0.35), width: 2)),
+        child: AnimatedSwitcher(duration: AppMotion.base, child: Icon(iconOf(mode), key: ValueKey(mode), size: 52, color: color)),
+      ),
+      const SizedBox(height: AppSpacing.xs),
+      Text(label, style: context.text.labelLarge?.copyWith(color: color)),
+    ]);
   }
 }
 

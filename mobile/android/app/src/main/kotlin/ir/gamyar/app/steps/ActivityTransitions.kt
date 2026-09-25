@@ -18,6 +18,10 @@ import com.google.android.gms.location.DetectedActivity
  */
 object ActivityTransitions {
 
+    /** Latest activity Google reported entering (null after its exit, or without Play services). */
+    @Volatile var current: String? = null
+        private set
+
     private val types = mapOf(
         DetectedActivity.WALKING to "walking",
         DetectedActivity.RUNNING to "running",
@@ -57,7 +61,9 @@ object ActivityTransitions {
             val offsetMs = System.currentTimeMillis() - android.os.SystemClock.elapsedRealtime()
             for (event in result.transitionEvents) {
                 val type = types[event.activityType] ?: continue
-                store.addTransition(offsetMs + event.elapsedRealTimeNanos / 1_000_000, type, event.transitionType == ActivityTransition.ACTIVITY_TRANSITION_ENTER)
+                val enter = event.transitionType == ActivityTransition.ACTIVITY_TRANSITION_ENTER
+                store.addTransition(offsetMs + event.elapsedRealTimeNanos / 1_000_000, type, enter)
+                if (enter) current = type else if (current == type) current = null
             }
         }
     }

@@ -4017,6 +4017,84 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'شدید'**
   String get weatherUvExtreme;
+
+  /// No description provided for @walkModeWalking.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیاده‌روی'**
+  String get walkModeWalking;
+
+  /// No description provided for @walkModeRunning.
+  ///
+  /// In fa, this message translates to:
+  /// **'دویدن'**
+  String get walkModeRunning;
+
+  /// No description provided for @walkModeCycling.
+  ///
+  /// In fa, this message translates to:
+  /// **'دوچرخه‌سواری'**
+  String get walkModeCycling;
+
+  /// No description provided for @walkModeVehicle.
+  ///
+  /// In fa, this message translates to:
+  /// **'در خودرو'**
+  String get walkModeVehicle;
+
+  /// No description provided for @walkModeStill.
+  ///
+  /// In fa, this message translates to:
+  /// **'ایستاده'**
+  String get walkModeStill;
+
+  /// No description provided for @walkCyclingHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'دوچرخه‌سواری با مسافت GPS امتیاز می‌گیرد: {points} امتیاز در هر کیلومتر (کمتر از پیاده‌روی).'**
+  String walkCyclingHint(String points);
+
+  /// No description provided for @walkCyclingNeedsGps.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای امتیاز دوچرخه‌سواری، دفعه بعد «ثبت مسیر با GPS» را روشن کنید.'**
+  String get walkCyclingNeedsGps;
+
+  /// No description provided for @walkVehicleHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'در خودرو قدم‌ها و مسافت امتیاز ندارند.'**
+  String get walkVehicleHint;
+
+  /// No description provided for @walkCyclingDistance.
+  ///
+  /// In fa, this message translates to:
+  /// **'مسافت دوچرخه'**
+  String get walkCyclingDistance;
+
+  /// No description provided for @walkSpeed.
+  ///
+  /// In fa, this message translates to:
+  /// **'سرعت'**
+  String get walkSpeed;
+
+  /// No description provided for @activityCycling.
+  ///
+  /// In fa, this message translates to:
+  /// **'دوچرخه‌سواری'**
+  String get activityCycling;
+
+  /// No description provided for @activityCyclingKm.
+  ///
+  /// In fa, this message translates to:
+  /// **'{km} کیلومتر دوچرخه'**
+  String activityCyclingKm(String km);
+
+  /// No description provided for @homeCycling.
+  ///
+  /// In fa, this message translates to:
+  /// **'دوچرخه'**
+  String get homeCycling;
 }
 
 class _AppLocalizationsDelegate

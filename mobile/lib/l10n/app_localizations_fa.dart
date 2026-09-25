@@ -2256,4 +2256,48 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get weatherUvExtreme => 'شدید';
+
+  @override
+  String get walkModeWalking => 'پیاده‌روی';
+
+  @override
+  String get walkModeRunning => 'دویدن';
+
+  @override
+  String get walkModeCycling => 'دوچرخه‌سواری';
+
+  @override
+  String get walkModeVehicle => 'در خودرو';
+
+  @override
+  String get walkModeStill => 'ایستاده';
+
+  @override
+  String walkCyclingHint(String points) {
+    return 'دوچرخه‌سواری با مسافت GPS امتیاز می‌گیرد: $points امتیاز در هر کیلومتر (کمتر از پیاده‌روی).';
+  }
+
+  @override
+  String get walkCyclingNeedsGps =>
+      'برای امتیاز دوچرخه‌سواری، دفعه بعد «ثبت مسیر با GPS» را روشن کنید.';
+
+  @override
+  String get walkVehicleHint => 'در خودرو قدم‌ها و مسافت امتیاز ندارند.';
+
+  @override
+  String get walkCyclingDistance => 'مسافت دوچرخه';
+
+  @override
+  String get walkSpeed => 'سرعت';
+
+  @override
+  String get activityCycling => 'دوچرخه‌سواری';
+
+  @override
+  String activityCyclingKm(String km) {
+    return '$km کیلومتر دوچرخه';
+  }
+
+  @override
+  String get homeCycling => 'دوچرخه';
 }

@@ -91,6 +91,8 @@ class HomeSummary
                     'pending_steps' => (int) $pending,
                     'goal' => $goal,
                     'distance_m' => $row?->distance_m ?? 0,
+                    'cycling_distance_m' => $row?->cycling_distance_m ?? 0,
+                    'cycling_points' => $row?->cycling_points ?? 0,
                     'calories_kcal' => $row?->calories_kcal ?? 0,
                     'active_minutes' => $row?->active_minutes ?? 0,
                     'goal_reached' => $row?->goal_reached_at !== null,

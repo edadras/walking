@@ -20,10 +20,12 @@ class DailyActivity extends Model
             'raw_steps' => 'integer',
             'verified_steps' => 'integer',
             'distance_m' => 'integer',
+            'cycling_distance_m' => 'integer',
             'calories_kcal' => 'float',
             'active_minutes' => 'integer',
             'goal_steps' => 'integer',
             'points_earned' => 'integer',
+            'cycling_points' => 'integer',
             'rewarded_steps' => 'integer',
             'sessions_count' => 'integer',
         ];

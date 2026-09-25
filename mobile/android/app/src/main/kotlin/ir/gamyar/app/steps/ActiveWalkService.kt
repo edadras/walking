@@ -83,6 +83,10 @@ class ActiveWalkService : Service(), SensorEventListener {
         ServiceCompat.startForeground(this, NOTIFICATION_ID, buildNotification(0), if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) type else 0)
 
         ActiveWalkRecorder.start(System.currentTimeMillis(), gps)
+        // Bicycle / vehicle labels for this walk (no-op without Play services or permission).
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            ActivityTransitions.register(this)
+        }
         sensors = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensors.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)?.let { sensors.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL) }
         sensors.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)?.let { sensors.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL) }
@@ -138,7 +142,7 @@ class ActiveWalkService : Service(), SensorEventListener {
         return NotificationCompat.Builder(this, CHANNEL)
             .setSmallIcon(R.drawable.ic_stat_gamyar)
             .setColor(0xFF1A7F4B.toInt())
-            .setContentTitle("پیاده‌روی در حال ثبت")
+            .setContentTitle(if (ActiveWalkRecorder.currentMode == "cycling") "دوچرخه‌سواری در حال ثبت" else "پیاده‌روی در حال ثبت")
             .setContentText(toPersianDigits(steps) + " قدم")
             .setOngoing(true)
             .setOnlyAlertOnce(true)

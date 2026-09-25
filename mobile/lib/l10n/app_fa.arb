@@ -1487,5 +1487,32 @@
         "type": "String"
       }
     }
+  },
+  "walkModeWalking": "پیاده‌روی",
+  "walkModeRunning": "دویدن",
+  "walkModeCycling": "دوچرخه‌سواری",
+  "walkModeVehicle": "در خودرو",
+  "walkModeStill": "ایستاده",
+  "walkCyclingHint": "دوچرخه‌سواری با مسافت GPS امتیاز می‌گیرد: {points} امتیاز در هر کیلومتر (کمتر از پیاده‌روی).",
+  "walkCyclingNeedsGps": "برای امتیاز دوچرخه‌سواری، دفعه بعد «ثبت مسیر با GPS» را روشن کنید.",
+  "walkVehicleHint": "در خودرو قدم‌ها و مسافت امتیاز ندارند.",
+  "walkCyclingDistance": "مسافت دوچرخه",
+  "walkSpeed": "سرعت",
+  "activityCycling": "دوچرخه‌سواری",
+  "activityCyclingKm": "{km} کیلومتر دوچرخه",
+  "homeCycling": "دوچرخه",
+  "@walkCyclingHint": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "@activityCyclingKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
   }
 }

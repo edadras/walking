@@ -50,7 +50,7 @@ return [
         'cashout.max_points_per_30_days' => ['value' => 150000, 'group' => 'cashout', 'public' => true, 'description' => 'سقف برداشت در ۳۰ روز'],
         'cashout.min_account_age_days' => ['value' => 30, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل عمر حساب برای برداشت (روز)'],
         'cashout.maturity_days' => ['value' => 14, 'group' => 'cashout', 'public' => true, 'description' => 'امتیاز پس از چند روز قابل برداشت می‌شود'],
-        'cashout.eligible_types' => ['value' => 'walking_reward,goal_bonus,streak_bonus,challenge_reward,quest_reward,achievement_reward,sponsor_reward,coupon_reward', 'group' => 'cashout', 'public' => false, 'description' => 'منابع امتیاز قابل برداشت (با کاما؛ دعوت، تبلیغ و اصلاح دستی عمداً نیستند)'],
+        'cashout.eligible_types' => ['value' => 'walking_reward,cycling_reward,goal_bonus,streak_bonus,challenge_reward,quest_reward,achievement_reward,sponsor_reward,coupon_reward', 'group' => 'cashout', 'public' => false, 'description' => 'منابع امتیاز قابل برداشت (با کاما؛ دعوت، تبلیغ و اصلاح دستی عمداً نیستند)'],
         'cashout.daily_budget_rial' => ['value' => 0, 'group' => 'cashout', 'public' => false, 'description' => 'سقف کل تأیید برداشت در روز (ریال؛ ۰ = بدون سقف)'],
         'cashout.monthly_budget_rial' => ['value' => 0, 'group' => 'cashout', 'public' => false, 'description' => 'سقف کل تأیید برداشت در ماه شمسی (ریال؛ ۰ = بدون سقف)'],
         'cashout.kyc_auto_approve' => ['value' => false, 'group' => 'cashout', 'public' => false, 'description' => 'تأیید خودکار هویت/حساب وقتی همه استعلام‌ها موفق باشند'],
@@ -85,6 +85,15 @@ return [
         'fraud.rule_set_version' => ['value' => 1, 'group' => 'fraud', 'public' => false, 'description' => 'نسخه قوانین (خودکار با هر تغییر)'],
 
         // Reward
+        // Cycling: measured by GPS distance, rewarded well below walking (≈13 points/km on foot at 10/1000 steps).
+        'cycling.points_per_km' => ['value' => 3, 'group' => 'cycling', 'public' => true, 'description' => 'امتیاز هر کیلومتر دوچرخه‌سواری (پیاده‌روی ≈ ۱۳ امتیاز در کیلومتر)'],
+        'cycling.daily_cap' => ['value' => 60, 'group' => 'cycling', 'public' => true, 'description' => 'سقف روزانه امتیاز دوچرخه‌سواری (داخل سقف کلی روز)'],
+        'cycling.min_speed_kmh' => ['value' => 10, 'group' => 'cycling', 'public' => false, 'description' => 'حداقل سرعت دوچرخه (کیلومتر بر ساعت)'],
+        'cycling.max_speed_kmh' => ['value' => 40, 'group' => 'cycling', 'public' => false, 'description' => 'حداکثر سرعت پذیرفته برای دوچرخه'],
+        'cycling.max_top_speed_kmh' => ['value' => 60, 'group' => 'cycling', 'public' => false, 'description' => 'سرعت لحظه‌ای بالاتر از این یعنی خودرو (کل جلسه بی‌پاداش دوچرخه)'],
+        'cycling.min_accel_std' => ['value' => 0.8, 'group' => 'cycling', 'public' => false, 'description' => 'حداقل پراکندگی شتاب (m/s²) برای رکاب‌زدن؛ خودرو نرم‌تر است'],
+        'cycling.max_gps_accuracy_m' => ['value' => 30, 'group' => 'cycling', 'public' => false, 'description' => 'حداکثر خطای GPS پذیرفته (متر)'],
+        'cycling.min_minutes' => ['value' => 3, 'group' => 'cycling', 'public' => false, 'description' => 'حداقل دقیقه‌های دوچرخه در یک جلسه'],
         'reward.hold_hours' => ['value' => 24, 'group' => 'reward', 'public' => true, 'description' => 'مدت بررسی امتیاز قبل از قابل استفاده شدن (ساعت)'],
         'reward.max_multiplier' => ['value' => 3, 'group' => 'reward', 'public' => false, 'description' => 'حداکثر ضریب ترکیبی'],
 

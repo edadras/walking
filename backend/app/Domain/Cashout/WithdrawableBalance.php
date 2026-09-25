@@ -20,7 +20,7 @@ use App\Models\User;
  */
 class WithdrawableBalance
 {
-    public const DEFAULT_TYPES = 'walking_reward,goal_bonus,streak_bonus,challenge_reward,quest_reward,achievement_reward,sponsor_reward,coupon_reward';
+    public const DEFAULT_TYPES = 'walking_reward,cycling_reward,goal_bonus,streak_bonus,challenge_reward,quest_reward,achievement_reward,sponsor_reward,coupon_reward';
 
     public function __construct(private readonly Settings $settings) {}
 

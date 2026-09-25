@@ -42,6 +42,7 @@ class AppConfig {
   int get minDailyGoal => (settings['activity.min_daily_goal'] as num?)?.toInt() ?? 1000;
   int get maxDailyGoal => (settings['activity.max_daily_goal'] as num?)?.toInt() ?? 50000;
   int get glassMl => (settings['health.glass_ml'] as num?)?.toInt() ?? 250;
+  int get cyclingPointsPerKm => (settings['cycling.points_per_km'] as num?)?.toInt() ?? 3;
   int get otpLength => (settings['auth.otp_length'] as num?)?.toInt() ?? 5;
   int get otpResendSeconds => (settings['auth.otp_resend_seconds'] as num?)?.toInt() ?? 60;
   int get deletionGraceDays => (settings['account.deletion_grace_days'] as num?)?.toInt() ?? 14;

@@ -127,6 +127,8 @@ class _HomeBody extends ConsumerWidget {
               child: StatTile(value: Fa.number(t.caloriesKcal.round()), unit: l.homeUnitKcal, label: l.homeCalories, icon: Icons.local_fire_department_outlined),
             ),
             Expanded(child: StatTile(value: Fa.number(t.activeMinutes), unit: l.homeUnitMin, label: l.homeActiveTime, icon: Icons.timer_outlined)),
+            if (t.cyclingDistanceM > 0)
+              Expanded(child: StatTile(value: Fa.decimal(t.cyclingDistanceM / 1000), unit: l.homeUnitKm, label: l.homeCycling, icon: Icons.pedal_bike_rounded)),
           ]),
         ),
         if (view.data.water != null || view.data.challenge != null) ...[

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Fraud\Data;
 
+use App\Domain\Activity\CyclingClassifier;
 use App\Enums\SessionKind;
 use App\Enums\SessionStatus;
 use App\Models\ActivitySample;
@@ -27,6 +28,8 @@ final class SessionContext
         public readonly int $accountsOnDevice,
         public readonly int $activeDevicesForUser,
         public readonly int $recentRejections,
+        /** @var array{buckets: list<int>, distance_m: int, duration_s: int} minutes on a bicycle (CyclingClassifier) */
+        public readonly array $cycling = ['buckets' => [], 'distance_m' => 0, 'duration_s' => 0],
     ) {}
 
     public static function load(WalkingSession $session): self
@@ -49,6 +52,7 @@ final class SessionContext
             accountsOnDevice: DB::table('device_user_links')->where('device_id', $session->device_id)->where('last_seen_at', '>=', now()->subDays(30))->count(),
             activeDevicesForUser: DB::table('device_user_links')->where('user_id', $session->user_id)->where('last_seen_at', '>=', now()->subDay())->count(),
             recentRejections: WalkingSession::query()->where('user_id', $session->user_id)->where('status', SessionStatus::Rejected)->where('created_at', '>=', now()->subDays(7))->count(),
+            cycling: app(CyclingClassifier::class)->classify($session, $session->samples->values()),
         );
     }
 

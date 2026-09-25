@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Domain\Reward\RewardRules;
+use App\Domain\Settings\Settings;
 use App\Domain\Wallet\ConversionRate;
 use App\Domain\Wallet\WalletSummary;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,8 @@ class RewardController extends Controller
                 'remaining_points' => max(0, $dailyCap - ($today?->points_earned ?? 0)),
                 'goal' => $goal,
                 'goal_reached' => $today?->goal_reached_at !== null,
+                'cycling_distance_m' => $today?->cycling_distance_m ?? 0,
+                'cycling_points' => $today?->cycling_points ?? 0,
             ],
             'wallet' => $wallet->for($user),
             'earning' => [
@@ -56,6 +59,8 @@ class RewardController extends Controller
                 'daily_cap' => $dailyCap,
                 'weekly_cap' => $rules->weeklyCap(now()),
                 'max_rewarded_steps' => $maxSteps,
+                'cycling_points_per_km' => app(Settings::class)->int('cycling.points_per_km'),
+                'cycling_daily_cap' => app(Settings::class)->int('cycling.daily_cap'),
                 'goal_bonus' => $rules->goalBonus(now()),
                 'streak_bonuses' => $rules->streakBonuses(now()),
                 'multiplier_now' => $rules->multiplier($local)['factor'],

@@ -42,20 +42,37 @@ class StepCapabilities {
   final bool activityPermission;
 }
 
+/// How the user is moving right now, as the phone sees it (the server decides for points).
+enum MoveMode { walking, running, cycling, vehicle, still }
+
 class LiveWalk {
-  const LiveWalk({required this.steps, required this.elapsed, required this.distanceM, required this.gps});
+  const LiveWalk({
+    required this.steps,
+    required this.elapsed,
+    required this.distanceM,
+    required this.gps,
+    this.mode = MoveMode.still,
+    this.cyclingDistanceM = 0,
+    this.speedKmh = 0,
+  });
 
   factory LiveWalk.fromMap(Map<dynamic, dynamic> m) => LiveWalk(
         steps: (m['steps'] as num).toInt(),
         elapsed: Duration(seconds: (m['elapsed_s'] as num).toInt()),
         distanceM: (m['distance_m'] as num?)?.toDouble() ?? 0,
         gps: m['gps'] == true,
+        mode: MoveMode.values.asNameMap()[m['mode']] ?? MoveMode.still,
+        cyclingDistanceM: (m['cycling_distance_m'] as num?)?.toDouble() ?? 0,
+        speedKmh: (m['speed_kmh'] as num?)?.toDouble() ?? 0,
       );
 
   final int steps;
   final Duration elapsed;
   final double distanceM;
   final bool gps;
+  final MoveMode mode;
+  final double cyclingDistanceM;
+  final double speedKmh;
 }
 
 /// Access to on-device step data. The sensor implementation talks to

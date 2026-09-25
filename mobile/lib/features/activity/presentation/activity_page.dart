@@ -190,17 +190,23 @@ class _SessionRow extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width: 52, child: Text(FaDate.time(session.startedAt), style: context.text.titleSmall)),
-            Container(
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(color: session.isActive ? p.green : p.border, shape: BoxShape.circle),
-            ),
+            if (session.isRide)
+              Icon(Icons.pedal_bike_rounded, size: 18, color: p.info)
+            else
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(color: session.isActive ? p.green : p.border, shape: BoxShape.circle),
+              ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('${Fa.number(session.steps)} ${l.activitySteps}', style: context.text.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
                 Text(
-                  '${session.isActive ? l.activityActive : l.activityPassive} · ${FaDate.duration(Duration(seconds: session.durationS))}',
+                  session.isRide ? l.activityCyclingKm(Fa.decimal(session.cyclingDistanceM / 1000)) : '${Fa.number(session.steps)} ${l.activitySteps}',
+                  style: context.text.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '${session.isRide ? l.activityCycling : (session.isActive ? l.activityActive : l.activityPassive)} · ${FaDate.duration(Duration(seconds: session.durationS))}',
                   style: context.text.bodySmall,
                 ),
               ]),

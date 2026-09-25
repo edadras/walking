@@ -96,7 +96,9 @@ class RewardEngine
                 $reward->forceFill(['point_transaction_id' => $transaction->id])->save();
             }
 
-            $session->forceFill(['reward_status' => $final > 0 ? SessionRewardStatus::Pending : SessionRewardStatus::Denied])->save();
+            $cycling = $this->cycling($session, $daily, $weeklyRoom - $final);
+
+            $session->forceFill(['reward_status' => $final + $cycling > 0 ? SessionRewardStatus::Pending : SessionRewardStatus::Denied])->save();
 
             $this->goalBonus($user, $daily);
 
@@ -106,6 +108,50 @@ class RewardEngine
         Cache::forget('home:v1:'.$session->user_id);
 
         return $reward;
+    }
+
+    /**
+     * Distance on a bicycle, at the (much lower) per-km rate, inside its own daily cap and
+     * whatever room the day's and week's overall caps still have. No multipliers.
+     */
+    private function cycling(WalkingSession $session, DailyActivity $daily, int $weeklyRoom): int
+    {
+        $meters = (int) $session->cycling_distance_m;
+        if ($meters <= 0) {
+            return 0;
+        }
+        $at = $session->started_at;
+        $perKm = $this->settings->int('cycling.points_per_km');
+        $points = intdiv($meters * $perKm, 1000);
+        $room = min(
+            max(0, $this->settings->int('cycling.daily_cap') - $daily->cycling_points),
+            max(0, $this->rules->dailyCap($at) - $daily->points_earned),
+            max(0, $weeklyRoom),
+        );
+        $final = min($points, $room);
+
+        $reward = Reward::query()->create([
+            'user_id' => $session->user_id,
+            'kind' => 'cycling',
+            'source_type' => $session->getMorphClass(),
+            'source_id' => $session->id,
+            'base_points' => $points,
+            'multiplier' => 1,
+            'capped_points' => $points - $final,
+            'final_points' => $final,
+            'status' => $final > 0 ? 'pending' : 'denied',
+            'breakdown' => ['cycling_distance_m' => $meters, 'points_per_km' => $perKm, 'cap_room' => $room],
+        ]);
+        if ($final > 0) {
+            $km = number_format($meters / 1000, 1);
+            $transaction = $this->wallet->hold($session->user, $final, TransactionType::CyclingReward, 'cycling:'.$session->id, "پاداش {$km} کیلومتر دوچرخه‌سواری", $session, $this->availableAt());
+            $reward->forceFill(['point_transaction_id' => $transaction->id])->save();
+            $daily->cycling_points += $final;
+            $daily->points_earned += $final;
+            $daily->save();
+        }
+
+        return $final;
     }
 
     /** One-time bonus when the day's verified steps reach the goal snapshot. */

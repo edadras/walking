@@ -21,6 +21,8 @@ class WalkingSessionResource extends JsonResource
             'steps' => $this->raw_steps,
             'verified_steps' => $this->verified_steps,
             'distance_m' => $this->distance_m,
+            'cycling_distance_m' => $this->cycling_distance_m,
+            'cycling_duration_s' => $this->cycling_duration_s,
             'duration_s' => $this->duration_s,
             'active_duration_s' => $this->active_duration_s,
             'calories_kcal' => $this->calories_kcal,

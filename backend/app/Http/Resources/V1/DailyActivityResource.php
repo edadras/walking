@@ -18,6 +18,7 @@ class DailyActivityResource extends JsonResource
             'goal' => $this->goal_steps,
             'goal_reached' => $this->goal_reached_at !== null,
             'distance_m' => $this->distance_m,
+            'cycling_distance_m' => $this->cycling_distance_m,
             'calories_kcal' => $this->calories_kcal,
             'active_minutes' => $this->active_minutes,
             'points' => $this->points_earned,

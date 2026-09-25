@@ -47,6 +47,8 @@ class WalkingSession extends Model
             'raw_steps' => 'integer',
             'verified_steps' => 'integer',
             'distance_m' => 'integer',
+            'cycling_distance_m' => 'integer',
+            'cycling_duration_s' => 'integer',
             'duration_s' => 'integer',
             'active_duration_s' => 'integer',
             'calories_kcal' => 'float',

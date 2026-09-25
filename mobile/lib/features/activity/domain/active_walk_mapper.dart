@@ -19,6 +19,7 @@ List<SessionDraft> draftsFromActiveWalk(Map<String, dynamic> payload, DayClock c
             accelPeakHz: d(b['accel_peak_hz']),
             speedMps: d(b['speed_mps']),
             gpsAccuracyM: i(b['gps_accuracy_m']),
+            activityType: b['activity_type'] as String?,
           ))
       .expand((b) => splitBucket(b, clock, maxSeconds: 60))
       .where((b) => b.durationS > 0)

@@ -26,7 +26,7 @@ class DailyActivityAggregator
                 ->where('local_date', $date)
                 ->where('status', '!=', SessionStatus::Rejected)
                 ->selectRaw('COALESCE(SUM(raw_steps),0) raw, COALESCE(SUM(COALESCE(verified_steps,0)),0) verified,
-                    COALESCE(SUM(distance_m),0) distance, COALESCE(SUM(calories_kcal),0) kcal,
+                    COALESCE(SUM(distance_m),0) distance, COALESCE(SUM(cycling_distance_m),0) cycling, COALESCE(SUM(calories_kcal),0) kcal,
                     COALESCE(SUM(active_duration_s),0) active, COUNT(*) sessions')
                 ->first();
 
@@ -46,6 +46,7 @@ class DailyActivityAggregator
                 'raw_steps' => (int) $totals->raw,
                 'verified_steps' => (int) $totals->verified,
                 'distance_m' => (int) $totals->distance,
+                'cycling_distance_m' => (int) $totals->cycling,
                 'calories_kcal' => round((float) $totals->kcal, 1),
                 'active_minutes' => min(1440, intdiv((int) $totals->active, 60)),
                 'sessions_count' => (int) $totals->sessions,

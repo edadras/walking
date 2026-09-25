@@ -15,6 +15,7 @@ class DailySummary {
     required this.caloriesKcal,
     required this.activeMinutes,
     required this.points,
+    this.cyclingDistanceM = 0,
   });
 
   factory DailySummary.fromJson(Map<String, dynamic> j) => DailySummary(
@@ -24,6 +25,7 @@ class DailySummary {
         goal: _i(j['goal']),
         goalReached: j['goal_reached'] == true,
         distanceM: _i(j['distance_m']),
+        cyclingDistanceM: _i(j['cycling_distance_m']),
         caloriesKcal: _d(j['calories_kcal']),
         activeMinutes: _i(j['active_minutes']),
         points: _i(j['points']),
@@ -34,6 +36,7 @@ class DailySummary {
   final int verifiedSteps;
   final int goal;
   final bool goalReached;
+  final int cyclingDistanceM;
   final int distanceM;
   final double caloriesKcal;
   final int activeMinutes;
@@ -53,6 +56,7 @@ class HomeToday {
     required this.goalReached,
     required this.lastSyncedAt,
     this.points = 0,
+    this.cyclingDistanceM = 0,
   });
 
   factory HomeToday.fromJson(Map<String, dynamic> j) => HomeToday(
@@ -66,6 +70,7 @@ class HomeToday {
         activeMinutes: _i(j['active_minutes']),
         goalReached: j['goal_reached'] == true,
         points: _i(j['points']),
+        cyclingDistanceM: _i(j['cycling_distance_m']),
         lastSyncedAt: DateTime.tryParse(j['last_synced_at'] as String? ?? ''),
       );
 
@@ -78,6 +83,7 @@ class HomeToday {
   final double caloriesKcal;
   final int activeMinutes;
   final bool goalReached;
+  final int cyclingDistanceM;
   final DateTime? lastSyncedAt;
   final int points;
 }
@@ -135,6 +141,7 @@ class WalkSession {
     required this.samples,
     this.confidenceScore,
     this.rewardStatus = 'none',
+    this.cyclingDistanceM = 0,
   });
 
   factory WalkSession.fromJson(Map<String, dynamic> j) => WalkSession(
@@ -153,6 +160,7 @@ class WalkSession {
         statusLabel: j['status_label'] as String? ?? '',
         confidenceScore: (j['confidence_score'] as num?)?.toInt(),
         rewardStatus: j['reward_status'] as String? ?? 'none',
+        cyclingDistanceM: _i(j['cycling_distance_m']),
         samples: (j['samples'] as List? ?? const [])
             .map((e) => e as Map<String, dynamic>)
             .map((e) => (start: DateTime.parse(e['started_at'] as String), durationS: _i(e['duration_s']), steps: _i(e['steps'])))
@@ -175,8 +183,10 @@ class WalkSession {
   final List<({DateTime start, int durationS, int steps})> samples;
   final int? confidenceScore;
   final String rewardStatus;
+  final int cyclingDistanceM;
 
   bool get isActive => kind == 'active';
+  bool get isRide => activityType == 'bicycle';
 }
 
 class DayActivity {

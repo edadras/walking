@@ -30,4 +30,25 @@ void main() {
     expect(drafts.every((d) => d.kind == 'active'), isTrue);
     expect(drafts.first.buckets.first.accelPeakHz, 1.9);
   });
+
+  test('keeps the bicycle label and speed of each minute for the server', () {
+    final clock = DayClock(tz.getLocation('Asia/Tehran'));
+    final start = tz.TZDateTime(clock.location, 2026, 9, 24, 10).toUtc();
+    final drafts = draftsFromActiveWalk({
+      'started_at_ms': start.millisecondsSinceEpoch,
+      'ended_at_ms': start.add(const Duration(minutes: 2)).millisecondsSinceEpoch,
+      'buckets': [
+        {'started_at_ms': start.millisecondsSinceEpoch, 'duration_s': 60, 'steps': 2, 'accel_std': 1.4, 'speed_mps': 5.2, 'gps_accuracy_m': 6, 'activity_type': 'bicycle'},
+        {'started_at_ms': start.add(const Duration(minutes: 1)).millisecondsSinceEpoch, 'duration_s': 60, 'steps': 1, 'speed_mps': 5.0, 'activity_type': null},
+      ],
+      'gps': {'points': 24, 'distance_m': 610.0, 'max_speed_mps': 6.1, 'jumps': 0, 'mock_detected': false},
+      'mock_location': false,
+      'route': [[35.7, 51.4, 1], [35.701, 51.401, 2]],
+    }, clock);
+
+    final json = drafts.single.buckets.map((b) => b.toJson()).toList();
+    expect(json.first['activity_type'], 'bicycle');
+    expect(json.first['speed_mps'], 5.2);
+    expect(json.last.containsKey('activity_type'), isFalse);
+  });
 }
