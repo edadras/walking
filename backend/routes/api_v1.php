@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\V1\SupportController;
 use App\Http\Controllers\Api\V1\VisitController;
 use App\Http\Controllers\Api\V1\WalkingSessionController;
 use App\Http\Controllers\Api\V1\WalletController;
+use App\Http\Controllers\Api\V1\WeatherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -125,6 +126,8 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::get('challenges', [ChallengeController::class, 'index']);
     Route::get('challenges/{challenge}', [ChallengeController::class, 'show']);
     Route::post('challenges/{challenge}/join', [ChallengeController::class, 'join'])->middleware('signed.device');
+
+    Route::get('weather', WeatherController::class);
 
     Route::get('locations/nearby', [SponsorOfferController::class, 'nearby']);
     Route::get('campaigns/{campaign}', [SponsorOfferController::class, 'campaign']);

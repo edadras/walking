@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gamyar/core/localization/l10n.dart';
 import 'package:gamyar/core/security/device_key.dart';
 import 'package:gamyar/core/theme/app_theme.dart';
+import 'package:gamyar/features/sponsors/application/location_source.dart';
+import 'package:gamyar/features/weather/application/weather_providers.dart';
 import 'package:go_router/go_router.dart';
 
 const _delegates = [
@@ -17,9 +19,19 @@ const _delegates = [
   GlobalCupertinoLocalizations.delegate,
 ];
 
+/// Weather location for tests: "not granted" unless a test passes a place.
+class FixedLocation implements CoarseLocation {
+  const FixedLocation([this.place]);
+
+  final Place? place;
+
+  @override
+  Future<Place> current() async => place ?? (throw const LocationUnavailable(LocationProblem.denied));
+}
+
 /// Wraps a widget with theme, Persian locale (RTL) and a ProviderScope.
-Widget testApp(Widget child, {List overrides = const []}) => ProviderScope(
-      overrides: [...overrides],
+Widget testApp(Widget child, {List overrides = const [], Place? place}) => ProviderScope(
+      overrides: [coarseLocationProvider.overrideWithValue(FixedLocation(place)), ...overrides],
       child: MaterialApp(
         theme: AppTheme.light,
         locale: const Locale('fa'),
@@ -30,8 +42,8 @@ Widget testApp(Widget child, {List overrides = const []}) => ProviderScope(
     );
 
 /// Same as [testApp] but driven by a GoRouter.
-Widget testRouterApp(GoRouter router, {List overrides = const []}) => ProviderScope(
-      overrides: [...overrides],
+Widget testRouterApp(GoRouter router, {List overrides = const [], Place? place}) => ProviderScope(
+      overrides: [coarseLocationProvider.overrideWithValue(FixedLocation(place)), ...overrides],
       child: MaterialApp.router(
         theme: AppTheme.light,
         locale: const Locale('fa'),

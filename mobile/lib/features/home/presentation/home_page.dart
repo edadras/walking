@@ -24,6 +24,7 @@ import '../../activity/application/tracking_service.dart';
 import '../../auth/application/session_controller.dart';
 import '../../gamification/data/gamification_models.dart';
 import '../../wallet/data/wallet_models.dart';
+import '../../weather/presentation/weather_card.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -112,6 +113,8 @@ class _HomeBody extends ConsumerWidget {
           _StreakRow(streak: view.data.streak!),
           const SizedBox(height: AppSpacing.md),
         ],
+        const WeatherCard(),
+        const SizedBox(height: AppSpacing.md),
         const QuestsSummaryCard(),
         if (view.data.wallet != null) ...[
           _PointsCard(points: t.points, wallet: view.data.wallet!),

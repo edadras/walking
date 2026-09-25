@@ -2155,4 +2155,105 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get lockScreenStepsHint =>
       'یک اعلان آرام و ثابت با قدم‌ها و پیشرفت هدف؛ برای ابزارک صفحه اصلی، صفحه اصلی گوشی را نگه دار و «ابزارک‌ها» را بزن.';
+
+  @override
+  String get weatherTitle => 'آب‌وهوا';
+
+  @override
+  String weatherFeelsLike(String temp) {
+    return 'احساس $temp';
+  }
+
+  @override
+  String get weatherHumidity => 'رطوبت';
+
+  @override
+  String get weatherWind => 'باد';
+
+  @override
+  String get weatherGusts => 'تندباد';
+
+  @override
+  String get weatherUv => 'فرابنفش';
+
+  @override
+  String get weatherAir => 'کیفیت هوا';
+
+  @override
+  String get weatherEnableLocation =>
+      'برای دیدن آب‌وهوای همین‌جا، اجازه موقعیت مکانی را بدهید.';
+
+  @override
+  String get weatherEnableAction => 'نمایش';
+
+  @override
+  String get weatherLocationOff => 'مکان‌یاب گوشی خاموش است.';
+
+  @override
+  String weatherUpdated(String time) {
+    return 'به‌روزرسانی $time';
+  }
+
+  @override
+  String get weatherUpdatedLabel => 'آخرین به‌روزرسانی';
+
+  @override
+  String get weatherStale => '(اتصال به سرویس هواشناسی برقرار نشد)';
+
+  @override
+  String get weatherHourly => 'ساعت‌های پیش رو';
+
+  @override
+  String get weatherDaily => 'سه روز آینده';
+
+  @override
+  String get weatherAdvice => 'توصیه‌ها برای پیاده‌روی';
+
+  @override
+  String get weatherDetails => 'جزئیات';
+
+  @override
+  String get weatherSunrise => 'طلوع';
+
+  @override
+  String get weatherSunset => 'غروب';
+
+  @override
+  String get weatherElevation => 'ارتفاع از دریا';
+
+  @override
+  String weatherMeters(String value) {
+    return '$value متر';
+  }
+
+  @override
+  String get weatherAround => 'اطراف شما';
+
+  @override
+  String get weatherAroundEmpty =>
+      'در دو کیلومتری شما مکان پاداش‌دار فعالی نیست.';
+
+  @override
+  String get weatherToday => 'امروز';
+
+  @override
+  String get weatherNow => 'اکنون';
+
+  @override
+  String get weatherSource => 'داده‌های هواشناسی: Open-Meteo';
+
+  @override
+  String get weatherUvLow => 'کم';
+
+  @override
+  String get weatherUvModerate => 'متوسط';
+
+  @override
+  String get weatherUvHigh => 'زیاد';
+
+  @override
+  String get weatherUvVeryHigh => 'خیلی زیاد';
+
+  @override
+  String get weatherUvExtreme => 'شدید';
 }

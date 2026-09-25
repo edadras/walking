@@ -198,6 +198,13 @@ return [
         'cache_days' => (int) env('MAP_TILE_CACHE_DAYS', 14),
     ],
 
+    // Weather for walkers (Open-Meteo). The keyless tier is for non-commercial use only: set
+    // WEATHER_API_KEY (commercial plan) before launch; the provider then uses the customer hosts.
+    'weather' => [
+        'api_key' => env('WEATHER_API_KEY'),
+        'timeout' => (int) env('WEATHER_TIMEOUT', 6),
+    ],
+
     'leaderboard' => [
         'driver' => env('LEADERBOARD_DRIVER', 'redis'),
         'top' => 50,

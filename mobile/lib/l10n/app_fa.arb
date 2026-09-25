@@ -1435,5 +1435,57 @@
   },
   "authReferralPrefilled": "کد دعوت از لینک دریافتی وارد شد.",
   "lockScreenSteps": "قدم‌های امروز روی صفحه قفل",
-  "lockScreenStepsHint": "یک اعلان آرام و ثابت با قدم‌ها و پیشرفت هدف؛ برای ابزارک صفحه اصلی، صفحه اصلی گوشی را نگه دار و «ابزارک‌ها» را بزن."
+  "lockScreenStepsHint": "یک اعلان آرام و ثابت با قدم‌ها و پیشرفت هدف؛ برای ابزارک صفحه اصلی، صفحه اصلی گوشی را نگه دار و «ابزارک‌ها» را بزن.",
+  "weatherTitle": "آب‌وهوا",
+  "weatherFeelsLike": "احساس {temp}",
+  "weatherHumidity": "رطوبت",
+  "weatherWind": "باد",
+  "weatherGusts": "تندباد",
+  "weatherUv": "فرابنفش",
+  "weatherAir": "کیفیت هوا",
+  "weatherEnableLocation": "برای دیدن آب‌وهوای همین‌جا، اجازه موقعیت مکانی را بدهید.",
+  "weatherEnableAction": "نمایش",
+  "weatherLocationOff": "مکان‌یاب گوشی خاموش است.",
+  "weatherUpdated": "به‌روزرسانی {time}",
+  "weatherUpdatedLabel": "آخرین به‌روزرسانی",
+  "weatherStale": "(اتصال به سرویس هواشناسی برقرار نشد)",
+  "weatherHourly": "ساعت‌های پیش رو",
+  "weatherDaily": "سه روز آینده",
+  "weatherAdvice": "توصیه‌ها برای پیاده‌روی",
+  "weatherDetails": "جزئیات",
+  "weatherSunrise": "طلوع",
+  "weatherSunset": "غروب",
+  "weatherElevation": "ارتفاع از دریا",
+  "weatherMeters": "{value} متر",
+  "weatherAround": "اطراف شما",
+  "weatherAroundEmpty": "در دو کیلومتری شما مکان پاداش‌دار فعالی نیست.",
+  "weatherToday": "امروز",
+  "weatherNow": "اکنون",
+  "weatherSource": "داده‌های هواشناسی: Open-Meteo",
+  "weatherUvLow": "کم",
+  "weatherUvModerate": "متوسط",
+  "weatherUvHigh": "زیاد",
+  "weatherUvVeryHigh": "خیلی زیاد",
+  "weatherUvExtreme": "شدید",
+  "@weatherFeelsLike": {
+    "placeholders": {
+      "temp": {
+        "type": "String"
+      }
+    }
+  },
+  "@weatherUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@weatherMeters": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }

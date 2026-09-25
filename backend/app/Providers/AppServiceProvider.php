@@ -24,6 +24,8 @@ use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
 use App\Domain\Store\PaymentGateway;
 use App\Domain\Store\ZarinpalGateway;
+use App\Domain\Weather\OpenMeteoProvider;
+use App\Domain\Weather\WeatherProvider;
 use App\Models\AdCampaign;
 use App\Models\Admin;
 use App\Models\AdView;
@@ -84,6 +86,8 @@ class AppServiceProvider extends ServiceProvider
             'jibit' => new JibitPayoutProvider($app->make(JibitClient::class), config('walk.cashout.jibit.source_iban'), config('walk.cashout.jibit.transfer_type')),
             default => new ManualPayoutProvider,
         });
+
+        $this->app->singleton(WeatherProvider::class, fn () => new OpenMeteoProvider(config('walk.weather.api_key'), (int) config('walk.weather.timeout')));
 
         $this->app->singleton(PushSender::class, function () {
             $senders = [];

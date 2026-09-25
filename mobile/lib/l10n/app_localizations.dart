@@ -3831,6 +3831,192 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'یک اعلان آرام و ثابت با قدم‌ها و پیشرفت هدف؛ برای ابزارک صفحه اصلی، صفحه اصلی گوشی را نگه دار و «ابزارک‌ها» را بزن.'**
   String get lockScreenStepsHint;
+
+  /// No description provided for @weatherTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'آب‌وهوا'**
+  String get weatherTitle;
+
+  /// No description provided for @weatherFeelsLike.
+  ///
+  /// In fa, this message translates to:
+  /// **'احساس {temp}'**
+  String weatherFeelsLike(String temp);
+
+  /// No description provided for @weatherHumidity.
+  ///
+  /// In fa, this message translates to:
+  /// **'رطوبت'**
+  String get weatherHumidity;
+
+  /// No description provided for @weatherWind.
+  ///
+  /// In fa, this message translates to:
+  /// **'باد'**
+  String get weatherWind;
+
+  /// No description provided for @weatherGusts.
+  ///
+  /// In fa, this message translates to:
+  /// **'تندباد'**
+  String get weatherGusts;
+
+  /// No description provided for @weatherUv.
+  ///
+  /// In fa, this message translates to:
+  /// **'فرابنفش'**
+  String get weatherUv;
+
+  /// No description provided for @weatherAir.
+  ///
+  /// In fa, this message translates to:
+  /// **'کیفیت هوا'**
+  String get weatherAir;
+
+  /// No description provided for @weatherEnableLocation.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای دیدن آب‌وهوای همین‌جا، اجازه موقعیت مکانی را بدهید.'**
+  String get weatherEnableLocation;
+
+  /// No description provided for @weatherEnableAction.
+  ///
+  /// In fa, this message translates to:
+  /// **'نمایش'**
+  String get weatherEnableAction;
+
+  /// No description provided for @weatherLocationOff.
+  ///
+  /// In fa, this message translates to:
+  /// **'مکان‌یاب گوشی خاموش است.'**
+  String get weatherLocationOff;
+
+  /// No description provided for @weatherUpdated.
+  ///
+  /// In fa, this message translates to:
+  /// **'به‌روزرسانی {time}'**
+  String weatherUpdated(String time);
+
+  /// No description provided for @weatherUpdatedLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'آخرین به‌روزرسانی'**
+  String get weatherUpdatedLabel;
+
+  /// No description provided for @weatherStale.
+  ///
+  /// In fa, this message translates to:
+  /// **'(اتصال به سرویس هواشناسی برقرار نشد)'**
+  String get weatherStale;
+
+  /// No description provided for @weatherHourly.
+  ///
+  /// In fa, this message translates to:
+  /// **'ساعت‌های پیش رو'**
+  String get weatherHourly;
+
+  /// No description provided for @weatherDaily.
+  ///
+  /// In fa, this message translates to:
+  /// **'سه روز آینده'**
+  String get weatherDaily;
+
+  /// No description provided for @weatherAdvice.
+  ///
+  /// In fa, this message translates to:
+  /// **'توصیه‌ها برای پیاده‌روی'**
+  String get weatherAdvice;
+
+  /// No description provided for @weatherDetails.
+  ///
+  /// In fa, this message translates to:
+  /// **'جزئیات'**
+  String get weatherDetails;
+
+  /// No description provided for @weatherSunrise.
+  ///
+  /// In fa, this message translates to:
+  /// **'طلوع'**
+  String get weatherSunrise;
+
+  /// No description provided for @weatherSunset.
+  ///
+  /// In fa, this message translates to:
+  /// **'غروب'**
+  String get weatherSunset;
+
+  /// No description provided for @weatherElevation.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارتفاع از دریا'**
+  String get weatherElevation;
+
+  /// No description provided for @weatherMeters.
+  ///
+  /// In fa, this message translates to:
+  /// **'{value} متر'**
+  String weatherMeters(String value);
+
+  /// No description provided for @weatherAround.
+  ///
+  /// In fa, this message translates to:
+  /// **'اطراف شما'**
+  String get weatherAround;
+
+  /// No description provided for @weatherAroundEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'در دو کیلومتری شما مکان پاداش‌دار فعالی نیست.'**
+  String get weatherAroundEmpty;
+
+  /// No description provided for @weatherToday.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز'**
+  String get weatherToday;
+
+  /// No description provided for @weatherNow.
+  ///
+  /// In fa, this message translates to:
+  /// **'اکنون'**
+  String get weatherNow;
+
+  /// No description provided for @weatherSource.
+  ///
+  /// In fa, this message translates to:
+  /// **'داده‌های هواشناسی: Open-Meteo'**
+  String get weatherSource;
+
+  /// No description provided for @weatherUvLow.
+  ///
+  /// In fa, this message translates to:
+  /// **'کم'**
+  String get weatherUvLow;
+
+  /// No description provided for @weatherUvModerate.
+  ///
+  /// In fa, this message translates to:
+  /// **'متوسط'**
+  String get weatherUvModerate;
+
+  /// No description provided for @weatherUvHigh.
+  ///
+  /// In fa, this message translates to:
+  /// **'زیاد'**
+  String get weatherUvHigh;
+
+  /// No description provided for @weatherUvVeryHigh.
+  ///
+  /// In fa, this message translates to:
+  /// **'خیلی زیاد'**
+  String get weatherUvVeryHigh;
+
+  /// No description provided for @weatherUvExtreme.
+  ///
+  /// In fa, this message translates to:
+  /// **'شدید'**
+  String get weatherUvExtreme;
 }
 
 class _AppLocalizationsDelegate

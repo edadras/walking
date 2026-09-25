@@ -10,6 +10,7 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/trail.dart';
+import '../../weather/presentation/weather_card.dart';
 import '../application/active_walk_controller.dart';
 
 /// Start / follow / finish a user-initiated walk.
@@ -82,19 +83,22 @@ class _Idle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: AppSpacing.xl),
-        const Trail(progress: 0.1, dots: 16, height: 64),
-        const SizedBox(height: AppSpacing.x3),
-        Text(l.walkIntro, style: context.text.bodyLarge?.copyWith(color: context.palette.inkMuted)),
-        const SizedBox(height: AppSpacing.xl),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(l.walkGpsToggle),
-          subtitle: Text(l.walkGpsHint),
-          value: gps,
-          onChanged: onGps,
+        Expanded(
+          child: ListView(children: [
+            const WeatherCard(hourCount: 4),
+            const SizedBox(height: AppSpacing.xl),
+            Text(l.walkIntro, style: context.text.bodyLarge?.copyWith(color: context.palette.inkMuted)),
+            const SizedBox(height: AppSpacing.xl),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l.walkGpsToggle),
+              subtitle: Text(l.walkGpsHint),
+              value: gps,
+              onChanged: onGps,
+            ),
+          ]),
         ),
-        const Spacer(),
+        const SizedBox(height: AppSpacing.md),
         AppButton(label: l.walkStart, icon: Icons.play_arrow_rounded, onPressed: onStart),
       ],
     );
@@ -117,6 +121,7 @@ class _Live extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const WeatherStrip(),
         const Spacer(),
         Semantics(
           liveRegion: true,
