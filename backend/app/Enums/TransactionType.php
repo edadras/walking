@@ -16,6 +16,7 @@ enum TransactionType: string
     case CouponReward = 'coupon_reward';
     case Purchase = 'purchase';
     case StreakFreeze = 'streak_freeze';
+    case Cashout = 'cashout';
     case Refund = 'refund';
     case Adjustment = 'adjustment';
     case Expiration = 'expiration';
@@ -35,6 +36,7 @@ enum TransactionType: string
             self::CouponReward => 'پاداش کوپن',
             self::Purchase => 'خرید',
             self::StreakFreeze => 'خرید محافظ زنجیره',
+            self::Cashout => 'برداشت نقدی',
             self::Refund => 'بازگشت وجه',
             self::Adjustment => 'اصلاح',
             self::Expiration => 'انقضا',
@@ -46,6 +48,7 @@ enum TransactionType: string
     {
         return match ($this) {
             self::Purchase, self::StreakFreeze => 'purchase',
+            self::Cashout => 'cashout',
             self::Adjustment, self::Expiration => 'adjustment',
             self::SponsorReward, self::CouponReward => 'sponsor',
             self::Refund => 'earned',
@@ -55,6 +58,6 @@ enum TransactionType: string
 
     public function isCredit(): bool
     {
-        return ! in_array($this, [self::Purchase, self::Expiration], true);
+        return ! in_array($this, [self::Purchase, self::Expiration, self::Cashout, self::StreakFreeze], true);
     }
 }

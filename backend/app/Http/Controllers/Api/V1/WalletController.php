@@ -21,7 +21,7 @@ class WalletController extends Controller
     public function transactions(Request $request): AnonymousResourceCollection
     {
         $data = $request->validate([
-            'filter' => ['sometimes', 'in:all,earned,spent,purchase,reward,sponsor,adjustment'],
+            'filter' => ['sometimes', 'in:all,earned,spent,purchase,reward,sponsor,adjustment,cashout'],
             'per_page' => ['sometimes', 'integer', 'between:1,50'],
         ]);
 
@@ -35,6 +35,7 @@ class WalletController extends Controller
             'reward' => $query->whereIn('type', $groups('reward')),
             'sponsor' => $query->whereIn('type', $groups('sponsor')),
             'adjustment' => $query->whereIn('type', $groups('adjustment')),
+            'cashout' => $query->whereIn('type', $groups('cashout')),
             default => null,
         };
 

@@ -34,10 +34,10 @@ enum AdminRole: string
             self::SuperAdmin => ['*'],
             self::Operations => ['users.view', 'users.moderate', 'devices.view', 'content.manage', 'challenges.manage', 'ops.view'],
             self::FraudAnalyst => ['users.view', 'users.moderate', 'devices.view', 'devices.moderate', 'fraud.manage', 'wallet.view', 'audit.view'],
-            self::Finance => ['users.view', 'wallet.view', 'wallet.adjust', 'rewards.manage', 'reports.view', 'audit.view'],
+            self::Finance => ['users.view', 'wallet.view', 'wallet.adjust', 'rewards.manage', 'reports.view', 'audit.view', 'cashout.manage'],
             self::StoreManager => ['store.manage', 'orders.manage', 'users.view'],
             self::SponsorManager => ['sponsors.manage', 'ads.manage'],
-            self::Support => ['users.view', 'devices.view', 'support.manage'],
+            self::Support => ['users.view', 'devices.view', 'support.manage', 'kyc.review'],
             self::ContentEditor => ['content.manage'],
         };
     }

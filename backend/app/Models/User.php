@@ -93,6 +93,11 @@ class User extends Authenticatable
         return $this->hasMany(DailyActivity::class);
     }
 
+    public function identity(): HasOne
+    {
+        return $this->hasOne(UserIdentity::class);
+    }
+
     public function wallet(): HasOne
     {
         return $this->hasOne(Wallet::class);

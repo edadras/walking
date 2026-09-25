@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\AdController;
 use App\Http\Controllers\Api\V1\AddressController;
 use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CashoutController;
 use App\Http\Controllers\Api\V1\ChallengeController;
 use App\Http\Controllers\Api\V1\ClientErrorController;
 use App\Http\Controllers\Api\V1\ConfigController;
@@ -151,6 +152,18 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
         Route::post('orders', [OrderController::class, 'store']);
         Route::post('orders/{order}/cancel', [OrderController::class, 'cancel']);
     });
+
+    // Cash-out: reads are plain, every write is device-signed and SMS-confirmed.
+    Route::get('cashout', [CashoutController::class, 'show']);
+    Route::middleware(['signed.device', 'throttle:cashout'])->prefix('cashout')->group(function () {
+        Route::post('otp', [CashoutController::class, 'otp']);
+        Route::post('identity', [CashoutController::class, 'identity']);
+        Route::post('bank-accounts', [CashoutController::class, 'addBankAccount']);
+        Route::delete('bank-accounts/{bankAccount}', [CashoutController::class, 'removeBankAccount']);
+        Route::post('requests', [CashoutController::class, 'store']);
+        Route::post('requests/{cashoutRequest}/cancel', [CashoutController::class, 'cancel']);
+    });
+
     Route::get('addresses', [AddressController::class, 'index']);
     Route::post('addresses', [AddressController::class, 'store']);
     Route::patch('addresses/{address}', [AddressController::class, 'update']);

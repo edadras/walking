@@ -21,12 +21,12 @@ class OtpService
      *
      * @return array{expires_in:int, resend_in:int}
      */
-    public function request(string $phone, Device $device, ?string $ip): array
+    public function request(string $phone, Device $device, ?string $ip, string $purpose = 'login'): array
     {
         $resend = $this->settings->int('auth.otp_resend_seconds');
 
-        $this->hit("otp:resend:$phone", 1, $resend);
-        $this->hit("otp:phone:$phone", 5, 3600);
+        $this->hit("otp:resend:$purpose:$phone", 1, $resend);
+        $this->hit("otp:phone:$purpose:$phone", 5, 3600);
         if (self::loadTestCode($phone) === null) {
             // A single load-test host logs in thousands of reserved numbers (never in production).
             $this->hit("otp:device:{$device->id}", 10, 3600);
@@ -37,12 +37,13 @@ class OtpService
         $code = self::loadTestCode($phone) ?? str_pad((string) random_int(0, 10 ** $length - 1), $length, '0', STR_PAD_LEFT);
         $ttl = $this->settings->int('auth.otp_ttl_seconds');
 
-        DB::transaction(function () use ($phone, $code, $ttl, $device, $ip) {
-            // Only the most recent code is ever valid.
-            OtpCode::query()->where('phone', $phone)->whereNull('consumed_at')->update(['consumed_at' => now()]);
+        DB::transaction(function () use ($phone, $code, $ttl, $device, $ip, $purpose) {
+            // Only the most recent code of a purpose is ever valid; a login code never confirms a payout.
+            OtpCode::query()->where('phone', $phone)->where('purpose', $purpose)->whereNull('consumed_at')->update(['consumed_at' => now()]);
 
             OtpCode::query()->create([
                 'phone' => $phone,
+                'purpose' => $purpose,
                 'code_hash' => self::hash($phone, $code),
                 'expires_at' => now()->addSeconds($ttl),
                 'device_id' => $device->id,
@@ -50,19 +51,20 @@ class OtpService
             ]);
         });
 
-        SendOtpSms::dispatch($phone, $code);
+        SendOtpSms::dispatch($phone, $code, $purpose);
 
         return ['expires_in' => $ttl, 'resend_in' => $resend];
     }
 
     /** Verifies and consumes the current code. Row-locked so parallel guesses can't exceed the attempt limit. */
-    public function verify(string $phone, string $code): void
+    public function verify(string $phone, string $code, string $purpose = 'login'): void
     {
-        $this->hit("otp:verify:$phone", 10, 3600);
+        $this->hit("otp:verify:$purpose:$phone", 10, 3600);
 
-        $error = DB::transaction(function () use ($phone, $code) {
+        $error = DB::transaction(function () use ($phone, $code, $purpose) {
             $otp = OtpCode::query()
                 ->where('phone', $phone)
+                ->where('purpose', $purpose)
                 ->whereNull('consumed_at')
                 ->latest('id')
                 ->lockForUpdate()

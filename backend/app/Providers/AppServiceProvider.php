@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(SmsSender::class, function ($app) {
             return match (config('walk.sms.driver')) {
-                'kavenegar' => new KavenegarSmsSender(config('walk.sms.kavenegar.api_key'), config('walk.sms.kavenegar.template')),
+                'kavenegar' => new KavenegarSmsSender(config('walk.sms.kavenegar.api_key'), config('walk.sms.kavenegar.template'), config('walk.sms.kavenegar.cashout_template')),
                 'log' => $app->isProduction()
                     ? throw new RuntimeException('SMS_DRIVER=log is not allowed in production.')
                     : new LogSmsSender,
@@ -141,6 +141,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('social', fn (Request $r) => Limit::perHour(30)->by('soc:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('map-tiles', fn (Request $r) => Limit::perMinute(600)->by('tile:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('client-errors', fn (Request $r) => [Limit::perMinute(10)->by('ce:'.$r->ip()), Limit::perDay(300)->by('ced:'.$r->ip())]);
+        RateLimiter::for('cashout', fn (Request $r) => [Limit::perMinute(10)->by('co:'.($r->user()?->id ?? $r->ip())), Limit::perDay(60)->by('cod:'.($r->user()?->id ?? $r->ip()))]);
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));
     }
 }

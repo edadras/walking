@@ -39,6 +39,13 @@ return [
         'map.attribution' => ['value' => 'OpenStreetMap', 'group' => 'app', 'public' => true, 'description' => 'منبع نقشه (نمایش روی نقشه)'],
         'map.max_zoom' => ['value' => 18, 'group' => 'app', 'public' => true, 'description' => 'حداکثر بزرگ‌نمایی نقشه'],
 
+        // Cash-out (behind the `cashout` flag). Points are debited at request time and refunded on rejection.
+        'cashout.min_points' => ['value' => 5000, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل امتیاز هر درخواست برداشت'],
+        'cashout.max_points_per_request' => ['value' => 50000, 'group' => 'cashout', 'public' => true, 'description' => 'حداکثر امتیاز هر درخواست برداشت'],
+        'cashout.max_points_per_30_days' => ['value' => 150000, 'group' => 'cashout', 'public' => true, 'description' => 'سقف برداشت در ۳۰ روز'],
+        'cashout.min_account_age_days' => ['value' => 30, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل عمر حساب برای برداشت (روز)'],
+        'cashout.min_age_years' => ['value' => 18, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل سن برای برداشت'],
+
         // Streak freeze: bought with points, covers one missed day automatically.
         'streak.freeze_price' => ['value' => 300, 'group' => 'gamification', 'public' => true, 'description' => 'قیمت محافظ زنجیره (امتیاز)'],
         'streak.freeze_max_owned' => ['value' => 2, 'group' => 'gamification', 'public' => true, 'description' => 'حداکثر محافظ ذخیره‌شده'],
@@ -112,6 +119,7 @@ return [
         'referral' => ['enabled' => true, 'description' => 'دعوت از دوستان'],
         'quests' => ['enabled' => true, 'description' => 'مأموریت‌های روزانه و هفتگی'],
         'friends' => ['enabled' => true, 'description' => 'دوستان و چالش گروهی'],
+        'cashout' => ['enabled' => false, 'description' => 'برداشت نقدی امتیاز به حساب بانکی'],
         'health_connect' => ['enabled' => false, 'description' => 'اتصال به Health Connect'],
         'ios' => ['enabled' => false, 'description' => 'پشتیبانی iOS'],
     ],
@@ -173,6 +181,7 @@ return [
         'kavenegar' => [
             'api_key' => env('KAVENEGAR_API_KEY'),
             'template' => env('KAVENEGAR_OTP_TEMPLATE', 'otp'),
+            'cashout_template' => env('KAVENEGAR_CASHOUT_TEMPLATE'),  // «کد تأیید برداشت: %token»
         ],
     ],
 ];

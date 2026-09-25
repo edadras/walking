@@ -19,7 +19,7 @@ class SendOtpSms implements ShouldBeEncrypted, ShouldQueue
     /** An OTP is useless after it expires; don't retry for longer than that. */
     public int $maxExceptions = 2;
 
-    public function __construct(public readonly string $phone, public readonly string $code)
+    public function __construct(public readonly string $phone, public readonly string $code, public readonly string $purpose = 'login')
     {
         $this->onQueue('critical');
     }
@@ -31,6 +31,6 @@ class SendOtpSms implements ShouldBeEncrypted, ShouldQueue
 
     public function handle(SmsSender $sms): void
     {
-        $sms->sendOtp($this->phone, $this->code);
+        $sms->sendOtp($this->phone, $this->code, $this->purpose);
     }
 }
