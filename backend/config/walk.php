@@ -44,6 +44,7 @@ return [
         'cashout.max_points_per_request' => ['value' => 50000, 'group' => 'cashout', 'public' => true, 'description' => 'حداکثر امتیاز هر درخواست برداشت'],
         'cashout.max_points_per_30_days' => ['value' => 150000, 'group' => 'cashout', 'public' => true, 'description' => 'سقف برداشت در ۳۰ روز'],
         'cashout.min_account_age_days' => ['value' => 30, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل عمر حساب برای برداشت (روز)'],
+        'cashout.kyc_retention_days' => ['value' => 1825, 'group' => 'cashout', 'public' => false, 'description' => 'نگهداری مدارک هویت برداشت پس از حذف حساب (روز؛ طبق نظر حقوقی تنظیم شود)'],
         'cashout.min_age_years' => ['value' => 18, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل سن برای برداشت'],
 
         // Streak freeze: bought with points, covers one missed day automatically.
@@ -132,6 +133,8 @@ return [
     'ops' => [
         // Long queue waits / failed jobs (Horizon) are mailed here.
         'alert_email' => env('OPS_ALERT_EMAIL'),
+        // Chat webhook for alerts, e.g. Mattermost/Rocket.Chat incoming webhook (POST {"text": ...}).
+        'alert_webhook' => env('OPS_ALERT_WEBHOOK'),
     ],
 
     'security' => [
@@ -139,6 +142,9 @@ return [
         'admin_mfa_required' => env('ADMIN_MFA_REQUIRED', true),
         // Allowed certificate SPKI pins are shipped in the app (--dart-define); listed here for ops reference.
         'hsts_max_age' => (int) env('HSTS_MAX_AGE', 31536000),
+        // Keyed hashes of national codes, Sheba numbers and IPs. Independent of APP_KEY so rotating
+        // APP_KEY (with APP_PREVIOUS_KEYS) never breaks uniqueness checks or IP clustering.
+        'pii_hash_key' => env('PII_HASH_KEY'),
     ],
 
     'integrity' => [

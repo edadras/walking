@@ -223,6 +223,9 @@ class CashoutService
         if (! $this->enabled($user)) {
             $add('feature_disabled', 'برداشت نقدی در حال حاضر فعال نیست.');
         }
+        if ($user->deletion_requested_at !== null) {
+            $add('deletion_requested', 'درخواست حذف حساب ثبت کرده‌ای؛ برای برداشت، اول آن را لغو کن.');
+        }
         if ($user->status !== UserStatus::Active) {
             $add('account_restricted', 'حساب تو محدود شده است.');
         }

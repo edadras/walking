@@ -58,4 +58,14 @@ class CashoutRequest extends Model
     {
         return $this->belongsTo(Admin::class, 'paid_by');
     }
+
+    public function debitTransaction(): BelongsTo
+    {
+        return $this->belongsTo(PointTransaction::class, 'debit_transaction_id');
+    }
+
+    public function refundTransaction(): BelongsTo
+    {
+        return $this->belongsTo(PointTransaction::class, 'refund_transaction_id');
+    }
 }

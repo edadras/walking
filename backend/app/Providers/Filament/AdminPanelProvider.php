@@ -48,6 +48,8 @@ class AdminPanelProvider extends PanelProvider
                 NavigationItem::make('صف‌ها (Horizon)')->url('/horizon', shouldOpenInNewTab: true)->icon('heroicon-o-queue-list')->group('تنظیمات')
                     ->visible(fn () => auth('admin')->user()?->hasAbility('*') ?? false),
             ])
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('60s')
             ->navigationGroups(['کاربران', 'فعالیت', 'ضد تقلب', 'امتیاز و کیف پول', 'برداشت نقدی', 'تعامل', 'اسپانسرها', 'تبلیغات', 'فروشگاه', 'پشتیبانی', 'گزارش‌ها', 'امنیت', 'محتوا', 'تنظیمات'])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')

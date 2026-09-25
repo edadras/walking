@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasPublicId;
+use App\Support\PiiHash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,7 +29,7 @@ class BankAccount extends Model
 
     public static function hashIban(string $iban): string
     {
-        return hash_hmac('sha256', 'iban|'.$iban, (string) config('app.key'));
+        return PiiHash::make('iban', $iban);
     }
 
     /** IR•• •••• … 1234 for lists; the full number is shown only on explicit reveal. */

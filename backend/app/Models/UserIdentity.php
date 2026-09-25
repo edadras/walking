@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\PiiHash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -23,12 +24,12 @@ class UserIdentity extends Model
 
     protected function casts(): array
     {
-        return ['national_code' => 'encrypted', 'birth_date' => 'date', 'reviewed_at' => 'datetime', 'submitted_at' => 'datetime'];
+        return ['national_code' => 'encrypted', 'birth_date' => 'date', 'reviewed_at' => 'datetime', 'submitted_at' => 'datetime', 'retain_until' => 'datetime'];
     }
 
     public static function hashNationalCode(string $code): string
     {
-        return hash_hmac('sha256', 'nid|'.$code, (string) config('app.key'));
+        return PiiHash::make('nid', $code);
     }
 
     public function fullName(): string
