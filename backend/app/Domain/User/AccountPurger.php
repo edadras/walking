@@ -21,6 +21,7 @@ use App\Models\NotificationPreference;
 use App\Models\Order;
 use App\Models\OrganizationMember;
 use App\Models\PersonalAccessToken;
+use App\Models\Post;
 use App\Models\SupportMessage;
 use App\Models\User;
 use App\Models\UserIdentity;
@@ -104,6 +105,12 @@ class AccountPurger
             if ($user->avatar_path) {
                 Storage::disk('public')->delete($user->avatar_path);
             }
+            Post::query()->where('user_id', $user->id)->each(function (Post $post) {
+                $post->deleteFiles();
+                $post->delete();
+            });
+            DB::table('post_likes')->where('user_id', $user->id)->delete();
+            DB::table('post_reports')->where('user_id', $user->id)->delete();
             $user->forceFill([
                 'phone' => 'del-'.$user->id,
                 'phone_verified_at' => null,

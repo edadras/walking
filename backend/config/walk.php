@@ -94,6 +94,15 @@ return [
         'cycling.min_accel_std' => ['value' => 0.8, 'group' => 'cycling', 'public' => false, 'description' => 'حداقل پراکندگی شتاب (m/s²) برای رکاب‌زدن؛ خودرو نرم‌تر است'],
         'cycling.max_gps_accuracy_m' => ['value' => 30, 'group' => 'cycling', 'public' => false, 'description' => 'حداکثر خطای GPS پذیرفته (متر)'],
         'cycling.min_minutes' => ['value' => 3, 'group' => 'cycling', 'public' => false, 'description' => 'حداقل دقیقه‌های دوچرخه در یک جلسه'],
+        // Walk photos: views/likes pay a little, capped per post and per day. Not withdrawable by default
+        // (social_reward is not in cashout.eligible_types) so like rings can't be turned into cash.
+        'social.points_per_like' => ['value' => 1, 'group' => 'social', 'public' => true, 'description' => 'امتیاز هر لایک واجد شرایط'],
+        'social.views_per_point' => ['value' => 20, 'group' => 'social', 'public' => true, 'description' => 'هر چند بازدید واجد شرایط = ۱ امتیاز'],
+        'social.max_points_per_post' => ['value' => 30, 'group' => 'social', 'public' => true, 'description' => 'سقف امتیاز هر پست'],
+        'social.daily_cap' => ['value' => 20, 'group' => 'social', 'public' => true, 'description' => 'سقف روزانه امتیاز پست‌ها'],
+        'social.max_posts_per_day' => ['value' => 5, 'group' => 'social', 'public' => true, 'description' => 'حداکثر پست در روز'],
+        'social.auto_hide_reports' => ['value' => 3, 'group' => 'social', 'public' => false, 'description' => 'با این تعداد گزارش، پست تا بررسی پنهان می‌شود'],
+        'social.qualified_days' => ['value' => 30, 'group' => 'social', 'public' => false, 'description' => 'بازدید/لایک فقط از کسی امتیاز می‌دهد که در این چند روز پیاده‌روی تأییدشده داشته'],
         'reward.hold_hours' => ['value' => 24, 'group' => 'reward', 'public' => true, 'description' => 'مدت بررسی امتیاز قبل از قابل استفاده شدن (ساعت)'],
         'reward.max_multiplier' => ['value' => 3, 'group' => 'reward', 'public' => false, 'description' => 'حداکثر ضریب ترکیبی'],
 

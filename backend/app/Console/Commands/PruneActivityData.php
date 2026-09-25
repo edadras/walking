@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Domain\Settings\Settings;
+use App\Domain\Social\PostService;
 use App\Models\ActivitySample;
 use App\Models\AnalyticsEvent;
 use App\Models\ClientError;
@@ -16,7 +17,7 @@ class PruneActivityData extends Command
 
     protected $description = 'Delete minute samples, analytics events, OTP rows and stale crash reports past retention';
 
-    public function handle(Settings $settings): int
+    public function handle(Settings $settings, PostService $posts): int
     {
         $samples = $this->chunkDelete(ActivitySample::query()->where('started_at', '<', now()->subDays($settings->int('activity.samples_retention_days'))));
         $events = $this->chunkDelete(AnalyticsEvent::query()->where('occurred_at', '<', now()->subDays($settings->int('analytics.retention_days'))));
@@ -24,7 +25,10 @@ class PruneActivityData extends Command
         // Crash groups not seen for 90 days are fixed or gone with old app versions.
         $crashes = $this->chunkDelete(ClientError::query()->where('last_seen_at', '<', now()->subDays(90)));
 
-        $this->info("Pruned samples={$samples} analytics={$events} otp={$otps} client_errors={$crashes}");
+        // Walk photos whose walk never reached the server.
+        $photos = $posts->expirePending();
+
+        $this->info("Pruned samples={$samples} analytics={$events} otp={$otps} client_errors={$crashes} pending_photos={$photos}");
 
         return self::SUCCESS;
     }

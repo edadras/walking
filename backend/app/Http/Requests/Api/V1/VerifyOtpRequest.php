@@ -9,6 +9,13 @@ class VerifyOtpRequest extends RequestOtpRequest
     protected function prepareForValidation(): void
     {
         $this->merge(['code' => Digits::toLatin((string) $this->input('code'))]);
+
+        // The device timezone is only a hint for new accounts. Legacy aliases ("GMT", "Etc/UTC")
+        // and garbage are dropped so they can never block sign-in; the server then uses Asia/Tehran.
+        $tz = $this->input('timezone');
+        if ($tz !== null && ! (is_string($tz) && in_array($tz, \DateTimeZone::listIdentifiers(), true))) {
+            $this->merge(['timezone' => null]);
+        }
     }
 
     public function rules(): array

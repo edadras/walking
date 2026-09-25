@@ -6,6 +6,7 @@ enum TransactionType: string
 {
     case WalkingReward = 'walking_reward';
     case CyclingReward = 'cycling_reward';
+    case SocialReward = 'social_reward';
     case GoalBonus = 'goal_bonus';
     case StreakBonus = 'streak_bonus';
     case ChallengeReward = 'challenge_reward';
@@ -27,6 +28,7 @@ enum TransactionType: string
         return match ($this) {
             self::WalkingReward => 'پاداش قدم',
             self::CyclingReward => 'پاداش دوچرخه‌سواری',
+            self::SocialReward => 'پاداش بازدید و لایک پست',
             self::GoalBonus => 'پاداش هدف روزانه',
             self::StreakBonus => 'پاداش روزهای متوالی',
             self::ChallengeReward => 'پاداش چالش',

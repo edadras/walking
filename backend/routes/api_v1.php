@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\V1\MapTileController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\OrganizationController;
+use App\Http\Controllers\Api\V1\PostController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestController;
 use App\Http\Controllers\Api\V1\RewardController;
@@ -128,6 +129,16 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::post('challenges/{challenge}/join', [ChallengeController::class, 'join'])->middleware('signed.device');
 
     Route::get('weather', WeatherController::class);
+
+    // Walk photos (published once the walk they were taken on is verified).
+    Route::get('posts', [PostController::class, 'index']);
+    Route::get('posts/{post}', [PostController::class, 'show']);
+    Route::post('posts', [PostController::class, 'store'])->middleware('throttle:posts');
+    Route::delete('posts/{post}', [PostController::class, 'destroy']);
+    Route::post('posts/views', [PostController::class, 'views'])->middleware('throttle:post-views');
+    Route::post('posts/{post}/like', [PostController::class, 'like'])->middleware('throttle:post-views');
+    Route::delete('posts/{post}/like', [PostController::class, 'unlike'])->middleware('throttle:post-views');
+    Route::post('posts/{post}/report', [PostController::class, 'report'])->middleware('throttle:social');
 
     Route::get('locations/nearby', [SponsorOfferController::class, 'nearby']);
     Route::get('campaigns/{campaign}', [SponsorOfferController::class, 'campaign']);

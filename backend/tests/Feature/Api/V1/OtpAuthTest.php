@@ -39,6 +39,15 @@ class OtpAuthTest extends TestCase
         return $code;
     }
 
+    public function test_a_legacy_or_unknown_device_timezone_never_blocks_sign_in(): void
+    {
+        $code = $this->requestCode();
+
+        // Android emulators and some phones report "GMT"; that is only a hint.
+        $this->signedJson('POST', '/api/v1/auth/otp/verify', ['phone' => '09121234567', 'code' => $code, 'timezone' => 'GMT'])->assertOk();
+        $this->assertSame('Asia/Tehran', User::query()->sole()->timezone);
+    }
+
     public function test_full_login_creates_user_profile_and_device_bound_token(): void
     {
         $code = $this->requestCode();

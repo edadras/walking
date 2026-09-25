@@ -132,7 +132,7 @@ jobs:
           php artisan db:seed --class=PlatformSeeder --force
           php artisan db:seed --class=DemoSeeder --force
           php artisan e2e:prepare 09990000001
-          PHP_CLI_SERVER_WORKERS=4 nohup php artisan serve --host=0.0.0.0 --port=8000 > /tmp/serve.log 2>&1 &
+          PHP_CLI_SERVER_WORKERS=4 nohup php artisan serve --no-reload --host=0.0.0.0 --port=8000 > /tmp/serve.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8000/api/v1/time && break; sleep 1; done
       - uses: actions/setup-java@v4
         with:
