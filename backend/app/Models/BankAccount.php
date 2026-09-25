@@ -24,7 +24,7 @@ class BankAccount extends Model
 
     protected function casts(): array
     {
-        return ['iban' => 'encrypted', 'reviewed_at' => 'datetime'];
+        return ['iban' => 'encrypted', 'reviewed_at' => 'datetime', 'auto_checks' => 'array', 'auto_checked_at' => 'datetime'];
     }
 
     public static function hashIban(string $iban): string

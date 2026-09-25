@@ -48,6 +48,8 @@ return [
         'cashout.eligible_types' => ['value' => 'walking_reward,goal_bonus,streak_bonus,challenge_reward,quest_reward,achievement_reward,sponsor_reward,coupon_reward', 'group' => 'cashout', 'public' => false, 'description' => 'منابع امتیاز قابل برداشت (با کاما؛ دعوت، تبلیغ و اصلاح دستی عمداً نیستند)'],
         'cashout.daily_budget_rial' => ['value' => 0, 'group' => 'cashout', 'public' => false, 'description' => 'سقف کل تأیید برداشت در روز (ریال؛ ۰ = بدون سقف)'],
         'cashout.monthly_budget_rial' => ['value' => 0, 'group' => 'cashout', 'public' => false, 'description' => 'سقف کل تأیید برداشت در ماه شمسی (ریال؛ ۰ = بدون سقف)'],
+        'cashout.kyc_auto_approve' => ['value' => false, 'group' => 'cashout', 'public' => false, 'description' => 'تأیید خودکار هویت/حساب وقتی همه استعلام‌ها موفق باشند'],
+        'cashout.kyc_name_similarity_min' => ['value' => 85, 'group' => 'cashout', 'public' => false, 'description' => 'حداقل درصد شباهت نام با ثبت احوال'],
         'cashout.kyc_retention_days' => ['value' => 1825, 'group' => 'cashout', 'public' => false, 'description' => 'نگهداری مدارک هویت برداشت پس از حذف حساب (روز؛ طبق نظر حقوقی تنظیم شود)'],
         'cashout.min_age_years' => ['value' => 18, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل سن برای برداشت'],
 
@@ -184,6 +186,21 @@ return [
     'leaderboard' => [
         'driver' => env('LEADERBOARD_DRIVER', 'redis'),
         'top' => 50,
+    ],
+
+    // Cash-out inquiry and transfer providers (manual = support/finance do it in the panel).
+    'cashout' => [
+        'kyc_driver' => env('CASHOUT_KYC_DRIVER', 'manual'),        // manual | jibit
+        'payout_driver' => env('CASHOUT_PAYOUT_DRIVER', 'manual'),  // manual | jibit
+        'jibit' => [
+            'base_url' => env('JIBIT_BASE_URL', 'https://napi.jibit.ir'),
+            'ide_api_key' => env('JIBIT_IDE_API_KEY'),
+            'ide_secret_key' => env('JIBIT_IDE_SECRET_KEY'),
+            'cobank_api_key' => env('JIBIT_COBANK_API_KEY'),
+            'cobank_secret_key' => env('JIBIT_COBANK_SECRET_KEY'),
+            'source_iban' => env('JIBIT_SOURCE_IBAN'),
+            'transfer_type' => env('JIBIT_TRANSFER_TYPE', 'NORMAL'), // NORMAL (Paya) | ACH | RTGS (Satna)
+        ],
     ],
 
     'sms' => [

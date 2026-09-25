@@ -11,6 +11,7 @@ final class StatusBadge
     {
         return match ($state) {
             'pending', 'approved' => 'warning',
+            'processing' => 'info',
             'verified', 'paid' => 'success',
             'rejected' => 'danger',
             default => 'gray',

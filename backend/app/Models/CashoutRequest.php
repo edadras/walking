@@ -20,11 +20,15 @@ class CashoutRequest extends Model
 
     public const CANCELLED = 'cancelled';
 
-    public const OPEN = [self::PENDING, self::APPROVED];
+    /** Sent to the bank through a settlement API, waiting for the transfer result. */
+    public const PROCESSING = 'processing';
+
+    public const OPEN = [self::PENDING, self::APPROVED, self::PROCESSING];
 
     public const LABELS = [
         self::PENDING => 'در انتظار بررسی',
         self::APPROVED => 'تأییدشده، در صف واریز',
+        self::PROCESSING => 'در حال انتقال بانکی',
         self::PAID => 'واریز شد',
         self::REJECTED => 'رد شد',
         self::CANCELLED => 'لغو شد',
@@ -36,7 +40,7 @@ class CashoutRequest extends Model
 
     protected function casts(): array
     {
-        return ['points' => 'integer', 'amount_rial' => 'integer', 'rial_per_point' => 'integer', 'risk_score' => 'integer', 'risk_signals' => 'array', 'approved_at' => 'datetime', 'paid_at' => 'datetime'];
+        return ['points' => 'integer', 'amount_rial' => 'integer', 'rial_per_point' => 'integer', 'risk_score' => 'integer', 'risk_signals' => 'array', 'approved_at' => 'datetime', 'paid_at' => 'datetime', 'sent_at' => 'datetime'];
     }
 
     public function user(): BelongsTo
@@ -67,5 +71,10 @@ class CashoutRequest extends Model
     public function refundTransaction(): BelongsTo
     {
         return $this->belongsTo(PointTransaction::class, 'refund_transaction_id');
+    }
+
+    public function sender(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'sent_by');
     }
 }

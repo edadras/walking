@@ -3,8 +3,10 @@
 namespace App\Filament\Admin\Resources\Cashout;
 
 use App\Domain\Audit\AuditLogger;
+use App\Domain\Cashout\CashoutRequestNumber;
 use App\Domain\Cashout\CashoutRisk;
 use App\Domain\Cashout\CashoutService;
+use App\Domain\Cashout\Providers\PayoutProvider;
 use App\Exceptions\ApiException;
 use App\Filament\Admin\Concerns\RequiresAbility;
 use App\Models\CashoutRequest;
@@ -124,13 +126,17 @@ class CashoutRequestResource extends Resource
                 TextEntry::make('approved_at')->label('زمان تأیید')->dateTime()->placeholder('—'),
                 TextEntry::make('payer.name')->label('ثبت‌کننده واریز')->placeholder('—'),
                 TextEntry::make('bank_reference')->label('کد پیگیری بانک')->placeholder('—'),
+                TextEntry::make('payout_provider')->label('روش انتقال')->placeholder('دستی (CSV)'),
+                TextEntry::make('payout_state')->label('وضعیت انتقال')->placeholder('—'),
+                TextEntry::make('payout_error')->label('خطای انتقال')->placeholder('—')->color('danger'),
+                TextEntry::make('sender.name')->label('ارسال‌کننده')->placeholder('—'),
             ]),
         ]);
     }
 
     public static function number(CashoutRequest $r): string
     {
-        return 'W-'.strtoupper(substr($r->public_id, -6));
+        return CashoutRequestNumber::of($r);
     }
 
     /** @return list<Action> */
@@ -153,8 +159,13 @@ class CashoutRequestResource extends Resource
                 ->modalDescription(fn (CashoutRequest $r) => (CashoutRisk::level($r->risk_score) === 'high' ? '⚠️ ریسک بالا: '.collect($r->risk_signals)->pluck('label')->join('، ').".\n" : '')
                     .'واریز '.number_format($r->amount_rial).' ریال به «'.$r->bankAccount?->holder_name.'» تأیید شود؟ ثبت واریز باید توسط مدیر دیگری انجام شود.')
                 ->action(fn (CashoutRequest $record) => $run(fn () => app(CashoutService::class)->approve($record, static::admin()), 'تأیید شد؛ آماده واریز')),
+            Action::make('send')->label('ارسال به بانک')->icon(Heroicon::OutlinedPaperAirplane)->color('success')
+                ->visible(fn (CashoutRequest $r) => $can() && app(PayoutProvider::class)->automatic() && $r->status === CashoutRequest::APPROVED && $r->approved_by !== static::admin()?->id)
+                ->requiresConfirmation()
+                ->modalDescription(fn (CashoutRequest $r) => 'انتقال '.number_format($r->amount_rial).' ریال به شبای «'.$r->bankAccount?->holder_name.'» از طریق '.app(PayoutProvider::class)->name().' ارسال شود؟')
+                ->action(fn (CashoutRequest $record) => $run(fn () => app(CashoutService::class)->sendToBank($record, static::admin()), 'به بانک ارسال شد')),
             Action::make('paid')->label('ثبت واریز')->icon(Heroicon::OutlinedBanknotes)->color('success')
-                ->visible(fn (CashoutRequest $r) => $can() && $r->status === CashoutRequest::APPROVED && $r->approved_by !== static::admin()?->id)
+                ->visible(fn (CashoutRequest $r) => $can() && ! app(PayoutProvider::class)->automatic() && $r->status === CashoutRequest::APPROVED && $r->approved_by !== static::admin()?->id)
                 ->schema([TextInput::make('bank_reference')->label('کد پیگیری/شماره مرجع انتقال')->required()->maxLength(64)])
                 ->action(fn (CashoutRequest $record, array $data) => $run(fn () => app(CashoutService::class)->markPaid($record, static::admin(), trim($data['bank_reference'])), 'واریز ثبت شد')),
             Action::make('reassess')->label('ارزیابی مجدد ریسک')->icon(Heroicon::OutlinedArrowPath)->color('gray')

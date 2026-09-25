@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\Cashout;
 use App\Domain\Audit\AuditLogger;
 use App\Domain\Cashout\CashoutService;
 use App\Domain\Cashout\IranianId;
+use App\Domain\Cashout\KycChecks;
 use App\Filament\Admin\Concerns\RequiresAbility;
 use App\Models\UserIdentity;
 use BackedEnum;
@@ -62,6 +63,10 @@ class UserIdentityResource extends Resource
                 TextColumn::make('last_name')->label('نام خانوادگی')->searchable(),
                 TextColumn::make('national_code')->label('کد ملی')->formatStateUsing(fn (string $state) => IranianId::mask($state, 3)),
                 TextColumn::make('birth_date')->label('تاریخ تولد')->date(),
+                TextColumn::make('auto_result')->label('استعلام خودکار')->badge()->placeholder('—')
+                    ->formatStateUsing(fn (?string $state) => ['passed' => 'تطبیق دارد', 'failed' => 'مغایرت', 'unavailable' => 'در دسترس نبود'][$state] ?? $state)
+                    ->color(fn (?string $state) => ['passed' => 'success', 'failed' => 'danger'][$state] ?? 'gray')
+                    ->tooltip(fn ($record) => $record->auto_checks ? json_encode($record->auto_checks, JSON_UNESCAPED_UNICODE) : null),
                 TextColumn::make('status')->label('وضعیت')->badge()
                     ->formatStateUsing(fn (string $state) => StatusBadge::REVIEW[$state] ?? $state)->color(fn (string $state) => StatusBadge::color($state)),
                 TextColumn::make('rejection_reason')->label('دلیل رد')->placeholder('—')->toggleable(isToggledHiddenByDefault: true),
@@ -74,6 +79,13 @@ class UserIdentityResource extends Resource
                     ->action(function (UserIdentity $record) {
                         app(AuditLogger::class)->log('cashout.national_code_revealed', $record->user);
                         Notification::make()->title('کد ملی: '.$record->national_code)->persistent()->send();
+                    }),
+                Action::make('inquire')->label('استعلام خودکار')->icon(Heroicon::OutlinedMagnifyingGlass)->color('gray')
+                    ->visible(fn () => app(KycChecks::class)->enabled())
+                    ->action(function ($record) {
+                        $result = app(KycChecks::class)->identity($record);
+                        Notification::make()->title(['passed' => 'استعلام: تطبیق دارد', 'failed' => 'استعلام: مغایرت', 'unavailable' => 'سرویس استعلام در دسترس نبود'][$result])
+                            ->{$result === 'passed' ? 'success' : ($result === 'failed' ? 'danger' : 'warning')}()->send();
                     }),
                 Action::make('verify')->label('تأیید')->icon(Heroicon::OutlinedCheck)->color('success')
                     ->visible(fn (UserIdentity $r) => $r->status === UserIdentity::PENDING)

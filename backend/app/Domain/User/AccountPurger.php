@@ -50,7 +50,7 @@ class AccountPurger
     /** Why this account can't be erased yet (retried on the next run), or null. */
     public function deferReason(User $user): ?string
     {
-        if (CashoutRequest::query()->where('user_id', $user->id)->where('status', CashoutRequest::APPROVED)->exists()) {
+        if (CashoutRequest::query()->where('user_id', $user->id)->whereIn('status', [CashoutRequest::APPROVED, CashoutRequest::PROCESSING])->exists()) {
             return 'payout_in_progress';
         }
         if (Order::query()->where('user_id', $user->id)->whereIn('status', [OrderStatus::Paid, OrderStatus::Processing, OrderStatus::Shipped])->exists()) {

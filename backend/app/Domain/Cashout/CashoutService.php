@@ -4,6 +4,8 @@ namespace App\Domain\Cashout;
 
 use App\Domain\Audit\AuditLogger;
 use App\Domain\Auth\OtpService;
+use App\Domain\Cashout\Providers\PayoutProvider;
+use App\Domain\Ops\OpsAlerter;
 use App\Domain\Settings\FeatureFlags;
 use App\Domain\Settings\Settings;
 use App\Domain\Wallet\ConversionRate;
@@ -12,6 +14,7 @@ use App\Enums\FraudCaseStatus;
 use App\Enums\TransactionType;
 use App\Enums\UserStatus;
 use App\Exceptions\ApiException;
+use App\Jobs\RunKycChecks;
 use App\Models\Admin;
 use App\Models\BankAccount;
 use App\Models\CashoutRequest;
@@ -23,6 +26,7 @@ use App\Support\Jalali;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * Points → rial payouts.
@@ -97,6 +101,7 @@ class CashoutService
             'status' => UserIdentity::PENDING, 'rejection_reason' => null, 'reviewed_by' => null, 'reviewed_at' => null, 'submitted_at' => now(),
         ]);
         $this->audit->log('cashout.identity_submitted', $user);
+        RunKycChecks::dispatch('identity', $identity->user_id)->afterCommit();
 
         return $identity;
     }
@@ -128,6 +133,7 @@ class CashoutService
             $previous->forceFill(['holder_name' => $identity->fullName(), 'status' => BankAccount::PENDING, 'rejection_reason' => null,
                 'reviewed_by' => null, 'reviewed_at' => null])->save();
             $this->audit->log('cashout.bank_account_added', $previous);
+            RunKycChecks::dispatch('bank_account', $previous->id)->afterCommit();
 
             return $previous;
         }
@@ -145,6 +151,7 @@ class CashoutService
             throw ApiException::conflict('sheba_taken', 'این شماره شبا قبلاً ثبت شده است.');
         }
         $this->audit->log('cashout.bank_account_added', $account);
+        RunKycChecks::dispatch('bank_account', $account->id)->afterCommit();
 
         return $account;
     }
@@ -326,19 +333,19 @@ class CashoutService
 
     // ---- Admin ----------------------------------------------------------------
 
-    public function reviewIdentity(UserIdentity $identity, bool $ok, Admin $admin, ?string $reason = null): void
+    public function reviewIdentity(UserIdentity $identity, bool $ok, ?Admin $admin, ?string $reason = null): void
     {
         $identity->forceFill(['status' => $ok ? UserIdentity::VERIFIED : UserIdentity::REJECTED, 'rejection_reason' => $ok ? null : $reason,
-            'reviewed_by' => $admin->id, 'reviewed_at' => now()])->save();
+            'reviewed_by' => $admin?->id, 'reviewed_at' => now()])->save();
         $this->audit->log($ok ? 'cashout.identity_verified' : 'cashout.identity_rejected', $identity->user, meta: ['reason' => $reason], actor: $admin);
         $identity->user->notify(new UserNotification('order_update', $ok ? 'هویت تأیید شد' : 'هویت تأیید نشد',
             $ok ? 'مشخصات هویتی‌ات تأیید شد.' : 'مشخصات هویتی تأیید نشد: '.$reason, ['type' => 'cashout']));
     }
 
-    public function reviewBankAccount(BankAccount $account, bool $ok, Admin $admin, ?string $reason = null): void
+    public function reviewBankAccount(BankAccount $account, bool $ok, ?Admin $admin, ?string $reason = null): void
     {
         $account->forceFill(['status' => $ok ? BankAccount::VERIFIED : BankAccount::REJECTED, 'rejection_reason' => $ok ? null : $reason,
-            'reviewed_by' => $admin->id, 'reviewed_at' => now()])->save();
+            'reviewed_by' => $admin?->id, 'reviewed_at' => now()])->save();
         $this->audit->log($ok ? 'cashout.bank_account_verified' : 'cashout.bank_account_rejected', $account, meta: ['reason' => $reason], actor: $admin);
         $account->user->notify(new UserNotification('order_update', $ok ? 'حساب بانکی تأیید شد' : 'حساب بانکی تأیید نشد',
             $ok ? 'حساب '.$account->bank_name.' برای برداشت تأیید شد.' : 'حساب بانکی تأیید نشد: '.$reason, ['type' => 'cashout']));
@@ -374,7 +381,7 @@ class CashoutService
         $tz = config('walk.panel_timezone');
         $now = now($tz);
         [$monthStart] = Jalali::monthRange($now);
-        $used = fn ($from) => (int) CashoutRequest::query()->whereIn('status', [CashoutRequest::APPROVED, CashoutRequest::PAID])
+        $used = fn ($from) => (int) CashoutRequest::query()->whereIn('status', [CashoutRequest::APPROVED, CashoutRequest::PROCESSING, CashoutRequest::PAID])
             ->where('approved_at', '>=', $from)->sum('amount_rial');
 
         return [
@@ -391,18 +398,107 @@ class CashoutService
         return $request;
     }
 
+    /**
+     * Sends an approved payout through the settlement API. The sender plays the
+     * "second pair of eyes", so it can't be the approver either.
+     */
+    public function sendToBank(CashoutRequest $request, Admin $admin): CashoutRequest
+    {
+        $payouts = app(PayoutProvider::class);
+        if (! $payouts->automatic()) {
+            throw ApiException::conflict('payout_manual', 'انتقال خودکار بانکی فعال نیست؛ از خروجی CSV و «ثبت واریز» استفاده کن.');
+        }
+        $request = DB::transaction(function () use ($request, $admin, $payouts) {
+            $locked = CashoutRequest::query()->whereKey($request->id)->lockForUpdate()->firstOrFail();
+            if ($locked->status !== CashoutRequest::APPROVED) {
+                throw ApiException::conflict('invalid_transition', 'فقط درخواست تأییدشده قابل ارسال به بانک است.');
+            }
+            if ($locked->approved_by === $admin->id) {
+                throw ApiException::forbidden('four_eyes', 'ارسال به بانک باید توسط مدیری غیر از تأییدکننده انجام شود.');
+            }
+            $locked->forceFill(['status' => CashoutRequest::PROCESSING, 'payout_provider' => $payouts->name(), 'payout_track_id' => (string) Str::uuid(),
+                'payout_state' => 'sending', 'payout_error' => null, 'sent_by' => $admin->id, 'sent_at' => now()])->save();
+            $this->audit->log('cashout.sent_to_bank', $locked, new: ['provider' => $payouts->name(), 'track_id' => $locked->payout_track_id], actor: $admin);
+
+            return $locked;
+        });
+        // Outside the lock: a slow bank must not hold the row. A lost response is recovered by syncPayouts().
+        try {
+            $result = $payouts->send($request->load('bankAccount'), $request->payout_track_id);
+        } catch (\Throwable $e) {
+            report($e);
+            $result = ['state' => 'processing', 'reference' => null, 'error' => null];
+        }
+
+        return $this->applyPayoutResult($request, $result);
+    }
+
+    /** Follows transfers in flight; run every few minutes by the scheduler. */
+    public function syncPayouts(): int
+    {
+        $payouts = app(PayoutProvider::class);
+        $n = 0;
+        foreach (CashoutRequest::query()->where('status', CashoutRequest::PROCESSING)->whereNotNull('payout_track_id')->get() as $request) {
+            try {
+                $result = $payouts->status($request->payout_track_id);
+            } catch (\Throwable $e) {
+                report($e);
+
+                continue;
+            }
+            if ($result === null) {
+                // The provider never received it: after a safe delay, hand it back to finance.
+                if ($request->sent_at->lt(now()->subMinutes(30))) {
+                    $result = ['state' => 'failed', 'reference' => null, 'error' => 'not_received'];
+                } else {
+                    continue;
+                }
+            }
+            $this->applyPayoutResult($request, $result);
+            $n++;
+        }
+
+        return $n;
+    }
+
+    /** @param array{state: string, reference: ?string, error: ?string} $result */
+    private function applyPayoutResult(CashoutRequest $request, array $result): CashoutRequest
+    {
+        if ($result['state'] === 'transferred') {
+            return $this->finalizePaid($request, $request->sender ?? Admin::query()->findOrFail($request->sent_by), (string) ($result['reference'] ?: $request->payout_track_id), CashoutRequest::PROCESSING);
+        }
+        if ($result['state'] === 'failed') {
+            $request->forceFill(['status' => CashoutRequest::APPROVED, 'payout_state' => 'failed', 'payout_error' => mb_substr((string) $result['error'], 0, 120),
+                'sent_by' => null])->save();
+            $this->audit->log('cashout.transfer_failed', $request, meta: ['error' => $result['error']]);
+            app(OpsAlerter::class)->alert('cashout-transfer-failed:'.$request->id, 'انتقال بانکی برداشت ناموفق بود',
+                CashoutRequestNumber::of($request).': '.$result['error'].'. درخواست به «تأییدشده» برگشت؛ دوباره ارسال یا رد کنید.', 'cashout.manage');
+
+            return $request;
+        }
+        $request->forceFill(['payout_state' => 'processing'])->save();
+
+        return $request;
+    }
+
     /** Four eyes: whoever approved can't also confirm the money left the bank. */
     public function markPaid(CashoutRequest $request, Admin $admin, string $bankReference): CashoutRequest
     {
-        $request = DB::transaction(function () use ($request, $admin, $bankReference) {
+        return $this->finalizePaid($request, $admin, $bankReference, CashoutRequest::APPROVED);
+    }
+
+    private function finalizePaid(CashoutRequest $request, Admin $admin, string $bankReference, string $from): CashoutRequest
+    {
+        $request = DB::transaction(function () use ($request, $admin, $bankReference, $from) {
             $locked = CashoutRequest::query()->whereKey($request->id)->lockForUpdate()->firstOrFail();
-            if ($locked->status !== CashoutRequest::APPROVED) {
+            if ($locked->status !== $from) {
                 throw ApiException::conflict('invalid_transition', 'فقط درخواست تأییدشده قابل ثبت واریز است.');
             }
             if ($locked->approved_by === $admin->id) {
                 throw ApiException::forbidden('four_eyes', 'ثبت واریز باید توسط مدیری غیر از تأییدکننده انجام شود.');
             }
-            $locked->forceFill(['status' => CashoutRequest::PAID, 'paid_by' => $admin->id, 'paid_at' => now(), 'bank_reference' => $bankReference])->save();
+            $locked->forceFill(['status' => CashoutRequest::PAID, 'paid_by' => $admin->id, 'paid_at' => now(), 'bank_reference' => $bankReference,
+                'payout_state' => $locked->payout_track_id ? 'transferred' : null])->save();
             $this->audit->log('cashout.paid', $locked, new: ['bank_reference' => $bankReference, 'amount_rial' => $locked->amount_rial], actor: $admin);
 
             return $locked;
@@ -415,7 +511,8 @@ class CashoutService
 
     public function reject(CashoutRequest $request, Admin $admin, string $reason): CashoutRequest
     {
-        return $this->close($request, CashoutRequest::REJECTED, $reason, $admin, CashoutRequest::OPEN);
+        // Not while the bank is moving the money: wait for the transfer result first.
+        return $this->close($request, CashoutRequest::REJECTED, $reason, $admin, [CashoutRequest::PENDING, CashoutRequest::APPROVED]);
     }
 
     /** Closes an open request and gives the points back through the ledger. */

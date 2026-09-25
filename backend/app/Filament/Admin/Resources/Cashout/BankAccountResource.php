@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\Cashout;
 
 use App\Domain\Audit\AuditLogger;
 use App\Domain\Cashout\CashoutService;
+use App\Domain\Cashout\KycChecks;
 use App\Filament\Admin\Concerns\RequiresAbility;
 use App\Models\BankAccount;
 use App\Models\UserIdentity;
@@ -62,6 +63,10 @@ class BankAccountResource extends Resource
                 TextColumn::make('identity_status')->label('هویت')->badge()
                     ->state(fn (BankAccount $r) => $r->user->identity?->status ?? 'none')
                     ->formatStateUsing(fn (string $state) => StatusBadge::REVIEW[$state] ?? 'ثبت نشده')->color(fn (string $state) => StatusBadge::color($state)),
+                TextColumn::make('auto_result')->label('استعلام خودکار')->badge()->placeholder('—')
+                    ->formatStateUsing(fn (?string $state) => ['passed' => 'تطبیق دارد', 'failed' => 'مغایرت', 'unavailable' => 'در دسترس نبود'][$state] ?? $state)
+                    ->color(fn (?string $state) => ['passed' => 'success', 'failed' => 'danger'][$state] ?? 'gray')
+                    ->tooltip(fn ($record) => $record->auto_checks ? json_encode($record->auto_checks, JSON_UNESCAPED_UNICODE) : null),
                 TextColumn::make('status')->label('وضعیت')->badge()
                     ->formatStateUsing(fn (string $state) => StatusBadge::REVIEW[$state] ?? $state)->color(fn (string $state) => StatusBadge::color($state)),
                 TextColumn::make('created_at')->label('ثبت')->since(),
@@ -73,6 +78,13 @@ class BankAccountResource extends Resource
                     ->action(function (BankAccount $record) {
                         app(AuditLogger::class)->log('cashout.iban_revealed', $record);
                         Notification::make()->title($record->iban)->body('صاحب حساب باید «'.$record->holder_name.'» باشد.')->persistent()->send();
+                    }),
+                Action::make('inquire')->label('استعلام خودکار')->icon(Heroicon::OutlinedMagnifyingGlass)->color('gray')
+                    ->visible(fn () => app(KycChecks::class)->enabled())
+                    ->action(function ($record) {
+                        $result = app(KycChecks::class)->bankAccount($record);
+                        Notification::make()->title(['passed' => 'استعلام: تطبیق دارد', 'failed' => 'استعلام: مغایرت', 'unavailable' => 'سرویس استعلام در دسترس نبود'][$result])
+                            ->{$result === 'passed' ? 'success' : ($result === 'failed' ? 'danger' : 'warning')}()->send();
                     }),
                 Action::make('verify')->label('تأیید')->icon(Heroicon::OutlinedCheck)->color('success')
                     // An account can only be trusted once the person it must belong to is verified.

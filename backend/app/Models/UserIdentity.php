@@ -24,7 +24,7 @@ class UserIdentity extends Model
 
     protected function casts(): array
     {
-        return ['national_code' => 'encrypted', 'birth_date' => 'date', 'reviewed_at' => 'datetime', 'submitted_at' => 'datetime', 'retain_until' => 'datetime'];
+        return ['national_code' => 'encrypted', 'birth_date' => 'date', 'reviewed_at' => 'datetime', 'submitted_at' => 'datetime', 'retain_until' => 'datetime', 'auto_checks' => 'array', 'auto_checked_at' => 'datetime'];
     }
 
     public static function hashNationalCode(string $code): string

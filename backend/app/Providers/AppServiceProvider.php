@@ -5,6 +5,13 @@ namespace App\Providers;
 use App\Domain\Auth\Sms\KavenegarSmsSender;
 use App\Domain\Auth\Sms\LogSmsSender;
 use App\Domain\Auth\Sms\SmsSender;
+use App\Domain\Cashout\Providers\JibitClient;
+use App\Domain\Cashout\Providers\JibitKycProvider;
+use App\Domain\Cashout\Providers\JibitPayoutProvider;
+use App\Domain\Cashout\Providers\KycProvider;
+use App\Domain\Cashout\Providers\ManualKycProvider;
+use App\Domain\Cashout\Providers\ManualPayoutProvider;
+use App\Domain\Cashout\Providers\PayoutProvider;
 use App\Domain\Device\Integrity\IntegrityVerifier;
 use App\Domain\Device\Integrity\NullIntegrityVerifier;
 use App\Domain\Device\Integrity\PlayIntegrityVerifier;
@@ -63,6 +70,19 @@ class AppServiceProvider extends ServiceProvider
                     : new LogSmsSender,
                 default => throw new RuntimeException('Unknown SMS driver.'),
             };
+        });
+
+        $this->app->singleton(JibitClient::class, fn () => new JibitClient(config('walk.cashout.jibit.base_url'), [
+            'ide' => [config('walk.cashout.jibit.ide_api_key'), config('walk.cashout.jibit.ide_secret_key')],
+            'cobank' => [config('walk.cashout.jibit.cobank_api_key'), config('walk.cashout.jibit.cobank_secret_key')],
+        ]));
+        $this->app->singleton(KycProvider::class, fn ($app) => match (config('walk.cashout.kyc_driver')) {
+            'jibit' => new JibitKycProvider($app->make(JibitClient::class)),
+            default => new ManualKycProvider,
+        });
+        $this->app->singleton(PayoutProvider::class, fn ($app) => match (config('walk.cashout.payout_driver')) {
+            'jibit' => new JibitPayoutProvider($app->make(JibitClient::class), config('walk.cashout.jibit.source_iban'), config('walk.cashout.jibit.transfer_type')),
+            default => new ManualPayoutProvider,
         });
 
         $this->app->singleton(PushSender::class, function () {
