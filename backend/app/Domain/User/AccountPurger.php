@@ -19,6 +19,7 @@ use App\Models\FriendChallengeMember;
 use App\Models\Friendship;
 use App\Models\NotificationPreference;
 use App\Models\Order;
+use App\Models\OrganizationMember;
 use App\Models\PersonalAccessToken;
 use App\Models\SupportMessage;
 use App\Models\User;
@@ -82,6 +83,7 @@ class AccountPurger
             DB::table('notifications')->where('notifiable_type', $user->getMorphClass())->where('notifiable_id', $user->id)->delete();
             Friendship::query()->where('user_low_id', $user->id)->orWhere('user_high_id', $user->id)->delete();
             FriendChallengeMember::query()->where('user_id', $user->id)->delete();
+            OrganizationMember::query()->where('user_id', $user->id)->delete();
             FriendChallenge::query()->where('creator_id', $user->id)->delete();
             ActivitySample::query()->whereIn('walking_session_id', WalkingSession::query()->where('user_id', $user->id)->select('id'))->delete();
             AnalyticsEvent::query()->where('user_id', $user->id)->update(['user_id' => null]);

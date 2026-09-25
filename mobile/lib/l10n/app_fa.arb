@@ -1371,5 +1371,55 @@
         "type": "String"
       }
     }
-  }
+  },
+  "orgTitle": "سازمان من",
+  "orgJoinTitle": "برنامه سلامت محل کارت",
+  "orgJoinBody": "اگر شرکتت در گام‌یار عضو است، با کد سازمان به رتبه‌بندی همکاران و چالش‌های سازمانی بپیوند.",
+  "orgCode": "کد سازمان",
+  "orgPrivacy": "همکارانت نام و قدم‌های هفتگی‌ات را در رتبه‌بندی می‌بینند؛ سازمان فقط آمار کلی می‌بیند، نه اطلاعات سلامت تو.",
+  "orgJoin": "عضویت",
+  "orgLeave": "خروج از سازمان",
+  "orgLeaveConfirm": "از «{name}» خارج می‌شوی؟",
+  "@orgLeaveConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "orgMembers": "{n} عضو",
+  "@orgMembers": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "orgInactive": "اشتراک سازمان فعال نیست.",
+  "orgMyRank": "رتبه من این هفته",
+  "orgMySteps": "قدم‌های این هفته",
+  "orgDepartment": "واحد",
+  "orgPickDepartment": "انتخاب کن",
+  "orgChallenges": "چالش‌های سازمان",
+  "orgEndsIn": "پایان {when}",
+  "@orgEndsIn": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "orgWeekRanking": "رتبه‌بندی همکاران (این هفته)",
+  "orgYou": "تو",
+  "orgDepartments": "میانگین قدم واحدها",
+  "orgSmallGroup": "کمتر از ۳ نفر",
+  "orgAvg": "{n} قدم",
+  "@orgAvg": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "profileOrganization": "سازمان من"
 }

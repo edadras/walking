@@ -11,6 +11,7 @@ use App\Exceptions\ApiException;
 use App\Models\Challenge;
 use App\Models\ChallengeParticipant;
 use App\Models\DailyActivity;
+use App\Models\OrganizationMember;
 use App\Models\User;
 use App\Models\WalkingSession;
 use App\Notifications\UserNotification;
@@ -32,6 +33,9 @@ class ChallengeService
             $existing = ChallengeParticipant::query()->where('challenge_id', $locked->id)->where('user_id', $user->id)->first();
             if ($existing !== null) {
                 return $existing;
+            }
+            if ($locked->organization_id !== null && ! OrganizationMember::query()->where('user_id', $user->id)->where('organization_id', $locked->organization_id)->exists()) {
+                throw ApiException::forbidden('organization_only', 'این چالش مخصوص اعضای یک سازمان است.');
             }
             if (! $locked->isJoinable()) {
                 throw ApiException::unprocessable('challenge_closed', 'امکان پیوستن به این چالش وجود ندارد.');

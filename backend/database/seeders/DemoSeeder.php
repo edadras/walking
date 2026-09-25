@@ -39,6 +39,9 @@ use App\Models\Coupon;
 use App\Models\Device;
 use App\Models\FeatureFlag;
 use App\Models\Location;
+use App\Models\Organization;
+use App\Models\OrganizationMember;
+use App\Models\OrganizationUser;
 use App\Models\PointTransaction;
 use App\Models\Product;
 use App\Models\ProductCode;
@@ -97,6 +100,28 @@ class DemoSeeder extends Seeder
         }
 
         $this->seedCashout();
+        $this->seedOrganization();
+    }
+
+    /** A paying company with members, departments and a company challenge (panel login: hr@gamyar.test / password). */
+    private function seedOrganization(): void
+    {
+        if (Organization::query()->exists()) {
+            return;
+        }
+        $departments = ['فروش', 'فنی', 'مالی', 'پشتیبانی'];
+        $org = Organization::query()->create(['name' => 'شرکت فناوری نمونه', 'join_code' => 'DEMO2026', 'seats' => 50, 'seat_price_rial' => 1_500_000,
+            'paid_until' => now()->addMonths(2)->toDateString(), 'contact_name' => 'خانم کریمی', 'departments' => $departments]);
+        OrganizationUser::query()->create(['organization_id' => $org->id, 'name' => 'واحد منابع انسانی', 'email' => 'hr@gamyar.test', 'password' => 'password', 'role' => 'admin']);
+        foreach (range(1, 10) as $i) {
+            if ($user = User::query()->where('phone', sprintf('+98912000%04d', $i))->first()) {
+                OrganizationMember::query()->create(['organization_id' => $org->id, 'user_id' => $user->id, 'department' => $departments[$i % 4], 'joined_at' => now()->subDays(20 - $i)]);
+            }
+        }
+        Challenge::query()->create(['title' => 'ماه سلامت شرکت', 'description' => 'تا پایان ماه ۲۰۰ هزار قدم تأییدشده؛ برندگان در جلسه ماهانه معرفی می‌شوند.',
+            'type' => ChallengeType::Steps, 'metric' => 'steps', 'target_value' => 200000, 'reward_points' => 0, 'reward_xp' => 300,
+            'starts_at' => now()->subDays(5), 'ends_at' => now()->addDays(25), 'status' => ChallengeStatus::Active, 'organization_id' => $org->id,
+            'created_by_type' => 'organization_user']);
     }
 
     /**

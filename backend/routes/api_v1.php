@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\HealthController;
 use App\Http\Controllers\Api\V1\MapTileController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\OrganizationController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestController;
 use App\Http\Controllers\Api\V1\RewardController;
@@ -110,6 +111,10 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::get('friend-challenges/{challenge}', [SocialController::class, 'challenge']);
     Route::post('friend-challenges/{challenge}/join', [SocialController::class, 'join']);
     Route::post('friend-challenges/{challenge}/leave', [SocialController::class, 'leave']);
+    Route::get('organization', [OrganizationController::class, 'show']);
+    Route::post('organization/join', [OrganizationController::class, 'join'])->middleware('throttle:social');
+    Route::patch('organization', [OrganizationController::class, 'update']);
+    Route::delete('organization', [OrganizationController::class, 'leave']);
     Route::get('quests', [QuestController::class, 'index']);
     Route::post('quests/{quest}/claim', [QuestController::class, 'claim'])->middleware(['signed.device', 'throttle:purchase']);
     Route::post('streak/freezes', [GamificationController::class, 'buyFreeze'])->middleware(['signed.device', 'throttle:purchase']);

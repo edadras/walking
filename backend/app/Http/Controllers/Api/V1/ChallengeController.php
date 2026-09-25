@@ -7,6 +7,7 @@ use App\Enums\ChallengeStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Challenge;
 use App\Models\ChallengeParticipant;
+use App\Models\OrganizationMember;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,8 +19,11 @@ class ChallengeController extends Controller
         $user = $request->user();
         $mine = ChallengeParticipant::query()->where('user_id', $user->id)->get()->keyBy('challenge_id');
 
+        $orgId = OrganizationMember::query()->where('user_id', $user->id)->value('organization_id');
         $challenges = Challenge::query()
             ->whereIn('status', [ChallengeStatus::Active, ChallengeStatus::Ended])
+            // Company challenges only for that company's members.
+            ->where(fn ($q) => $q->whereNull('organization_id')->when($orgId, fn ($q) => $q->orWhere('organization_id', $orgId)))
             ->where(fn ($q) => $q->where('ends_at', '>', now()->subDays(14))->orWhereIn('id', $mine->keys()))
             ->orderBy('ends_at')
             ->limit(100)
@@ -31,6 +35,8 @@ class ChallengeController extends Controller
     public function show(Request $request, Challenge $challenge): JsonResponse
     {
         abort_unless(in_array($challenge->status, [ChallengeStatus::Active, ChallengeStatus::Ended], true), 404);
+        abort_if($challenge->organization_id !== null
+            && ! OrganizationMember::query()->where('user_id', $request->user()->id)->where('organization_id', $challenge->organization_id)->exists(), 404);
         $mine = ChallengeParticipant::query()->where('user_id', $request->user()->id)->where('challenge_id', $challenge->id)->first();
         $top = ChallengeParticipant::query()->where('challenge_id', $challenge->id)->with('user')->orderByDesc('progress')->limit(10)->get()
             ->filter(fn ($p) => $p->user?->leaderboard_visible)
@@ -57,6 +63,7 @@ class ChallengeController extends Controller
             'type' => $c->type->value,
             'type_label' => $c->type->label(),
             'metric' => $c->metric,
+            'organization' => $c->organization_id !== null,
             'target' => $c->target_value,
             'reward_points' => $c->reward_points,
             'reward_xp' => $c->reward_xp,

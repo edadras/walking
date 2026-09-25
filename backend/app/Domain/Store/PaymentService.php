@@ -3,6 +3,7 @@
 namespace App\Domain\Store;
 
 use App\Domain\Audit\AuditLogger;
+use App\Domain\Organization\OrganizationBilling;
 use App\Domain\Sponsor\SponsorTopUps;
 use App\Domain\Store\Exceptions\GatewayUnavailable;
 use App\Enums\OrderStatus;
@@ -120,6 +121,9 @@ class PaymentService
     {
         if ($payment->sponsor_top_up_id !== null) {
             return app(SponsorTopUps::class)->settle($payment, $verified, $failure);
+        }
+        if ($payment->organization_invoice_id !== null) {
+            return app(OrganizationBilling::class)->settle($payment, $verified, $failure);
         }
 
         return DB::transaction(function () use ($payment, $verified, $failure) {

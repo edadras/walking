@@ -104,7 +104,8 @@ class AsyncView<T> extends StatelessWidget {
     return AnimatedSwitcher(
       duration: AppMotion.base,
       child: switch (value) {
-        AsyncValue(:final value?, hasValue: true) => KeyedSubtree(key: const ValueKey('data'), child: data(value)),
+        // `value as T` (not `value?`): a loaded null is data for nullable T (e.g. "not in an organization").
+        AsyncValue(:final value, hasValue: true) => KeyedSubtree(key: const ValueKey('data'), child: data(value as T)),
         AsyncValue(:final error?) => KeyedSubtree(key: const ValueKey('error'), child: Center(child: ErrorView(error: error, onRetry: onRetry))),
         _ => KeyedSubtree(key: const ValueKey('loading'), child: skeleton ?? const SkeletonList()),
       },

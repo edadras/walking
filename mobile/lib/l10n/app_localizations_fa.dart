@@ -2064,4 +2064,80 @@ class AppLocalizationsFa extends AppLocalizations {
   String cashoutQueue(String n) {
     return 'نوبت بررسی: $n';
   }
+
+  @override
+  String get orgTitle => 'سازمان من';
+
+  @override
+  String get orgJoinTitle => 'برنامه سلامت محل کارت';
+
+  @override
+  String get orgJoinBody =>
+      'اگر شرکتت در گام‌یار عضو است، با کد سازمان به رتبه‌بندی همکاران و چالش‌های سازمانی بپیوند.';
+
+  @override
+  String get orgCode => 'کد سازمان';
+
+  @override
+  String get orgPrivacy =>
+      'همکارانت نام و قدم‌های هفتگی‌ات را در رتبه‌بندی می‌بینند؛ سازمان فقط آمار کلی می‌بیند، نه اطلاعات سلامت تو.';
+
+  @override
+  String get orgJoin => 'عضویت';
+
+  @override
+  String get orgLeave => 'خروج از سازمان';
+
+  @override
+  String orgLeaveConfirm(String name) {
+    return 'از «$name» خارج می‌شوی؟';
+  }
+
+  @override
+  String orgMembers(String n) {
+    return '$n عضو';
+  }
+
+  @override
+  String get orgInactive => 'اشتراک سازمان فعال نیست.';
+
+  @override
+  String get orgMyRank => 'رتبه من این هفته';
+
+  @override
+  String get orgMySteps => 'قدم‌های این هفته';
+
+  @override
+  String get orgDepartment => 'واحد';
+
+  @override
+  String get orgPickDepartment => 'انتخاب کن';
+
+  @override
+  String get orgChallenges => 'چالش‌های سازمان';
+
+  @override
+  String orgEndsIn(String when) {
+    return 'پایان $when';
+  }
+
+  @override
+  String get orgWeekRanking => 'رتبه‌بندی همکاران (این هفته)';
+
+  @override
+  String get orgYou => 'تو';
+
+  @override
+  String get orgDepartments => 'میانگین قدم واحدها';
+
+  @override
+  String get orgSmallGroup => 'کمتر از ۳ نفر';
+
+  @override
+  String orgAvg(String n) {
+    return '$n قدم';
+  }
+
+  @override
+  String get profileOrganization => 'سازمان من';
 }

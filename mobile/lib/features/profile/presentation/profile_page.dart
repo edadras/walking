@@ -124,6 +124,7 @@ class ProfilePage extends ConsumerWidget {
           tile(Icons.emoji_events_outlined, l.profileAchievements, onTap: () => context.push('/achievements')),
           tile(Icons.leaderboard_outlined, l.profileLeaderboard, onTap: () => context.push('/leaderboard')),
           tile(Icons.people_outline_rounded, l.profileFriends, onTap: () => context.push('/friends')),
+          tile(Icons.apartment_rounded, l.profileOrganization, onTap: () => context.push('/organization')),
           tile(Icons.insights_rounded, l.profileHealth, onTap: () => context.push('/health')),
           tile(Icons.local_drink_outlined, l.profileWater, onTap: () => context.push('/water')),
           tile(Icons.group_add_outlined, l.profileReferral, onTap: () => context.push('/referral')),

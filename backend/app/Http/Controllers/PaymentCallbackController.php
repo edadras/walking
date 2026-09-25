@@ -38,6 +38,21 @@ class PaymentCallbackController extends Controller
                 'backLabel' => 'بازگشت به پنل اسپانسر',
             ]);
         }
+        if ($payment->organization_invoice_id !== null) {
+            $invoice = $payment->organizationInvoice;
+
+            return view('payments.result', [
+                'paid' => $payment->status === Payment::PAID,
+                'pending' => $payment->status === Payment::PENDING,
+                'refId' => $payment->ref_id,
+                'label' => 'اشتراک سازمانی '.$invoice->number().' — '.number_format($invoice->seats).' نفر، '.$invoice->months.' ماه',
+                'number' => $invoice->number(),
+                'amount' => $payment->amount_rial,
+                'needsSupport' => false,
+                'appLink' => url('/org/billing'),
+                'backLabel' => 'بازگشت به پنل سازمان',
+            ]);
+        }
         $order = $payment->order;
 
         return view('payments.result', [

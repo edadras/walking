@@ -10,6 +10,7 @@ import '../features/auth/application/session_controller.dart';
 import '../features/cashout/data/cashout.dart';
 import '../features/cashout/presentation/cashout_page.dart';
 import '../features/cashout/presentation/identity_page.dart';
+import '../features/organization/presentation/organization_page.dart';
 import '../features/challenges/presentation/challenges_page.dart';
 import '../features/gamification/presentation/achievements_page.dart';
 import '../features/gamification/presentation/leaderboard_page.dart';
@@ -92,6 +93,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/permissions', builder: (_, _) => const PermissionsPage()),
       GoRoute(path: '/quests', builder: (_, _) => const QuestsPage()),
       GoRoute(path: '/friends', builder: (_, _) => const FriendsPage()),
+      GoRoute(path: '/organization', builder: (_, _) => const OrganizationPage()),
       GoRoute(path: '/friend-challenges/:id', builder: (_, s) => FriendRacePage(id: s.pathParameters['id']!)),
       GoRoute(path: '/auth/phone', builder: (_, _) => const PhonePage()),
       GoRoute(

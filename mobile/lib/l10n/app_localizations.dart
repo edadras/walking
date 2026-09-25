@@ -3675,6 +3675,138 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'نوبت بررسی: {n}'**
   String cashoutQueue(String n);
+
+  /// No description provided for @orgTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'سازمان من'**
+  String get orgTitle;
+
+  /// No description provided for @orgJoinTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'برنامه سلامت محل کارت'**
+  String get orgJoinTitle;
+
+  /// No description provided for @orgJoinBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'اگر شرکتت در گام‌یار عضو است، با کد سازمان به رتبه‌بندی همکاران و چالش‌های سازمانی بپیوند.'**
+  String get orgJoinBody;
+
+  /// No description provided for @orgCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد سازمان'**
+  String get orgCode;
+
+  /// No description provided for @orgPrivacy.
+  ///
+  /// In fa, this message translates to:
+  /// **'همکارانت نام و قدم‌های هفتگی‌ات را در رتبه‌بندی می‌بینند؛ سازمان فقط آمار کلی می‌بیند، نه اطلاعات سلامت تو.'**
+  String get orgPrivacy;
+
+  /// No description provided for @orgJoin.
+  ///
+  /// In fa, this message translates to:
+  /// **'عضویت'**
+  String get orgJoin;
+
+  /// No description provided for @orgLeave.
+  ///
+  /// In fa, this message translates to:
+  /// **'خروج از سازمان'**
+  String get orgLeave;
+
+  /// No description provided for @orgLeaveConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'از «{name}» خارج می‌شوی؟'**
+  String orgLeaveConfirm(String name);
+
+  /// No description provided for @orgMembers.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} عضو'**
+  String orgMembers(String n);
+
+  /// No description provided for @orgInactive.
+  ///
+  /// In fa, this message translates to:
+  /// **'اشتراک سازمان فعال نیست.'**
+  String get orgInactive;
+
+  /// No description provided for @orgMyRank.
+  ///
+  /// In fa, this message translates to:
+  /// **'رتبه من این هفته'**
+  String get orgMyRank;
+
+  /// No description provided for @orgMySteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم‌های این هفته'**
+  String get orgMySteps;
+
+  /// No description provided for @orgDepartment.
+  ///
+  /// In fa, this message translates to:
+  /// **'واحد'**
+  String get orgDepartment;
+
+  /// No description provided for @orgPickDepartment.
+  ///
+  /// In fa, this message translates to:
+  /// **'انتخاب کن'**
+  String get orgPickDepartment;
+
+  /// No description provided for @orgChallenges.
+  ///
+  /// In fa, this message translates to:
+  /// **'چالش‌های سازمان'**
+  String get orgChallenges;
+
+  /// No description provided for @orgEndsIn.
+  ///
+  /// In fa, this message translates to:
+  /// **'پایان {when}'**
+  String orgEndsIn(String when);
+
+  /// No description provided for @orgWeekRanking.
+  ///
+  /// In fa, this message translates to:
+  /// **'رتبه‌بندی همکاران (این هفته)'**
+  String get orgWeekRanking;
+
+  /// No description provided for @orgYou.
+  ///
+  /// In fa, this message translates to:
+  /// **'تو'**
+  String get orgYou;
+
+  /// No description provided for @orgDepartments.
+  ///
+  /// In fa, this message translates to:
+  /// **'میانگین قدم واحدها'**
+  String get orgDepartments;
+
+  /// No description provided for @orgSmallGroup.
+  ///
+  /// In fa, this message translates to:
+  /// **'کمتر از ۳ نفر'**
+  String get orgSmallGroup;
+
+  /// No description provided for @orgAvg.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} قدم'**
+  String orgAvg(String n);
+
+  /// No description provided for @profileOrganization.
+  ///
+  /// In fa, this message translates to:
+  /// **'سازمان من'**
+  String get profileOrganization;
 }
 
 class _AppLocalizationsDelegate
