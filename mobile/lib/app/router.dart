@@ -39,6 +39,8 @@ import '../features/store/presentation/product_page.dart';
 import '../features/store/presentation/store_page.dart';
 import '../features/wallet/presentation/wallet_page.dart';
 import '../features/permissions/presentation/permissions_page.dart';
+import '../features/quests/presentation/quests_page.dart';
+import '../features/social/presentation/friends_page.dart';
 import '../core/permissions/required_permissions.dart';
 import '../features/shell/presentation/splash_page.dart';
 
@@ -85,6 +87,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingPage()),
       GoRoute(path: '/blocked', builder: (_, _) => const BlockedPage()),
       GoRoute(path: '/permissions', builder: (_, _) => const PermissionsPage()),
+      GoRoute(path: '/quests', builder: (_, _) => const QuestsPage()),
+      GoRoute(path: '/friends', builder: (_, _) => const FriendsPage()),
+      GoRoute(path: '/friend-challenges/:id', builder: (_, s) => FriendRacePage(id: s.pathParameters['id']!)),
       GoRoute(path: '/auth/phone', builder: (_, _) => const PhonePage()),
       GoRoute(
         path: '/auth/otp',

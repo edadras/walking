@@ -18,6 +18,8 @@ import '../../../core/widgets/step_ring.dart';
 import '../../activity/application/active_walk_controller.dart';
 import '../../ads/presentation/ad_slot.dart';
 import '../../activity/application/activity_providers.dart';
+import '../../gamification/presentation/streak_sheet.dart';
+import '../../quests/presentation/quests_page.dart';
 import '../../activity/application/tracking_service.dart';
 import '../../auth/application/session_controller.dart';
 import '../../gamification/data/gamification_models.dart';
@@ -110,6 +112,7 @@ class _HomeBody extends ConsumerWidget {
           _StreakRow(streak: view.data.streak!),
           const SizedBox(height: AppSpacing.md),
         ],
+        const QuestsSummaryCard(),
         if (view.data.wallet != null) ...[
           _PointsCard(points: t.points, wallet: view.data.wallet!),
           const SizedBox(height: AppSpacing.md),
@@ -180,11 +183,16 @@ class _StreakRow extends StatelessWidget {
     final l = context.l10n;
     final p = context.palette;
     return AppCard(
-      onTap: () => context.push('/achievements'),
+      onTap: () => showStreakSheet(context, streak),
       child: Row(children: [
         Icon(Icons.local_fire_department_rounded, color: streak.current > 0 ? p.goldInk : p.inkSubtle),
         const SizedBox(width: AppSpacing.xs),
         Text(l.homeStreak7(Fa.digits(streak.current)), style: context.text.titleSmall),
+        if (streak.freezes.owned > 0) ...[
+          const SizedBox(width: AppSpacing.xs),
+          Icon(Icons.ac_unit_rounded, size: 16, color: p.info, semanticLabel: l.freezeOwned(Fa.digits(streak.freezes.owned))),
+          if (streak.freezes.owned > 1) Text(Fa.digits(streak.freezes.owned), style: context.text.labelSmall?.copyWith(color: p.info)),
+        ],
         const Spacer(),
         for (final d in streak.days)
           Padding(
@@ -195,9 +203,10 @@ class _StreakRow extends StatelessWidget {
                 height: 14,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: d.reached ? p.green : (d.future ? null : p.surfaceSunken),
-                  border: Border.all(color: d.reached ? p.green : p.border),
+                  color: d.reached ? p.green : (d.frozen ? p.info : (d.future ? null : p.surfaceSunken)),
+                  border: Border.all(color: d.reached ? p.green : (d.frozen ? p.info : p.border)),
                 ),
+                child: d.frozen ? const Icon(Icons.ac_unit_rounded, size: 10, color: Colors.white) : null,
               ),
               const SizedBox(height: 2),
               Text(FaDate.weekdayShort(d.date), style: context.text.labelSmall),

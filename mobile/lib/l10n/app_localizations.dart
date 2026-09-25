@@ -2943,6 +2943,372 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'پرداخت انجام نشد و سفارش لغو شد.'**
   String get orderPaymentFailed;
+
+  /// No description provided for @profileTheme.
+  ///
+  /// In fa, this message translates to:
+  /// **'ظاهر برنامه'**
+  String get profileTheme;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In fa, this message translates to:
+  /// **'مطابق گوشی'**
+  String get themeSystem;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In fa, this message translates to:
+  /// **'روشن'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In fa, this message translates to:
+  /// **'تیره'**
+  String get themeDark;
+
+  /// No description provided for @freezeTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'محافظ زنجیره'**
+  String get freezeTitle;
+
+  /// No description provided for @freezeBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'اگر یک روز به هدفت نرسی، محافظ به‌طور خودکار همان روز را پوشش می‌دهد و زنجیره‌ات نمی‌شکند. فقط برای دو روز گذشته کار می‌کند.'**
+  String get freezeBody;
+
+  /// No description provided for @freezeBuy.
+  ///
+  /// In fa, this message translates to:
+  /// **'خرید محافظ با {price} امتیاز'**
+  String freezeBuy(String price);
+
+  /// No description provided for @freezeFull.
+  ///
+  /// In fa, this message translates to:
+  /// **'ظرفیت محافظ‌هایت پر است.'**
+  String get freezeFull;
+
+  /// No description provided for @freezeBought.
+  ///
+  /// In fa, this message translates to:
+  /// **'محافظ زنجیره خریداری شد.'**
+  String get freezeBought;
+
+  /// No description provided for @freezeOwned.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} محافظ زنجیره'**
+  String freezeOwned(String n);
+
+  /// No description provided for @streakLongest.
+  ///
+  /// In fa, this message translates to:
+  /// **'طولانی‌ترین زنجیره: {n} روز'**
+  String streakLongest(String n);
+
+  /// No description provided for @questsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'مأموریت‌ها'**
+  String get questsTitle;
+
+  /// No description provided for @questsEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'فعلاً مأموریتی تعریف نشده است.'**
+  String get questsEmpty;
+
+  /// No description provided for @questsDaily.
+  ///
+  /// In fa, this message translates to:
+  /// **'امروز'**
+  String get questsDaily;
+
+  /// No description provided for @questsDailyHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر شب نیمه‌شب تازه می‌شوند'**
+  String get questsDailyHint;
+
+  /// No description provided for @questsWeekly.
+  ///
+  /// In fa, this message translates to:
+  /// **'این هفته'**
+  String get questsWeekly;
+
+  /// No description provided for @questsWeeklyHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'از شنبه تا جمعه'**
+  String get questsWeeklyHint;
+
+  /// No description provided for @questClaim.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت'**
+  String get questClaim;
+
+  /// No description provided for @questDone.
+  ///
+  /// In fa, this message translates to:
+  /// **'دریافت شد'**
+  String get questDone;
+
+  /// No description provided for @questClaimed.
+  ///
+  /// In fa, this message translates to:
+  /// **'{points} امتیاز به کیف پولت اضافه شد (پس از بررسی آزاد می‌شود).'**
+  String questClaimed(String points);
+
+  /// No description provided for @questsReady.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} جایزه آماده'**
+  String questsReady(String n);
+
+  /// No description provided for @questsProgress.
+  ///
+  /// In fa, this message translates to:
+  /// **'{done} از {total}'**
+  String questsProgress(String done, String total);
+
+  /// No description provided for @friendsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'دوستان'**
+  String get friendsTitle;
+
+  /// No description provided for @profileFriends.
+  ///
+  /// In fa, this message translates to:
+  /// **'دوستان و رقابت دوستانه'**
+  String get profileFriends;
+
+  /// No description provided for @friendMyCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد دوستی تو'**
+  String get friendMyCode;
+
+  /// No description provided for @friendShare.
+  ///
+  /// In fa, this message translates to:
+  /// **'ارسال کد'**
+  String get friendShare;
+
+  /// No description provided for @friendShareText.
+  ///
+  /// In fa, this message translates to:
+  /// **'در گام‌یار با من دوست شو و با هم قدم بزنیم! کد دوستی من: {code}'**
+  String friendShareText(String code);
+
+  /// No description provided for @friendAddLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد دوستت'**
+  String get friendAddLabel;
+
+  /// No description provided for @friendAdd.
+  ///
+  /// In fa, this message translates to:
+  /// **'افزودن'**
+  String get friendAdd;
+
+  /// No description provided for @friendRequested.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست دوستی فرستاده شد.'**
+  String get friendRequested;
+
+  /// No description provided for @friendIncoming.
+  ///
+  /// In fa, this message translates to:
+  /// **'درخواست‌های دوستی'**
+  String get friendIncoming;
+
+  /// No description provided for @friendOutgoing.
+  ///
+  /// In fa, this message translates to:
+  /// **'در انتظار تأیید'**
+  String get friendOutgoing;
+
+  /// No description provided for @friendWaiting.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز تأیید نکرده'**
+  String get friendWaiting;
+
+  /// No description provided for @friendAccept.
+  ///
+  /// In fa, this message translates to:
+  /// **'پذیرفتن'**
+  String get friendAccept;
+
+  /// No description provided for @friendDecline.
+  ///
+  /// In fa, this message translates to:
+  /// **'رد کردن'**
+  String get friendDecline;
+
+  /// No description provided for @friendAccepted.
+  ///
+  /// In fa, this message translates to:
+  /// **'حالا با هم دوستید.'**
+  String get friendAccepted;
+
+  /// No description provided for @friendWeekRanking.
+  ///
+  /// In fa, this message translates to:
+  /// **'قدم‌های این هفته'**
+  String get friendWeekRanking;
+
+  /// No description provided for @friendWeekSteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} قدم این هفته'**
+  String friendWeekSteps(String n);
+
+  /// No description provided for @friendEmpty.
+  ///
+  /// In fa, this message translates to:
+  /// **'هنوز دوستی اضافه نکرده‌ای. کدت را بفرست یا کد دوستت را وارد کن.'**
+  String get friendEmpty;
+
+  /// No description provided for @friendRemoveConfirm.
+  ///
+  /// In fa, this message translates to:
+  /// **'{name} از فهرست دوستانت حذف شود؟'**
+  String friendRemoveConfirm(String name);
+
+  /// No description provided for @raceTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'رقابت‌های دوستانه'**
+  String get raceTitle;
+
+  /// No description provided for @raceNew.
+  ///
+  /// In fa, this message translates to:
+  /// **'رقابت دوستانه'**
+  String get raceNew;
+
+  /// No description provided for @raceHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'از فردا شروع می‌شود و فقط قدم‌های تأییدشده حساب می‌شوند. این رقابت امتیاز ندارد؛ فقط افتخار!'**
+  String get raceHint;
+
+  /// No description provided for @raceName.
+  ///
+  /// In fa, this message translates to:
+  /// **'نام رقابت'**
+  String get raceName;
+
+  /// No description provided for @raceNameHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'مثلاً «هفته پرقدم»'**
+  String get raceNameHint;
+
+  /// No description provided for @raceDays.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} روز'**
+  String raceDays(String n);
+
+  /// No description provided for @raceCreate.
+  ///
+  /// In fa, this message translates to:
+  /// **'ساختن و دعوت'**
+  String get raceCreate;
+
+  /// No description provided for @raceMembers.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} نفر'**
+  String raceMembers(String n);
+
+  /// No description provided for @raceInvited.
+  ///
+  /// In fa, this message translates to:
+  /// **'دعوت شده‌ای'**
+  String get raceInvited;
+
+  /// No description provided for @raceUpcoming.
+  ///
+  /// In fa, this message translates to:
+  /// **'شروع از فردا'**
+  String get raceUpcoming;
+
+  /// No description provided for @raceRunning.
+  ///
+  /// In fa, this message translates to:
+  /// **'در جریان'**
+  String get raceRunning;
+
+  /// No description provided for @raceFinished.
+  ///
+  /// In fa, this message translates to:
+  /// **'تمام‌شده'**
+  String get raceFinished;
+
+  /// No description provided for @raceBy.
+  ///
+  /// In fa, this message translates to:
+  /// **'ساخته‌شده توسط {name}'**
+  String raceBy(String name);
+
+  /// No description provided for @raceInviteBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'به این رقابت دعوت شده‌ای. شرکت می‌کنی؟'**
+  String get raceInviteBody;
+
+  /// No description provided for @raceJoin.
+  ///
+  /// In fa, this message translates to:
+  /// **'شرکت می‌کنم'**
+  String get raceJoin;
+
+  /// No description provided for @raceLeave.
+  ///
+  /// In fa, this message translates to:
+  /// **'خروج از رقابت'**
+  String get raceLeave;
+
+  /// No description provided for @raceStartsTomorrow.
+  ///
+  /// In fa, this message translates to:
+  /// **'رقابت از فردا شروع می‌شود.'**
+  String get raceStartsTomorrow;
+
+  /// No description provided for @raceSteps.
+  ///
+  /// In fa, this message translates to:
+  /// **'{n} قدم'**
+  String raceSteps(String n);
+
+  /// No description provided for @racePending.
+  ///
+  /// In fa, this message translates to:
+  /// **'در انتظار پاسخ: {names}'**
+  String racePending(String names);
+
+  /// No description provided for @raceFairPlay.
+  ///
+  /// In fa, this message translates to:
+  /// **'فقط قدم‌های تأییدشده توسط سیستم ضد تقلب شمرده می‌شوند.'**
+  String get raceFairPlay;
+
+  /// No description provided for @friendAddHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد دعوت دوستت'**
+  String get friendAddHint;
 }
 
 class _AppLocalizationsDelegate

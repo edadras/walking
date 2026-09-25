@@ -16,6 +16,7 @@ import '../../gamification/data/gamification_repository.dart';
 import '../../gamification/presentation/achievements_page.dart';
 import '../data/profile_repository.dart';
 import 'goal_sheet.dart';
+import '../../../core/theme/theme_mode.dart';
 import '../../../core/widgets/net_image.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -28,6 +29,26 @@ class ProfilePage extends ConsumerWidget {
     } on ApiException catch (e) {
       if (context.mounted) showAppSnack(context, e.message);
     }
+  }
+
+  Future<void> _pickTheme(BuildContext context, WidgetRef ref) async {
+    final l = context.l10n;
+    final current = ref.read(themeModeProvider);
+    final picked = await showModalBottomSheet<ThemeMode>(
+      context: context,
+      showDragHandle: true,
+      builder: (c) => SafeArea(
+        child: RadioGroup<ThemeMode>(
+          groupValue: current,
+          onChanged: (m) => Navigator.pop(c, m),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            for (final (mode, label) in [(ThemeMode.system, l.themeSystem), (ThemeMode.light, l.themeLight), (ThemeMode.dark, l.themeDark)])
+              RadioListTile<ThemeMode>(value: mode, title: Text(label)),
+          ]),
+        ),
+      ),
+    );
+    if (picked != null) await ref.read(themeModeProvider.notifier).set(picked);
   }
 
   Future<void> _logout(BuildContext context, WidgetRef ref) async {
@@ -102,6 +123,7 @@ class ProfilePage extends ConsumerWidget {
           section(l.profileSectionActivity),
           tile(Icons.emoji_events_outlined, l.profileAchievements, onTap: () => context.push('/achievements')),
           tile(Icons.leaderboard_outlined, l.profileLeaderboard, onTap: () => context.push('/leaderboard')),
+          tile(Icons.people_outline_rounded, l.profileFriends, onTap: () => context.push('/friends')),
           tile(Icons.insights_rounded, l.profileHealth, onTap: () => context.push('/health')),
           tile(Icons.local_drink_outlined, l.profileWater, onTap: () => context.push('/water')),
           tile(Icons.group_add_outlined, l.profileReferral, onTap: () => context.push('/referral')),
@@ -120,6 +142,13 @@ class ProfilePage extends ConsumerWidget {
             value: me.leaderboardVisible,
             onChanged: (v) => _toggleLeaderboard(context, ref, v),
           ),
+          tile(Icons.dark_mode_outlined, l.profileTheme,
+              trailing: switch (ref.watch(themeModeProvider)) {
+                ThemeMode.light => l.themeLight,
+                ThemeMode.dark => l.themeDark,
+                ThemeMode.system => l.themeSystem,
+              },
+              onTap: () => _pickTheme(context, ref)),
           tile(Icons.notifications_none_rounded, l.profileNotifications, onTap: () => context.push('/profile/notifications')),
           tile(Icons.devices_outlined, l.profileDevices, onTap: () => context.push('/profile/devices')),
           tile(Icons.person_remove_outlined, l.profileDeleteAccount, onTap: () => context.push('/profile/delete')),

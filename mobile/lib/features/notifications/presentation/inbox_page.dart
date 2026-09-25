@@ -21,6 +21,8 @@ IconData _icon(InboxItem n) => switch (n.data['type']) {
       'visit' => Icons.storefront_outlined,
       'order' => Icons.receipt_long_outlined,
       'support' => Icons.support_agent_rounded,
+      'friend' => Icons.people_outline_rounded,
+      'friend_challenge' => Icons.emoji_events_outlined,
       _ => n.category == 'reward_received' ? Icons.toll_rounded : Icons.campaign_outlined,
     };
 

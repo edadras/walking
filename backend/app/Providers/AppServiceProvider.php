@@ -138,6 +138,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('purchase', fn (Request $r) => Limit::perMinute(10)->by('buy:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('support', fn (Request $r) => Limit::perHour(30)->by('sup:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('ads', fn (Request $r) => Limit::perMinute(60)->by('ads:'.($r->user()?->id ?? $r->ip())));
+        RateLimiter::for('social', fn (Request $r) => Limit::perHour(30)->by('soc:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('map-tiles', fn (Request $r) => Limit::perMinute(600)->by('tile:'.($r->user()?->id ?? $r->ip())));
         RateLimiter::for('client-errors', fn (Request $r) => [Limit::perMinute(10)->by('ce:'.$r->ip()), Limit::perDay(300)->by('ced:'.$r->ip())]);
         RateLimiter::for('analytics', fn (Request $r) => Limit::perMinute(20)->by('an:'.($r->user()?->id ?? $r->ip())));

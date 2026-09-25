@@ -21,18 +21,37 @@ class LevelProgress {
 }
 
 class StreakWeek {
-  const StreakWeek({required this.current, required this.days});
+  const StreakWeek({required this.current, required this.days, this.longest = 0, this.freezes = StreakFreezes.none});
 
   factory StreakWeek.fromJson(Map<String, dynamic> j) => StreakWeek(
         current: _i(j['current']),
+        longest: _i(j['longest']),
         days: ((j['week'] as List?) ?? const [])
             .map((e) => e as Map<String, dynamic>)
-            .map((e) => (date: DateTime.parse(e['date'] as String), reached: e['reached'] == true, future: e['future'] == true))
+            .map((e) => (date: DateTime.parse(e['date'] as String), reached: e['reached'] == true, frozen: e['frozen'] == true, future: e['future'] == true))
             .toList(),
+        freezes: j['freezes'] == null ? StreakFreezes.none : StreakFreezes.fromJson(j['freezes'] as Map<String, dynamic>),
       );
 
   final int current;
-  final List<({DateTime date, bool reached, bool future})> days;
+  final int longest;
+  final List<({DateTime date, bool reached, bool frozen, bool future})> days;
+  final StreakFreezes freezes;
+}
+
+/// Streak freezes: bought with points, spent automatically on one missed day.
+class StreakFreezes {
+  const StreakFreezes({required this.owned, required this.max, required this.price, required this.canBuy});
+
+  factory StreakFreezes.fromJson(Map<String, dynamic> j) =>
+      StreakFreezes(owned: _i(j['owned']), max: _i(j['max']), price: _i(j['price']), canBuy: j['can_buy'] == true);
+
+  static const none = StreakFreezes(owned: 0, max: 0, price: 0, canBuy: false);
+
+  final int owned;
+  final int max;
+  final int price;
+  final bool canBuy;
 }
 
 class AchievementItem {

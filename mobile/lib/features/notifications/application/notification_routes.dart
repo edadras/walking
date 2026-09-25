@@ -10,6 +10,8 @@ String? notificationRoute(Map<String, Object?> data) {
     'visit' => '/coupons',
     'order' when id is String && id.isNotEmpty => '/orders/$id',
     'support' when id is String && id.isNotEmpty => '/support/$id',
+    'friend' => '/friends',
+    'friend_challenge' when id is String && id.isNotEmpty => '/friend-challenges/$id',
     _ => null,
   };
 }

@@ -28,6 +28,7 @@ class RewardsPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(l.rewardsTitle),
         actions: [
+          IconButton(tooltip: l.questsTitle, icon: const Icon(Icons.flag_circle_outlined), onPressed: () => context.push('/quests')),
           IconButton(tooltip: l.challengesTitle, icon: const Icon(Icons.flag_outlined), onPressed: () => context.push('/challenges')),
           IconButton(tooltip: l.leaderboardTitle, icon: const Icon(Icons.leaderboard_outlined), onPressed: () => context.push('/leaderboard')),
         ],

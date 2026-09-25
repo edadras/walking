@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/network/api_client.dart';
 import '../../../core/providers.dart';
 import 'gamification_models.dart';
 
@@ -22,3 +24,9 @@ final referralProvider = FutureProvider.autoDispose<ReferralSummary>((ref) async
   final d = (await ref.watch(apiClientProvider).get('/referral'))['data'] as Map<String, dynamic>;
   return ReferralSummary.fromJson(d);
 });
+
+/// Buys one streak freeze; the key makes a retried tap charge only once.
+Future<StreakWeek> buyStreakFreeze(ApiClient api, String idempotencyKey) async {
+  final d = await api.post('/streak/freezes', options: Req.signed(Options(headers: {'Idempotency-Key': idempotencyKey})));
+  return StreakWeek.fromJson(d['data'] as Map<String, dynamic>);
+}

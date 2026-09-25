@@ -39,6 +39,10 @@ return [
         'map.attribution' => ['value' => 'OpenStreetMap', 'group' => 'app', 'public' => true, 'description' => 'منبع نقشه (نمایش روی نقشه)'],
         'map.max_zoom' => ['value' => 18, 'group' => 'app', 'public' => true, 'description' => 'حداکثر بزرگ‌نمایی نقشه'],
 
+        // Streak freeze: bought with points, covers one missed day automatically.
+        'streak.freeze_price' => ['value' => 300, 'group' => 'gamification', 'public' => true, 'description' => 'قیمت محافظ زنجیره (امتیاز)'],
+        'streak.freeze_max_owned' => ['value' => 2, 'group' => 'gamification', 'public' => true, 'description' => 'حداکثر محافظ ذخیره‌شده'],
+
         // Activity
         'activity.daily_goal_options' => ['value' => [5000, 7500, 10000, 12500, 15000], 'group' => 'activity', 'public' => true, 'description' => 'گزینه‌های هدف روزانه'],
         'activity.default_daily_goal' => ['value' => 7500, 'group' => 'activity', 'public' => true, 'description' => 'هدف روزانه پیش‌فرض'],
@@ -106,6 +110,8 @@ return [
         'ads' => ['enabled' => false, 'description' => 'تبلیغات'],
         'rewarded_ads' => ['enabled' => false, 'description' => 'تبلیغ جایزه‌دار'],
         'referral' => ['enabled' => true, 'description' => 'دعوت از دوستان'],
+        'quests' => ['enabled' => true, 'description' => 'مأموریت‌های روزانه و هفتگی'],
+        'friends' => ['enabled' => true, 'description' => 'دوستان و چالش گروهی'],
         'health_connect' => ['enabled' => false, 'description' => 'اتصال به Health Connect'],
         'ios' => ['enabled' => false, 'description' => 'پشتیبانی iOS'],
     ],

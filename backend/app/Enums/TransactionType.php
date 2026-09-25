@@ -8,12 +8,14 @@ enum TransactionType: string
     case GoalBonus = 'goal_bonus';
     case StreakBonus = 'streak_bonus';
     case ChallengeReward = 'challenge_reward';
+    case QuestReward = 'quest_reward';
     case SponsorReward = 'sponsor_reward';
     case ReferralReward = 'referral_reward';
     case AdReward = 'ad_reward';
     case AchievementReward = 'achievement_reward';
     case CouponReward = 'coupon_reward';
     case Purchase = 'purchase';
+    case StreakFreeze = 'streak_freeze';
     case Refund = 'refund';
     case Adjustment = 'adjustment';
     case Expiration = 'expiration';
@@ -25,12 +27,14 @@ enum TransactionType: string
             self::GoalBonus => 'پاداش هدف روزانه',
             self::StreakBonus => 'پاداش روزهای متوالی',
             self::ChallengeReward => 'پاداش چالش',
+            self::QuestReward => 'پاداش مأموریت',
             self::SponsorReward => 'پاداش اسپانسر',
             self::ReferralReward => 'پاداش دعوت',
             self::AdReward => 'پاداش تبلیغ',
             self::AchievementReward => 'پاداش دستاورد',
             self::CouponReward => 'پاداش کوپن',
             self::Purchase => 'خرید',
+            self::StreakFreeze => 'خرید محافظ زنجیره',
             self::Refund => 'بازگشت وجه',
             self::Adjustment => 'اصلاح',
             self::Expiration => 'انقضا',
@@ -41,7 +45,7 @@ enum TransactionType: string
     public function group(): string
     {
         return match ($this) {
-            self::Purchase => 'purchase',
+            self::Purchase, self::StreakFreeze => 'purchase',
             self::Adjustment, self::Expiration => 'adjustment',
             self::SponsorReward, self::CouponReward => 'sponsor',
             self::Refund => 'earned',

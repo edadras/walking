@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/localization/l10n.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/theme_mode.dart';
 import '../features/notifications/application/push_service.dart';
 import 'router.dart';
 import 'session_effects.dart';
@@ -20,9 +21,8 @@ class GamyarApp extends ConsumerWidget {
       onGenerateTitle: (c) => c.l10n.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      // Dark theme is fully tokenised; enable by switching themeMode once designed/QA'd.
       darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.light,
+      themeMode: ref.watch(themeModeProvider),
       locale: const Locale('fa'),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [

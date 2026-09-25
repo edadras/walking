@@ -11,7 +11,6 @@ use App\Enums\SessionStatus;
 use App\Models\ChallengeParticipant;
 use App\Models\DailyActivity;
 use App\Models\User;
-use App\Models\UserStreak;
 use App\Models\WalkingSession;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
@@ -100,10 +99,7 @@ class HomeSummary
                 ],
                 'week' => $week,
                 'wallet' => $this->wallet->for($user),
-                'streak' => [
-                    'current' => (int) (UserStreak::query()->find($user->id)?->current_days ?? 0),
-                    'week' => $this->streaks->weekDots($user),
-                ],
+                'streak' => $this->streaks->summary($user),
                 'level' => $this->xp->progress($user),
                 'water' => array_intersect_key($this->water->day($user), array_flip(['total_ml', 'goal_ml', 'glass_ml', 'glasses', 'goal_glasses'])),
                 'challenge' => $this->activeChallenge($user),

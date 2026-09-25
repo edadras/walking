@@ -15,6 +15,9 @@ class MainActivity : FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, OemSettingsChannel.NAME)
             .setMethodCallHandler(OemSettingsChannel(applicationContext))
 
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, StepWidget.CHANNEL)
+            .setMethodCallHandler(StepWidget.Channel(applicationContext))
+
         PusheChannel.attach()
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, PusheChannel.METHODS).setMethodCallHandler(PusheChannel)
         EventChannel(flutterEngine.dartExecutor.binaryMessenger, PusheChannel.EVENTS).setStreamHandler(PusheChannel)

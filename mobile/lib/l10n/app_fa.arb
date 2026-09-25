@@ -1052,5 +1052,167 @@
       }
     }
   },
-  "orderPaymentFailed": "پرداخت انجام نشد و سفارش لغو شد."
+  "orderPaymentFailed": "پرداخت انجام نشد و سفارش لغو شد.",
+  "profileTheme": "ظاهر برنامه",
+  "themeSystem": "مطابق گوشی",
+  "themeLight": "روشن",
+  "themeDark": "تیره",
+  "freezeTitle": "محافظ زنجیره",
+  "freezeBody": "اگر یک روز به هدفت نرسی، محافظ به‌طور خودکار همان روز را پوشش می‌دهد و زنجیره‌ات نمی‌شکند. فقط برای دو روز گذشته کار می‌کند.",
+  "freezeBuy": "خرید محافظ با {price} امتیاز",
+  "@freezeBuy": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "freezeFull": "ظرفیت محافظ‌هایت پر است.",
+  "freezeBought": "محافظ زنجیره خریداری شد.",
+  "freezeOwned": "{n} محافظ زنجیره",
+  "@freezeOwned": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "streakLongest": "طولانی‌ترین زنجیره: {n} روز",
+  "@streakLongest": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "questsTitle": "مأموریت‌ها",
+  "questsEmpty": "فعلاً مأموریتی تعریف نشده است.",
+  "questsDaily": "امروز",
+  "questsDailyHint": "هر شب نیمه‌شب تازه می‌شوند",
+  "questsWeekly": "این هفته",
+  "questsWeeklyHint": "از شنبه تا جمعه",
+  "questClaim": "دریافت",
+  "questDone": "دریافت شد",
+  "questClaimed": "{points} امتیاز به کیف پولت اضافه شد (پس از بررسی آزاد می‌شود).",
+  "@questClaimed": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "questsReady": "{n} جایزه آماده",
+  "@questsReady": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "questsProgress": "{done} از {total}",
+  "@questsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "friendsTitle": "دوستان",
+  "profileFriends": "دوستان و رقابت دوستانه",
+  "friendMyCode": "کد دوستی تو",
+  "friendShare": "ارسال کد",
+  "friendShareText": "در گام‌یار با من دوست شو و با هم قدم بزنیم! کد دوستی من: {code}",
+  "@friendShareText": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "friendAddLabel": "کد دوستت",
+  "friendAdd": "افزودن",
+  "friendRequested": "درخواست دوستی فرستاده شد.",
+  "friendIncoming": "درخواست‌های دوستی",
+  "friendOutgoing": "در انتظار تأیید",
+  "friendWaiting": "هنوز تأیید نکرده",
+  "friendAccept": "پذیرفتن",
+  "friendDecline": "رد کردن",
+  "friendAccepted": "حالا با هم دوستید.",
+  "friendWeekRanking": "قدم‌های این هفته",
+  "friendWeekSteps": "{n} قدم این هفته",
+  "@friendWeekSteps": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "friendEmpty": "هنوز دوستی اضافه نکرده‌ای. کدت را بفرست یا کد دوستت را وارد کن.",
+  "friendRemoveConfirm": "{name} از فهرست دوستانت حذف شود؟",
+  "@friendRemoveConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "raceTitle": "رقابت‌های دوستانه",
+  "raceNew": "رقابت دوستانه",
+  "raceHint": "از فردا شروع می‌شود و فقط قدم‌های تأییدشده حساب می‌شوند. این رقابت امتیاز ندارد؛ فقط افتخار!",
+  "raceName": "نام رقابت",
+  "raceNameHint": "مثلاً «هفته پرقدم»",
+  "raceDays": "{n} روز",
+  "@raceDays": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "raceCreate": "ساختن و دعوت",
+  "raceMembers": "{n} نفر",
+  "@raceMembers": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "raceInvited": "دعوت شده‌ای",
+  "raceUpcoming": "شروع از فردا",
+  "raceRunning": "در جریان",
+  "raceFinished": "تمام‌شده",
+  "raceBy": "ساخته‌شده توسط {name}",
+  "@raceBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "raceInviteBody": "به این رقابت دعوت شده‌ای. شرکت می‌کنی؟",
+  "raceJoin": "شرکت می‌کنم",
+  "raceLeave": "خروج از رقابت",
+  "raceStartsTomorrow": "رقابت از فردا شروع می‌شود.",
+  "raceSteps": "{n} قدم",
+  "@raceSteps": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "racePending": "در انتظار پاسخ: {names}",
+  "@racePending": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "raceFairPlay": "فقط قدم‌های تأییدشده توسط سیستم ضد تقلب شمرده می‌شوند.",
+  "friendAddHint": "کد دعوت دوستت"
 }

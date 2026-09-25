@@ -7,24 +7,36 @@ use App\Domain\Gamification\StreakService;
 use App\Domain\Gamification\XpService;
 use App\Domain\Leaderboard\LeaderboardService;
 use App\Domain\Referral\ReferralService;
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use App\Models\UserAchievement;
-use App\Models\UserStreak;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class GamificationController extends Controller
 {
     public function progress(Request $request, XpService $xp, StreakService $streaks): JsonResponse
     {
         $user = $request->user();
-        $streak = UserStreak::query()->find($user->id);
 
         return response()->json(['data' => [
             'level' => $xp->progress($user),
-            'streak' => ['current' => $streak?->current_days ?? 0, 'longest' => $streak?->longest_days ?? 0, 'week' => $streaks->weekDots($user)],
+            'streak' => $streaks->summary($user),
         ]]);
+    }
+
+    public function buyFreeze(Request $request, StreakService $streaks): JsonResponse
+    {
+        $key = (string) $request->header('Idempotency-Key');
+        if (! preg_match('/^[A-Za-z0-9-]{16,64}$/', $key)) {
+            throw ApiException::unprocessable('idempotency_key_required', 'درخواست نامعتبر است.');
+        }
+        $streaks->buyFreeze($request->user(), $key);
+        Cache::forget('home:v1:'.$request->user()->id);
+
+        return response()->json(['data' => $streaks->summary($request->user())], 201);
     }
 
     public function achievements(Request $request, AchievementService $service): JsonResponse

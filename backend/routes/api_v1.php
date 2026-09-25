@@ -17,7 +17,9 @@ use App\Http\Controllers\Api\V1\MapTileController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProfileController;
+use App\Http\Controllers\Api\V1\QuestController;
 use App\Http\Controllers\Api\V1\RewardController;
+use App\Http\Controllers\Api\V1\SocialController;
 use App\Http\Controllers\Api\V1\SponsorOfferController;
 use App\Http\Controllers\Api\V1\StoreController;
 use App\Http\Controllers\Api\V1\SupportController;
@@ -98,6 +100,18 @@ Route::middleware(['auth:sanctum', 'app', 'throttle:api'])->group(function () {
     Route::delete('health/water/{log}', [HealthController::class, 'deleteWater']);
 
     Route::get('progress', [GamificationController::class, 'progress']);
+    Route::get('friends', [SocialController::class, 'friends']);
+    Route::post('friends', [SocialController::class, 'request'])->middleware('throttle:social');
+    Route::post('friends/{friendship}/accept', [SocialController::class, 'accept']);
+    Route::delete('friends/{friendship}', [SocialController::class, 'remove']);
+    Route::get('friend-challenges', [SocialController::class, 'challenges']);
+    Route::post('friend-challenges', [SocialController::class, 'createChallenge'])->middleware('throttle:social');
+    Route::get('friend-challenges/{challenge}', [SocialController::class, 'challenge']);
+    Route::post('friend-challenges/{challenge}/join', [SocialController::class, 'join']);
+    Route::post('friend-challenges/{challenge}/leave', [SocialController::class, 'leave']);
+    Route::get('quests', [QuestController::class, 'index']);
+    Route::post('quests/{quest}/claim', [QuestController::class, 'claim'])->middleware(['signed.device', 'throttle:purchase']);
+    Route::post('streak/freezes', [GamificationController::class, 'buyFreeze'])->middleware(['signed.device', 'throttle:purchase']);
     Route::get('achievements', [GamificationController::class, 'achievements']);
     Route::get('leaderboard', [GamificationController::class, 'leaderboard']);
     Route::get('referral', [GamificationController::class, 'referral']);

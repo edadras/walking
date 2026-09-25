@@ -1637,4 +1637,219 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get orderPaymentFailed => 'پرداخت انجام نشد و سفارش لغو شد.';
+
+  @override
+  String get profileTheme => 'ظاهر برنامه';
+
+  @override
+  String get themeSystem => 'مطابق گوشی';
+
+  @override
+  String get themeLight => 'روشن';
+
+  @override
+  String get themeDark => 'تیره';
+
+  @override
+  String get freezeTitle => 'محافظ زنجیره';
+
+  @override
+  String get freezeBody =>
+      'اگر یک روز به هدفت نرسی، محافظ به‌طور خودکار همان روز را پوشش می‌دهد و زنجیره‌ات نمی‌شکند. فقط برای دو روز گذشته کار می‌کند.';
+
+  @override
+  String freezeBuy(String price) {
+    return 'خرید محافظ با $price امتیاز';
+  }
+
+  @override
+  String get freezeFull => 'ظرفیت محافظ‌هایت پر است.';
+
+  @override
+  String get freezeBought => 'محافظ زنجیره خریداری شد.';
+
+  @override
+  String freezeOwned(String n) {
+    return '$n محافظ زنجیره';
+  }
+
+  @override
+  String streakLongest(String n) {
+    return 'طولانی‌ترین زنجیره: $n روز';
+  }
+
+  @override
+  String get questsTitle => 'مأموریت‌ها';
+
+  @override
+  String get questsEmpty => 'فعلاً مأموریتی تعریف نشده است.';
+
+  @override
+  String get questsDaily => 'امروز';
+
+  @override
+  String get questsDailyHint => 'هر شب نیمه‌شب تازه می‌شوند';
+
+  @override
+  String get questsWeekly => 'این هفته';
+
+  @override
+  String get questsWeeklyHint => 'از شنبه تا جمعه';
+
+  @override
+  String get questClaim => 'دریافت';
+
+  @override
+  String get questDone => 'دریافت شد';
+
+  @override
+  String questClaimed(String points) {
+    return '$points امتیاز به کیف پولت اضافه شد (پس از بررسی آزاد می‌شود).';
+  }
+
+  @override
+  String questsReady(String n) {
+    return '$n جایزه آماده';
+  }
+
+  @override
+  String questsProgress(String done, String total) {
+    return '$done از $total';
+  }
+
+  @override
+  String get friendsTitle => 'دوستان';
+
+  @override
+  String get profileFriends => 'دوستان و رقابت دوستانه';
+
+  @override
+  String get friendMyCode => 'کد دوستی تو';
+
+  @override
+  String get friendShare => 'ارسال کد';
+
+  @override
+  String friendShareText(String code) {
+    return 'در گام‌یار با من دوست شو و با هم قدم بزنیم! کد دوستی من: $code';
+  }
+
+  @override
+  String get friendAddLabel => 'کد دوستت';
+
+  @override
+  String get friendAdd => 'افزودن';
+
+  @override
+  String get friendRequested => 'درخواست دوستی فرستاده شد.';
+
+  @override
+  String get friendIncoming => 'درخواست‌های دوستی';
+
+  @override
+  String get friendOutgoing => 'در انتظار تأیید';
+
+  @override
+  String get friendWaiting => 'هنوز تأیید نکرده';
+
+  @override
+  String get friendAccept => 'پذیرفتن';
+
+  @override
+  String get friendDecline => 'رد کردن';
+
+  @override
+  String get friendAccepted => 'حالا با هم دوستید.';
+
+  @override
+  String get friendWeekRanking => 'قدم‌های این هفته';
+
+  @override
+  String friendWeekSteps(String n) {
+    return '$n قدم این هفته';
+  }
+
+  @override
+  String get friendEmpty =>
+      'هنوز دوستی اضافه نکرده‌ای. کدت را بفرست یا کد دوستت را وارد کن.';
+
+  @override
+  String friendRemoveConfirm(String name) {
+    return '$name از فهرست دوستانت حذف شود؟';
+  }
+
+  @override
+  String get raceTitle => 'رقابت‌های دوستانه';
+
+  @override
+  String get raceNew => 'رقابت دوستانه';
+
+  @override
+  String get raceHint =>
+      'از فردا شروع می‌شود و فقط قدم‌های تأییدشده حساب می‌شوند. این رقابت امتیاز ندارد؛ فقط افتخار!';
+
+  @override
+  String get raceName => 'نام رقابت';
+
+  @override
+  String get raceNameHint => 'مثلاً «هفته پرقدم»';
+
+  @override
+  String raceDays(String n) {
+    return '$n روز';
+  }
+
+  @override
+  String get raceCreate => 'ساختن و دعوت';
+
+  @override
+  String raceMembers(String n) {
+    return '$n نفر';
+  }
+
+  @override
+  String get raceInvited => 'دعوت شده‌ای';
+
+  @override
+  String get raceUpcoming => 'شروع از فردا';
+
+  @override
+  String get raceRunning => 'در جریان';
+
+  @override
+  String get raceFinished => 'تمام‌شده';
+
+  @override
+  String raceBy(String name) {
+    return 'ساخته‌شده توسط $name';
+  }
+
+  @override
+  String get raceInviteBody => 'به این رقابت دعوت شده‌ای. شرکت می‌کنی؟';
+
+  @override
+  String get raceJoin => 'شرکت می‌کنم';
+
+  @override
+  String get raceLeave => 'خروج از رقابت';
+
+  @override
+  String get raceStartsTomorrow => 'رقابت از فردا شروع می‌شود.';
+
+  @override
+  String raceSteps(String n) {
+    return '$n قدم';
+  }
+
+  @override
+  String racePending(String names) {
+    return 'در انتظار پاسخ: $names';
+  }
+
+  @override
+  String get raceFairPlay =>
+      'فقط قدم‌های تأییدشده توسط سیستم ضد تقلب شمرده می‌شوند.';
+
+  @override
+  String get friendAddHint => 'کد دعوت دوستت';
 }

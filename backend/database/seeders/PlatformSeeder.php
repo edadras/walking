@@ -18,6 +18,7 @@ use App\Models\Faq;
 use App\Models\FeatureFlag;
 use App\Models\Level;
 use App\Models\PointConversionRate;
+use App\Models\Quest;
 use App\Models\RewardRule;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -55,6 +56,11 @@ class PlatformSeeder extends Seeder
 
         foreach ($this->achievements() as $i => [$key, $name, $description, $icon, $metric, $threshold, $xp, $points]) {
             Achievement::query()->firstOrCreate(['key' => $key], compact('name', 'description', 'icon', 'metric', 'threshold') + ['xp_reward' => $xp, 'point_reward' => $points, 'sort' => $i]);
+        }
+
+        // Starter missions; admins tune or add more in the panel.
+        foreach ($this->quests() as $i => [$key, $title, $description, $period, $metric, $target, $points, $xp]) {
+            Quest::query()->firstOrCreate(['key' => $key], compact('title', 'description', 'period', 'metric', 'target') + ['reward_points' => $points, 'reward_xp' => $xp, 'sort' => $i]);
         }
 
         foreach ($this->pages() as $slug => [$title, $body]) {
@@ -115,6 +121,20 @@ class PlatformSeeder extends Seeder
     }
 
     /** Starting economy; every value is editable in the admin panel. */
+    /** @return list<array{0:string,1:string,2:string,3:string,4:string,5:int,6:int,7:int}> */
+    private function quests(): array
+    {
+        return [
+            ['daily_steps_6k', 'قدم‌های امروز', 'امروز ۶ هزار قدم تأییدشده بردار', 'daily', 'steps', 6000, 10, 20],
+            ['daily_active_20', 'بیست دقیقه تحرک', 'امروز ۲۰ دقیقه فعالیت داشته باش', 'daily', 'active_minutes', 20, 8, 15],
+            ['daily_water_2l', 'آب کافی', 'امروز ۲ لیتر آب بنوش و ثبت کن', 'daily', 'water_ml', 2000, 5, 10],
+            ['weekly_goal_5', 'پنج روز هدف', 'این هفته ۵ روز به هدف روزانه‌ات برس', 'weekly', 'goal_days', 5, 60, 100],
+            ['weekly_walks_3', 'سه پیاده‌روی ثبت‌شده', 'این هفته ۳ پیاده‌روی را با دکمه «شروع پیاده‌روی» ثبت کن', 'weekly', 'active_walks', 3, 40, 60],
+            ['weekly_distance_25k', 'بیست‌وپنج کیلومتر', 'این هفته ۲۵ کیلومتر راه برو', 'weekly', 'distance_m', 25000, 50, 80],
+            ['weekly_sponsor_1', 'سر زدن به اسپانسر', 'این هفته از یکی از شعبه‌های اسپانسر بازدید کن', 'weekly', 'sponsor_visits', 1, 20, 40],
+        ];
+    }
+
     private function rewardRules(): array
     {
         return [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/format/numbers.dart';
 import '../../../core/localization/l10n.dart';
@@ -24,6 +25,7 @@ class LeaderboardPage extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(l.leaderboardTitle),
+          actions: [IconButton(tooltip: l.friendsTitle, icon: const Icon(Icons.people_outline_rounded), onPressed: () => context.push('/friends'))],
           bottom: TabBar(tabs: [Tab(text: l.lbToday), Tab(text: l.lbWeek), Tab(text: l.lbMonth)]),
         ),
         body: const TabBarView(children: [_Board(period: 'day'), _Board(period: 'week'), _Board(period: 'month')]),

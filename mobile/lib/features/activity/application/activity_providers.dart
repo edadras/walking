@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_exception.dart';
+import '../../../core/platform/home_widget.dart';
 import '../data/activity_models.dart';
 import '../data/activity_repository.dart';
 import 'tracking_service.dart';
@@ -24,7 +27,9 @@ class HomeController extends AsyncNotifier<HomeView> {
   Future<HomeView> build() async {
     final data = await ref.watch(activityRepositoryProvider).home();
     final unsynced = await ref.read(trackingServiceProvider).pendingStepsToday();
-    return HomeView(data: data, unsyncedSteps: unsynced);
+    final view = HomeView(data: data, unsyncedSteps: unsynced);
+    unawaited(ref.read(homeWidgetProvider).update(steps: view.steps, goal: view.goal, streak: data.streak?.current ?? 0));
+    return view;
   }
 
   /// Pull-to-refresh: sync first so the numbers include the latest steps.
