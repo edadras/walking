@@ -203,7 +203,7 @@ class _PlacesMap extends ConsumerWidget {
           urlTemplate: config.mapTileUrl ?? Env.mapTileUrl,
           maxZoom: config.mapMaxZoom,
           userAgentPackageName: 'ir.gamyar.app',
-          tileProvider: NetworkTileProvider(headers: headers),
+          tileProvider: NetworkTileProvider(headers: Map.of(headers)), // flutter_map adds its User-Agent to this map
         ),
         MarkerLayer(markers: [
           Marker(point: center, width: 18, height: 18, child: Container(decoration: BoxDecoration(color: p.info, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 3)))),

@@ -91,7 +91,7 @@ class _RouteMapPageState extends ConsumerState<RouteMapPage> {
               urlTemplate: config.mapTileUrl ?? Env.mapTileUrl,
               maxZoom: config.mapMaxZoom,
               userAgentPackageName: 'ir.gamyar.app',
-              tileProvider: NetworkTileProvider(headers: headers),
+              tileProvider: NetworkTileProvider(headers: Map.of(headers)), // flutter_map adds its User-Agent to this map
             ),
             PolylineLayer(polylines: [
               for (final t in _tracks)
@@ -113,8 +113,7 @@ class _RouteMapPageState extends ConsumerState<RouteMapPage> {
           end: AppSpacing.md,
           child: Material(
             color: p.surface.withValues(alpha: 0.95),
-            borderRadius: AppRadius.mdAll,
-            elevation: 2,
+            shape: RoundedRectangleBorder(borderRadius: AppRadius.mdAll, side: BorderSide(color: p.border)),
             child: Padding(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
               child: Text(
@@ -162,8 +161,7 @@ class _ShareCardState extends ConsumerState<_ShareCard> {
     final trim = Fa.number((ref.watch(configProvider).settings['map.privacy_trim_m'] as num?) ?? 150);
     return Material(
       color: p.surface,
-      borderRadius: AppRadius.mdAll,
-      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: AppRadius.mdAll, side: BorderSide(color: p.border)),
       child: Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(AppSpacing.lg, AppSpacing.sm, AppSpacing.sm, AppSpacing.md),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [

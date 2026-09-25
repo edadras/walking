@@ -27,7 +27,11 @@ import 'package:gamyar/core/storage/secure_store.dart';
 import 'package:gamyar/core/permissions/required_permissions.dart';
 import 'package:gamyar/core/theme/theme_mode.dart';
 import 'package:gamyar/core/widgets/net_image.dart';
+import 'package:gamyar/core/sensors/step_platform.dart';
+import 'package:gamyar/features/activity/application/active_walk_controller.dart';
 import 'package:gamyar/features/activity/application/tracking_service.dart';
+import 'package:gamyar/features/posts/application/photo_outbox.dart';
+import 'package:gamyar/features/weather/application/weather_providers.dart';
 import 'package:gamyar/features/activity/data/session_queue.dart';
 import 'package:gamyar/features/auth/presentation/phone_page.dart';
 import 'package:gamyar/features/sponsors/application/location_source.dart';
@@ -90,6 +94,10 @@ Future<void> loadFonts() async {
 }
 
 void grantPermissions() {
+  // path_provider (flutter_map's tile cache, photo outbox): a temp folder.
+  final tmp = Directory.systemTemp.createTempSync('shots').path;
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(const MethodChannel('plugins.flutter.io/path_provider'), (call) async => tmp);
   // permission_handler: every permission granted (1).
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
     const MethodChannel('flutter.baseflow.com/permissions/methods'),
@@ -147,6 +155,8 @@ void main() {
         locationPermissionProvider.overrideWith((_) async => true),
         locationSourceProvider.overrideWithValue(_Here()),
         imageResolverProvider.overrideWithValue(_localImage),
+        coarseLocationProvider.overrideWithValue(const FixedLocation((lat: 35.7785, lng: 51.4135))),
+        outboxDirProvider.overrideWithValue(() async => Directory.systemTemp.createTempSync('outbox')),
         ...extra,
       ],
       child: RepaintBoundary(key: key, child: const GamyarApp()),
@@ -243,6 +253,31 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   }, skip: !enabled);
 
+  testWidgets('weather, cycling, walk photos and the route map', (tester) async {
+    final (key, c) = await boot(tester, signedIn: true, extra: [activeWalkProvider.overrideWith(_Riding.new)]);
+    final router = c.read(routerProvider);
+    await shoot(tester, key, '_warmup');
+    File('${outDir.path}/_warmup.png').deleteSync();
+    router.go('/home');
+    await shoot(tester, key, '56-home-weather');
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -1500));
+    await shoot(tester, key, '57-home-photos-strip');
+    router.go('/weather');
+    await shoot(tester, key, '58-weather');
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -900));
+    await shoot(tester, key, '59-weather-details');
+    router.go('/walk');
+    await shoot(tester, key, '60-walk-cycling');
+    router.go('/posts');
+    await shoot(tester, key, '61-photos');
+    await tester.tap(find.text('عکس‌های من'));
+    await shoot(tester, key, '62-photos-mine');
+    router.go('/map');
+    await shoot(tester, key, '63-route-map');
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+  }, skip: !enabled);
+
   testWidgets('permissions gate and dark mode', (tester) async {
     final (key, c) = await boot(tester, signedIn: true, extra: [
       devicePermissionsProvider.overrideWithValue(_DeniedDevice()),
@@ -284,7 +319,9 @@ void main() {
 /// fixtures render real product images with no network.
 final _imageCache = <String, MemoryImage>{};
 ImageProvider _localImage(String url) => _imageCache.putIfAbsent(url, () {
-      final file = File('../backend/database/seeders/assets/products/${Uri.parse(url).pathSegments.last}');
+      final name = Uri.parse(url).pathSegments.last;
+      final product = File('../backend/database/seeders/assets/products/$name');
+      final file = product.existsSync() ? product : File('../backend/database/seeders/assets/posts/$name');
       return MemoryImage(file.existsSync() ? file.readAsBytesSync() : Uint8List(0));
     });
 
@@ -299,6 +336,20 @@ class _DeniedDevice implements DevicePermissions {
   Future<OemInfo> oem() async => (manufacturer: 'Xiaomi', family: 'xiaomi');
   @override
   Future<bool> openAutostart() async => true;
+}
+
+/// A ride in progress: 5.8 km on a bike after 21 minutes.
+class _Riding extends ActiveWalkController {
+  @override
+  ActiveWalkState build() => const WalkRunning(LiveWalk(
+        steps: 312,
+        elapsed: Duration(minutes: 21, seconds: 14),
+        distanceM: 6240,
+        gps: true,
+        mode: MoveMode.cycling,
+        cyclingDistanceM: 5810,
+        speedKmh: 17.6,
+      ));
 }
 
 class _Dark extends ThemeModeController {

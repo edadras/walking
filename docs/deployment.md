@@ -60,6 +60,7 @@ TLS را روی Load Balancer یا یک Reverse Proxy جلوی nginx خاتمه 
 | `PUSHE_API_TOKEN` + `PUSHE_APP_ID` | ارسال Push به نسخه بازار/مایکت از طریق Pushe (توکن «وب‌سرویس» کنسول Pushe). |
 | `ZARINPAL_MERCHANT_ID` (+ `ZARINPAL_SANDBOX=true` در Staging) | پرداخت ریالی فروشگاه. بدون آن پرداخت ریالی خاموش است؛ Flag `money_payment` هم باید روشن شود. |
 | `MAP_TILE_UPSTREAM` + `MAP_TILE_UPSTREAM_HEADERS` | Tile نقشه از سرویس ایرانی کلیددار (مثلاً `x-api-key: …`)؛ از طریق Proxy و Cache سرور. بدون کلید: آدرس Tile را در تنظیمات ادمین (`map.tile_url`) بگذارید. |
+| `WEATHER_API_KEY` | کلید پلن تجاری Open-Meteo (نسخه بی‌کلید فقط غیرتجاری است). بدون آن آب‌وهوا از میزبان رایگان گرفته می‌شود. `routes:prune` (هر ۱۵ دقیقه) خطوط نقشه عمومی را پس از ۲۴ ساعت حذف می‌کند. |
 | `TRUSTED_PROXIES` | شبکه Load Balancer. |
 | `OPS_ALERT_EMAIL` | هشدار صف طولانی / Job ناموفق از Horizon و هشدارهای `ops:health-check`. |
 | `OPS_ALERT_WEBHOOK` | (اختیاری) Webhook گفتگو (Mattermost / Rocket.Chat / Slack با بدنه `{"text": …}`) برای همان هشدارها. |
