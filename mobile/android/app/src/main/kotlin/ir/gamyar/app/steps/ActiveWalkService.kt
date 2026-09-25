@@ -136,7 +136,8 @@ class ActiveWalkService : Service(), SensorEventListener {
     private fun buildNotification(steps: Int): Notification {
         val open = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         return NotificationCompat.Builder(this, CHANNEL)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_stat_gamyar)
+            .setColor(0xFF1A7F4B.toInt())
             .setContentTitle("پیاده‌روی در حال ثبت")
             .setContentText(toPersianDigits(steps) + " قدم")
             .setOngoing(true)

@@ -19,7 +19,7 @@ abstract final class LocalNotifications {
     final p = instance ?? plugin;
     if (_initialised[p] == true) return;
     await p.initialize(
-      settings: const InitializationSettings(android: AndroidInitializationSettings('@mipmap/ic_launcher')),
+      settings: const InitializationSettings(android: AndroidInitializationSettings('@drawable/ic_stat_gamyar')),
       onDidReceiveNotificationResponse: (r) => _taps.add(r.payload),
     );
     await p.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(generalChannel);

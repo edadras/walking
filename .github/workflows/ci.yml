@@ -82,6 +82,9 @@ jobs:
         run: flutter test
       - name: Build (debug APK)
         run: flutter build apk --debug --flavor bazaar
+      - name: Android unit tests (widgets, lock-screen notification, icon)
+        working-directory: mobile/android
+        run: ./gradlew :app:testBazaarDebugUnitTest
 
   e2e:
     name: E2E (Android emulator + real backend)

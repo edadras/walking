@@ -40,6 +40,11 @@ android {
     // the app (via Flutter's appFlavor) where it is distributed, which decides
     // Play Integrity vs. hardware key attestation and FCM vs. Pushe.
     flavorDimensions += "store"
+    // JVM tests render the widgets with Robolectric native graphics (see StepWidgetRenderTest).
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
     productFlavors {
         create("play") { dimension = "store" }
         create("bazaar") { dimension = "store" }
@@ -89,10 +94,45 @@ dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     // Play install referrer: carries the invite code through a Play Store install.
     implementation("com.android.installreferrer:installreferrer:2.2")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.16")
+    testImplementation("androidx.test:core:1.6.1")
     "bazaarImplementation"("co.pushe.plus:base:2.6.4")
     "myketImplementation"("co.pushe.plus:base:2.6.4")
 }
 
 flutter {
     source = "../.."
+}
+
+// ./gradlew :app:testBazaarDebugUnitTest -DwidgetShots=<dir> writes the widget renders as PNGs.
+tasks.withType<Test>().configureEach {
+    System.getProperty("widgetShots")?.let { systemProperty("widgetShots", it) }
+    // Robolectric fetches its Android runtime jar at test time: reuse the build's proxy/truststore.
+    listOf("https.proxyHost", "https.proxyPort", "http.proxyHost", "http.proxyPort", "http.nonProxyHosts",
+        "javax.net.ssl.trustStore", "javax.net.ssl.trustStoreType").forEach { key ->
+        System.getProperty(key)?.let { systemProperty(key, it) }
+    }
+}
+
+// Flutter's asset copy isn't wired into AGP's host-test packaging; declare it for each variant.
+tasks.matching { it.name.startsWith("package") && it.name.endsWith("UnitTestForUnitTest") }.configureEach {
+    val variant = name.removePrefix("package").removeSuffix("UnitTestForUnitTest")
+    dependsOn("copyFlutterAssets$variant")
+}
+
+// Robolectric's Android runtime, resolved by Gradle (cached, proxy-aware) instead of at test time.
+val robolectricRuntime: Configuration by configurations.creating
+dependencies {
+    robolectricRuntime("org.robolectric:android-all-instrumented:14-robolectric-10818077-i7")
+}
+val robolectricJars = layout.buildDirectory.dir("robolectric-jars")
+val copyRobolectricRuntime by tasks.registering(Copy::class) {
+    from(robolectricRuntime)
+    into(robolectricJars)
+}
+tasks.withType<Test>().configureEach {
+    dependsOn(copyRobolectricRuntime)
+    systemProperty("robolectric.offline", "true")
+    systemProperty("robolectric.dependency.dir", robolectricJars.get().asFile.absolutePath)
 }

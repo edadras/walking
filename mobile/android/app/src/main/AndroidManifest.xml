@@ -31,7 +31,8 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:supportsRtl="true"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -92,7 +93,13 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/step_widget_small_info" />
         </receiver>
-        <!-- Background FCM notifications land in the same channel the app creates. -->
+        <!-- Background FCM notifications: brand status-bar icon and the channel the app creates. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_gamyar" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/icon_bg" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="general" />

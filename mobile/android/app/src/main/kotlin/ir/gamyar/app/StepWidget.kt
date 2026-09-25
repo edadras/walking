@@ -36,7 +36,7 @@ class StepWidget : AppWidgetProvider() {
         private const val PREFS = "gamyar_widget"
         private const val NOTIFICATION_CHANNEL = "daily_progress"
         private const val NOTIFICATION_ID = 4242
-        private val fa: NumberFormat = NumberFormat.getIntegerInstance(Locale("fa", "IR"))
+        private val fa: NumberFormat = NumberFormat.getIntegerInstance(Locale.forLanguageTag("fa-IR"))
 
         private fun prefs(context: Context) = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
@@ -131,11 +131,23 @@ class StepWidget : AppWidgetProvider() {
             }
             val title = context.getString(R.string.widget_notification_title, s.steps)
             val text = listOf(s.goal, s.streak, s.pending).filter { it.isNotBlank() }.joinToString(" · ")
+            // Custom body so the collapsed view (what the lock screen shows) keeps goal and progress.
+            val body = RemoteViews(context.packageName, R.layout.notification_today).apply {
+                setTextViewText(R.id.n_steps, s.steps)
+                setTextViewText(R.id.n_goal, if (s.today) s.goal else context.getString(R.string.widget_open_to_sync))
+                setTextViewText(R.id.n_streak, s.streak)
+                setTextViewText(R.id.n_pending, s.pending)
+                setViewVisibility(R.id.n_pending, if (s.pending.isEmpty()) android.view.View.GONE else android.view.View.VISIBLE)
+                setProgressBar(R.id.n_progress, 100, s.percent, false)
+            }
             val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_gamyar)
+                .setColor(0xFF1A7F4B.toInt())
                 .setContentTitle(title)
                 .setContentText(text)
-                .setProgress(100, s.percent, false)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(body)
+                .setCustomBigContentView(body)
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .setSilent(true)
