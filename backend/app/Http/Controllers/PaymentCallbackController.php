@@ -23,6 +23,21 @@ class PaymentCallbackController extends Controller
 
         $payment = app(PaymentService::class)->complete($authority, $request->query('Status') === 'OK');
         abort_if($payment === null, 404);
+        if ($payment->sponsor_top_up_id !== null) {
+            $topUp = $payment->sponsorTopUp;
+
+            return view('payments.result', [
+                'paid' => $payment->status === Payment::PAID,
+                'pending' => $payment->status === Payment::PENDING,
+                'refId' => $payment->ref_id,
+                'label' => 'شارژ اعتبار '.$topUp->number().' — '.number_format($topUp->points).' امتیاز',
+                'number' => $topUp->number(),
+                'amount' => $payment->amount_rial,
+                'needsSupport' => false,
+                'appLink' => url('/sponsor/billing'),
+                'backLabel' => 'بازگشت به پنل اسپانسر',
+            ]);
+        }
         $order = $payment->order;
 
         return view('payments.result', [

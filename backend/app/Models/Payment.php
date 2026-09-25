@@ -33,4 +33,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function sponsorTopUp(): BelongsTo
+    {
+        return $this->belongsTo(SponsorTopUp::class);
+    }
 }

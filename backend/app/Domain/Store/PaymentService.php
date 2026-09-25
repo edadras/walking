@@ -3,6 +3,7 @@
 namespace App\Domain\Store;
 
 use App\Domain\Audit\AuditLogger;
+use App\Domain\Sponsor\SponsorTopUps;
 use App\Domain\Store\Exceptions\GatewayUnavailable;
 use App\Enums\OrderStatus;
 use App\Exceptions\ApiException;
@@ -117,6 +118,10 @@ class PaymentService
     /** @param  array{ref_id: string, card_pan: ?string}|null  $verified */
     private function settle(Payment $payment, ?array $verified, string $failure): Payment
     {
+        if ($payment->sponsor_top_up_id !== null) {
+            return app(SponsorTopUps::class)->settle($payment, $verified, $failure);
+        }
+
         return DB::transaction(function () use ($payment, $verified, $failure) {
             $order = Order::query()->whereKey($payment->order_id)->lockForUpdate()->firstOrFail();
             $payment = Payment::query()->whereKey($payment->id)->lockForUpdate()->firstOrFail();

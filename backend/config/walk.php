@@ -40,6 +40,11 @@ return [
         'map.max_zoom' => ['value' => 18, 'group' => 'app', 'public' => true, 'description' => 'حداکثر بزرگ‌نمایی نقشه'],
 
         // Cash-out (behind the `cashout` flag). Points are debited at request time and refunded on rejection.
+        // Sponsors buying budget points online (Zarinpal). 0 = the current user conversion rate.
+        'sponsors.point_price_rial' => ['value' => 0, 'group' => 'sponsors', 'public' => false, 'description' => 'قیمت هر امتیاز برای اسپانسر (ریال؛ ۰ = نرخ تبدیل فعلی)'],
+        'sponsors.min_topup_rial' => ['value' => 10000000, 'group' => 'sponsors', 'public' => false, 'description' => 'حداقل مبلغ شارژ آنلاین اعتبار اسپانسر (ریال)'],
+        'sponsors.max_topup_rial' => ['value' => 2000000000, 'group' => 'sponsors', 'public' => false, 'description' => 'حداکثر مبلغ هر شارژ آنلاین (ریال)'],
+
         'cashout.min_points' => ['value' => 5000, 'group' => 'cashout', 'public' => true, 'description' => 'حداقل امتیاز هر درخواست برداشت'],
         'cashout.max_points_per_request' => ['value' => 50000, 'group' => 'cashout', 'public' => true, 'description' => 'حداکثر امتیاز هر درخواست برداشت'],
         'cashout.max_points_per_30_days' => ['value' => 150000, 'group' => 'cashout', 'public' => true, 'description' => 'سقف برداشت در ۳۰ روز'],
