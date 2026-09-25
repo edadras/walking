@@ -108,7 +108,7 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | GET | `/orders` · `/orders/{id}` | ✓ | – | 7 | |
 | GET/POST/PATCH/DELETE | `/addresses` | ✓ | – | 7 | |
 | **Other** |||||
-| GET | `/referral` | ✓ | – | 4 | کد و وضعیت دعوت‌ها |
+| GET | `/referral` | ✓ | – | 4 | کد، `share_url` (لینک `/r/کد`) و وضعیت دعوت‌ها |
 | GET | `/notifications` · POST `/notifications/read` | ✓ | – | 4 | |
 | GET/POST | `/support/tickets` · `/support/tickets/{id}/messages` | ✓ | – | 8 | |
 | GET | `/pages/{slug}` · `/faqs` | – | – | 1 | CMS |
@@ -123,8 +123,10 @@ Cursor-based برای لیست‌های پرحجم (Ledger، Sessions، Notifica
 | GET/POST | `/friend-challenges`، `/friend-challenges/{id}(/join,/leave)` | ✓ | – | پیشنهادها | رقابت دوستانه (بدون امتیاز) |
 | – | `POST /orders` با `payment_mode: money` | ✓ | ✓ | پیشنهادها | سفارش ریالی؛ پاسخ شامل `payment.pay_url` (زرین‌پال) |
 | GET | `/payments/zarinpal/callback` (وب) | – | – | پیشنهادها | بازگشت از بانک؛ تأیید سرور با مبلغ ذخیره‌شده |
+| GET/PATCH/DELETE | `/organization` | ✓ | – | رشد | وضعیت عضویت (رتبه‌بندی هفتگی همکاران، واحدها، چالش‌های سازمان) / تغییر واحد / خروج |
+| POST | `/organization/join` | ✓ | – | رشد | عضویت با کد سازمان (ظرفیت و اشتراک فعال؛ Throttle `social`) |
 | **Cash-out** (پرچم `cashout`) |||||
-| GET | `/cashout` | ✓ | – | برداشت | وضعیت کامل: سقف‌ها، موانع (`blockers`)، هویت (کد ملی ماسک‌شده)، حساب‌ها، درخواست‌ها |
+| GET | `/cashout` | ✓ | – | برداشت | وضعیت کامل: `withdrawable_points` / `immature_points`، سقف‌ها، موانع (`blockers`)، هویت (کد ملی ماسک‌شده)، حساب‌ها، درخواست‌ها با `queue_position` |
 | POST | `/cashout/otp` | ✓ | ✓ | برداشت | کد پیامکی با هدف `cashout` به شماره خود حساب (کد ورود قبول نمی‌شود) |
 | POST | `/cashout/identity` | ✓ | ✓ + `code` | برداشت | نام، نام خانوادگی (فارسی)، کد ملی (کنترل رقم)، تاریخ تولد (≥۱۸ سال) |
 | POST/DELETE | `/cashout/bank-accounts`، `/cashout/bank-accounts/{id}` | ✓ | ✓ + `code` | برداشت | شبا (کنترل mod-97)، حداکثر ۳ حساب، یکتا بین کاربران |

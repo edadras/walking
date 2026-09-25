@@ -50,7 +50,8 @@ TLS را روی Load Balancer یا یک Reverse Proxy جلوی nginx خاتمه 
 
 | متغیر | توضیح |
 |-------|-------|
-| `APP_KEY` | کلید رمزنگاری (کدهای دیجیتال، Secret شعبه‌ها، TOTP و Payload صف OTP با آن رمز می‌شوند). **از دست رفتن = از دست رفتن کدهای فروشگاه**؛ در Vault نگه دارید. |
+| `APP_KEY` | کلید رمزنگاری (کدهای دیجیتال، Secret شعبه‌ها، TOTP، Payload صف OTP، **کد ملی و شبای برداشت**). **از دست رفتن = از دست رفتن این داده‌ها**؛ در Vault نگه دارید. چرخش: کلید قبلی را در `APP_PREVIOUS_KEYS` بگذارید، سپس `php artisan pii:rotate`. |
+| `PII_HASH_KEY` | کلید ثابت هش‌های کد ملی، شبا و IP (یکتایی «هر کد ملی یک حساب» و خوشه‌بندی تقلب). جدا از `APP_KEY` و **هرگز عوض نشود** مگر در صورت نشت (پس از آن `pii:rotate`؛ سابقه IPها از نو شروع می‌شود). ساخت: `openssl rand -base64 32`. |
 | `ADMIN_MFA_REQUIRED` | `true` در همه محیط‌ها به‌جز توسعه محلی. |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | اولین مدیر ارشد (Seeder). پس از اولین ورود TOTP فعال کنید. |
 | `SMS_DRIVER=kavenegar` + `KAVENEGAR_*` | ارسال OTP. `KAVENEGAR_CASHOUT_TEMPLATE` (اختیاری) قالب جدا برای کد تأیید برداشت، مثلاً «کد تأیید برداشت وجه: %token — آن را به کسی ندهید»؛ اگر خالی باشد قالب ورود استفاده می‌شود. |
@@ -60,7 +61,11 @@ TLS را روی Load Balancer یا یک Reverse Proxy جلوی nginx خاتمه 
 | `ZARINPAL_MERCHANT_ID` (+ `ZARINPAL_SANDBOX=true` در Staging) | پرداخت ریالی فروشگاه. بدون آن پرداخت ریالی خاموش است؛ Flag `money_payment` هم باید روشن شود. |
 | `MAP_TILE_UPSTREAM` + `MAP_TILE_UPSTREAM_HEADERS` | Tile نقشه از سرویس ایرانی کلیددار (مثلاً `x-api-key: …`)؛ از طریق Proxy و Cache سرور. بدون کلید: آدرس Tile را در تنظیمات ادمین (`map.tile_url`) بگذارید. |
 | `TRUSTED_PROXIES` | شبکه Load Balancer. |
-| `OPS_ALERT_EMAIL` | هشدار صف طولانی / Job ناموفق از Horizon. |
+| `OPS_ALERT_EMAIL` | هشدار صف طولانی / Job ناموفق از Horizon و هشدارهای `ops:health-check`. |
+| `OPS_ALERT_WEBHOOK` | (اختیاری) Webhook گفتگو (Mattermost / Rocket.Chat / Slack با بدنه `{"text": …}`) برای همان هشدارها. |
+| `CASHOUT_KYC_DRIVER` / `CASHOUT_PAYOUT_DRIVER` | `manual` (پیش‌فرض) یا `jibit`. با `jibit`: `JIBIT_IDE_API_KEY`/`JIBIT_IDE_SECRET_KEY` (استعلام) و `JIBIT_COBANK_API_KEY`/`JIBIT_COBANK_SECRET_KEY` (+ `JIBIT_SOURCE_IBAN`، `JIBIT_TRANSFER_TYPE`) برای تسویه. ابتدا در Staging با حساب آزمایشی جیبیت تست کنید (واحد مبلغ، کدهای خطا). |
+| `ANDROID_CERT_SHA256` | اثر انگشت SHA-256 همه کلیدهای امضای اپ (کلید App Signing گوگل‌پلی + کلید بازار/مایکت)، با کاما؛ برای `/.well-known/assetlinks.json` و باز شدن مستقیم لینک دعوت در اپ. |
+| `STORE_URL_BAZAAR` / `STORE_URL_MYKET` / `STORE_URL_PLAY` / `DIRECT_APK_URL` | دکمه‌های صفحه معرفی و لینک دعوت. |
 | `LOADTEST_OTP_CODE` | **فقط Staging** برای k6؛ در Production کد آن غیرفعال است. |
 
 ## ساخت اپ اندروید (Release)
@@ -72,6 +77,7 @@ export API_BASE_URL=https://api.gamyar.ir/api/v1 CERT_PINS=<pin فعلی>,<pin �
 export INTEGRITY_PROJECT_NUMBER=<cloud project number>                      # فقط play
 export FCM_API_KEY=... FCM_APP_ID=... FCM_SENDER_ID=... FCM_PROJECT_ID=...  # فقط play
 export PUSHE_TOKEN=<توکن مانیفست Pushe>                                      # bazaar و myket
+export APP_LINK_HOST=gamyar.ir                                              # دامنه لینک‌های دعوت (/r/کد)
 mobile/tool/build_release.sh bazaar      # یا play / myket؛ آرگومان دوم apk برای خروجی APK
 ```
 
@@ -98,8 +104,17 @@ openssl s_client -connect api.gamyar.ir:443 -servername api.gamyar.ir </dev/null
 ## عملیات روزمره
 
 - **استقرار بدون Downtime**: Image جدید → `migrate` (Migrationها Backward-compatible نوشته شوند) → Rolling restart `app` → `php artisan horizon:terminate` (Horizon با کد جدید بالا می‌آید).
-- **پشتیبان‌گیری**: MySQL روزانه کامل + Binlog برای PITR؛ Redis AOF؛ Volume `storage` (آپلودها). بازیابی را هر ماه روی Staging تمرین کنید.
-- **پایش**: `/up` (Health)، Horizon (زمان انتظار صف‌ها، Job ناموفق)، Slow query log، داشبورد تقلب پنل. هشدار روی: صف `critical` > ۱۰ ثانیه، `fraud` > ۱۲۰ ثانیه، نرخ خطای ۵xx، رشد ناگهانی `fraud_events`.
+- **پیش از هر استقرار**: `php artisan ops:preflight` (در Production با تنظیم ناامن متوقف می‌شود: `APP_DEBUG`، MFA، `PII_HASH_KEY`، درایور پیامک، صف `sync`، https).
+- **پشتیبان‌گیری**: `deploy/backup/backup.sh` (Dump رمزشده MySQL + آپلودها، Checksum، نگهداری ۱۴ روز، کپی خارج از سرور با `RCLONE_REMOTE`) هر شب از Cron میزبان؛ Binlog برای PITR؛ Redis AOF. `APP_KEY` و `PII_HASH_KEY` و Passphrase بکاپ را جدا در Vault نگه دارید.
+- **تمرین بازیابی**: `deploy/backup/restore-drill.sh` هفتگی از Cron: آخرین بکاپ را در پایگاه‌داده موقت بازیابی، بررسی و `ledger:reconcile` می‌کند و نتیجه را به `OPS_ALERT_WEBHOOK` می‌فرستد.
+
+  ```cron
+  30 2 * * *  cd /srv/gamyar && set -a && . deploy/backup/backup.env && deploy/backup/backup.sh
+  0 5 * * 5   cd /srv/gamyar && set -a && . deploy/backup/backup.env && deploy/backup/restore-drill.sh
+  ```
+
+- **کارهای زمان‌بندی‌شده** (`scheduler`): `ops:health-check` هر ۵ دقیقه، `cashout:sync-payouts` هر ۵ دقیقه، `ledger:reconcile` هر شب ۰۲:۴۰، `accounts:process-deletions` هر شب ۰۴:۱۰ (به وقت تهران)، به‌علاوه موارد قبلی.
+- **پایش**: `/up` (Health)، Horizon، Slow query log، داشبورد تقلب پنل. `ops:health-check` خودش هشدار می‌دهد: عقب‌ماندن صف‌ها، Jobهای ناموفق، ناموفق بودن پیامک OTP، جهش کرش اپ، درخواست برداشت معطل (> ۴۸ ساعت) یا انتقال بانکی طولانی، و اجرا نشدن مغایرت‌گیری. هشدار به زنگوله پنل (بر اساس نقش)، ایمیل و Webhook می‌رود و هر هشدار تا یک ساعت تکرار نمی‌شود؛ آستانه‌ها در `config/walk.php` (`ops.thresholds`).
 - **Rollback**: Image قبلی را اجرا کنید؛ Migrationهای جدید فقط افزایشی‌اند و Rollback کد به Rollback پایگاه‌داده نیاز ندارد.
 
 ## چک‌لیست امنیت Production
@@ -117,4 +132,7 @@ openssl s_client -connect api.gamyar.ir:443 -servername api.gamyar.ir </dev/null
 - [ ] Tile نقشه از سرویس ایرانی (Proxy یا `map.tile_url`) و نمایش صحیح نام منبع روی نقشه
 - [ ] Volume مربوط به `storage/app/public` (تصاویر کالا و آواتار) در پشتیبان‌گیری
 - [ ] شبکه‌های تبلیغاتی خارجی فقط پس از بررسی مستند رسمی و با Secret فعال شوند
-- [ ] پشتیبان و بازیابی تست شده
+- [ ] پشتیبان و بازیابی تست شده (`restore-drill.sh` موفق)
+- [ ] `PII_HASH_KEY` تنظیم و جدا از `APP_KEY`؛ `ops:preflight` بدون خطا
+- [ ] پیش از روشن کردن `cashout`: درایور استعلام/تسویه تصمیم‌گیری شده، سقف بودجه ماهانه (`cashout.monthly_budget_rial`) تنظیم، و `ledger:reconcile` بدون مغایرت
+- [ ] `ANDROID_CERT_SHA256` شامل کلید App Signing گوگل‌پلی (از کنسول Play) و کلید امضای بازار/مایکت
